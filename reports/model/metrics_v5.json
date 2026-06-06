@@ -1,0 +1,245 @@
+{
+  "version": "v5",
+  "created_by": "ml/train.py",
+  "target_definition": "critical = ESI 1 or ESI 2",
+  "target_recall": 0.92,
+  "dataset": {
+    "path": "data\\raw\\triage.csv",
+    "rows_after_filter": 558029,
+    "critical_rate": 0.30250219970646686,
+    "train_rows": 357138,
+    "validation_rows": 89285,
+    "test_rows": 111606
+  },
+  "feature_metadata": {
+    "clinical_features": [
+      "age",
+      "age_group",
+      "is_elderly",
+      "is_pediatric",
+      "triage_vital_hr",
+      "triage_vital_sbp",
+      "triage_vital_dbp",
+      "triage_vital_rr",
+      "triage_vital_o2sat",
+      "triage_vital_temp",
+      "shock_index",
+      "map",
+      "pulse_pressure",
+      "hr_rr_ratio",
+      "hr_abnormal",
+      "sbp_abnormal",
+      "rr_abnormal",
+      "o2_abnormal",
+      "temp_abnormal",
+      "map_abnormal",
+      "shock_index_abnormal",
+      "vital_severity_score"
+    ],
+    "numeric_context_features": [
+      "n_edvisits",
+      "n_admissions"
+    ],
+    "categorical": {
+      "columns": [
+        "dep_name",
+        "gender",
+        "arrivalmode",
+        "arrivalmonth",
+        "arrivalday",
+        "arrivalhour_bin",
+        "previousdispo",
+        "triage_vital_o2_device"
+      ],
+      "categories": {
+        "dep_name": [
+          "A",
+          "B",
+          "C"
+        ],
+        "gender": [
+          "Female",
+          "Male"
+        ],
+        "arrivalmode": [
+          "Car",
+          "Other",
+          "Police",
+          "Public Transportation",
+          "Walk-in",
+          "Wheelchair",
+          "ambulance",
+          "missing"
+        ],
+        "arrivalmonth": [
+          "April",
+          "August",
+          "December",
+          "February",
+          "January",
+          "July",
+          "June",
+          "March",
+          "May",
+          "November",
+          "October",
+          "September"
+        ],
+        "arrivalday": [
+          "Friday",
+          "Monday",
+          "Saturday",
+          "Sunday",
+          "Thursday",
+          "Tuesday",
+          "Wednesday"
+        ],
+        "arrivalhour_bin": [
+          "03-06",
+          "07-10",
+          "11-14",
+          "15-18",
+          "19-22",
+          "23-02"
+        ],
+        "previousdispo": [
+          "AMA",
+          "Admit",
+          "Discharge",
+          "Eloped",
+          "LWBS after Triage",
+          "LWBS before Triage",
+          "No previous dispo",
+          "Observation",
+          "Send to L&D",
+          "Transfer to Another Facility"
+        ],
+        "triage_vital_o2_device": [
+          "0.0",
+          "1.0",
+          "missing"
+        ]
+      }
+    },
+    "chief_complaint_features": [
+      "cc_abdominalpain",
+      "cc_abnormallab",
+      "cc_abscess",
+      "cc_alcoholintoxication",
+      "cc_allergicreaction",
+      "cc_alteredmentalstatus",
+      "cc_anklepain",
+      "cc_anxiety",
+      "cc_armpain",
+      "cc_assaultvictim",
+      "cc_backpain",
+      "cc_breathingdifficulty",
+      "cc_chestpain",
+      "cc_coldlikesymptoms",
+      "cc_cough",
+      "cc_dentalpain",
+      "cc_diarrhea",
+      "cc_dizziness",
+      "cc_dyspnea",
+      "cc_earpain",
+      "cc_emesis",
+      "cc_fall",
+      "cc_fall>65",
+      "cc_fatigue",
+      "cc_femaleguproblem",
+      "cc_fever-9weeksto74years",
+      "cc_flankpain",
+      "cc_footpain",
+      "cc_headache-newonsetornewsymptoms",
+      "cc_hippain",
+      "cc_hypertension",
+      "cc_kneepain",
+      "cc_laceration",
+      "cc_legpain",
+      "cc_legswelling",
+      "cc_medicalproblem",
+      "cc_motorvehiclecrash",
+      "cc_nausea",
+      "cc_neckpain",
+      "cc_neurologicproblem",
+      "cc_other",
+      "cc_palpitations",
+      "cc_psychiatricevaluation",
+      "cc_rash",
+      "cc_seizure-priorhxof",
+      "cc_shortnessofbreath",
+      "cc_shoulderpain",
+      "cc_sorethroat",
+      "cc_suicidal",
+      "cc_syncope",
+      "cc_vaginalbleeding",
+      "cc_weakness"
+    ],
+    "feature_count": 127,
+    "target": "esi <= 2",
+    "excluded_for_leakage_control": [
+      "labs after triage",
+      "medications",
+      "imaging counts",
+      "disposition",
+      "diagnosis groups not available at first triage",
+      "race and ethnicity until subgroup fairness is reviewed"
+    ]
+  },
+  "validation_model_auc": {
+    "random_forest": 0.877746766474059,
+    "extra_trees": 0.8793793117292938,
+    "xgboost": 0.8927869021690331
+  },
+  "validation_candidate_auc": {
+    "weighted_ensemble": 0.8873761563591344,
+    "random_forest": 0.877746766474059,
+    "extra_trees": 0.8793793117292938,
+    "xgboost": 0.8927869021690331
+  },
+  "default_ensemble_weights": {
+    "random_forest": 0.3249092924577333,
+    "extra_trees": 0.32733327540757207,
+    "xgboost": 0.3477574321346946
+  },
+  "selected_predictor": "xgboost",
+  "selected_weights": {
+    "random_forest": 0.0,
+    "extra_trees": 0.0,
+    "xgboost": 1.0
+  },
+  "threshold_selection": {
+    "strategy": "max_precision_at_target_recall",
+    "validation_precision": 0.5268972244015182,
+    "validation_recall": 0.9200266577807398,
+    "target_recall": 0.92
+  },
+  "validation_metrics": {
+    "auc": 0.8927869021690331,
+    "average_precision": 0.799144404648302,
+    "threshold": 0.30605462193489075,
+    "precision": 0.5268972244015182,
+    "recall": 0.9200266577807398,
+    "f1": 0.6700552784144533,
+    "fpr": 0.3582760614040722,
+    "specificity": 0.6417239385959278,
+    "tp": 24849,
+    "fp": 22312,
+    "tn": 39964,
+    "fn": 2160
+  },
+  "test_metrics": {
+    "auc": 0.8917257612831736,
+    "average_precision": 0.7981344855384657,
+    "threshold": 0.30605462193489075,
+    "precision": 0.5274874670745178,
+    "recall": 0.9194040460886822,
+    "f1": 0.6703669308684103,
+    "fpr": 0.3571841479863832,
+    "specificity": 0.6428158520136168,
+    "tp": 31040,
+    "fp": 27805,
+    "tn": 50040,
+    "fn": 2721
+  }
+}

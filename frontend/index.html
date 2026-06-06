@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تریاژ هوشمند اورژانس</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <canvas id="signalCanvas" aria-hidden="true"></canvas>
+    <main class="shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Emergency Decision Support</p>
+            <h1>تریاژ هوشمند اورژانس</h1>
+          </div>
+          <div class="status-pill" id="apiStatus">در حال بررسی سرویس</div>
+        </header>
+
+        <section class="summary-strip" aria-label="model metrics">
+          <div>
+            <span>AUC</span>
+            <strong>0.8917</strong>
+          </div>
+          <div>
+            <span>Recall</span>
+            <strong>0.9193</strong>
+          </div>
+          <div>
+            <span>FPR</span>
+            <strong>0.3564</strong>
+          </div>
+          <div>
+            <span>Version</span>
+            <strong>v5</strong>
+          </div>
+        </section>
+
+        <section class="tool-grid">
+          <form id="triageForm" class="panel form-panel">
+            <div class="panel-head">
+              <h2>ورودی تریاژ</h2>
+              <button type="button" class="ghost" id="clearBtn">پاک کردن</button>
+            </div>
+
+            <div class="scenario-row" aria-label="demo scenarios">
+              <button type="button" data-scenario="critical">سناریوی بحرانی</button>
+              <button type="button" data-scenario="moderate">سناریوی متوسط</button>
+              <button type="button" data-scenario="sparse">ورودی کم</button>
+            </div>
+
+            <div class="fields">
+              <label>
+                شکایت اصلی
+                <select name="chief_complaint">
+                  <option value="">نامشخص</option>
+                  <option value="shortnessofbreath">تنگی نفس</option>
+                  <option value="chestpain">درد قفسه سینه</option>
+                  <option value="fever">تب</option>
+                  <option value="abdominalpain">درد شکم</option>
+                  <option value="headache">سردرد</option>
+                  <option value="fall">سقوط</option>
+                  <option value="weakness">ضعف عمومی</option>
+                </select>
+              </label>
+
+              <label>
+                سن
+                <input name="age" type="number" min="0" max="120" inputmode="numeric" />
+              </label>
+
+              <label>
+                جنسیت
+                <select name="gender">
+                  <option value="">نامشخص</option>
+                  <option value="Female">زن</option>
+                  <option value="Male">مرد</option>
+                </select>
+              </label>
+
+              <label>
+                روش ورود
+                <select name="arrivalmode">
+                  <option value="">نامشخص</option>
+                  <option value="Walk-in">مراجعه مستقیم</option>
+                  <option value="Ambulance">آمبولانس</option>
+                  <option value="Wheelchair">ویلچر</option>
+                </select>
+              </label>
+
+              <label>
+                ضربان قلب
+                <input name="heart_rate" type="number" min="0" max="260" inputmode="numeric" />
+              </label>
+
+              <label>
+                فشار سیستولیک
+                <input name="systolic_bp" type="number" min="0" max="300" inputmode="numeric" />
+              </label>
+
+              <label>
+                فشار دیاستولیک
+                <input name="diastolic_bp" type="number" min="0" max="200" inputmode="numeric" />
+              </label>
+
+              <label>
+                نرخ تنفس
+                <input name="respiratory_rate" type="number" min="0" max="80" inputmode="numeric" />
+              </label>
+
+              <label>
+                اکسیژن خون
+                <input name="oxygen_saturation" type="number" min="0" max="100" inputmode="numeric" />
+              </label>
+
+              <label>
+                دما
+                <input name="temperature" type="number" min="20" max="45" step="0.1" inputmode="decimal" />
+              </label>
+
+              <label>
+                سابقه مراجعه ED
+                <input name="previous_ed_visits" type="number" min="0" inputmode="numeric" />
+              </label>
+
+              <label>
+                سابقه بستری
+                <input name="previous_admissions" type="number" min="0" inputmode="numeric" />
+              </label>
+            </div>
+
+            <button class="primary" type="submit">ارزیابی بیمار</button>
+          </form>
+
+          <section class="panel result-panel" aria-live="polite">
+            <div class="panel-head">
+              <h2>خروجی تصمیم‌یار</h2>
+              <span class="badge" id="confidenceBand">آماده</span>
+            </div>
+
+            <div class="risk-gauge">
+              <div class="gauge-ring" id="gaugeRing">
+                <span id="riskPercent">--</span>
+              </div>
+              <div>
+                <p class="risk-label" id="riskLabel">در انتظار ورودی</p>
+                <p class="risk-action" id="riskAction">مدل فقط نقش پشتیبان تصمیم دارد.</p>
+              </div>
+            </div>
+
+            <div class="quality">
+              <div>
+                <span>کامل بودن داده</span>
+                <strong id="dataQuality">--</strong>
+              </div>
+              <div class="bar">
+                <i id="qualityBar"></i>
+              </div>
+            </div>
+
+            <div class="explain">
+              <h3>عوامل موثر</h3>
+              <ul id="explanations">
+                <li>پس از ارزیابی نمایش داده می‌شود.</li>
+              </ul>
+            </div>
+
+            <div class="missing">
+              <h3>فیلدهای پیشنهادی باقی‌مانده</h3>
+              <p id="missingFields">--</p>
+            </div>
+
+            <p class="disclaimer">
+              این سامانه جایگزین تصمیم پزشک، پرستار یا پروتکل رسمی بیمارستان نیست.
+            </p>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

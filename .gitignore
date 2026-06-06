@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+
+# Large local data and trained artifacts
+data/raw/*.csv
+*.pkl
+models/*.pkl
+
+# Keep reproducible reports, but ignore transient notebook/checkpoint files
+.ipynb_checkpoints/
+logs/
+server*.log
+experiment7_*
+inspect_experiment7_pdf.js
+render_experiment7_pdf.js
+screenshot_experiment7_pages.js
