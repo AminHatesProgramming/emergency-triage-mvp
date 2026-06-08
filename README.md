@@ -89,6 +89,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [گزارش استفاده از AI](docs/ai-usage-report.md)
 - [درس‌آموخته‌ها](docs/lessons-learned.md)
 - [محتوای پوستر](docs/poster-content.md)
+- [پوستر A0 قابل چاپ](docs/poster/a0-poster.html)
 - [طرح ارائه](docs/status-presentation-outline.md)
 - [اسکریپت ویدئوی نهایی](docs/video-presentation-script.md)
 - [ساختار board مدیریت کار](docs/work-management-board.md)

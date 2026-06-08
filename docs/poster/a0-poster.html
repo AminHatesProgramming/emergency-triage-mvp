@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>پوستر A0 پروژه تریاژ هوشمند اورژانس</title>
+    <link rel="stylesheet" href="./a0-poster.css" />
+  </head>
+  <body>
+    <main class="poster">
+      <section class="hero band">
+        <div>
+          <p class="kicker">پروژه درس مدیریت و کنترل پروژه‌های فناوری اطلاعات</p>
+          <h1>سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس</h1>
+          <p class="subtitle">
+            یک MVP تصمیم‌یار برای کمک به شناسایی سریع‌تر بیماران بحرانی در شرایط ازدحام، بحران درمانی و محدودیت منابع
+          </p>
+        </div>
+        <div class="hero-meta">
+          <strong>Decision Support</strong>
+          <span>Mobile-first / API-first / Safety-first</span>
+          <span>GitHub: AminHatesProgramming/emergency-triage-mvp</span>
+        </div>
+      </section>
+
+      <section class="grid top-grid">
+        <article class="panel problem">
+          <h2>مسئله و ارزش اجتماعی</h2>
+          <p>
+            در اورژانس‌های شلوغ، تأخیر در شناسایی بیمار بحرانی می‌تواند پیامد انسانی جدی داشته باشد. این سامانه با دریافت
+            علائم حیاتی، شکایت اصلی و سابقه بالینی قابل پرسش، احتمال بحرانی بودن بیمار را تخمین می‌زند.
+          </p>
+          <div class="impact-row">
+            <span>کاهش ریسک از دست رفتن بیمار پرخطر</span>
+            <span>کمک به تاب‌آوری درمانی کشور</span>
+            <span>تصمیم‌یار، نه جایگزین متخصص</span>
+          </div>
+        </article>
+
+        <article class="panel architecture">
+          <h2>معماری MVP</h2>
+          <div class="flow">
+            <span>ورودی تریاژ</span>
+            <i></i>
+            <span>FastAPI</span>
+            <i></i>
+            <span>مدل v6</span>
+            <i></i>
+            <span>ریسک + توضیح</span>
+            <i></i>
+            <span>UI فارسی</span>
+          </div>
+          <p>
+            مدل فقط از داده‌های قابل دفاع در لحظه تریاژ استفاده می‌کند و داده‌های بعد از تریاژ مثل آزمایش، دارو، تصویربرداری
+            و disposition حذف شده‌اند.
+          </p>
+        </article>
+      </section>
+
+      <section class="grid middle-grid">
+        <article class="panel product">
+          <div class="section-head">
+            <h2>نمای محصول</h2>
+            <span>خروجی سناریوی بحرانی</span>
+          </div>
+          <div class="ui-shot">
+            <div class="ui-top">
+              <strong>تریاژ هوشمند اورژانس</strong>
+              <span>سرویس آماده است</span>
+            </div>
+            <div class="ui-body">
+              <div class="ui-form">
+                <div>شکایت اصلی: تنگی نفس</div>
+                <div>سن: ۷۲</div>
+                <div>ورود: آمبولانس</div>
+                <div>HR: 118</div>
+                <div>BP: 92/58</div>
+                <div>SpO2: 88%</div>
+                <div>سابقه: COPD، نارسایی قلبی</div>
+              </div>
+              <div class="ui-result">
+                <div class="gauge">98%</div>
+                <strong>پرخطر / نیازمند توجه فوری</strong>
+                <small>توضیح: اکسیژن پایین، shock index بالا، تنفس غیرطبیعی</small>
+                <em>کامل بودن داده: 100%</em>
+              </div>
+            </div>
+          </div>
+          <div class="sparse-note">
+            سناریوی sparse نیز تست شده است: با ۴ آیتم ورودی، سیستم خروجی می‌دهد و سطح اعتماد را medium نمایش می‌دهد.
+          </div>
+        </article>
+
+        <article class="panel metrics">
+          <h2>KPIهای فعلی مدل v6</h2>
+          <div class="metric-grid">
+            <div><span>AUC</span><strong>0.8947</strong></div>
+            <div><span>Recall</span><strong>0.9241</strong></div>
+            <div><span>AP</span><strong>0.8034</strong></div>
+            <div><span>Precision</span><strong>0.5269</strong></div>
+            <div><span>FPR</span><strong>0.3598</strong></div>
+            <div><span>Threshold</span><strong>0.2962</strong></div>
+          </div>
+          <p>
+            حالت عملیاتی انتخاب‌شده safety-first است؛ چون در تریاژ، هزینه انسانی False Negative از بررسی اضافه چند بیمار
+            غیر بحرانی بالاتر است.
+          </p>
+        </article>
+
+        <article class="panel model-figures">
+          <h2>خروجی‌های تحلیلی مدل</h2>
+          <div class="figure-row">
+            <img src="../../reports/model/confusion_matrix_v6.png" alt="confusion matrix v6" />
+            <img src="../../reports/model/confidence_distribution_v6.png" alt="confidence distribution v6" />
+          </div>
+        </article>
+      </section>
+
+      <section class="grid management-grid">
+        <article class="panel team">
+          <h2>اعضا، نقش‌ها و ساعات همکاری</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>عضو</th>
+                <th>نقش</th>
+                <th>ساعت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>محمدامین پورمند</td>
+                <td>Project Lead / ML & System Architect</td>
+                <td>47h</td>
+              </tr>
+              <tr>
+                <td>محمدرضا آرمان پور</td>
+                <td>Project Control & Metrics Coordinator</td>
+                <td>18h</td>
+              </tr>
+              <tr>
+                <td>محدثه حاتمی کیا</td>
+                <td>UI / Documentation & QA Coordinator</td>
+                <td>23h</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="total">جمع کل: ۸۸ ساعت</p>
+        </article>
+
+        <article class="panel chart">
+          <h2>Burndown اسپرینت</h2>
+          <svg viewBox="0 0 640 270" role="img" aria-label="burndown chart">
+            <rect x="0" y="0" width="640" height="270" rx="18" fill="#f7fbfb" />
+            <line x1="60" y1="220" x2="590" y2="220" stroke="#ccd8dd" />
+            <line x1="60" y1="40" x2="60" y2="220" stroke="#ccd8dd" />
+            <polyline points="60,42 113,60 166,78 219,96 272,114 325,132 378,150 431,168 484,186 537,204 590,220" fill="none" stroke="#9aa9b1" stroke-width="5" stroke-dasharray="10 10" />
+            <polyline points="60,42 113,50 166,72 219,88 272,104 325,122 378,150 431,168 484,185 537,204 590,211" fill="none" stroke="#087f8c" stroke-width="7" />
+            <text x="590" y="244" text-anchor="middle">روز ۱۰</text>
+            <text x="60" y="244" text-anchor="middle">روز ۰</text>
+            <text x="116" y="33" fill="#087f8c">واقعی</text>
+            <text x="210" y="33" fill="#697782">ایده‌آل</text>
+          </svg>
+          <p>اختلاف انتهایی به دلیل retrain مدل v6 و اصلاح واحد دما رخ داد.</p>
+        </article>
+
+        <article class="panel roadmap">
+          <h2>مسیر Agile</h2>
+          <ol>
+            <li><strong>Sprint 0</strong><span>انتخاب مسئله و scope</span></li>
+            <li><strong>Sprint 1</strong><span>مدل و مستندات پایه</span></li>
+            <li><strong>Sprint 2</strong><span>API و UI</span></li>
+            <li><strong>Sprint 3</strong><span>مدل v6 و تکمیل docs</span></li>
+            <li><strong>Sprint 4</strong><span>پوستر، ویدئو و تحویل نهایی</span></li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="grid bottom-grid">
+        <article class="panel growth">
+          <h2>پیش‌بینی جذب کاربر آزمایشی تا پایان تیر</h2>
+          <svg viewBox="0 0 600 250" role="img" aria-label="user acquisition forecast">
+            <rect x="0" y="0" width="600" height="250" rx="18" fill="#fbfcfd" />
+            <line x1="56" y1="210" x2="550" y2="210" stroke="#ccd8dd" />
+            <line x1="56" y1="35" x2="56" y2="210" stroke="#ccd8dd" />
+            <polyline points="56,185 220,150 384,100 548,45" fill="none" stroke="#5b5fc7" stroke-width="8" />
+            <circle cx="56" cy="185" r="9" fill="#5b5fc7" />
+            <circle cx="220" cy="150" r="9" fill="#5b5fc7" />
+            <circle cx="384" cy="100" r="9" fill="#5b5fc7" />
+            <circle cx="548" cy="45" r="9" fill="#5b5fc7" />
+            <text x="56" y="232" text-anchor="middle">۵</text>
+            <text x="220" y="232" text-anchor="middle">۱۲</text>
+            <text x="384" y="232" text-anchor="middle">۲۲</text>
+            <text x="548" y="232" text-anchor="middle">۳۵</text>
+            <text x="548" y="28" text-anchor="middle">پایان تیر</text>
+          </svg>
+        </article>
+
+        <article class="panel next">
+          <h2>KPIهای فاز بعدی</h2>
+          <ul>
+            <li>بازخورد از حداقل ۲ فرد آشنا با حوزه سلامت</li>
+            <li>۵ سناریوی demo تاییدشده</li>
+            <li>بررسی fairness برای سن و جنسیت</li>
+            <li>نمونه اولیه PWA / offline-capable</li>
+            <li>زمان پاسخ API کمتر از ۳۰۰ms در demo</li>
+          </ul>
+        </article>
+
+        <article class="panel ethics">
+          <h2>اخلاق، ریسک و درخواست بازخورد</h2>
+          <ul>
+            <li>نیاز به اعتبارسنجی بالینی واقعی</li>
+            <li>تحلیل False Negativeها قبل از کاربرد عملی</li>
+            <li>حذف متغیرهای حساس تا قبل از fairness review</li>
+            <li>این سامانه فقط decision-support است.</li>
+          </ul>
+          <div class="link-box">
+            <span>لینک پروژه</span>
+            <strong>github.com/AminHatesProgramming/emergency-triage-mvp</strong>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
