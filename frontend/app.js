@@ -14,6 +14,8 @@ const scenarios = {
     temperature: 38.4,
     previous_ed_visits: 2,
     previous_admissions: 1,
+    previous_surgeries: 1,
+    history_conditions: ["copd", "chfnonhp"],
   },
   moderate: {
     chief_complaint: "fever",
@@ -28,12 +30,15 @@ const scenarios = {
     temperature: 38.1,
     previous_ed_visits: 0,
     previous_admissions: 0,
+    previous_surgeries: 0,
+    history_conditions: ["asthma"],
   },
   sparse: {
     chief_complaint: "chestpain",
     age: 63,
     heart_rate: 112,
     oxygen_saturation: 91,
+    history_conditions: ["coronathero"],
   },
 };
 
@@ -68,6 +73,11 @@ function readPayload() {
   const payload = {};
   for (const [key, value] of data.entries()) {
     if (value === "") continue;
+    if (key === "history_conditions") {
+      if (!payload.history_conditions) payload.history_conditions = [];
+      payload.history_conditions.push(value);
+      continue;
+    }
     const input = form.elements[key];
     payload[key] = input && input.type === "number" ? Number(value) : value;
   }
@@ -78,6 +88,13 @@ function fillScenario(name) {
   form.reset();
   const scenario = scenarios[name];
   Object.entries(scenario).forEach(([key, value]) => {
+    if (key === "history_conditions") {
+      value.forEach((condition) => {
+        const checkbox = form.querySelector(`input[name="history_conditions"][value="${condition}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+      return;
+    }
     if (form.elements[key]) form.elements[key].value = value;
   });
 }

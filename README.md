@@ -1,97 +1,107 @@
-# سیستم هوشمند پشتیبان تصمیم گیری تریاژ اورژانس
+# سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس
 
 پروژه درس مدیریت پروژه فناوری اطلاعات
 
-## خلاصه پروژه
+## خلاصه
 
-این پروژه یک سامانه هوشمند پشتیبان تصمیم گیری برای تریاژ اورژانس است. هدف سامانه کمک به پرسنل اورژانس برای شناسایی سریع تر بیماران بحرانی، به ویژه بیماران با سطح ESI 1 و ESI 2، بر اساس علائم حیاتی، شکایت اصلی و داده های بالینی اولیه است.
+این پروژه یک MVP برای کمک به تریاژ اورژانس است. سامانه با دریافت اطلاعات قابل دسترسی در لحظه تریاژ، احتمال بحرانی بودن بیمار را تخمین می‌زند و به صورت decision-support خروجی می‌دهد. سیستم جایگزین پزشک، پرستار یا پروتکل رسمی نیست.
 
-سامانه به عنوان ابزار پشتیبان تصمیم طراحی می شود، نه جایگزین پزشک، پرستار یا پروتکل رسمی بیمارستان. خروجی مدل باید در کنار قضاوت تخصصی انسان استفاده شود.
-
-## مسئله و ارزش اجتماعی
-
-در اورژانس های شلوغ، تریاژ دستی به تجربه فرد تریاژکننده، فشار کاری و کیفیت اطلاعات لحظه ای وابسته است. خطا یا تاخیر در شناسایی بیمار بحرانی می تواند پیامد مستقیم انسانی داشته باشد. این پروژه تلاش می کند با استفاده از هوش مصنوعی، اولویت بندی بیماران را شفاف تر، سریع تر و قابل توضیح تر کند.
+تمرکز پروژه روی ارزش انسانی است: کاهش احتمال از دست رفتن بیمار بحرانی در شرایط ازدحام، بحران، کمبود منابع یا فشار کاری.
 
 ## وضعیت فعلی
 
-- داده خام در `data/raw/triage.csv` قرار دارد.
-- اسکریپت آموزش نسخه فعلی مدل در `ml/train.py` قرار دارد.
-- خروجی های تحلیلی فعلی در `reports/model` ذخیره شده اند.
-- فایل مدل آموزش دیده فعلی در `models/triage_model_v5.pkl` ذخیره شده است.
-- مستندات مدیریتی و فنی پروژه در پوشه `docs` نگهداری می شوند.
+- مدل نهایی: `v6`
+- backend: FastAPI
+- frontend: فارسی، راست‌به‌چپ و mobile-first
+- پشتیبانی از ورودی ناقص
+- مستندات مدیریتی و فنی در `docs/`
+- گزارش‌های مدل در `reports/model/`
 
-## معماری پیشنهادی MVP
+## متریک‌های مدل v6
 
-- ML layer: مدل ensemble برای پیش بینی احتمال بحرانی بودن بیمار.
-- API layer: سرویس FastAPI برای دریافت علائم حیاتی و برگشت سطح ریسک.
-- UI layer: رابط mobile-first برای ورود سریع اطلاعات در محیط اورژانس.
-- Explainability layer: توضیح خلاصه بر اساس feature importance / SHAP برای اعتمادپذیری تصمیم.
+حالت عملیاتی انتخاب‌شده: `safety_first_mode`
 
-## رویکرد مدیریت پروژه
+| معیار | مقدار تست |
+|---|---:|
+| AUC | 0.8947 |
+| Average Precision | 0.8034 |
+| Recall | 0.9241 |
+| Precision | 0.5269 |
+| FPR | 0.3598 |
+| Threshold | 0.2962 |
 
-پروژه با رویکرد Agile/Scrum سبک اجرا می شود:
+حالت جایگزین `balanced_fpr_mode` نیز در `reports/model/metrics_v6.json` ثبت شده است؛ در آن FPR برابر `0.3483` است اما Recall به `0.9190` می‌رسد.
 
-- sprintهای کوتاه هفتگی
-- backlog قابل ردیابی
-- تعریف شفاف milestoneها
-- گزارش وضعیت منظم
-- مستندسازی استفاده از AI
-- ثبت ریسک ها، چالش ها و درس آموخته ها
+## ورودی‌های مدل
+
+مدل فقط از اطلاعات قابل دفاع در لحظه تریاژ استفاده می‌کند:
+
+- سن، جنسیت و روش ورود
+- علائم حیاتی اولیه
+- شکایت اصلی
+- سابقه مراجعه، بستری و جراحی
+- سابقه‌های بالینی قابل پرسش یا قابل مشاهده در پرونده
+
+مواردی مثل آزمایش، دارو، تصویربرداری، disposition و تشخیص‌های بعدی حذف شده‌اند تا leakage ایجاد نشود.
+
+## اجرای پروژه
+
+محیط اجرای پروژه `qenv` است.
+
+```powershell
+cd C:\Users\Webhouse\Desktop\quera\pm
+C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+```
+
+سپس مرورگر:
+
+```text
+http://127.0.0.1:8000/
+```
+
+آموزش دوباره مدل:
+
+```powershell
+C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
+```
+
+توجه: فایل داده خام و فایل مدل آموزش‌دیده به دلیل حجم/حساسیت در Git نگهداری نمی‌شوند.
+
+## Endpointها
+
+- `GET /health`
+- `GET /model-info`
+- `POST /predict`
+- `GET /`
 
 ## مستندات کلیدی
 
 - [معماری سیستم](docs/architecture.md)
 - [Model Card](docs/model-card.md)
-- [گزارش استفاده از AI](docs/ai-usage-report.md)
-- [درس آموخته ها](docs/lessons-learned.md)
+- [گزارش وضعیت](docs/status-report.md)
+- [پیش‌نویس گزارش نهایی](docs/final-report-draft.md)
 - [برنامه مدیریت پروژه](docs/project-management-plan.md)
+- [تطبیق با معیارهای نمره‌دهی](docs/grading-rubric-alignment.md)
+- [ماتریس همکاری و ثبت زمان](docs/team-collaboration-matrix.md)
+- [داشبورد Agile و KPI](docs/agile-dashboard.md)
 - [Backlog و Sprintها](docs/backlog.md)
-- [ثبت ریسک ها](docs/risk-register.md)
-- [گزارش وضعیت پروژه](docs/status-report.md)
-- [ایده پروژه یک صفحه ای](docs/project-idea-one-page.md)
-- [محتوای پیشنهادی پوستر](docs/poster-content.md)
-- [طرح ارائه وضعیت](docs/status-presentation-outline.md)
-- [چک لیست ارزیابی استاد](docs/evaluation-checklist.md)
-- [پیش نویس گزارش نهایی](docs/final-report-draft.md)
+- [ثبت ریسک‌ها](docs/risk-register.md)
+- [گزارش استفاده از AI](docs/ai-usage-report.md)
+- [درس‌آموخته‌ها](docs/lessons-learned.md)
+- [محتوای پوستر](docs/poster-content.md)
+- [طرح ارائه](docs/status-presentation-outline.md)
+- [اسکریپت ویدئوی نهایی](docs/video-presentation-script.md)
+- [ساختار board مدیریت کار](docs/work-management-board.md)
+- [ساختار مدیریت دانش](docs/knowledge-management-index.md)
 
-## معیارهای موفقیت فنی
+## اعضای تیم
 
-- AUC تست v5: `0.8917`
-- Recall تست v5 برای بیماران بحرانی: `0.9194`
-- Precision تست v5: `0.5275`
-- FPR تست v5: `0.3572`
-- ارائه توضیح قابل فهم برای تصمیم مدل
+| عضو | نقش |
+|---|---|
+| محمدامین پورمند | Project Lead / ML & System Architect |
+| محمدرضا آرمان پور | Project Control & Metrics Coordinator |
+| محدثه حاتمی کیا | UI/Documentation & QA Coordinator |
 
-## دستور اجرای فعلی
+## هشدار اخلاقی
 
-محیط اجرای پروژه `qenv` است. قبل از اجرای دستورها، همان محیط را فعال کنید و سپس از Python و pip داخل همان محیط استفاده کنید.
-
-```powershell
-# activate qenv first
-pip install -r requirements.txt
-python ml/train.py
-```
-
-توجه: اجرای آموزش مدل به دلیل حجم بالای داده ممکن است زمان بر باشد.
-
-اجرای API:
-
-```powershell
-uvicorn backend.main:app --reload
-```
-
-اجرای detached با همان محیط فعال:
-
-```powershell
-python scripts/start_api.py
-```
-
-Endpointهای اصلی:
-
-- `GET /health`
-- `GET /model-info`
-- `POST /predict`
-
-## وضعیت تحویل
-
-این repository فعلا در مرحله MVP و آماده سازی مستندات مدیریتی قرار دارد. بخش ML و backend اولیه آماده و تست شده اند؛ frontend هنوز به پیاده سازی نیاز دارد.
+این پروژه آموزشی است و خروجی آن فقط برای پشتیبانی تصمیم طراحی شده است. استفاده واقعی نیازمند داده بیمارستانی معتبر، تایید متخصص، بررسی محرمانگی و ارزیابی نهادی است.

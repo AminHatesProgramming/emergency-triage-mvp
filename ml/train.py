@@ -1,8 +1,9 @@
 """Train the emergency triage decision-support model.
 
 The script intentionally uses only information that can plausibly be available
-at triage time: age, arrival mode, first vital signs, and chief complaint flags.
-That keeps the model easier to defend in a project-management presentation and
+at triage time: age, arrival mode, first vital signs, chief complaint flags, and
+history/comorbidity flags that can be known from EHR or patient history. That
+keeps the model easier to defend in a project-management presentation and
 reduces the risk of leakage from later hospital events.
 """
 
@@ -49,19 +50,62 @@ except ImportError:  # pragma: no cover - optional model dependency
 warnings.filterwarnings("ignore")
 
 RANDOM_STATE = 42
-TARGET_RECALL = 0.92
+MODEL_VERSION = "v6"
+TARGET_RECALL = 0.925
 MIN_CC_PREVALENCE = 0.005
+MIN_HISTORY_PREVALENCE = 0.002
+MAX_HISTORY_FEATURES = 120
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "raw" / "triage.csv"
 MODEL_DIR = ROOT / "models"
 REPORT_DIR = ROOT / "reports" / "model"
-MODEL_PATH = MODEL_DIR / "triage_model_v5.pkl"
-METRICS_PATH = REPORT_DIR / "metrics_v5.json"
+MODEL_PATH = MODEL_DIR / f"triage_model_{MODEL_VERSION}.pkl"
+METRICS_PATH = REPORT_DIR / f"metrics_{MODEL_VERSION}.json"
+HISTORY_FIRST_COL = "2ndarymalig"
+HISTORY_LAST_COL = "whtblooddx"
+
+
+def select_prevalent_binary_columns(
+    path: Path,
+    columns: list[str],
+    min_prevalence: float,
+    max_features: int,
+) -> list[str]:
+    totals = pd.Series(0.0, index=columns)
+    row_count = 0
+    for chunk in pd.read_csv(
+        path,
+        usecols=columns,
+        chunksize=25000,
+        low_memory=False,
+    ):
+        numeric = chunk.apply(pd.to_numeric, errors="coerce").fillna(0)
+        totals = totals.add(numeric.sum(axis=0), fill_value=0)
+        row_count += len(chunk)
+
+    if row_count == 0:
+        return []
+
+    prevalence = (totals / row_count).sort_values(ascending=False)
+    selected = prevalence[prevalence >= min_prevalence].head(max_features).index
+    selected_set = set(selected)
+    return [col for col in columns if col in selected_set]
 
 
 def training_usecols(path: Path) -> list[str]:
     columns = pd.read_csv(path, nrows=0).columns.tolist()
+    first_history_idx = columns.index(HISTORY_FIRST_COL)
+    last_history_idx = columns.index(HISTORY_LAST_COL)
+    history_candidates = columns[first_history_idx : last_history_idx + 1]
+    history_cols = set(
+        select_prevalent_binary_columns(
+            path,
+            history_candidates,
+            MIN_HISTORY_PREVALENCE,
+            MAX_HISTORY_FEATURES,
+        )
+    )
     required = {
         "esi",
         "age",
@@ -74,6 +118,7 @@ def training_usecols(path: Path) -> list[str]:
         "dep_name",
         "n_edvisits",
         "n_admissions",
+        "n_surgeries",
         "triage_vital_hr",
         "triage_vital_sbp",
         "triage_vital_dbp",
@@ -89,7 +134,11 @@ def training_usecols(path: Path) -> list[str]:
         "dbp_last",
         "temp_last",
     }
-    selected = [col for col in columns if col in required or col.startswith("cc_")]
+    selected = [
+        col
+        for col in columns
+        if col in required or col in history_cols or col.startswith("cc_")
+    ]
     return selected
 
 
@@ -149,9 +198,32 @@ def add_clinical_features(df: pd.DataFrame) -> pd.DataFrame:
     for col in numeric_cols:
         df[col] = pd.to_numeric(df.get(col, np.nan), errors="coerce")
 
+    for col in numeric_cols:
+        df[f"{col}_missing"] = df[col].isna().astype(int)
+
+    temp = df["triage_vital_temp"]
+    df["triage_vital_temp"] = np.where(temp > 60, (temp - 32) * 5 / 9, temp)
+
     sbp = df["triage_vital_sbp"].replace(0, np.nan)
     dbp = df["triage_vital_dbp"].replace(0, np.nan)
     rr = df["triage_vital_rr"].replace(0, np.nan)
+
+    vital_source_cols = [
+        "triage_vital_hr",
+        "triage_vital_sbp",
+        "triage_vital_dbp",
+        "triage_vital_rr",
+        "triage_vital_o2sat",
+        "triage_vital_temp",
+    ]
+    df["available_vital_count"] = len(vital_source_cols) - df[
+        [f"{col}_missing" for col in vital_source_cols]
+    ].sum(axis=1)
+    df["has_blood_pressure"] = (
+        (df["triage_vital_sbp_missing"] == 0)
+        & (df["triage_vital_dbp_missing"] == 0)
+    ).astype(int)
+    df["has_core_vitals"] = (df["available_vital_count"] >= 4).astype(int)
 
     df["shock_index"] = df["triage_vital_hr"] / sbp
     df["map"] = (df["triage_vital_sbp"] + 2 * dbp) / 3
@@ -211,6 +283,10 @@ def one_hot_frame(df: pd.DataFrame, columns: Iterable[str]) -> tuple[pd.DataFram
 
 def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     df = add_clinical_features(df)
+    source_columns = pd.read_csv(DATA_PATH, nrows=0).columns.tolist()
+    first_history_idx = source_columns.index(HISTORY_FIRST_COL)
+    last_history_idx = source_columns.index(HISTORY_LAST_COL)
+    history_candidates = source_columns[first_history_idx : last_history_idx + 1]
 
     clinical_features = [
         "age",
@@ -223,6 +299,15 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "triage_vital_rr",
         "triage_vital_o2sat",
         "triage_vital_temp",
+        "triage_vital_hr_missing",
+        "triage_vital_sbp_missing",
+        "triage_vital_dbp_missing",
+        "triage_vital_rr_missing",
+        "triage_vital_o2sat_missing",
+        "triage_vital_temp_missing",
+        "available_vital_count",
+        "has_blood_pressure",
+        "has_core_vitals",
         "shock_index",
         "map",
         "pulse_pressure",
@@ -239,7 +324,7 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     clinical_features = [feature for feature in clinical_features if feature in df.columns]
 
     numeric_context_features = []
-    for col in ["n_edvisits", "n_admissions"]:
+    for col in ["n_edvisits", "n_admissions", "n_surgeries"]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
             numeric_context_features.append(col)
@@ -266,8 +351,21 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                 df[col] = values.clip(0, 1)
                 cc_cols.append(col)
 
+    history_cols = []
+    for col in history_candidates:
+        if col in df.columns:
+            values = pd.to_numeric(df[col], errors="coerce").fillna(0)
+            if values.mean() >= MIN_HISTORY_PREVALENCE:
+                df[col] = values.clip(0, 1)
+                history_cols.append(col)
+
     X = pd.concat(
-        [df[clinical_features + numeric_context_features], categorical_frame, df[cc_cols]],
+        [
+            df[clinical_features + numeric_context_features],
+            categorical_frame,
+            df[history_cols],
+            df[cc_cols],
+        ],
         axis=1,
     )
     X = X.replace([np.inf, -np.inf], np.nan)
@@ -276,15 +374,22 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "clinical_features": clinical_features,
         "numeric_context_features": numeric_context_features,
         "categorical": categorical_meta,
+        "history_features": history_cols,
         "chief_complaint_features": cc_cols,
         "feature_count": X.shape[1],
         "target": "esi <= 2",
+        "included_triage_time_sources": [
+            "first vital signs",
+            "chief complaint",
+            "arrival context",
+            "recent emergency visits/admissions",
+            "known comorbidities from EHR or patient history",
+        ],
         "excluded_for_leakage_control": [
             "labs after triage",
             "medications",
             "imaging counts",
             "disposition",
-            "diagnosis groups not available at first triage",
             "race and ethnicity until subgroup fairness is reviewed",
         ],
     }
@@ -371,9 +476,9 @@ def train_models(X_train: np.ndarray, y_train: pd.Series) -> dict:
 
     if xgb is not None:
         models["xgboost"] = xgb.XGBClassifier(
-            n_estimators=650,
+            n_estimators=850,
             max_depth=5,
-            learning_rate=0.03,
+            learning_rate=0.025,
             subsample=0.85,
             colsample_bytree=0.85,
             min_child_weight=8,
@@ -449,7 +554,7 @@ def save_confusion_matrix(cm: np.ndarray, metrics: SplitMetrics) -> None:
         yticklabels=["Non-critical", "Critical"],
         ylabel="True label",
         xlabel="Predicted label",
-        title=f"Confusion Matrix - v5 (AUC={metrics.auc:.3f})",
+        title=f"Confusion Matrix - {MODEL_VERSION} (AUC={metrics.auc:.3f})",
     )
     for i in range(2):
         for j in range(2):
@@ -463,7 +568,7 @@ def save_confusion_matrix(cm: np.ndarray, metrics: SplitMetrics) -> None:
                 fontsize=14,
             )
     plt.tight_layout()
-    fig.savefig(REPORT_DIR / "confusion_matrix_v5.png", dpi=160)
+    fig.savefig(REPORT_DIR / f"confusion_matrix_{MODEL_VERSION}.png", dpi=160)
     plt.close(fig)
 
 
@@ -479,7 +584,7 @@ def save_confidence_plot(y_true: np.ndarray, proba: np.ndarray, threshold: float
     )
     ax.legend()
     plt.tight_layout()
-    fig.savefig(REPORT_DIR / "confidence_distribution_v5.png", dpi=160)
+    fig.savefig(REPORT_DIR / f"confidence_distribution_{MODEL_VERSION}.png", dpi=160)
     plt.close(fig)
 
 
@@ -501,7 +606,7 @@ def save_shap_plot(models: dict, X_test: np.ndarray, feature_names: list[str]) -
         show=False,
     )
     plt.tight_layout()
-    plt.savefig(REPORT_DIR / "shap_summary_v5.png", dpi=160, bbox_inches="tight")
+    plt.savefig(REPORT_DIR / f"shap_summary_{MODEL_VERSION}.png", dpi=160, bbox_inches="tight")
     plt.close()
 
 
@@ -510,7 +615,7 @@ def main(sample_rows: int | None = None) -> None:
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
     usecols = training_usecols(DATA_PATH)
-    df = pd.read_csv(DATA_PATH, usecols=usecols, low_memory=False)
+    df = pd.read_csv(DATA_PATH, usecols=usecols)
     if sample_rows:
         df = df.sample(n=min(sample_rows, len(df)), random_state=RANDOM_STATE)
     print(f"Raw data: {df.shape}")
@@ -572,7 +677,7 @@ def main(sample_rows: int | None = None) -> None:
     save_shap_plot(models, X_test_np, list(X.columns))
 
     metrics_report = {
-        "version": "v5",
+        "version": MODEL_VERSION,
         "created_by": "ml/train.py",
         "target_definition": "critical = ESI 1 or ESI 2",
         "target_recall": TARGET_RECALL,
@@ -598,7 +703,7 @@ def main(sample_rows: int | None = None) -> None:
     METRICS_PATH.write_text(json.dumps(metrics_report, indent=2), encoding="utf-8")
 
     artifact = {
-        "version": "v5",
+        "version": MODEL_VERSION,
         "models": models,
         "weights": selected_weights,
         "default_ensemble_weights": weights,

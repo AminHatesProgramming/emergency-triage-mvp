@@ -12,8 +12,10 @@ class PatientInput(BaseModel):
     arrivalhour_bin: Optional[str] = "missing"
     previous_ed_visits: int = Field(0, ge=0)
     previous_admissions: int = Field(0, ge=0)
+    previous_surgeries: int = Field(0, ge=0)
     previousdispo: Optional[str] = "No previous dispo"
     chief_complaint: Optional[str] = None
+    history_conditions: list[str] = Field(default_factory=list)
     heart_rate: Optional[float] = Field(None, ge=0, le=260)
     systolic_bp: Optional[float] = Field(None, ge=0, le=300)
     diastolic_bp: Optional[float] = Field(None, ge=0, le=200)

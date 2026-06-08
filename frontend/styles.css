@@ -222,6 +222,45 @@ select:focus {
   border-color: var(--teal);
 }
 
+.history-fieldset {
+  margin: 14px 0 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.history-fieldset legend {
+  padding: 0 6px;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.history-grid label {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid #d8e6e7;
+  border-radius: 8px;
+  color: var(--ink);
+  background: #f7fbfb;
+  font-size: 0.8rem;
+}
+
+.history-grid input {
+  width: 16px;
+  min-height: 16px;
+  accent-color: var(--teal);
+}
+
 .result-panel {
   position: sticky;
   top: 16px;
@@ -332,6 +371,10 @@ ul {
   .fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .history-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 620px) {
@@ -350,6 +393,7 @@ ul {
   }
 
   .fields,
+  .history-grid,
   .risk-gauge {
     grid-template-columns: 1fr;
   }

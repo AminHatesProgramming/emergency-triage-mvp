@@ -21,19 +21,19 @@
         <section class="summary-strip" aria-label="model metrics">
           <div>
             <span>AUC</span>
-            <strong>0.8917</strong>
+            <strong>0.8947</strong>
           </div>
           <div>
             <span>Recall</span>
-            <strong>0.9193</strong>
+            <strong>0.9241</strong>
           </div>
           <div>
             <span>FPR</span>
-            <strong>0.3564</strong>
+            <strong>0.3598</strong>
           </div>
           <div>
             <span>Version</span>
-            <strong>v5</strong>
+            <strong>v6</strong>
           </div>
         </section>
 
@@ -128,7 +128,30 @@
                 سابقه بستری
                 <input name="previous_admissions" type="number" min="0" inputmode="numeric" />
               </label>
+
+              <label>
+                سابقه جراحی
+                <input name="previous_surgeries" type="number" min="0" inputmode="numeric" />
+              </label>
             </div>
+
+            <fieldset class="history-fieldset">
+              <legend>سابقه‌های بالینی قابل پرسش در تریاژ</legend>
+              <div class="history-grid">
+                <label><input type="checkbox" name="history_conditions" value="htn" /> فشار خون</label>
+                <label><input type="checkbox" name="history_conditions" value="diabmelnoc" /> دیابت</label>
+                <label><input type="checkbox" name="history_conditions" value="diabmelwcm" /> دیابت پیشرفته</label>
+                <label><input type="checkbox" name="history_conditions" value="copd" /> COPD</label>
+                <label><input type="checkbox" name="history_conditions" value="asthma" /> آسم</label>
+                <label><input type="checkbox" name="history_conditions" value="chfnonhp" /> نارسایی قلبی</label>
+                <label><input type="checkbox" name="history_conditions" value="coronathero" /> بیماری عروق کرونر</label>
+                <label><input type="checkbox" name="history_conditions" value="chrkidneydisease" /> بیماری مزمن کلیه</label>
+                <label><input type="checkbox" name="history_conditions" value="dysrhythmia" /> آریتمی قلبی</label>
+                <label><input type="checkbox" name="history_conditions" value="acutemi" /> سابقه سکته قلبی</label>
+                <label><input type="checkbox" name="history_conditions" value="acutecvd" /> سابقه سکته مغزی</label>
+                <label><input type="checkbox" name="history_conditions" value="septicemia" /> سابقه سپسیس</label>
+              </div>
+            </fieldset>
 
             <button class="primary" type="submit">ارزیابی بیمار</button>
           </form>

@@ -11,7 +11,23 @@ from ml.train import add_clinical_features, build_feature_matrix
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL_PATH = ROOT / "models" / "triage_model_v5.pkl"
+DEFAULT_MODEL_PATH = ROOT / "models" / "triage_model_v6.pkl"
+
+HISTORY_LABELS = {
+    "htn": "hypertension",
+    "diabmelnoc": "diabetes without chronic complications",
+    "diabmelwcm": "diabetes with chronic complications",
+    "copd": "COPD",
+    "asthma": "asthma",
+    "chfnonhp": "heart failure",
+    "coronathero": "coronary atherosclerosis",
+    "chrkidneydisease": "chronic kidney disease",
+    "dysrhythmia": "cardiac dysrhythmia",
+    "acutemi": "acute myocardial infarction history",
+    "acutecvd": "cerebrovascular disease",
+    "septicemia": "septicemia history",
+    "mooddisorders": "mood disorder",
+}
 
 
 def normalize_chief_complaint(value: str) -> str:
@@ -60,12 +76,21 @@ class TriagePredictor:
             "triage_vital_o2_device": patient.get("oxygen_device", 0),
             "n_edvisits": patient.get("previous_ed_visits", 0),
             "n_admissions": patient.get("previous_admissions", 0),
+            "n_surgeries": patient.get("previous_surgeries", 0),
             "esi": 3,
         }
 
         complaint = patient.get("chief_complaint")
         if complaint:
             row[normalize_chief_complaint(str(complaint))] = 1
+
+        history_features = set(
+            self.artifact.get("feature_metadata", {}).get("history_features", [])
+        )
+        for condition in patient.get("history_conditions") or []:
+            cleaned = re.sub(r"[^a-z0-9_]+", "", str(condition).lower())
+            if cleaned in history_features:
+                row[cleaned] = 1
 
         df = pd.DataFrame([row])
         X, _ = build_feature_matrix(df)
@@ -118,6 +143,10 @@ class TriagePredictor:
             reasons.append("elderly patient")
         if patient.get("chief_complaint"):
             reasons.append(f"chief complaint: {patient['chief_complaint']}")
+        history = patient.get("history_conditions") or []
+        if history:
+            labels = [HISTORY_LABELS.get(str(item), str(item)) for item in history[:2]]
+            reasons.append("known history: " + ", ".join(labels))
         return reasons[:3] or ["no single dominant risk factor identified"]
 
     @staticmethod
