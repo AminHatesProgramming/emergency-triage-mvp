@@ -76,6 +76,10 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 
 ## مستندات کلیدی
 
+- [خروجی‌های رسمی Word برای تحویل](docs/deliverables/README.md)
+- [گزارش نهایی Word](docs/deliverables/ITPM_Final_Report_Emergency_Triage.docx)
+- [بسته شواهد مدیریت پروژه Word](docs/deliverables/ITPM_Project_Management_Evidence_Package.docx)
+- [راهنمای ارائه و تحویل Word](docs/deliverables/ITPM_Presentation_and_Submission_Guide.docx)
 - [معماری سیستم](docs/architecture.md)
 - [API Documentation](docs/api-documentation.md)
 - [Model Card](docs/model-card.md)
