@@ -1,0 +1,20 @@
+{
+  "name": "Emergency Triage Decision Support",
+  "short_name": "Triage ED",
+  "description": "Mobile-first decision-support MVP for emergency triage.",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4f7f6",
+  "theme_color": "#064e5f",
+  "icons": [
+    {
+      "src": "/static/assets/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

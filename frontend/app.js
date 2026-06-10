@@ -40,23 +40,105 @@ const scenarios = {
     oxygen_saturation: 91,
     history_conditions: ["coronathero"],
   },
+  cardiac: {
+    chief_complaint: "chestpain",
+    age: 68,
+    gender: "Male",
+    arrivalmode: "Walk-in",
+    heart_rate: 106,
+    systolic_bp: 104,
+    diastolic_bp: 64,
+    respiratory_rate: 22,
+    oxygen_saturation: 95,
+    temperature: 36.8,
+    previous_ed_visits: 1,
+    previous_admissions: 1,
+    previous_surgeries: 0,
+    history_conditions: ["coronathero", "acutemi"],
+  },
+};
+
+const translations = {
+  "red flag: oxygen saturation below 90%": "پرچم قرمز: اکسیژن خون کمتر از ۹۰٪",
+  "warning: oxygen saturation below normal triage range": "هشدار: اکسیژن خون پایین‌تر از محدوده طبیعی تریاژ",
+  "red flag: systolic blood pressure below 90": "پرچم قرمز: فشار سیستولیک کمتر از ۹۰",
+  "red flag: severely abnormal respiratory rate": "پرچم قرمز: نرخ تنفس به‌شدت غیرطبیعی",
+  "red flag: severely abnormal heart rate": "پرچم قرمز: ضربان قلب به‌شدت غیرطبیعی",
+  "red flag: extreme body temperature": "پرچم قرمز: دمای بدن در محدوده بحرانی",
+  "red flag: chest pain with high-risk cardiac history": "پرچم قرمز: درد قفسه سینه همراه با سابقه قلبی پرخطر",
+  "low oxygen saturation": "اشباع اکسیژن پایین",
+  "elevated shock index": "شاخص شوک بالا",
+  "abnormal respiratory rate": "نرخ تنفس غیرطبیعی",
+  "elderly patient": "بیمار سالمند",
+  "no single dominant risk factor identified": "عامل غالب مشخصی شناسایی نشد",
+  "notify senior triage nurse or emergency physician": "اطلاع به پرستار ارشد تریاژ یا پزشک اورژانس",
+  "repeat vital signs and keep patient in visible monitored area": "تکرار علائم حیاتی و نگهداری بیمار در محدوده قابل مشاهده",
+  "continue standard triage pathway and document model output": "ادامه مسیر استاندارد تریاژ و ثبت خروجی مدل",
+  "treat safety flags as clinical prompts, not automated diagnosis": "پرچم‌های ایمنی به‌عنوان هشدار بالینی تفسیر شوند، نه تشخیص خودکار",
+  "collect the highest-value missing triage fields before final disposition": "پیش از تصمیم نهایی، فیلدهای کلیدی باقی‌مانده تکمیل شوند",
+};
+
+const fieldLabels = {
+  "chief complaint": "شکایت اصلی",
+  age: "سن",
+  "heart rate": "ضربان قلب",
+  "systolic blood pressure": "فشار سیستولیک",
+  "diastolic blood pressure": "فشار دیاستولیک",
+  "respiratory rate": "نرخ تنفس",
+  "oxygen saturation": "اکسیژن خون",
+  temperature: "دما",
 };
 
 const form = document.querySelector("#triageForm");
 const apiStatus = document.querySelector("#apiStatus");
+const installBtn = document.querySelector("#installBtn");
+const riskCard = document.querySelector("#riskCard");
 const riskPercent = document.querySelector("#riskPercent");
 const riskLabel = document.querySelector("#riskLabel");
 const riskAction = document.querySelector("#riskAction");
+const triageBand = document.querySelector("#triageBand");
 const gaugeRing = document.querySelector("#gaugeRing");
 const explanations = document.querySelector("#explanations");
+const safetyFlags = document.querySelector("#safetyFlags");
+const nextActions = document.querySelector("#nextActions");
 const dataQuality = document.querySelector("#dataQuality");
+const modelProbability = document.querySelector("#modelProbability");
 const qualityBar = document.querySelector("#qualityBar");
 const confidenceBand = document.querySelector("#confidenceBand");
 const missingFields = document.querySelector("#missingFields");
 
+let deferredInstallPrompt = null;
+
+function translate(text) {
+  if (!text) return "";
+  if (translations[text]) return translations[text];
+  if (text.startsWith("chief complaint:")) {
+    return `شکایت اصلی: ${text.replace("chief complaint:", "").trim()}`;
+  }
+  if (text.startsWith("known history:")) {
+    return `سابقه ثبت‌شده: ${text.replace("known history:", "").trim()}`;
+  }
+  return text;
+}
+
+function renderList(element, items, emptyText) {
+  element.innerHTML = "";
+  const safeItems = items && items.length ? items : [emptyText];
+  safeItems.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = translate(item);
+    element.appendChild(li);
+  });
+}
+
 function setStatus(ok) {
-  apiStatus.textContent = ok ? "سرویس آماده است" : "اتصال API برقرار نیست";
-  apiStatus.className = `status-pill ${ok ? "ok" : "fail"}`;
+  const offline = !navigator.onLine;
+  apiStatus.textContent = offline
+    ? "آفلاین"
+    : ok
+      ? "سرویس آماده است"
+      : "API در دسترس نیست";
+  apiStatus.className = `status-pill ${offline ? "offline" : ok ? "ok" : "fail"}`;
 }
 
 async function checkApi() {
@@ -97,6 +179,7 @@ function fillScenario(name) {
     }
     if (form.elements[key]) form.elements[key].value = value;
   });
+  document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function bandLabel(value) {
@@ -105,35 +188,45 @@ function bandLabel(value) {
   return "داده محدود";
 }
 
+function bandPersian(value) {
+  if (value.includes("ESI 1-2")) return "پیشنهاد اولویت ESI 1-2";
+  return "مسیر استاندارد ESI 3-5";
+}
+
 function updateResult(result) {
   const percent = Math.round(result.critical_probability * 100);
+  const rawPercent = Math.round(result.model_probability * 100);
   const degrees = Math.round(result.critical_probability * 360);
-  const color = result.risk_level === "critical" ? "#c93535" : "#17845b";
+  const critical = result.risk_level === "critical";
+  const color = critical ? "var(--red)" : "var(--green)";
 
+  riskCard.classList.toggle("critical", critical);
   riskPercent.textContent = `${percent}%`;
-  gaugeRing.style.background = `radial-gradient(circle at center, #fff 56%, transparent 57%), conic-gradient(${color} ${degrees}deg, #e3ecef 0deg)`;
-  riskLabel.textContent = result.risk_level === "critical" ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
-  riskAction.textContent = result.recommended_action;
+  modelProbability.textContent = `${rawPercent}%`;
+  gaugeRing.style.background = `radial-gradient(circle at center, #fff 55%, transparent 56%), conic-gradient(${color} ${degrees}deg, #dfe8eb 0deg)`;
+  riskLabel.textContent = critical ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
+  triageBand.textContent = bandPersian(result.triage_band || "");
+  riskAction.textContent = critical ? "بازبینی سریع بالینی توصیه می‌شود." : "مسیر استاندارد تریاژ ادامه پیدا کند.";
 
-  explanations.innerHTML = "";
-  result.explanation.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    explanations.appendChild(li);
-  });
+  renderList(explanations, result.explanation, "عامل غالب مشخصی شناسایی نشد.");
+  renderList(safetyFlags, result.safety_flags, "پرچم ایمنی فعالی وجود ندارد.");
+  renderList(nextActions, result.next_best_actions, "ادامه مسیر استاندارد تریاژ.");
 
   dataQuality.textContent = `${Math.round(result.data_completeness * 100)}%`;
   qualityBar.style.width = `${Math.round(result.data_completeness * 100)}%`;
-  confidenceBand.textContent = bandLabel(result.confidence_band);
+  confidenceBand.textContent = result.safety_override
+    ? `${bandLabel(result.confidence_band)} + Safety`
+    : bandLabel(result.confidence_band);
   missingFields.textContent = result.missing_recommended_fields.length
-    ? result.missing_recommended_fields.join("، ")
+    ? result.missing_recommended_fields.map((field) => fieldLabels[field] || field).join("، ")
     : "ورودی‌های کلیدی کامل هستند.";
 }
 
 async function submitForm(event) {
   event.preventDefault();
   riskLabel.textContent = "در حال ارزیابی";
-  riskAction.textContent = "لطفا چند لحظه صبر کنید.";
+  triageBand.textContent = "لطفا چند لحظه صبر کنید.";
+  riskAction.textContent = "مدل و قواعد ایمنی همزمان بررسی می‌شوند.";
   try {
     const res = await fetch(`${API_BASE}/predict`, {
       method: "POST",
@@ -143,11 +236,30 @@ async function submitForm(event) {
     if (!res.ok) throw new Error("prediction failed");
     updateResult(await res.json());
     setStatus(true);
+    document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
   } catch {
     setStatus(false);
     riskLabel.textContent = "خطا در ارتباط";
-    riskAction.textContent = "ابتدا API را اجرا کنید.";
+    triageBand.textContent = "API را اجرا کنید یا اتصال را بررسی کنید.";
+    riskAction.textContent = "نسخه آفلاین فرم را نگه می‌دارد، ولی پیش‌بینی نیازمند API است.";
   }
+}
+
+function resetResult() {
+  form.reset();
+  riskCard.classList.remove("critical");
+  riskPercent.textContent = "--";
+  modelProbability.textContent = "--";
+  riskLabel.textContent = "در انتظار ورودی";
+  triageBand.textContent = "سطح پیشنهادی پس از ارزیابی نمایش داده می‌شود.";
+  riskAction.textContent = "مدل فقط نقش پشتیبان تصمیم دارد.";
+  dataQuality.textContent = "--";
+  qualityBar.style.width = "0%";
+  confidenceBand.textContent = "آماده";
+  missingFields.textContent = "--";
+  renderList(explanations, [], "پس از ارزیابی نمایش داده می‌شود.");
+  renderList(safetyFlags, [], "موردی ثبت نشده است.");
+  renderList(nextActions, [], "پس از ارزیابی نمایش داده می‌شود.");
 }
 
 function drawSignal() {
@@ -158,15 +270,15 @@ function drawSignal() {
   canvas.height = Math.floor(window.innerHeight * dpr);
   ctx.scale(dpr, dpr);
   ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  ctx.strokeStyle = "rgba(8, 127, 140, 0.22)";
+  ctx.strokeStyle = "rgba(6, 78, 95, 0.18)";
   ctx.lineWidth = 2;
   ctx.beginPath();
-  const y = window.innerHeight * 0.18;
-  for (let x = 0; x < window.innerWidth; x += 18) {
-    const pulse = x % 180;
-    const offset = pulse === 72 ? -42 : pulse === 90 ? 34 : Math.sin(x / 34) * 8;
-    if (x === 0) ctx.moveTo(x, y + offset);
-    else ctx.lineTo(x, y + offset);
+  const base = window.innerHeight * 0.16;
+  for (let x = 0; x < window.innerWidth; x += 16) {
+    const pulse = x % 176;
+    const offset = pulse === 64 ? -46 : pulse === 80 ? 38 : Math.sin(x / 38) * 7;
+    if (x === 0) ctx.moveTo(x, base + offset);
+    else ctx.lineTo(x, base + offset);
   }
   ctx.stroke();
 }
@@ -175,19 +287,37 @@ document.querySelectorAll("[data-scenario]").forEach((button) => {
   button.addEventListener("click", () => fillScenario(button.dataset.scenario));
 });
 
-document.querySelector("#clearBtn").addEventListener("click", () => {
-  form.reset();
-  riskPercent.textContent = "--";
-  riskLabel.textContent = "در انتظار ورودی";
-  riskAction.textContent = "مدل فقط نقش پشتیبان تصمیم دارد.";
-  dataQuality.textContent = "--";
-  qualityBar.style.width = "0%";
-  confidenceBand.textContent = "آماده";
-  missingFields.textContent = "--";
-  explanations.innerHTML = "<li>پس از ارزیابی نمایش داده می‌شود.</li>";
+document.querySelectorAll("[data-jump]").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelector(button.dataset.jump).scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 });
 
+document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
 window.addEventListener("resize", drawSignal);
+window.addEventListener("online", checkApi);
+window.addEventListener("offline", () => setStatus(false));
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installBtn.hidden = false;
+});
+
+installBtn.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installBtn.hidden = true;
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/static/sw.js").catch(() => {});
+  });
+}
+
 drawSignal();
 checkApi();

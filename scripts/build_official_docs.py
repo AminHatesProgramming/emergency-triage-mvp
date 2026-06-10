@@ -294,9 +294,35 @@ def final_report() -> None:
             "مدل ML نسخه v6 با threshold safety-first",
             "Backend با FastAPI شامل endpointهای /health، /model-info و /predict",
             "Frontend فارسی و mobile-first برای demo",
+            "نسخه PWA قابل نصب روی موبایل با manifest، service worker و app shell آفلاین",
+            "لایه safety-first hybrid برای تشخیص red flagهای حیاتی حتی در ورودی کم‌داده",
             "پشتیبانی از ورودی ناقص همراه با data completeness و missing fields",
             "مستندات کامل مدیریت پروژه، AI usage، Model Card و گزارش نهایی",
         ],
+    )
+
+    add_heading(doc, "نسخه موبایل و PWA")
+    add_bullets(
+        doc,
+        [
+            "UI برای صفحه کوچک بازطراحی شد: action bar پایین صفحه، تب‌های ورودی/خروجی/پروژه و پنل نتیجه قابل اسکن.",
+            "manifest.webmanifest و service worker اضافه شد تا اپ بعد از اولین بارگذاری، app shell را در حالت آفلاین نیز باز کند.",
+            "سناریوهای demo شامل بحرانی، متوسط، کم‌داده و قلبی شدند تا در ویدئو و ارائه، رفتار سیستم با داده ناقص قابل نمایش باشد.",
+            "در خود MVP لینک مستقیم به بسته شواهد مدیریت پروژه اضافه شد تا محصول، مستندات و Rubric به هم متصل باشند.",
+        ],
+    )
+
+    add_heading(doc, "لایه Safety-first Hybrid")
+    add_table(
+        doc,
+        ["مولفه خروجی", "توضیح مدیریتی/فنی"],
+        [
+            ["model_probability", "احتمال خام مدل v6 بدون دستکاری"],
+            ["critical_probability", "احتمال عملیاتی پس از اعمال guardهای ایمنی شفاف"],
+            ["safety_flags", "هشدارهای بالینی ساده مثل SpO2 پایین، فشار بسیار پایین یا درد قفسه سینه با سابقه قلبی"],
+            ["next_best_actions", "اقدام بعدی قابل ارائه به پرسنل؛ تصمیم نهایی همچنان انسانی است"],
+        ],
+        [5.0, 10.5],
     )
 
     add_heading(doc, "داده و کنترل Leakage")
@@ -374,7 +400,7 @@ def final_report() -> None:
             ["تا 12 تیر", "تحویل نهایی درس", "پوستر، ویدئو، گزارش و board"],
             ["تا پایان تیر", "اعتبارسنجی دانشگاهی", "35 کاربر آزمایشی و 2 بازخورد متخصص"],
             ["مرداد", "اعتبارسنجی فنی/اخلاقی", "False Negative و fairness analysis"],
-            ["شهریور", "prototype آفلاین", "PWA یا local prototype"],
+            ["شهریور", "اعتبارسنجی نسخه PWA و local-first", "تست میدانی با فرم موبایل و بازخورد متخصص"],
         ],
         [3.2, 7.0, 5.8],
     )
@@ -402,7 +428,8 @@ def management_package() -> None:
         ["الزام استاد", "خروجی پروژه", "وضعیت"],
         [
             ["پوستر A0", "docs/poster/current-poster.png", "آماده"],
-            ["تصاویر UI", "پوستر placeholder و UI محلی", "نیازمند polish نهایی"],
+            ["تصاویر UI", "UI موبایل/PWA و سناریوهای demo", "آماده"],
+            ["نسخه موبایل", "manifest، service worker، app icon و action bar موبایل", "آماده"],
             ["ماتریس همکاری و ساعات", "team-collaboration-matrix و این پیوست", "آماده"],
             ["Burndown", "docs/artifacts/burndown.svg و CSV", "آماده"],
             ["KPI فعلی و آینده", "kpi-register", "آماده"],
@@ -426,6 +453,8 @@ def management_package() -> None:
             ["FPR", "0.3598", "< 0.487", "سبز"],
             ["API health", "Pass", "Pass", "سبز"],
             ["ورودی ناقص", "Pass", "3-4 آیتم", "سبز"],
+            ["PWA shell", "Pass", "static/offline shell", "سبز"],
+            ["Safety flags", "Pass", "red flag output", "سبز"],
         ],
         [5.0, 3.5, 4.0, 3.0],
     )
@@ -537,7 +566,7 @@ def presentation_guide() -> None:
             ["1:45-3:00", "محمدامین", "معماری سیستم و MVP"],
             ["3:00-4:20", "محمدامین", "مدل v6، داده triage-time و leakage control"],
             ["4:20-5:20", "محمدرضا", "KPIها و trade-off safety-first"],
-            ["5:20-7:00", "محدثه", "demo UI و سناریوهای test"],
+            ["5:20-7:00", "محدثه", "demo UI موبایل/PWA و سناریوهای test"],
             ["7:00-8:00", "محدثه", "QA، docs و ethics"],
             ["8:00-9:10", "محمدرضا", "چالش‌ها و درس‌آموخته‌ها"],
             ["9:10-10:00", "محمدامین", "roadmap و جمع‌بندی"],
@@ -552,6 +581,8 @@ def presentation_guide() -> None:
             "قبل از ضبط، API را اجرا کنید و /health را چک کنید.",
             "سناریوی بحرانی را با SpO2 پایین و shock index بالا نمایش دهید.",
             "سناریوی sparse را با ۴ آیتم نمایش دهید و data completeness را توضیح دهید.",
+            "سناریوی cardiac را نمایش دهید و تفاوت model_probability با safety_flags را توضیح دهید.",
+            "در viewport موبایل، action bar، تب‌ها و PWA install را نشان دهید.",
             "روی disclaimer تصمیم‌یار بودن تاکید کنید.",
             "اگر API هنگام ارائه مشکل داشت، از screenshot پوستر و خروجی‌های ثبت‌شده استفاده کنید.",
         ],

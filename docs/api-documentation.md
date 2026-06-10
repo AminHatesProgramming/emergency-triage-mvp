@@ -78,15 +78,26 @@ Base URL در demo محلی:
 ```json
 {
   "model_version": "v6",
+  "operational_mode": "safety_first_hybrid",
+  "model_probability": 0.8181,
   "critical_probability": 0.8779,
   "threshold": 0.2962,
   "risk_level": "critical",
+  "triage_band": "ESI 1-2 priority suggested",
   "recommended_action": "Immediate clinical review recommended",
   "explanation": [
     "low oxygen saturation",
     "chief complaint: chestpain",
     "known history: coronary atherosclerosis"
   ],
+  "safety_flags": [
+    "red flag: chest pain with high-risk cardiac history"
+  ],
+  "next_best_actions": [
+    "notify senior triage nurse or emergency physician",
+    "repeat vital signs and keep patient in visible monitored area"
+  ],
+  "safety_override": true,
   "data_completeness": 0.5,
   "confidence_band": "medium",
   "missing_recommended_fields": [
@@ -103,5 +114,11 @@ Base URL در demo محلی:
 
 - همه فیلدهای بالینی اصلی optional هستند تا سیستم با ورودی ناقص هم کار کند.
 - خروجی حتماً `data_completeness` و `missing_recommended_fields` دارد.
+- `model_probability` خروجی خام مدل است و `critical_probability` خروجی عملیاتی safety-first است.
+- `safety_flags` و `next_best_actions` برای توضیح بهتر در شرایط اورژانسی اضافه شده‌اند.
 - API خروجی را به صورت decision-support ارائه می‌کند و disclaimer دارد.
 - مدل فقط داده‌های triage-time و EHR-safe را استفاده می‌کند.
+
+## GET /docs/...
+
+برای demo، پوشه مستندات با StaticFiles روی `/docs` mount شده است. بنابراین از داخل MVP می‌توان فایل‌های رسمی Word مثل بسته شواهد مدیریت پروژه را باز کرد. این endpoint برای demo و تحویل درسی است و در نسخه واقعی باید با کنترل دسترسی جایگزین شود.

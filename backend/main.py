@@ -8,6 +8,7 @@ from ml.inference import TriagePredictor
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = ROOT / "frontend"
+DOCS_DIR = ROOT / "docs"
 
 app = FastAPI(
     title="Emergency Triage Decision Support API",
@@ -18,6 +19,9 @@ predictor = TriagePredictor()
 
 if FRONTEND_DIR.exists():
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
+
+if DOCS_DIR.exists():
+    app.mount("/docs", StaticFiles(directory=DOCS_DIR), name="docs")
 
 
 @app.get("/")

@@ -29,11 +29,17 @@ class PredictionOutput(BaseModel):
     model_config = ConfigDict(protected_namespaces=())
 
     model_version: str
+    operational_mode: str
+    model_probability: float
     critical_probability: float
     threshold: float
     risk_level: str
+    triage_band: str
     recommended_action: str
     explanation: list[str]
+    safety_flags: list[str]
+    next_best_actions: list[str]
+    safety_override: bool
     data_completeness: float
     confidence_band: str
     missing_recommended_fields: list[str]

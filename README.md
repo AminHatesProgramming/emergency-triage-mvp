@@ -13,7 +13,9 @@
 - مدل نهایی: `v6`
 - backend: FastAPI
 - frontend: فارسی، راست‌به‌چپ و mobile-first
+- PWA: قابل نصب روی موبایل با `manifest.webmanifest` و `service worker`
 - پشتیبانی از ورودی ناقص
+- خروجی safety-first hybrid شامل `model_probability`، `safety_flags` و `next_best_actions`
 - مستندات مدیریتی و فنی در `docs/`
 - گزارش‌های مدل در `reports/model/`
 
@@ -81,6 +83,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [بسته شواهد مدیریت پروژه Word](docs/deliverables/ITPM_Project_Management_Evidence_Package.docx)
 - [راهنمای ارائه و تحویل Word](docs/deliverables/ITPM_Presentation_and_Submission_Guide.docx)
 - [معماری سیستم](docs/architecture.md)
+- [یادداشت تکمیل نسخه موبایل و PWA](docs/mobile-pwa-completion-note.md)
 - [API Documentation](docs/api-documentation.md)
 - [Model Card](docs/model-card.md)
 - [گزارش وضعیت](docs/status-report.md)

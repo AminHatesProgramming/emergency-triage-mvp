@@ -2,205 +2,266 @@
 <html lang="fa" dir="rtl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#064e5f" />
     <title>تریاژ هوشمند اورژانس</title>
+    <link rel="manifest" href="/static/manifest.webmanifest" />
+    <link rel="icon" href="/static/assets/app-icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
     <canvas id="signalCanvas" aria-hidden="true"></canvas>
-    <main class="shell">
-      <section class="workspace">
-        <header class="topbar">
+    <main class="app-shell">
+      <header class="app-header">
+        <div class="brand-block">
+          <img src="/static/assets/app-icon.svg" alt="" class="brand-icon" />
           <div>
             <p class="eyebrow">Emergency Decision Support</p>
             <h1>تریاژ هوشمند اورژانس</h1>
           </div>
-          <div class="status-pill" id="apiStatus">در حال بررسی سرویس</div>
-        </header>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="icon-button" id="installBtn" hidden title="نصب نسخه موبایل">نصب</button>
+          <span class="status-pill" id="apiStatus">بررسی سرویس</span>
+        </div>
+      </header>
 
-        <section class="summary-strip" aria-label="model metrics">
-          <div>
-            <span>AUC</span>
-            <strong>0.8947</strong>
-          </div>
-          <div>
-            <span>Recall</span>
-            <strong>0.9241</strong>
-          </div>
-          <div>
-            <span>FPR</span>
-            <strong>0.3598</strong>
-          </div>
-          <div>
-            <span>Version</span>
-            <strong>v6</strong>
-          </div>
-        </section>
+      <section class="metric-strip" aria-label="شاخص‌های مدل">
+        <article>
+          <span>AUC</span>
+          <strong>0.8947</strong>
+        </article>
+        <article>
+          <span>Recall</span>
+          <strong>0.9241</strong>
+        </article>
+        <article>
+          <span>FPR</span>
+          <strong>0.3598</strong>
+        </article>
+        <article>
+          <span>Mode</span>
+          <strong>v6 Safety</strong>
+        </article>
+      </section>
 
-        <section class="tool-grid">
-          <form id="triageForm" class="panel form-panel">
-            <div class="panel-head">
-              <h2>ورودی تریاژ</h2>
-              <button type="button" class="ghost" id="clearBtn">پاک کردن</button>
+      <nav class="mobile-tabs" aria-label="ناوبری موبایل">
+        <button type="button" data-jump="#triageForm">ورودی</button>
+        <button type="button" data-jump="#resultPanel">خروجی</button>
+        <button type="button" data-jump="#projectPanel">پروژه</button>
+      </nav>
+
+      <section class="layout-grid">
+        <form id="triageForm" class="panel form-panel">
+          <div class="panel-title">
+            <div>
+              <p class="section-kicker">Triage-time data only</p>
+              <h2>ورودی سریع بیمار</h2>
             </div>
+            <button type="button" class="ghost" id="clearBtn">پاک کردن</button>
+          </div>
 
-            <div class="scenario-row" aria-label="demo scenarios">
-              <button type="button" data-scenario="critical">سناریوی بحرانی</button>
-              <button type="button" data-scenario="moderate">سناریوی متوسط</button>
-              <button type="button" data-scenario="sparse">ورودی کم</button>
+          <div class="scenario-row" aria-label="سناریوهای دمو">
+            <button type="button" data-scenario="critical">بحرانی</button>
+            <button type="button" data-scenario="moderate">متوسط</button>
+            <button type="button" data-scenario="sparse">کم‌داده</button>
+            <button type="button" data-scenario="cardiac">قلبی</button>
+          </div>
+
+          <div class="input-grid">
+            <label class="wide">
+              شکایت اصلی
+              <select name="chief_complaint">
+                <option value="">نامشخص</option>
+                <option value="shortnessofbreath">تنگی نفس</option>
+                <option value="chestpain">درد قفسه سینه</option>
+                <option value="fever">تب</option>
+                <option value="abdominalpain">درد شکم</option>
+                <option value="headache">سردرد</option>
+                <option value="fall">سقوط</option>
+                <option value="weakness">ضعف عمومی</option>
+              </select>
+            </label>
+
+            <label>
+              سن
+              <input name="age" type="number" min="0" max="120" inputmode="numeric" />
+            </label>
+
+            <label>
+              جنسیت
+              <select name="gender">
+                <option value="">نامشخص</option>
+                <option value="Female">زن</option>
+                <option value="Male">مرد</option>
+              </select>
+            </label>
+
+            <label>
+              ورود
+              <select name="arrivalmode">
+                <option value="">نامشخص</option>
+                <option value="Walk-in">مراجعه مستقیم</option>
+                <option value="Ambulance">آمبولانس</option>
+                <option value="Wheelchair">ویلچر</option>
+              </select>
+            </label>
+
+            <label>
+              ضربان قلب
+              <input name="heart_rate" type="number" min="0" max="260" inputmode="numeric" placeholder="مثلا 92" />
+            </label>
+
+            <label>
+              فشار سیستولیک
+              <input name="systolic_bp" type="number" min="0" max="300" inputmode="numeric" placeholder="118" />
+            </label>
+
+            <label>
+              فشار دیاستولیک
+              <input name="diastolic_bp" type="number" min="0" max="200" inputmode="numeric" placeholder="76" />
+            </label>
+
+            <label>
+              نرخ تنفس
+              <input name="respiratory_rate" type="number" min="0" max="80" inputmode="numeric" />
+            </label>
+
+            <label>
+              اکسیژن خون
+              <input name="oxygen_saturation" type="number" min="0" max="100" inputmode="numeric" />
+            </label>
+
+            <label>
+              دما
+              <input name="temperature" type="number" min="20" max="45" step="0.1" inputmode="decimal" />
+            </label>
+
+            <label>
+              مراجعات قبلی
+              <input name="previous_ed_visits" type="number" min="0" inputmode="numeric" />
+            </label>
+
+            <label>
+              بستری قبلی
+              <input name="previous_admissions" type="number" min="0" inputmode="numeric" />
+            </label>
+
+            <label>
+              جراحی قبلی
+              <input name="previous_surgeries" type="number" min="0" inputmode="numeric" />
+            </label>
+          </div>
+
+          <fieldset class="history-fieldset">
+            <legend>سابقه بالینی قابل پرسش</legend>
+            <div class="chip-grid">
+              <label><input type="checkbox" name="history_conditions" value="htn" /><span>فشار خون</span></label>
+              <label><input type="checkbox" name="history_conditions" value="diabmelnoc" /><span>دیابت</span></label>
+              <label><input type="checkbox" name="history_conditions" value="diabmelwcm" /><span>دیابت پیشرفته</span></label>
+              <label><input type="checkbox" name="history_conditions" value="copd" /><span>COPD</span></label>
+              <label><input type="checkbox" name="history_conditions" value="asthma" /><span>آسم</span></label>
+              <label><input type="checkbox" name="history_conditions" value="chfnonhp" /><span>نارسایی قلبی</span></label>
+              <label><input type="checkbox" name="history_conditions" value="coronathero" /><span>عروق کرونر</span></label>
+              <label><input type="checkbox" name="history_conditions" value="chrkidneydisease" /><span>کلیه مزمن</span></label>
+              <label><input type="checkbox" name="history_conditions" value="dysrhythmia" /><span>آریتمی</span></label>
+              <label><input type="checkbox" name="history_conditions" value="acutemi" /><span>سکته قلبی</span></label>
+              <label><input type="checkbox" name="history_conditions" value="acutecvd" /><span>سکته مغزی</span></label>
+              <label><input type="checkbox" name="history_conditions" value="septicemia" /><span>سپسیس</span></label>
             </div>
+          </fieldset>
 
-            <div class="fields">
-              <label>
-                شکایت اصلی
-                <select name="chief_complaint">
-                  <option value="">نامشخص</option>
-                  <option value="shortnessofbreath">تنگی نفس</option>
-                  <option value="chestpain">درد قفسه سینه</option>
-                  <option value="fever">تب</option>
-                  <option value="abdominalpain">درد شکم</option>
-                  <option value="headache">سردرد</option>
-                  <option value="fall">سقوط</option>
-                  <option value="weakness">ضعف عمومی</option>
-                </select>
-              </label>
+          <button class="primary cta-main" type="submit">ارزیابی بیمار</button>
+        </form>
 
-              <label>
-                سن
-                <input name="age" type="number" min="0" max="120" inputmode="numeric" />
-              </label>
-
-              <label>
-                جنسیت
-                <select name="gender">
-                  <option value="">نامشخص</option>
-                  <option value="Female">زن</option>
-                  <option value="Male">مرد</option>
-                </select>
-              </label>
-
-              <label>
-                روش ورود
-                <select name="arrivalmode">
-                  <option value="">نامشخص</option>
-                  <option value="Walk-in">مراجعه مستقیم</option>
-                  <option value="Ambulance">آمبولانس</option>
-                  <option value="Wheelchair">ویلچر</option>
-                </select>
-              </label>
-
-              <label>
-                ضربان قلب
-                <input name="heart_rate" type="number" min="0" max="260" inputmode="numeric" />
-              </label>
-
-              <label>
-                فشار سیستولیک
-                <input name="systolic_bp" type="number" min="0" max="300" inputmode="numeric" />
-              </label>
-
-              <label>
-                فشار دیاستولیک
-                <input name="diastolic_bp" type="number" min="0" max="200" inputmode="numeric" />
-              </label>
-
-              <label>
-                نرخ تنفس
-                <input name="respiratory_rate" type="number" min="0" max="80" inputmode="numeric" />
-              </label>
-
-              <label>
-                اکسیژن خون
-                <input name="oxygen_saturation" type="number" min="0" max="100" inputmode="numeric" />
-              </label>
-
-              <label>
-                دما
-                <input name="temperature" type="number" min="20" max="45" step="0.1" inputmode="decimal" />
-              </label>
-
-              <label>
-                سابقه مراجعه ED
-                <input name="previous_ed_visits" type="number" min="0" inputmode="numeric" />
-              </label>
-
-              <label>
-                سابقه بستری
-                <input name="previous_admissions" type="number" min="0" inputmode="numeric" />
-              </label>
-
-              <label>
-                سابقه جراحی
-                <input name="previous_surgeries" type="number" min="0" inputmode="numeric" />
-              </label>
-            </div>
-
-            <fieldset class="history-fieldset">
-              <legend>سابقه‌های بالینی قابل پرسش در تریاژ</legend>
-              <div class="history-grid">
-                <label><input type="checkbox" name="history_conditions" value="htn" /> فشار خون</label>
-                <label><input type="checkbox" name="history_conditions" value="diabmelnoc" /> دیابت</label>
-                <label><input type="checkbox" name="history_conditions" value="diabmelwcm" /> دیابت پیشرفته</label>
-                <label><input type="checkbox" name="history_conditions" value="copd" /> COPD</label>
-                <label><input type="checkbox" name="history_conditions" value="asthma" /> آسم</label>
-                <label><input type="checkbox" name="history_conditions" value="chfnonhp" /> نارسایی قلبی</label>
-                <label><input type="checkbox" name="history_conditions" value="coronathero" /> بیماری عروق کرونر</label>
-                <label><input type="checkbox" name="history_conditions" value="chrkidneydisease" /> بیماری مزمن کلیه</label>
-                <label><input type="checkbox" name="history_conditions" value="dysrhythmia" /> آریتمی قلبی</label>
-                <label><input type="checkbox" name="history_conditions" value="acutemi" /> سابقه سکته قلبی</label>
-                <label><input type="checkbox" name="history_conditions" value="acutecvd" /> سابقه سکته مغزی</label>
-                <label><input type="checkbox" name="history_conditions" value="septicemia" /> سابقه سپسیس</label>
-              </div>
-            </fieldset>
-
-            <button class="primary" type="submit">ارزیابی بیمار</button>
-          </form>
-
-          <section class="panel result-panel" aria-live="polite">
-            <div class="panel-head">
+        <aside id="resultPanel" class="panel result-panel" aria-live="polite">
+          <div class="panel-title">
+            <div>
+              <p class="section-kicker">Decision support, not replacement</p>
               <h2>خروجی تصمیم‌یار</h2>
-              <span class="badge" id="confidenceBand">آماده</span>
             </div>
+            <span class="badge" id="confidenceBand">آماده</span>
+          </div>
 
-            <div class="risk-gauge">
-              <div class="gauge-ring" id="gaugeRing">
-                <span id="riskPercent">--</span>
-              </div>
-              <div>
-                <p class="risk-label" id="riskLabel">در انتظار ورودی</p>
-                <p class="risk-action" id="riskAction">مدل فقط نقش پشتیبان تصمیم دارد.</p>
-              </div>
+          <div class="risk-card" id="riskCard">
+            <div class="gauge-ring" id="gaugeRing">
+              <span id="riskPercent">--</span>
             </div>
-
-            <div class="quality">
-              <div>
-                <span>کامل بودن داده</span>
-                <strong id="dataQuality">--</strong>
-              </div>
-              <div class="bar">
-                <i id="qualityBar"></i>
-              </div>
+            <div>
+              <p class="risk-label" id="riskLabel">در انتظار ورودی</p>
+              <p class="triage-band" id="triageBand">سطح پیشنهادی پس از ارزیابی نمایش داده می‌شود.</p>
+              <p class="risk-action" id="riskAction">مدل فقط نقش پشتیبان تصمیم دارد.</p>
             </div>
+          </div>
 
-            <div class="explain">
-              <h3>عوامل موثر</h3>
-              <ul id="explanations">
-                <li>پس از ارزیابی نمایش داده می‌شود.</li>
-              </ul>
-            </div>
+          <div class="result-stats">
+            <article>
+              <span>احتمال خام مدل</span>
+              <strong id="modelProbability">--</strong>
+            </article>
+            <article>
+              <span>کامل بودن داده</span>
+              <strong id="dataQuality">--</strong>
+            </article>
+          </div>
 
-            <div class="missing">
-              <h3>فیلدهای پیشنهادی باقی‌مانده</h3>
-              <p id="missingFields">--</p>
-            </div>
+          <div class="quality-bar" aria-hidden="true">
+            <i id="qualityBar"></i>
+          </div>
 
-            <p class="disclaimer">
-              این سامانه جایگزین تصمیم پزشک، پرستار یا پروتکل رسمی بیمارستان نیست.
-            </p>
+          <section class="output-section">
+            <h3>عوامل موثر</h3>
+            <ul id="explanations">
+              <li>پس از ارزیابی نمایش داده می‌شود.</li>
+            </ul>
           </section>
-        </section>
+
+          <section class="output-section">
+            <h3>پرچم‌های ایمنی</h3>
+            <ul id="safetyFlags">
+              <li>موردی ثبت نشده است.</li>
+            </ul>
+          </section>
+
+          <section class="output-section">
+            <h3>اقدام بعدی</h3>
+            <ul id="nextActions">
+              <li>پس از ارزیابی نمایش داده می‌شود.</li>
+            </ul>
+          </section>
+
+          <section class="missing-box">
+            <h3>فیلدهای پیشنهادی باقی‌مانده</h3>
+            <p id="missingFields">--</p>
+          </section>
+        </aside>
+      </section>
+
+      <section id="projectPanel" class="project-panel">
+        <div class="project-card">
+          <span>Agile Sprint</span>
+          <strong>Final polish</strong>
+          <small>مدل v6، نسخه موبایل، PWA، مستندات رسمی</small>
+        </div>
+        <div class="project-card">
+          <span>KPI هدف بعدی</span>
+          <strong>AUC ≥ 0.90</strong>
+          <small>با داده واقعی بیمارستانی و بازبینی متخصص</small>
+        </div>
+        <div class="project-card">
+          <span>ارزش انسانی</span>
+          <strong>کاهش missed critical</strong>
+          <small>تمرکز روی بیمار پرخطر در ازدحام اورژانس</small>
+        </div>
+        <a class="project-link" href="/docs/deliverables/ITPM_Project_Management_Evidence_Package.docx">بسته شواهد مدیریت پروژه</a>
       </section>
     </main>
+
+    <div class="mobile-action-bar">
+      <button type="submit" form="triageForm" class="primary">ارزیابی</button>
+      <button type="button" class="ghost" data-jump="#resultPanel">خروجی</button>
+    </div>
+
     <script src="/static/app.js"></script>
   </body>
 </html>

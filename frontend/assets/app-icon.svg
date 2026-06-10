@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Emergency triage app icon">
+  <defs>
+    <linearGradient id="bg" x1="14" y1="16" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#064e5f"/>
+      <stop offset="0.58" stop-color="#087f8c"/>
+      <stop offset="1" stop-color="#575bc3"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="url(#bg)"/>
+  <path d="M20 69h20l8-24 14 54 12-39h12l7-16 9 25h8" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M86 25v23M74 36h24" stroke="#d7fbff" stroke-width="9" stroke-linecap="round"/>
+</svg>

@@ -79,16 +79,22 @@ Endpointها:
 - `GET /model-info`
 - `POST /predict`
 - `GET /` برای frontend
+- `GET /docs/...` برای دسترسی نمایشی به مستندات تحویلی از داخل MVP
 
 نمونه خروجی:
 
 ```json
 {
   "model_version": "v6",
+  "operational_mode": "safety_first_hybrid",
+  "model_probability": 0.81,
   "critical_probability": 0.87,
   "threshold": 0.2962,
   "risk_level": "critical",
+  "triage_band": "ESI 1-2 priority suggested",
   "recommended_action": "Immediate clinical review recommended",
+  "safety_flags": ["red flag: chest pain with high-risk cardiac history"],
+  "next_best_actions": ["notify senior triage nurse or emergency physician"],
   "data_completeness": 0.5,
   "confidence_band": "medium",
   "missing_recommended_fields": ["systolic blood pressure"]
@@ -101,10 +107,16 @@ frontend در `frontend/` پیاده‌سازی شده است و ویژگی‌ه
 
 - زبان فارسی و راست‌به‌چپ
 - طراحی mobile-first
-- سناریوی demo بحرانی، متوسط و sparse
+- سناریوی demo بحرانی، متوسط، sparse و cardiac
 - نمایش probability، سطح ریسک، کامل بودن داده و فیلدهای پیشنهادی باقی‌مانده
 - چک‌باکس سابقه‌های بالینی
+- PWA shell شامل manifest، service worker و آیکن نصب
+- action bar موبایل و تب‌های ورودی/خروجی/پروژه
 - هشدار ethical/disclaimer
+
+## Safety-first Hybrid Layer
+
+در فاز نهایی، خروجی inference از «فقط احتمال مدل» به یک تصمیم‌یار عملیاتی تبدیل شد. `model_probability` احتمال خام مدل v6 را نشان می‌دهد و `critical_probability` خروجی عملیاتی safety-first است. اگر red flagهای واضح مثل SpO2 زیر ۹۰، فشار سیستولیک زیر ۹۰، نرخ تنفس بسیار غیرطبیعی یا درد قفسه سینه با سابقه قلبی وجود داشته باشد، سیستم `safety_flags` و `next_best_actions` را برمی‌گرداند. این لایه برای جایگزینی متخصص نیست؛ برای شفاف‌سازی و کاهش ریسک در شرایط داده ناقص طراحی شده است.
 
 ## پشتیبانی از ورودی ناقص
 

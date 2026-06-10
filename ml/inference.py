@@ -100,27 +100,46 @@ class TriagePredictor:
             self.artifact["imputer"].transform(X)
         )
 
-        probability = 0.0
+        model_probability = 0.0
         for name, weight in self.artifact["weights"].items():
             if weight:
-                probability += (
+                model_probability += (
                     weight * self.artifact["models"][name].predict_proba(X_np)[0, 1]
                 )
 
         threshold = float(self.artifact["threshold"])
+        safety_flags = self.safety_flags(patient)
+        safety_override = bool(safety_flags)
+        probability = float(model_probability)
+        if safety_override:
+            probability = max(probability, min(0.99, threshold + 0.08))
         is_critical = probability >= threshold
         completeness, missing_fields, confidence_band = self.data_quality(patient)
+        next_best_actions = self.next_best_actions(
+            is_critical=is_critical,
+            confidence_band=confidence_band,
+            safety_flags=safety_flags,
+            missing_fields=missing_fields,
+        )
         return {
             "model_version": self.artifact["version"],
+            "operational_mode": "safety_first_hybrid",
+            "model_probability": float(model_probability),
             "critical_probability": float(probability),
             "threshold": threshold,
             "risk_level": "critical" if is_critical else "non_critical",
+            "triage_band": (
+                "ESI 1-2 priority suggested" if is_critical else "ESI 3-5 standard workflow"
+            ),
             "recommended_action": (
                 "Immediate clinical review recommended"
                 if is_critical
                 else "Continue standard triage workflow"
             ),
-            "explanation": self.explain(patient),
+            "explanation": self.explain(patient, safety_flags=safety_flags),
+            "safety_flags": safety_flags,
+            "next_best_actions": next_best_actions,
+            "safety_override": safety_override,
             "data_completeness": completeness,
             "confidence_band": confidence_band,
             "missing_recommended_fields": missing_fields,
@@ -128,8 +147,10 @@ class TriagePredictor:
         }
 
     @staticmethod
-    def explain(patient: dict[str, Any]) -> list[str]:
+    def explain(patient: dict[str, Any], safety_flags: list[str] | None = None) -> list[str]:
         reasons: list[str] = []
+        if safety_flags:
+            reasons.extend(safety_flags[:2])
         if patient.get("oxygen_saturation") is not None and patient["oxygen_saturation"] < 94:
             reasons.append("low oxygen saturation")
         if patient.get("systolic_bp") and patient.get("heart_rate"):
@@ -147,7 +168,61 @@ class TriagePredictor:
         if history:
             labels = [HISTORY_LABELS.get(str(item), str(item)) for item in history[:2]]
             reasons.append("known history: " + ", ".join(labels))
-        return reasons[:3] or ["no single dominant risk factor identified"]
+        deduped = list(dict.fromkeys(reasons))
+        return deduped[:4] or ["no single dominant risk factor identified"]
+
+    @staticmethod
+    def safety_flags(patient: dict[str, Any]) -> list[str]:
+        flags: list[str] = []
+        o2sat = patient.get("oxygen_saturation")
+        sbp = patient.get("systolic_bp")
+        hr = patient.get("heart_rate")
+        rr = patient.get("respiratory_rate")
+        temp = patient.get("temperature")
+        age = patient.get("age")
+        complaint = str(patient.get("chief_complaint") or "").lower()
+        history = {str(item).lower() for item in patient.get("history_conditions") or []}
+
+        if o2sat is not None and o2sat < 90:
+            flags.append("red flag: oxygen saturation below 90%")
+        elif o2sat is not None and o2sat < 94:
+            flags.append("warning: oxygen saturation below normal triage range")
+
+        if sbp is not None and sbp < 90:
+            flags.append("red flag: systolic blood pressure below 90")
+        if rr is not None and (rr < 8 or rr >= 30):
+            flags.append("red flag: severely abnormal respiratory rate")
+        if hr is not None and (hr < 45 or hr >= 130):
+            flags.append("red flag: severely abnormal heart rate")
+        if temp is not None and (temp < 35 or temp >= 40):
+            flags.append("red flag: extreme body temperature")
+        if (
+            "chestpain" in complaint
+            and age is not None
+            and age >= 50
+            and {"coronathero", "acutemi", "dysrhythmia"} & history
+        ):
+            flags.append("red flag: chest pain with high-risk cardiac history")
+        return flags[:4]
+
+    @staticmethod
+    def next_best_actions(
+        is_critical: bool,
+        confidence_band: str,
+        safety_flags: list[str],
+        missing_fields: list[str],
+    ) -> list[str]:
+        actions: list[str] = []
+        if is_critical:
+            actions.append("notify senior triage nurse or emergency physician")
+            actions.append("repeat vital signs and keep patient in visible monitored area")
+        else:
+            actions.append("continue standard triage pathway and document model output")
+        if safety_flags:
+            actions.append("treat safety flags as clinical prompts, not automated diagnosis")
+        if confidence_band != "high" and missing_fields:
+            actions.append("collect the highest-value missing triage fields before final disposition")
+        return actions[:4]
 
     @staticmethod
     def data_quality(patient: dict[str, Any]) -> tuple[float, list[str], str]:
