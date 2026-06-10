@@ -10,6 +10,27 @@
 - Review/QA
 - Done
 
+## تنظیمات پیشنهادی Board واقعی
+
+برای گرفتن نمره بخش Work Management، بهتر است همین ساختار در Trello، Jira یا Notion ساخته شود:
+
+- هر کارت باید assignee داشته باشد.
+- هر کارت باید برچسب sprint داشته باشد.
+- هر کارت باید story point یا تخمین ساعت داشته باشد.
+- کارت‌های انجام‌شده باید تاریخ انجام داشته باشند.
+- taskهای آینده نباید خالی باشند؛ استاد صراحتاً taskهای آینده را بررسی می‌کند.
+
+## Epicها
+
+| Epic | هدف | خروجی |
+|---|---|---|
+| E1 - Project Definition | تعریف مسئله و ارزش | charter، scope، stakeholder list |
+| E2 - ML Model | ساخت و ارزیابی مدل | v6 model، metrics، charts |
+| E3 - Backend/API | سرویس پیش‌بینی | FastAPI endpoints |
+| E4 - Frontend Demo | تجربه کاربر | UI فارسی mobile-first |
+| E5 - Documentation | مدیریت دانش | گزارش، Model Card، AI report |
+| E6 - Final Delivery | تحویل نهایی | پوستر، ویدئو، board، گزارش |
+
 ## Taskهای انجام‌شده
 
 | Task | Assignee | وضعیت | زمان ثبت‌شده |
@@ -27,18 +48,50 @@
 | تهیه Risk Register | محمدرضا | Done | 3h |
 | تهیه چک‌لیست QA و ارزیابی | محدثه | Done | 3h |
 | آماده‌سازی محتوای پوستر | محدثه | Done | 3h |
+| ساخت چک‌لیست نمره‌دهی | محمدرضا | Done | 2h |
+| ساخت dashboard چابک و KPIها | محمدرضا | Done | 3h |
+| آماده‌سازی knowledge base structure | محدثه | Done | 3h |
+| ثبت decision log و scope change | محمدامین | Done | 2h |
+| آماده‌سازی پوستر placeholder | محدثه | Done | 2h |
 
 ## Taskهای آینده
 
 | Task | Assignee | اولویت | تخمین |
 |---|---|---|---:|
-| ساخت پوستر A0 نهایی با screenshot UI | محدثه | High | 4h |
+| جایگزینی پوستر placeholder با نسخه نهایی ChatGPT | محدثه | High | 3h |
 | ساخت board واقعی در Trello/Notion | محمدرضا | High | 2h |
+| وارد کردن time tracking در board واقعی | محمدرضا | High | 2h |
+| ساخت صفحه Knowledge Base در Notion/Confluence | محدثه | High | 3h |
+| گرفتن screenshot از UI و board | محدثه | High | 2h |
 | ضبط ویدئوی 10 دقیقه‌ای | همه | High | 5h |
 | گرفتن بازخورد از فرد آشنا با اورژانس | محمدرضا | Medium | 3h |
 | تحلیل False Negativeها | محمدامین | Medium | 4h |
 | بررسی fairness سن/جنسیت | محمدامین | Medium | 5h |
 | آماده‌سازی گزارش نهایی PDF/Word | محدثه | High | 4h |
+
+## Sprint Backlog خلاصه
+
+| Sprint | Story Points برنامه‌ریزی‌شده | Story Points انجام‌شده | خروجی اصلی |
+|---|---:|---:|---|
+| Sprint 0 | 6 | 6 | مسئله، scope، ارزش اجتماعی |
+| Sprint 1 | 10 | 9 | مدل اولیه و docs پایه |
+| Sprint 2 | 9 | 8 | API و UI اولیه |
+| Sprint 3 | 11 | 10 | v6، metrics، report |
+| Sprint 4 | 6 | 4 | poster، final delivery package |
+
+## Time Log قابل انتقال به Board
+
+| تاریخ | عضو | فعالیت | زمان |
+|---|---|---|---:|
+| 2026-06-01 | محمدامین | بررسی فایل‌های درس و تعریف scope | 3h |
+| 2026-06-02 | محمدامین | pipeline مدل baseline | 5h |
+| 2026-06-03 | محمدرضا | تحلیل ارزش اجتماعی و KPI اولیه | 3h |
+| 2026-06-04 | محدثه | بررسی user flow و UI requirements | 3h |
+| 2026-06-08 | محمدامین | train مدل v6 و اصلاح دما | 9h |
+| 2026-06-08 | محمدرضا | تحلیل trade-off و dashboard | 4h |
+| 2026-06-08 | محدثه | QA سناریوها و مستندات | 5h |
+| 2026-06-09 | محدثه | آماده‌سازی پوستر placeholder | 2h |
+| 2026-06-10 | محمدامین | تکمیل package نمره‌دهی | 4h |
 
 ## Definition of Done
 

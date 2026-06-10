@@ -20,9 +20,12 @@
 | اعضا، نقش‌ها و میزان همکاری | آماده | `docs/team-collaboration-matrix.md` |
 | ساعات اختصاص داده‌شده | آماده | `docs/team-collaboration-matrix.md` |
 | نمودار Burndown | آماده به صورت داده/محتوا | `docs/agile-dashboard.md` |
+| نمودار Burndown قابل استفاده در پوستر | آماده | `docs/artifacts/burndown.svg` |
 | KPI فعلی | آماده | `docs/agile-dashboard.md` |
+| KPI register کامل | آماده | `docs/kpi-register.md` |
 | KPI مراحل بعدی | آماده | `docs/agile-dashboard.md` |
 | پیش‌بینی جذب کاربر تا پایان تیر | آماده | `docs/agile-dashboard.md` |
+| نمودار پیش‌بینی جذب کاربر | آماده | `docs/artifacts/user-acquisition.svg` |
 | چالش‌ها و درخواست بازخورد | آماده | `docs/agile-dashboard.md` |
 | جذابیت بصری و خوانایی | باید در طراحی گرافیکی نهایی رعایت شود | پوستر A0 |
 
@@ -35,6 +38,17 @@
 | ویدئوی 10 دقیقه‌ای ارائه پروژه | 2 | طرح و اسکریپت در `docs/video-presentation-script.md` |
 | گزارش نهایی کتبی | 2 | پیش‌نویس در `docs/final-report-draft.md` |
 | دسترسی به سامانه مدیریت کار و دانش | 3 | ساختار پیشنهادی در `docs/work-management-board.md` و `docs/knowledge-management-index.md` |
+
+Artefactهای تکمیلی برای بخش ۷ نمره:
+
+- `docs/final-submission-master-checklist.md`
+- `docs/wbs-raci.md`
+- `docs/decision-log.md`
+- `docs/scope-change-record.md`
+- `docs/stakeholder-register.md`
+- `docs/quality-assurance-plan.md`
+- `docs/project-timeline.md`
+- `docs/roadmap.md`
 
 ## نکته مهم درباره Scope
 

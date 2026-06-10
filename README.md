@@ -77,13 +77,23 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 ## مستندات کلیدی
 
 - [معماری سیستم](docs/architecture.md)
+- [API Documentation](docs/api-documentation.md)
 - [Model Card](docs/model-card.md)
 - [گزارش وضعیت](docs/status-report.md)
 - [پیش‌نویس گزارش نهایی](docs/final-report-draft.md)
 - [برنامه مدیریت پروژه](docs/project-management-plan.md)
 - [تطبیق با معیارهای نمره‌دهی](docs/grading-rubric-alignment.md)
+- [چک‌لیست مادر تحویل نهایی](docs/final-submission-master-checklist.md)
 - [ماتریس همکاری و ثبت زمان](docs/team-collaboration-matrix.md)
 - [داشبورد Agile و KPI](docs/agile-dashboard.md)
+- [KPI Register](docs/kpi-register.md)
+- [WBS و RACI](docs/wbs-raci.md)
+- [Stakeholder Register](docs/stakeholder-register.md)
+- [Decision Log](docs/decision-log.md)
+- [Scope Change Record](docs/scope-change-record.md)
+- [Quality Assurance Plan](docs/quality-assurance-plan.md)
+- [Project Timeline](docs/project-timeline.md)
+- [Roadmap](docs/roadmap.md)
 - [Backlog و Sprintها](docs/backlog.md)
 - [ثبت ریسک‌ها](docs/risk-register.md)
 - [گزارش استفاده از AI](docs/ai-usage-report.md)
@@ -94,6 +104,15 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [اسکریپت ویدئوی نهایی](docs/video-presentation-script.md)
 - [ساختار board مدیریت کار](docs/work-management-board.md)
 - [ساختار مدیریت دانش](docs/knowledge-management-index.md)
+
+## نمودارها و داده‌های مدیریتی
+
+- [Burndown SVG](docs/artifacts/burndown.svg)
+- [Burndown Data](docs/artifacts/burndown-data.csv)
+- [Velocity SVG](docs/artifacts/velocity.svg)
+- [Velocity Data](docs/artifacts/velocity-data.csv)
+- [User Acquisition SVG](docs/artifacts/user-acquisition.svg)
+- [User Acquisition Data](docs/artifacts/user-acquisition-data.csv)
 
 ## اعضای تیم
 

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+  <rect width="960" height="520" rx="24" fill="#f8fbfc"/>
+  <text x="480" y="54" text-anchor="middle" font-family="Tahoma, Arial" font-size="30" font-weight="700" fill="#083447">Sprint Velocity</text>
+  <line x1="90" y1="430" x2="880" y2="430" stroke="#cad7de" stroke-width="3"/>
+  <line x1="90" y1="90" x2="90" y2="430" stroke="#cad7de" stroke-width="3"/>
+  <g font-family="Tahoma, Arial" font-size="18" fill="#52616b">
+    <text x="74" y="435" text-anchor="end">0</text>
+    <text x="74" y="350" text-anchor="end">3</text>
+    <text x="74" y="265" text-anchor="end">6</text>
+    <text x="74" y="180" text-anchor="end">9</text>
+    <text x="74" y="95" text-anchor="end">12</text>
+  </g>
+  <g fill="#087f8c">
+    <rect x="140" y="260" width="95" height="170" rx="10"/>
+    <rect x="295" y="175" width="95" height="255" rx="10"/>
+    <rect x="450" y="205" width="95" height="225" rx="10"/>
+    <rect x="605" y="145" width="95" height="285" rx="10"/>
+    <rect x="760" y="315" width="95" height="115" rx="10"/>
+  </g>
+  <g font-family="Tahoma, Arial" font-size="22" font-weight="700" fill="#fff">
+    <text x="187" y="248" text-anchor="middle" fill="#17212b">6</text>
+    <text x="342" y="163" text-anchor="middle" fill="#17212b">9</text>
+    <text x="497" y="193" text-anchor="middle" fill="#17212b">8</text>
+    <text x="652" y="133" text-anchor="middle" fill="#17212b">10</text>
+    <text x="807" y="303" text-anchor="middle" fill="#17212b">4</text>
+  </g>
+  <g font-family="Tahoma, Arial" font-size="18" fill="#52616b">
+    <text x="187" y="465" text-anchor="middle">Sprint 0</text>
+    <text x="342" y="465" text-anchor="middle">Sprint 1</text>
+    <text x="497" y="465" text-anchor="middle">Sprint 2</text>
+    <text x="652" y="465" text-anchor="middle">Sprint 3</text>
+    <text x="807" y="465" text-anchor="middle">Sprint 4</text>
+  </g>
+</svg>

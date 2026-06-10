@@ -35,3 +35,14 @@
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\docs\poster\export-poster.ps1
 ```
+
+## داده‌ها و نمودارهای مدیریتی برای نسخه نهایی
+
+- Burndown: `docs/artifacts/burndown.svg`
+- داده Burndown: `docs/artifacts/burndown-data.csv`
+- Velocity: `docs/artifacts/velocity.svg`
+- داده Velocity: `docs/artifacts/velocity-data.csv`
+- پیش‌بینی جذب کاربر: `docs/artifacts/user-acquisition.svg`
+- داده جذب کاربر: `docs/artifacts/user-acquisition-data.csv`
+
+در نسخه نهایی طراحی گرافیکی، این نمودارها یا داده‌هایشان باید عیناً استفاده شوند تا پوستر با مستندات پروژه سازگار باشد.
