@@ -44,12 +44,35 @@
 
 ## Backlog قابل انتقال به GitHub Projects
 
-فایل `docs/artifacts/github-issues-seed.csv` شامل issueهای آماده است. برای ساخت board واقعی:
+فایل `docs/artifacts/github-issues-seed.csv` شامل issueهای آماده است. برای ساخت board واقعی، اسکریپت `scripts/setup_github_work_management.ps1` اضافه شده است.
+
+اجرای پیشنهادی:
+
+```powershell
+winget install --id GitHub.cli
+gh auth login
+gh auth refresh -s project
+.\scripts\setup_github_work_management.ps1
+```
+
+اگر بخواهید دستی انجام دهید:
 
 1. در GitHub repo وارد تب `Issues` شوید.
 2. issueهای CSV را دستی یا با GitHub CLI بسازید.
 3. از تب `Projects` یک board با ستون‌های `Backlog`, `To Do`, `In Progress`, `Review`, `Done` بسازید.
 4. issueها را بر اساس مقدار ستون `Status` در CSV روی board قرار دهید.
+
+## Knowledge Base واقعی در Notion
+
+برای ساخت Knowledge Base واقعی در Notion، اسکریپت `scripts/setup_notion_knowledge_base.py` اضافه شده است. این اسکریپت صفحات Sprint Notes، Meeting Notes، Technical Decisions، Stakeholder Feedback و Team Playbook را در Notion می‌سازد و یک database برای task board ایجاد می‌کند.
+
+اجرای پیشنهادی:
+
+```powershell
+$env:NOTION_TOKEN='secret_...'
+$env:NOTION_PARENT_PAGE_ID='your_parent_page_id'
+C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe scripts\setup_notion_knowledge_base.py
+```
 
 اگر استاد پرسید چرا Jira استفاده نشده، پاسخ دفاعی:
 

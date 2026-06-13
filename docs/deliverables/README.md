@@ -16,6 +16,7 @@
 برای پاسخ به نقد «غیرمدیریت‌پروژه‌ای دیده شدن پروژه»، این artifactها به repo اضافه شدند:
 
 - `docs/agile-delivery-evidence.md`
+- `docs/tooling-operationalization-guide.md`
 - `docs/artifacts/github-issues-seed.csv`
 - `docs/knowledge-base/README.md`
 - `docs/knowledge-base/stakeholder-feedback-log.md`
