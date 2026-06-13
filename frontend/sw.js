@@ -1,4 +1,4 @@
-const CACHE_NAME = "triage-ed-v7-mobile";
+const CACHE_NAME = "triage-ed-v8-feedback";
 const APP_SHELL = [
   "/",
   "/static/styles.css",

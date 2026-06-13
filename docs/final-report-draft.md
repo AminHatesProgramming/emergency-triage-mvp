@@ -49,6 +49,18 @@
 
 API با endpointهای `/health`، `/model-info` و `/predict` آماده است. UI امکان ثبت علائم حیاتی، شکایت اصلی، سابقه مراجعه/بستری/جراحی و سابقه‌های بالینی را دارد. اگر همه داده‌ها موجود نباشند، سیستم همچنان پیش‌بینی می‌دهد و سطح کامل بودن داده را نمایش می‌دهد.
 
+## تقویت مدیریت پروژه پس از بازخورد TA
+
+پس از دریافت بازخورد TA، یک Sprint تکمیلی با هدف تبدیل پروژه از «خروجی فنی» به «پروژه قابل دفاع مدیریت فناوری اطلاعات» تعریف شد. خروجی این Sprint شامل موارد زیر است:
+
+- تعریف `Agile Delivery Evidence` برای نگاشت نسخه‌های مدل و سامانه به Sprint و Deliverable
+- آماده‌سازی `github-issues-seed.csv` برای ساخت GitHub Issues/Projects به عنوان ابزار مدیریت کار
+- ایجاد Knowledge Base شامل sprint notes، meeting notes، technical decisions، stakeholder feedback و team playbook
+- افزودن فرم بازخورد به MVP برای جمع‌آوری feedback واقعی از ۵ تا ۱۰ کاربر یا ذی‌نفع
+- شفاف‌سازی نقش اعضای تیم به شکلی که هر عضو بتواند بخش ساده و واقعی خود را در ارائه توضیح دهد
+
+این اقدام‌ها نشان می‌دهد پروژه فقط توسعه مدل AI نیست؛ بلکه شامل backlog، sprint، task owner، time tracking، knowledge management، feedback loop و مسیر operationalization است.
+
 ## انطباق با تحویل نهایی درس
 
 تحویل نهایی طبق اطلاعیه استاد شامل سه بخش است:

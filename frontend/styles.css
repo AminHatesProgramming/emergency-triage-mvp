@@ -252,7 +252,8 @@ label.wide {
 }
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   min-height: 44px;
   border: 1px solid var(--line);
@@ -263,9 +264,15 @@ select {
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: 3px solid rgba(8, 127, 140, 0.2);
   border-color: var(--teal);
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.8;
 }
 
 .history-fieldset {
@@ -475,6 +482,27 @@ ul {
   font-weight: 800;
 }
 
+.feedback-panel {
+  margin-top: 14px;
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.feedback-wide {
+  grid-column: span 4;
+}
+
+.feedback-note {
+  align-self: center;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
 .mobile-action-bar {
   display: none;
 }
@@ -491,6 +519,14 @@ ul {
 
   .chip-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .feedback-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feedback-wide {
+    grid-column: span 2;
   }
 }
 
@@ -552,11 +588,13 @@ ul {
   .input-grid,
   .chip-grid,
   .risk-card,
-  .result-stats {
+  .result-stats,
+  .feedback-grid {
     grid-template-columns: 1fr;
   }
 
-  label.wide {
+  label.wide,
+  .feedback-wide {
     grid-column: auto;
   }
 

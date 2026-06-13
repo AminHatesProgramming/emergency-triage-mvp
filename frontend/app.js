@@ -106,8 +106,13 @@ const modelProbability = document.querySelector("#modelProbability");
 const qualityBar = document.querySelector("#qualityBar");
 const confidenceBand = document.querySelector("#confidenceBand");
 const missingFields = document.querySelector("#missingFields");
+const feedbackForm = document.querySelector("#feedbackForm");
+const feedbackCount = document.querySelector("#feedbackCount");
+const feedbackStatus = document.querySelector("#feedbackStatus");
+const exportFeedbackBtn = document.querySelector("#exportFeedbackBtn");
 
 let deferredInstallPrompt = null;
+const FEEDBACK_STORAGE_KEY = "triageStakeholderFeedback";
 
 function translate(text) {
   if (!text) return "";
@@ -262,6 +267,74 @@ function resetResult() {
   renderList(nextActions, [], "پس از ارزیابی نمایش داده می‌شود.");
 }
 
+function getFeedbackEntries() {
+  try {
+    return JSON.parse(localStorage.getItem(FEEDBACK_STORAGE_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveFeedbackEntries(entries) {
+  localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(entries));
+  updateFeedbackCount();
+}
+
+function updateFeedbackCount() {
+  const count = getFeedbackEntries().length;
+  feedbackCount.textContent = `${count} ثبت`;
+}
+
+function submitFeedback(event) {
+  event.preventDefault();
+  const data = new FormData(feedbackForm);
+  const entry = {
+    recorded_at: new Date().toISOString(),
+    stakeholder_type: data.get("stakeholder_type"),
+    understandability: data.get("understandability"),
+    ui_clarity: data.get("ui_clarity"),
+    disclaimer_clarity: data.get("disclaimer_clarity"),
+    comment: String(data.get("comment") || "").trim(),
+  };
+  const entries = getFeedbackEntries();
+  entries.push(entry);
+  saveFeedbackEntries(entries);
+  feedbackForm.reset();
+  feedbackStatus.textContent = "بازخورد ثبت شد. برای گزارش نهایی می‌توانید CSV خروجی بگیرید.";
+}
+
+function csvEscape(value) {
+  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+}
+
+function exportFeedbackCsv() {
+  const entries = getFeedbackEntries();
+  if (!entries.length) {
+    feedbackStatus.textContent = "هنوز بازخوردی ثبت نشده است.";
+    return;
+  }
+  const headers = [
+    "recorded_at",
+    "stakeholder_type",
+    "understandability",
+    "ui_clarity",
+    "disclaimer_clarity",
+    "comment",
+  ];
+  const rows = [
+    headers.join(","),
+    ...entries.map((entry) => headers.map((key) => csvEscape(entry[key])).join(",")),
+  ];
+  const blob = new Blob([`\ufeff${rows.join("\n")}`], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = "triage-stakeholder-feedback.csv";
+  anchor.click();
+  URL.revokeObjectURL(url);
+  feedbackStatus.textContent = "فایل CSV بازخوردها آماده شد.";
+}
+
 function drawSignal() {
   const canvas = document.querySelector("#signalCanvas");
   const ctx = canvas.getContext("2d");
@@ -295,6 +368,8 @@ document.querySelectorAll("[data-jump]").forEach((button) => {
 
 document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
+feedbackForm.addEventListener("submit", submitFeedback);
+exportFeedbackBtn.addEventListener("click", exportFeedbackCsv);
 window.addEventListener("resize", drawSignal);
 window.addEventListener("online", checkApi);
 window.addEventListener("offline", () => setStatus(false));
@@ -320,4 +395,5 @@ if ("serviceWorker" in navigator) {
 }
 
 drawSignal();
+updateFeedbackCount();
 checkApi();

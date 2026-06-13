@@ -9,6 +9,17 @@
 | `ITPM_Final_Report_Emergency_Triage.docx` | گزارش نهایی کتبی پروژه برای بخش ۲ نمره‌ای |
 | `ITPM_Project_Management_Evidence_Package.docx` | پیوست مدیریت پروژه: KPI، Burndown، RACI، WBS، Time Tracking، Work/Knowledge Management |
 | `ITPM_Presentation_and_Submission_Guide.docx` | راهنمای ویدئوی ۱۰ دقیقه‌ای، demo، نقش اعضا و checklist تحویل |
+| `ITPM_Agile_Evidence_Addendum.docx` | پیوست تکمیلی برای پاسخ به نقد TA درباره Sprint، ابزار مدیریت کار، Knowledge Base و feedback loop |
+
+## پیوست‌های جدید پس از بازخورد TA
+
+برای پاسخ به نقد «غیرمدیریت‌پروژه‌ای دیده شدن پروژه»، این artifactها به repo اضافه شدند:
+
+- `docs/agile-delivery-evidence.md`
+- `docs/artifacts/github-issues-seed.csv`
+- `docs/knowledge-base/README.md`
+- `docs/knowledge-base/stakeholder-feedback-log.md`
+- فرم بازخورد داخل MVP با امکان خروجی CSV
 
 ## خروجی PDF
 

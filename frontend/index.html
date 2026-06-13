@@ -48,7 +48,7 @@
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
         <button type="button" data-jump="#triageForm">ورودی</button>
         <button type="button" data-jump="#resultPanel">خروجی</button>
-        <button type="button" data-jump="#projectPanel">پروژه</button>
+        <button type="button" data-jump="#feedbackPanel">بازخورد</button>
       </nav>
 
       <section class="layout-grid">
@@ -240,26 +240,94 @@
       <section id="projectPanel" class="project-panel">
         <div class="project-card">
           <span>Agile Sprint</span>
-          <strong>Final polish</strong>
-          <small>مدل v6، نسخه موبایل، PWA، مستندات رسمی</small>
+          <strong>Sprint 5</strong>
+          <small>GitHub Issues، Knowledge Base، فرم feedback، evidence مدیریتی</small>
         </div>
         <div class="project-card">
-          <span>KPI هدف بعدی</span>
-          <strong>AUC ≥ 0.90</strong>
-          <small>با داده واقعی بیمارستانی و بازبینی متخصص</small>
+          <span>PM Tooling</span>
+          <strong>Issues + KB</strong>
+          <small>Backlog، Sprint، Owner، Time tracking و Decision log</small>
         </div>
         <div class="project-card">
-          <span>ارزش انسانی</span>
-          <strong>کاهش missed critical</strong>
-          <small>تمرکز روی بیمار پرخطر در ازدحام اورژانس</small>
+          <span>User Feedback</span>
+          <strong id="feedbackCount">0 ثبت</strong>
+          <small>هدف Sprint 5: حداقل ۵ بازخورد واقعی تا ارائه نهایی</small>
         </div>
         <a class="project-link" href="/docs/deliverables/ITPM_Project_Management_Evidence_Package.docx">بسته شواهد مدیریت پروژه</a>
+      </section>
+
+      <section id="feedbackPanel" class="panel feedback-panel">
+        <div class="panel-title">
+          <div>
+            <p class="section-kicker">Stakeholder feedback loop</p>
+            <h2>ثبت بازخورد ذی‌نفع</h2>
+          </div>
+          <button type="button" class="ghost" id="exportFeedbackBtn">خروجی CSV</button>
+        </div>
+
+        <form id="feedbackForm" class="feedback-grid">
+          <label>
+            نوع ذی‌نفع
+            <select name="stakeholder_type" required>
+              <option value="">انتخاب کنید</option>
+              <option value="medical-student">دانشجوی پزشکی/پرستاری</option>
+              <option value="clinic-or-emergency-contact">آشنا با درمانگاه/اورژانس</option>
+              <option value="engineering-student">دانشجوی مهندسی</option>
+              <option value="crisis-management">آشنا با مدیریت بحران</option>
+              <option value="general-user">کاربر عمومی</option>
+            </select>
+          </label>
+
+          <label>
+            فهم خروجی
+            <select name="understandability" required>
+              <option value="">۱ تا ۵</option>
+              <option value="1">۱ - نامفهوم</option>
+              <option value="2">۲</option>
+              <option value="3">۳</option>
+              <option value="4">۴</option>
+              <option value="5">۵ - کاملا واضح</option>
+            </select>
+          </label>
+
+          <label>
+            وضوح UI
+            <select name="ui_clarity" required>
+              <option value="">۱ تا ۵</option>
+              <option value="1">۱ - گیج‌کننده</option>
+              <option value="2">۲</option>
+              <option value="3">۳</option>
+              <option value="4">۴</option>
+              <option value="5">۵ - سریع و واضح</option>
+            </select>
+          </label>
+
+          <label>
+            وضوح disclaimer
+            <select name="disclaimer_clarity" required>
+              <option value="">۱ تا ۵</option>
+              <option value="1">۱ - نامشخص</option>
+              <option value="2">۲</option>
+              <option value="3">۳</option>
+              <option value="4">۴</option>
+              <option value="5">۵ - کاملا مشخص</option>
+            </select>
+          </label>
+
+          <label class="feedback-wide">
+            پیشنهاد یا نگرانی اصلی
+            <textarea name="comment" rows="3" required placeholder="مثلا: خروجی قابل فهم بود، اما بهتر است اقدام بعدی واضح‌تر باشد."></textarea>
+          </label>
+
+          <button class="primary" type="submit">ثبت بازخورد</button>
+          <p class="feedback-note" id="feedbackStatus">بازخوردها فقط روی همین مرورگر ذخیره می‌شوند و با CSV قابل خروجی گرفتن هستند.</p>
+        </form>
       </section>
     </main>
 
     <div class="mobile-action-bar">
       <button type="submit" form="triageForm" class="primary">ارزیابی</button>
-      <button type="button" class="ghost" data-jump="#resultPanel">خروجی</button>
+      <button type="button" class="ghost" data-jump="#feedbackPanel">بازخورد</button>
     </div>
 
     <script src="/static/app.js"></script>
