@@ -62,10 +62,8 @@ button {
 }
 
 .app-header,
-.metric-strip,
-.ops-strip,
-.panel,
-.project-panel {
+.care-strip,
+.panel {
   border: 1px solid rgba(21, 33, 43, 0.1);
   background: var(--surface);
   backdrop-filter: blur(14px);
@@ -163,92 +161,35 @@ h3 {
   border-color: rgba(184, 119, 10, 0.35);
 }
 
-.metric-strip {
+.care-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  overflow: hidden;
-  margin-top: 12px;
-  border-radius: 8px;
-}
-
-.ops-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
   margin-top: 12px;
   border-radius: 8px;
   padding: 10px;
 }
 
-.ops-strip article {
+.care-strip article {
   display: grid;
-  gap: 5px;
-  min-height: 82px;
+  gap: 6px;
+  min-height: 76px;
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 10px 12px;
   background: #fff;
 }
 
-.ops-strip span,
-.feedback-target span {
+.care-strip span {
   color: var(--muted);
   font-size: 0.78rem;
 }
 
-.ops-strip strong,
-.feedback-target strong {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-.ops-strip a {
+.care-strip strong {
   color: var(--deep-teal);
-  font-size: 0.82rem;
+  font-size: 0.96rem;
   font-weight: 800;
-  text-decoration: none;
-}
-
-.ops-strip i,
-.feedback-target i {
-  display: block;
-  height: 8px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #e5eef0;
-}
-
-.ops-strip b,
-.feedback-target b {
-  display: block;
-  width: 0%;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--teal), var(--green));
-  transition: width 220ms ease;
-}
-
-.metric-strip article {
-  padding: 13px 15px;
-  border-inline-start: 1px solid var(--line);
-}
-
-.metric-strip article:first-child {
-  border-inline-start: 0;
-}
-
-.metric-strip span,
-.project-card span,
-.result-stats span {
-  display: block;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.metric-strip strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 1.24rem;
+  line-height: 1.6;
 }
 
 .mobile-tabs {
@@ -479,6 +420,12 @@ textarea {
   background: var(--surface-strong);
 }
 
+.result-stats span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .result-stats strong {
   display: block;
   margin-top: 4px;
@@ -530,66 +477,28 @@ ul {
   border-radius: 8px;
   color: var(--ink);
   background: #f8fbfb;
-  direction: ltr;
-  text-align: left;
+  direction: rtl;
+  text-align: right;
   white-space: pre-wrap;
   line-height: 1.7;
-  font: 0.8rem Consolas, "Courier New", monospace;
-}
-
-.project-panel {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
-  gap: 10px;
-  align-items: stretch;
-  margin-top: 14px;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.project-card,
-.project-link {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 12px;
-  background: #fff;
-}
-
-.project-card strong {
-  display: block;
-  margin: 3px 0 4px;
-  font-size: 1rem;
-}
-
-.project-card small {
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.project-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  color: var(--deep-teal);
-  text-decoration: none;
-  font-weight: 800;
+  font: 0.82rem Tahoma, "Segoe UI", Arial, sans-serif;
 }
 
 .feedback-panel {
   margin-top: 14px;
 }
 
-.feedback-target {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.7fr);
-  gap: 12px;
+.feedback-count {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 14px;
-  border: 1px solid rgba(8, 127, 140, 0.18);
-  border-radius: 8px;
-  padding: 12px;
-  background: linear-gradient(135deg, rgba(8, 127, 140, 0.07), #fff);
+  min-height: 36px;
+  border: 1px solid #d2e4e3;
+  border-radius: 999px;
+  padding: 7px 11px;
+  color: var(--deep-teal);
+  background: #eef7f6;
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .feedback-grid {
@@ -609,14 +518,78 @@ ul {
   line-height: 1.8;
 }
 
+.install-sheet {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(12, 25, 34, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.install-sheet[hidden] {
+  display: none;
+}
+
+.install-card {
+  position: relative;
+  width: min(520px, 100%);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(10, 30, 42, 0.26);
+}
+
+.install-card h2 {
+  margin-bottom: 10px;
+  font-size: 1.22rem;
+}
+
+.install-card p,
+.install-steps {
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.install-steps {
+  margin: 0 0 16px;
+  padding: 0 20px 0 0;
+}
+
+.install-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 34px;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: #fff;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 .mobile-action-bar {
   display: none;
 }
 
 @media (max-width: 960px) {
   .layout-grid,
-  .project-panel,
-  .ops-strip {
+  .care-strip {
     grid-template-columns: 1fr;
   }
 
@@ -662,16 +635,12 @@ ul {
     height: 44px;
   }
 
-  .metric-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .mobile-tabs {
     position: sticky;
     top: 8px;
     z-index: 5;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     margin-top: 12px;
   }
@@ -706,8 +675,7 @@ ul {
   .chip-grid,
   .risk-card,
   .result-stats,
-  .feedback-grid,
-  .feedback-target {
+  .feedback-grid {
     grid-template-columns: 1fr;
   }
 
@@ -727,7 +695,7 @@ ul {
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: 1fr 0.65fr;
+    grid-template-columns: 1fr 0.62fr 0.7fr;
     gap: 8px;
     padding: 10px max(10px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
@@ -743,12 +711,11 @@ ul {
 
   #signalCanvas,
   .app-header,
-  .metric-strip,
-  .ops-strip,
+  .care-strip,
   .form-panel,
-  .project-panel,
   .feedback-panel,
   .mobile-action-bar,
+  .install-sheet,
   .result-actions {
     display: none !important;
   }

@@ -89,6 +89,16 @@ const fieldLabels = {
   temperature: "دما",
 };
 
+const chiefComplaintLabels = {
+  shortnessofbreath: "تنگی نفس",
+  chestpain: "درد قفسه سینه",
+  fever: "تب",
+  abdominalpain: "درد شکم",
+  headache: "سردرد",
+  fall: "سقوط",
+  weakness: "ضعف عمومی",
+};
+
 const form = document.querySelector("#triageForm");
 const apiStatus = document.querySelector("#apiStatus");
 const installBtn = document.querySelector("#installBtn");
@@ -109,15 +119,16 @@ const missingFields = document.querySelector("#missingFields");
 const feedbackForm = document.querySelector("#feedbackForm");
 const feedbackCount = document.querySelector("#feedbackCount");
 const feedbackStatus = document.querySelector("#feedbackStatus");
-const exportFeedbackBtn = document.querySelector("#exportFeedbackBtn");
-const feedbackProgressText = document.querySelector("#feedbackProgressText");
-const feedbackProgressBar = document.querySelector("#feedbackProgressBar");
-const feedbackTargetText = document.querySelector("#feedbackTargetText");
-const feedbackTargetBar = document.querySelector("#feedbackTargetBar");
 const copyCaseBtn = document.querySelector("#copyCaseBtn");
 const printCaseBtn = document.querySelector("#printCaseBtn");
 const caseSummaryBox = document.querySelector("#caseSummaryBox");
 const caseSummaryText = document.querySelector("#caseSummaryText");
+const mobileInstallBtn = document.querySelector("#mobileInstallBtn");
+const installSheet = document.querySelector("#installSheet");
+const closeInstallSheet = document.querySelector("#closeInstallSheet");
+const installDoneBtn = document.querySelector("#installDoneBtn");
+const installPromptBtn = document.querySelector("#installPromptBtn");
+const installHelpText = document.querySelector("#installHelpText");
 
 let deferredInstallPrompt = null;
 let latestResult = null;
@@ -128,7 +139,8 @@ function translate(text) {
   if (!text) return "";
   if (translations[text]) return translations[text];
   if (text.startsWith("chief complaint:")) {
-    return `شکایت اصلی: ${text.replace("chief complaint:", "").trim()}`;
+    const complaint = text.replace("chief complaint:", "").trim();
+    return `شکایت اصلی: ${chiefComplaintLabels[complaint] || complaint}`;
   }
   if (text.startsWith("known history:")) {
     return `سابقه ثبت‌شده: ${text.replace("known history:", "").trim()}`;
@@ -212,14 +224,13 @@ function updateResult(result) {
   latestResult = result;
   latestPayload = readPayload();
   const percent = Math.round(result.critical_probability * 100);
-  const rawPercent = Math.round(result.model_probability * 100);
   const degrees = Math.round(result.critical_probability * 360);
   const critical = result.risk_level === "critical";
   const color = critical ? "var(--red)" : "var(--green)";
 
   riskCard.classList.toggle("critical", critical);
   riskPercent.textContent = `${percent}%`;
-  modelProbability.textContent = `${rawPercent}%`;
+  modelProbability.textContent = critical ? "بازبینی فوری" : "پایش عادی";
   gaugeRing.style.background = `radial-gradient(circle at center, #fff 55%, transparent 56%), conic-gradient(${color} ${degrees}deg, #dfe8eb 0deg)`;
   riskLabel.textContent = critical ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
   triageBand.textContent = bandPersian(result.triage_band || "");
@@ -232,7 +243,7 @@ function updateResult(result) {
   dataQuality.textContent = `${Math.round(result.data_completeness * 100)}%`;
   qualityBar.style.width = `${Math.round(result.data_completeness * 100)}%`;
   confidenceBand.textContent = result.safety_override
-    ? `${bandLabel(result.confidence_band)} + Safety`
+    ? `${bandLabel(result.confidence_band)} + ایمنی فعال`
     : bandLabel(result.confidence_band);
   missingFields.textContent = result.missing_recommended_fields.length
     ? result.missing_recommended_fields.map((field) => fieldLabels[field] || field).join("، ")
@@ -299,17 +310,7 @@ function saveFeedbackEntries(entries) {
 
 function updateFeedbackCount() {
   const count = getFeedbackEntries().length;
-  feedbackCount.textContent = `${count} ثبت`;
-  updateFeedbackProgress(count, 5);
-}
-
-function updateFeedbackProgress(count, target) {
-  const safeTarget = target || 5;
-  const percent = Math.min(100, Math.round((count / safeTarget) * 100));
-  feedbackProgressText.textContent = `${count} / ${safeTarget}`;
-  feedbackTargetText.textContent = `${count} از ${safeTarget}`;
-  feedbackProgressBar.style.width = `${percent}%`;
-  feedbackTargetBar.style.width = `${percent}%`;
+  feedbackCount.textContent = count ? `${count} بازخورد ثبت‌شده` : "آماده دریافت بازخورد";
 }
 
 async function refreshFeedbackSummary() {
@@ -317,8 +318,9 @@ async function refreshFeedbackSummary() {
     const res = await fetch(`${API_BASE}/feedback-summary`);
     if (!res.ok) throw new Error("summary failed");
     const summary = await res.json();
-    feedbackCount.textContent = `${summary.stored_count} ثبت`;
-    updateFeedbackProgress(summary.stored_count, summary.target_count);
+    feedbackCount.textContent = summary.stored_count
+      ? `${summary.stored_count} بازخورد ثبت‌شده`
+      : "آماده دریافت بازخورد";
   } catch {
     updateFeedbackCount();
   }
@@ -343,14 +345,13 @@ async function submitFeedback(event) {
     });
     if (!res.ok) throw new Error("feedback failed");
     const result = await res.json();
-    feedbackCount.textContent = `${result.stored_count} ثبت`;
-    updateFeedbackProgress(result.stored_count, 5);
-    feedbackStatus.textContent = "بازخورد روی سرور ثبت شد و در CSV قابل خروجی گرفتن است.";
+    feedbackCount.textContent = `${result.stored_count} بازخورد ثبت‌شده`;
+    feedbackStatus.textContent = "بازخورد ثبت شد. ممنون که به بهتر شدن نسخه آزمایشی کمک کردید.";
   } catch {
     const entries = getFeedbackEntries();
     entries.push(entry);
     saveFeedbackEntries(entries);
-    feedbackStatus.textContent = "API در دسترس نبود؛ بازخورد محلی ذخیره شد و CSV مرورگری دارد.";
+    feedbackStatus.textContent = "اتصال سرور برقرار نبود؛ بازخورد روی همین دستگاه ذخیره شد.";
   }
   feedbackForm.reset();
 }
@@ -364,20 +365,20 @@ function updateCaseSummary() {
   if (!latestResult) return;
   const payload = latestPayload || {};
   const riskText = latestResult.risk_level === "critical" ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
+  const complaint = fieldLabels["chief complaint"] || "شکایت اصلی";
+  const complaintText = chiefComplaintLabels[payload.chief_complaint] || payload.chief_complaint || "ثبت نشده";
   const summary = [
-    "Emergency Triage Decision Support - Case Summary",
-    `Version: ${latestResult.model_version} (${latestResult.operational_mode})`,
-    `Risk: ${riskText}`,
-    `Critical probability: ${formatPercent(latestResult.critical_probability)}`,
-    `Raw model probability: ${formatPercent(latestResult.model_probability)}`,
-    `Confidence: ${latestResult.confidence_band}`,
-    `Data completeness: ${formatPercent(latestResult.data_completeness)}`,
-    `Chief complaint: ${payload.chief_complaint || "not provided"}`,
-    `Age: ${payload.age ?? "not provided"}`,
-    `Vitals: HR ${payload.heart_rate ?? "-"}, BP ${payload.systolic_bp ?? "-"}/${payload.diastolic_bp ?? "-"}, RR ${payload.respiratory_rate ?? "-"}, SpO2 ${payload.oxygen_saturation ?? "-"}, Temp ${payload.temperature ?? "-"}`,
-    `Safety flags: ${(latestResult.safety_flags || []).join(" | ") || "none"}`,
-    `Next actions: ${(latestResult.next_best_actions || []).join(" | ")}`,
-    "Disclaimer: decision-support only; not a replacement for clinical judgment.",
+    "خلاصه ارزیابی تریاژ",
+    `وضعیت پیشنهادی: ${riskText}`,
+    `درصد خطر: ${formatPercent(latestResult.critical_probability)}`,
+    `اعتماد خروجی: ${bandLabel(latestResult.confidence_band)}`,
+    `کامل بودن داده‌ها: ${formatPercent(latestResult.data_completeness)}`,
+    `${complaint}: ${complaintText}`,
+    `سن: ${payload.age ?? "ثبت نشده"}`,
+    `علائم حیاتی: ضربان ${payload.heart_rate ?? "-"} | فشار ${payload.systolic_bp ?? "-"}/${payload.diastolic_bp ?? "-"} | تنفس ${payload.respiratory_rate ?? "-"} | اکسیژن ${payload.oxygen_saturation ?? "-"} | دما ${payload.temperature ?? "-"}`,
+    `پرچم‌های ایمنی: ${(latestResult.safety_flags || []).map(translate).join(" | ") || "موردی فعال نیست"}`,
+    `اقدام پیشنهادی: ${(latestResult.next_best_actions || []).map(translate).join(" | ")}`,
+    "تذکر: این خروجی فقط پشتیبان تصمیم است و جایگزین قضاوت بالینی نمی‌شود.",
   ].join("\n");
   caseSummaryText.textContent = summary;
   caseSummaryBox.hidden = false;
@@ -407,52 +408,66 @@ function printCaseSummary() {
   window.print();
 }
 
-function csvEscape(value) {
-  return `"${String(value ?? "").replaceAll('"', '""')}"`;
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
 }
 
-function exportFeedbackCsv() {
-  const entries = getFeedbackEntries();
-  if (!entries.length) {
-    feedbackStatus.textContent = "هنوز بازخوردی ثبت نشده است.";
+function installHelpMessage() {
+  if (isStandaloneMode()) {
+    return "برنامه همین حالا در حالت نصب‌شده اجرا شده است.";
+  }
+  const ua = navigator.userAgent.toLowerCase();
+  if (!window.isSecureContext && !["localhost", "127.0.0.1"].includes(window.location.hostname)) {
+    return "برای نصب کامل PWA روی موبایل، صفحه باید از HTTPS باز شود. در حالت شبکه محلی، از گزینه Add to Home screen مرورگر استفاده کنید.";
+  }
+  if (deferredInstallPrompt) {
+    return "مرورگر نصب مستقیم را پشتیبانی می‌کند. دکمه «نصب خودکار» را بزنید.";
+  }
+  if (/iphone|ipad|ipod/.test(ua)) {
+    return "در iPhone از دکمه Share در Safari استفاده کنید و Add to Home Screen را بزنید.";
+  }
+  if (/android/.test(ua)) {
+    return "در Chrome اندروید منوی سه‌نقطه را باز کنید و Add to Home screen یا Install app را انتخاب کنید.";
+  }
+  return "اگر مرورگر شما نصب مستقیم را نشان نمی‌دهد، از منوی مرورگر گزینه Install app یا Add to Home screen را انتخاب کنید.";
+}
+
+function openInstallSheet() {
+  installHelpText.textContent = installHelpMessage();
+  installPromptBtn.hidden = !deferredInstallPrompt || isStandaloneMode();
+  installSheet.hidden = false;
+  document.body.classList.add("modal-open");
+}
+
+function closeInstallDialog() {
+  installSheet.hidden = true;
+  document.body.classList.remove("modal-open");
+}
+
+async function runInstallPrompt() {
+  if (!deferredInstallPrompt) {
+    openInstallSheet();
     return;
   }
-  const headers = [
-    "recorded_at",
-    "stakeholder_type",
-    "understandability",
-    "ui_clarity",
-    "disclaimer_clarity",
-    "comment",
-  ];
-  const rows = [
-    headers.join(","),
-    ...entries.map((entry) => headers.map((key) => csvEscape(entry[key])).join(",")),
-  ];
-  const blob = new Blob([`\ufeff${rows.join("\n")}`], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = "triage-stakeholder-feedback.csv";
-  anchor.click();
-  URL.revokeObjectURL(url);
-  feedbackStatus.textContent = "فایل CSV بازخوردها آماده شد.";
+  deferredInstallPrompt.prompt();
+  const choice = await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installPromptBtn.hidden = true;
+  if (choice.outcome === "accepted") {
+    installBtn.textContent = "نصب شد";
+    if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
+    closeInstallDialog();
+  } else {
+    installHelpText.textContent = installHelpMessage();
+  }
 }
 
-async function exportFeedback() {
-  try {
-    const res = await fetch(`${API_BASE}/feedback-summary`);
-    if (!res.ok) throw new Error("summary failed");
-    const summary = await res.json();
-    if (summary.stored_count > 0) {
-      window.location.href = `${API_BASE}/feedback/export`;
-      feedbackStatus.textContent = "خروجی CSV سروری در حال دانلود است.";
-      return;
-    }
-  } catch {
-    // Use the browser-local fallback below.
+function handleInstallClick() {
+  if (deferredInstallPrompt) {
+    runInstallPrompt();
+    return;
   }
-  exportFeedbackCsv();
+  openInstallSheet();
 }
 
 function drawSignal() {
@@ -489,9 +504,16 @@ document.querySelectorAll("[data-jump]").forEach((button) => {
 document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
 feedbackForm.addEventListener("submit", submitFeedback);
-exportFeedbackBtn.addEventListener("click", exportFeedback);
 copyCaseBtn.addEventListener("click", copyCaseSummary);
 printCaseBtn.addEventListener("click", printCaseSummary);
+installBtn.addEventListener("click", handleInstallClick);
+if (mobileInstallBtn) mobileInstallBtn.addEventListener("click", handleInstallClick);
+installPromptBtn.addEventListener("click", runInstallPrompt);
+closeInstallSheet.addEventListener("click", closeInstallDialog);
+installDoneBtn.addEventListener("click", closeInstallDialog);
+installSheet.addEventListener("click", (event) => {
+  if (event.target === installSheet) closeInstallDialog();
+});
 window.addEventListener("resize", drawSignal);
 window.addEventListener("online", checkApi);
 window.addEventListener("offline", () => setStatus(false));
@@ -499,21 +521,26 @@ window.addEventListener("offline", () => setStatus(false));
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
-  installBtn.hidden = false;
+  installBtn.textContent = "نصب برنامه";
+  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب";
 });
 
-installBtn.addEventListener("click", async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  await deferredInstallPrompt.userChoice;
+window.addEventListener("appinstalled", () => {
   deferredInstallPrompt = null;
-  installBtn.hidden = true;
+  installBtn.textContent = "نصب شد";
+  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
+  closeInstallDialog();
 });
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/static/sw.js").catch(() => {});
   });
+}
+
+if (isStandaloneMode()) {
+  installBtn.textContent = "نصب شد";
+  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
 }
 
 drawSignal();

@@ -1,0 +1,7 @@
+{
+  "source": "models/triage_model_v6.pkl + data/raw/triage.csv",
+  "test_rows": 111606,
+  "auc": 0.894710103871789,
+  "average_precision": 0.8033684286814886,
+  "threshold": 0.2962322235107422
+}

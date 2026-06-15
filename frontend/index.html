@@ -21,52 +21,33 @@
           </div>
         </div>
         <div class="header-actions">
-          <button type="button" class="icon-button" id="installBtn" hidden title="نصب نسخه موبایل">نصب</button>
+          <button type="button" class="icon-button" id="installBtn" title="نصب نسخه موبایل">نصب روی موبایل</button>
           <span class="status-pill" id="apiStatus">بررسی سرویس</span>
         </div>
       </header>
 
-      <section class="metric-strip" aria-label="شاخص‌های مدل">
+      <section class="care-strip" aria-label="قابلیت‌های کاربردی سامانه">
         <article>
-          <span>AUC</span>
-          <strong>0.8947</strong>
+          <span>داده زمان تریاژ</span>
+          <strong>بدون نیاز به اطلاعات آینده</strong>
         </article>
         <article>
-          <span>Recall</span>
-          <strong>0.9241</strong>
+          <span>ورودی ناقص</span>
+          <strong>قابل استفاده با چند داده کلیدی</strong>
         </article>
         <article>
-          <span>FPR</span>
-          <strong>0.3598</strong>
+          <span>ایمنی بالینی</span>
+          <strong>هشدارهای قابل بازبینی</strong>
         </article>
         <article>
-          <span>Mode</span>
-          <strong>v6 Safety</strong>
-        </article>
-      </section>
-
-      <section class="ops-strip" aria-label="وضعیت عملیاتی پروژه">
-        <article>
-          <span>Feedback</span>
-          <strong id="feedbackProgressText">0 / 5</strong>
-          <i><b id="feedbackProgressBar"></b></i>
-        </article>
-        <article>
-          <span>Work Management</span>
-          <strong>GitHub Projects-ready</strong>
-          <a href="/docs/tooling-operationalization-guide.md">راهنمای اجرا</a>
-        </article>
-        <article>
-          <span>Knowledge Base</span>
-          <strong>Notion-ready</strong>
-          <a href="/docs/knowledge-base/README.md">مشاهده ساختار</a>
+          <span>نقش سامانه</span>
+          <strong>پشتیبان تصمیم، نه جایگزین پزشک</strong>
         </article>
       </section>
 
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
         <button type="button" data-jump="#triageForm">ورودی</button>
         <button type="button" data-jump="#resultPanel">خروجی</button>
-        <button type="button" data-jump="#projectPanel">پروژه</button>
         <button type="button" data-jump="#feedbackPanel">بازخورد</button>
       </nav>
 
@@ -74,7 +55,7 @@
         <form id="triageForm" class="panel form-panel">
           <div class="panel-title">
             <div>
-              <p class="section-kicker">Triage-time data only</p>
+              <p class="section-kicker">فقط داده زمان تریاژ</p>
               <h2>ورودی سریع بیمار</h2>
             </div>
             <button type="button" class="ghost" id="clearBtn">پاک کردن</button>
@@ -196,7 +177,7 @@
         <aside id="resultPanel" class="panel result-panel" aria-live="polite">
           <div class="panel-title">
             <div>
-              <p class="section-kicker">Decision support, not replacement</p>
+              <p class="section-kicker">پشتیبان تصمیم، نه جایگزین متخصص</p>
               <h2>خروجی تصمیم‌یار</h2>
             </div>
             <div class="result-actions">
@@ -219,7 +200,7 @@
 
           <div class="result-stats">
             <article>
-              <span>احتمال خام مدل</span>
+              <span>وضعیت اقدام</span>
               <strong id="modelProbability">--</strong>
             </article>
             <article>
@@ -265,41 +246,13 @@
         </aside>
       </section>
 
-      <section id="projectPanel" class="project-panel">
-        <div class="project-card">
-          <span>Agile Sprint</span>
-          <strong>Sprint 5</strong>
-          <small>GitHub Issues، Knowledge Base، فرم feedback، evidence مدیریتی</small>
-        </div>
-        <div class="project-card">
-          <span>PM Tooling</span>
-          <strong>Issues + KB</strong>
-          <small>Backlog، Sprint، Owner، Time tracking و Decision log</small>
-        </div>
-        <div class="project-card">
-          <span>User Feedback</span>
-          <strong id="feedbackCount">0 ثبت</strong>
-          <small>هدف Sprint 5: حداقل ۵ بازخورد واقعی تا ارائه نهایی</small>
-        </div>
-        <a class="project-link" href="/docs/deliverables/ITPM_Project_Management_Evidence_Package.docx">بسته شواهد مدیریت پروژه</a>
-        <a class="project-link" href="/docs/final-submission-compliance-2026-06-15.md">چک‌لیست نهایی</a>
-      </section>
-
       <section id="feedbackPanel" class="panel feedback-panel">
         <div class="panel-title">
           <div>
-            <p class="section-kicker">Stakeholder feedback loop</p>
-            <h2>ثبت بازخورد ذی‌نفع</h2>
+            <p class="section-kicker">بازخورد نسخه آزمایشی</p>
+            <h2>بازخورد تجربه کاربری</h2>
           </div>
-          <button type="button" class="ghost" id="exportFeedbackBtn">خروجی CSV</button>
-        </div>
-
-        <div class="feedback-target">
-          <div>
-            <span>هدف بازخورد Sprint 5</span>
-            <strong id="feedbackTargetText">0 از 5</strong>
-          </div>
-          <i><b id="feedbackTargetBar"></b></i>
+          <span class="feedback-count" id="feedbackCount">آماده دریافت بازخورد</span>
         </div>
 
         <form id="feedbackForm" class="feedback-grid">
@@ -357,14 +310,33 @@
           </label>
 
           <button class="primary" type="submit">ثبت بازخورد</button>
-          <p class="feedback-note" id="feedbackStatus">بازخوردها فقط روی همین مرورگر ذخیره می‌شوند و با CSV قابل خروجی گرفتن هستند.</p>
+          <p class="feedback-note" id="feedbackStatus">نظر شما برای بهتر شدن نسخه آزمایشی ذخیره می‌شود.</p>
         </form>
       </section>
     </main>
 
     <div class="mobile-action-bar">
       <button type="submit" form="triageForm" class="primary">ارزیابی</button>
+      <button type="button" class="ghost" id="mobileInstallBtn">نصب</button>
       <button type="button" class="ghost" data-jump="#feedbackPanel">بازخورد</button>
+    </div>
+
+    <div class="install-sheet" id="installSheet" hidden role="dialog" aria-modal="true" aria-labelledby="installTitle">
+      <div class="install-card">
+        <button type="button" class="close-button" id="closeInstallSheet" aria-label="بستن">×</button>
+        <p class="section-kicker">نسخه موبایل</p>
+        <h2 id="installTitle">نصب نسخه موبایل</h2>
+        <p id="installHelpText">اگر مرورگر اجازه نصب مستقیم بدهد، همین‌جا دکمه نصب فعال می‌شود.</p>
+        <ol class="install-steps">
+          <li>در Chrome اندروید، منوی مرورگر را باز کنید و گزینه Add to Home screen یا Install app را بزنید.</li>
+          <li>در Safari آیفون، Share را بزنید و Add to Home Screen را انتخاب کنید.</li>
+          <li>برای نصب کامل PWA روی موبایل، بهتر است برنامه از آدرس HTTPS باز شود.</li>
+        </ol>
+        <div class="install-actions">
+          <button type="button" class="primary" id="installPromptBtn" hidden>نصب خودکار</button>
+          <button type="button" class="ghost" id="installDoneBtn">متوجه شدم</button>
+        </div>
+      </div>
     </div>
 
     <script src="/static/app.js"></script>

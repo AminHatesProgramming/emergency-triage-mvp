@@ -12,13 +12,13 @@
 
 | بخش | خروجی |
 |---|---|
-| Frontend موبایل | action bar پایین صفحه، تب‌های ورودی/خروجی/پروژه، فرم فشرده، کارت نتیجه قابل اسکن |
-| PWA | `manifest.webmanifest`، `sw.js`، app icon و cache شدن app shell بعد از بارگذاری اول |
+| Frontend موبایل | action bar پایین صفحه، تب‌های ورودی/خروجی/بازخورد، فرم فشرده، کارت نتیجه قابل اسکن |
+| PWA | `manifest.webmanifest`، `sw.js`، آیکن‌های 192/512 و cache شدن app shell بعد از بارگذاری اول |
 | سناریوهای دمو | بحرانی، متوسط، کم‌داده و قلبی |
 | Explainability | عوامل موثر، safety flags، next best actions و فیلدهای پیشنهادی باقی‌مانده |
-| اتصال به مدیریت پروژه | نمایش KPI، sprint و لینک بسته شواهد در خود MVP |
-| Demo polish | خلاصه قابل کپی/چاپ برای هر کیس و نوار وضعیت feedback/tooling |
-| Feedback export | ثبت server-side بازخورد و خروجی CSV از `/feedback/export` |
+| جداسازی محصول از گزارش | KPI، sprint، backlog و knowledge base از UI کاربر حذف شدند و فقط در مستندات رسمی باقی ماندند |
+| Demo polish | خلاصه قابل کپی/چاپ برای هر کیس، راهنمای نصب موبایل و فرم بازخورد نسخه آزمایشی |
+| Feedback export | ثبت server-side بازخورد و خروجی CSV از `/feedback/export` برای ضمیمه گزارش، بدون نمایش دکمه مدیریتی در UI کاربر |
 
 ## Safety-first Hybrid Inference
 
@@ -40,7 +40,7 @@
 | `GET /model-info` | Pass، نسخه v6 |
 | `POST /predict` با سناریوی کم‌داده قلبی | Pass، خروجی critical همراه با safety flag |
 | فایل‌های استاتیک PWA | Pass |
-| لینک DOCX از داخل اپ | Pass |
+| جداسازی لینک‌های مدیریتی از UI محصول | Pass |
 
 ## نکته ارائه
 

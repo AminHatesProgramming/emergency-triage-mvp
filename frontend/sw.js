@@ -1,10 +1,12 @@
-const CACHE_NAME = "triage-ed-v10-demo-polish";
+const CACHE_NAME = "triage-ed-v11-product-polish";
 const APP_SHELL = [
   "/",
   "/static/styles.css",
   "/static/app.js",
   "/static/manifest.webmanifest",
   "/static/assets/app-icon.svg",
+  "/static/assets/app-icon-192.png",
+  "/static/assets/app-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
