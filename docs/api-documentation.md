@@ -156,3 +156,7 @@ Base URL در demo محلی:
 ## GET /feedback/export
 
 هدف: خروجی CSV از feedbackهای ثبت‌شده در `data/feedback/stakeholder_feedback.csv`.
+
+## قابلیت Case Summary در UI
+
+پس از هر `POST /predict`، UI یک خلاصه کیس قابل copy/print تولید می‌کند که شامل نسخه مدل، احتمال بحرانی، ورودی‌های کلیدی، safety flags، next actions و disclaimer است. این خروجی برای demo و ضمیمه گزارش بازخورد ذی‌نفع استفاده می‌شود.

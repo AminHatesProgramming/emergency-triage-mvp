@@ -63,6 +63,7 @@ button {
 
 .app-header,
 .metric-strip,
+.ops-strip,
 .panel,
 .project-panel {
   border: 1px solid rgba(21, 33, 43, 0.1);
@@ -170,6 +171,63 @@ h3 {
   border-radius: 8px;
 }
 
+.ops-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.ops-strip article {
+  display: grid;
+  gap: 5px;
+  min-height: 82px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff;
+}
+
+.ops-strip span,
+.feedback-target span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.ops-strip strong,
+.feedback-target strong {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ops-strip a {
+  color: var(--deep-teal);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.ops-strip i,
+.feedback-target i {
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e5eef0;
+}
+
+.ops-strip b,
+.feedback-target b {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--teal), var(--green));
+  transition: width 220ms ease;
+}
+
 .metric-strip article {
   padding: 13px 15px;
   border-inline-start: 1px solid var(--line);
@@ -216,6 +274,20 @@ h3 {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 14px;
+}
+
+.result-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mini-action {
+  min-height: 36px;
+  padding: 7px 10px;
+  font-size: 0.78rem;
 }
 
 .ghost,
@@ -297,11 +369,16 @@ textarea {
 }
 
 .chip-grid label {
+  position: relative;
+  overflow: hidden;
   min-height: 38px;
 }
 
 .chip-grid input {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   pointer-events: none;
 }
@@ -425,7 +502,8 @@ textarea {
 }
 
 .output-section,
-.missing-box {
+.missing-box,
+.case-summary {
   border-top: 1px solid var(--line);
   padding-top: 13px;
   margin-top: 13px;
@@ -441,6 +519,22 @@ ul {
   margin-bottom: 0;
   color: var(--muted);
   line-height: 1.9;
+}
+
+.case-summary pre {
+  max-height: 260px;
+  overflow: auto;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: #f8fbfb;
+  direction: ltr;
+  text-align: left;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  font: 0.8rem Consolas, "Courier New", monospace;
 }
 
 .project-panel {
@@ -486,6 +580,18 @@ ul {
   margin-top: 14px;
 }
 
+.feedback-target {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.7fr);
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  border: 1px solid rgba(8, 127, 140, 0.18);
+  border-radius: 8px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(8, 127, 140, 0.07), #fff);
+}
+
 .feedback-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -509,7 +615,8 @@ ul {
 
 @media (max-width: 960px) {
   .layout-grid,
-  .project-panel {
+  .project-panel,
+  .ops-strip {
     grid-template-columns: 1fr;
   }
 
@@ -564,7 +671,7 @@ ul {
     top: 8px;
     z-index: 5;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
     margin-top: 12px;
   }
@@ -582,6 +689,16 @@ ul {
 
   .panel-title {
     align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .result-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .result-actions > * {
+    flex: 1 1 auto;
   }
 
   .scenario-row,
@@ -589,7 +706,8 @@ ul {
   .chip-grid,
   .risk-card,
   .result-stats,
-  .feedback-grid {
+  .feedback-grid,
+  .feedback-target {
     grid-template-columns: 1fr;
   }
 
@@ -615,5 +733,46 @@ ul {
     border-top: 1px solid var(--line);
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(12px);
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  #signalCanvas,
+  .app-header,
+  .metric-strip,
+  .ops-strip,
+  .form-panel,
+  .project-panel,
+  .feedback-panel,
+  .mobile-action-bar,
+  .result-actions {
+    display: none !important;
+  }
+
+  .app-shell {
+    width: 100%;
+    padding: 0;
+  }
+
+  .layout-grid {
+    display: block;
+  }
+
+  .panel,
+  .result-panel {
+    position: static;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+  }
+
+  .case-summary pre {
+    max-height: none;
+    border: 0;
+    padding: 0;
   }
 }

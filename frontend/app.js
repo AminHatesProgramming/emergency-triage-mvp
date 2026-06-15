@@ -110,8 +110,18 @@ const feedbackForm = document.querySelector("#feedbackForm");
 const feedbackCount = document.querySelector("#feedbackCount");
 const feedbackStatus = document.querySelector("#feedbackStatus");
 const exportFeedbackBtn = document.querySelector("#exportFeedbackBtn");
+const feedbackProgressText = document.querySelector("#feedbackProgressText");
+const feedbackProgressBar = document.querySelector("#feedbackProgressBar");
+const feedbackTargetText = document.querySelector("#feedbackTargetText");
+const feedbackTargetBar = document.querySelector("#feedbackTargetBar");
+const copyCaseBtn = document.querySelector("#copyCaseBtn");
+const printCaseBtn = document.querySelector("#printCaseBtn");
+const caseSummaryBox = document.querySelector("#caseSummaryBox");
+const caseSummaryText = document.querySelector("#caseSummaryText");
 
 let deferredInstallPrompt = null;
+let latestResult = null;
+let latestPayload = null;
 const FEEDBACK_STORAGE_KEY = "triageStakeholderFeedback";
 
 function translate(text) {
@@ -199,6 +209,8 @@ function bandPersian(value) {
 }
 
 function updateResult(result) {
+  latestResult = result;
+  latestPayload = readPayload();
   const percent = Math.round(result.critical_probability * 100);
   const rawPercent = Math.round(result.model_probability * 100);
   const degrees = Math.round(result.critical_probability * 360);
@@ -225,6 +237,7 @@ function updateResult(result) {
   missingFields.textContent = result.missing_recommended_fields.length
     ? result.missing_recommended_fields.map((field) => fieldLabels[field] || field).join("، ")
     : "ورودی‌های کلیدی کامل هستند.";
+  updateCaseSummary();
 }
 
 async function submitForm(event) {
@@ -252,6 +265,8 @@ async function submitForm(event) {
 
 function resetResult() {
   form.reset();
+  latestResult = null;
+  latestPayload = null;
   riskCard.classList.remove("critical");
   riskPercent.textContent = "--";
   modelProbability.textContent = "--";
@@ -265,6 +280,8 @@ function resetResult() {
   renderList(explanations, [], "پس از ارزیابی نمایش داده می‌شود.");
   renderList(safetyFlags, [], "موردی ثبت نشده است.");
   renderList(nextActions, [], "پس از ارزیابی نمایش داده می‌شود.");
+  caseSummaryBox.hidden = true;
+  caseSummaryText.textContent = "";
 }
 
 function getFeedbackEntries() {
@@ -283,6 +300,16 @@ function saveFeedbackEntries(entries) {
 function updateFeedbackCount() {
   const count = getFeedbackEntries().length;
   feedbackCount.textContent = `${count} ثبت`;
+  updateFeedbackProgress(count, 5);
+}
+
+function updateFeedbackProgress(count, target) {
+  const safeTarget = target || 5;
+  const percent = Math.min(100, Math.round((count / safeTarget) * 100));
+  feedbackProgressText.textContent = `${count} / ${safeTarget}`;
+  feedbackTargetText.textContent = `${count} از ${safeTarget}`;
+  feedbackProgressBar.style.width = `${percent}%`;
+  feedbackTargetBar.style.width = `${percent}%`;
 }
 
 async function refreshFeedbackSummary() {
@@ -291,6 +318,7 @@ async function refreshFeedbackSummary() {
     if (!res.ok) throw new Error("summary failed");
     const summary = await res.json();
     feedbackCount.textContent = `${summary.stored_count} ثبت`;
+    updateFeedbackProgress(summary.stored_count, summary.target_count);
   } catch {
     updateFeedbackCount();
   }
@@ -316,6 +344,7 @@ async function submitFeedback(event) {
     if (!res.ok) throw new Error("feedback failed");
     const result = await res.json();
     feedbackCount.textContent = `${result.stored_count} ثبت`;
+    updateFeedbackProgress(result.stored_count, 5);
     feedbackStatus.textContent = "بازخورد روی سرور ثبت شد و در CSV قابل خروجی گرفتن است.";
   } catch {
     const entries = getFeedbackEntries();
@@ -324,6 +353,58 @@ async function submitFeedback(event) {
     feedbackStatus.textContent = "API در دسترس نبود؛ بازخورد محلی ذخیره شد و CSV مرورگری دارد.";
   }
   feedbackForm.reset();
+}
+
+function formatPercent(value) {
+  if (typeof value !== "number") return "--";
+  return `${Math.round(value * 100)}%`;
+}
+
+function updateCaseSummary() {
+  if (!latestResult) return;
+  const payload = latestPayload || {};
+  const riskText = latestResult.risk_level === "critical" ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
+  const summary = [
+    "Emergency Triage Decision Support - Case Summary",
+    `Version: ${latestResult.model_version} (${latestResult.operational_mode})`,
+    `Risk: ${riskText}`,
+    `Critical probability: ${formatPercent(latestResult.critical_probability)}`,
+    `Raw model probability: ${formatPercent(latestResult.model_probability)}`,
+    `Confidence: ${latestResult.confidence_band}`,
+    `Data completeness: ${formatPercent(latestResult.data_completeness)}`,
+    `Chief complaint: ${payload.chief_complaint || "not provided"}`,
+    `Age: ${payload.age ?? "not provided"}`,
+    `Vitals: HR ${payload.heart_rate ?? "-"}, BP ${payload.systolic_bp ?? "-"}/${payload.diastolic_bp ?? "-"}, RR ${payload.respiratory_rate ?? "-"}, SpO2 ${payload.oxygen_saturation ?? "-"}, Temp ${payload.temperature ?? "-"}`,
+    `Safety flags: ${(latestResult.safety_flags || []).join(" | ") || "none"}`,
+    `Next actions: ${(latestResult.next_best_actions || []).join(" | ")}`,
+    "Disclaimer: decision-support only; not a replacement for clinical judgment.",
+  ].join("\n");
+  caseSummaryText.textContent = summary;
+  caseSummaryBox.hidden = false;
+}
+
+async function copyCaseSummary() {
+  if (!caseSummaryText.textContent) {
+    feedbackStatus.textContent = "ابتدا یک بیمار را ارزیابی کنید.";
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(caseSummaryText.textContent);
+    copyCaseBtn.textContent = "کپی شد";
+    setTimeout(() => {
+      copyCaseBtn.textContent = "کپی خلاصه";
+    }, 1400);
+  } catch {
+    caseSummaryText.focus();
+  }
+}
+
+function printCaseSummary() {
+  if (!caseSummaryText.textContent) {
+    feedbackStatus.textContent = "ابتدا یک بیمار را ارزیابی کنید.";
+    return;
+  }
+  window.print();
 }
 
 function csvEscape(value) {
@@ -409,6 +490,8 @@ document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
 feedbackForm.addEventListener("submit", submitFeedback);
 exportFeedbackBtn.addEventListener("click", exportFeedback);
+copyCaseBtn.addEventListener("click", copyCaseSummary);
+printCaseBtn.addEventListener("click", printCaseSummary);
 window.addEventListener("resize", drawSignal);
 window.addEventListener("online", checkApi);
 window.addEventListener("offline", () => setStatus(false));

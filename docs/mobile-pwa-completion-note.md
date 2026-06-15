@@ -17,6 +17,8 @@
 | سناریوهای دمو | بحرانی، متوسط، کم‌داده و قلبی |
 | Explainability | عوامل موثر، safety flags، next best actions و فیلدهای پیشنهادی باقی‌مانده |
 | اتصال به مدیریت پروژه | نمایش KPI، sprint و لینک بسته شواهد در خود MVP |
+| Demo polish | خلاصه قابل کپی/چاپ برای هر کیس و نوار وضعیت feedback/tooling |
+| Feedback export | ثبت server-side بازخورد و خروجی CSV از `/feedback/export` |
 
 ## Safety-first Hybrid Inference
 

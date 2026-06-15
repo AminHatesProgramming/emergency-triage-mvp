@@ -45,9 +45,28 @@
         </article>
       </section>
 
+      <section class="ops-strip" aria-label="وضعیت عملیاتی پروژه">
+        <article>
+          <span>Feedback</span>
+          <strong id="feedbackProgressText">0 / 5</strong>
+          <i><b id="feedbackProgressBar"></b></i>
+        </article>
+        <article>
+          <span>Work Management</span>
+          <strong>GitHub Projects-ready</strong>
+          <a href="/docs/tooling-operationalization-guide.md">راهنمای اجرا</a>
+        </article>
+        <article>
+          <span>Knowledge Base</span>
+          <strong>Notion-ready</strong>
+          <a href="/docs/knowledge-base/README.md">مشاهده ساختار</a>
+        </article>
+      </section>
+
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
         <button type="button" data-jump="#triageForm">ورودی</button>
         <button type="button" data-jump="#resultPanel">خروجی</button>
+        <button type="button" data-jump="#projectPanel">پروژه</button>
         <button type="button" data-jump="#feedbackPanel">بازخورد</button>
       </nav>
 
@@ -180,7 +199,11 @@
               <p class="section-kicker">Decision support, not replacement</p>
               <h2>خروجی تصمیم‌یار</h2>
             </div>
-            <span class="badge" id="confidenceBand">آماده</span>
+            <div class="result-actions">
+              <button type="button" class="ghost mini-action" id="copyCaseBtn">کپی خلاصه</button>
+              <button type="button" class="ghost mini-action" id="printCaseBtn">چاپ</button>
+              <span class="badge" id="confidenceBand">آماده</span>
+            </div>
           </div>
 
           <div class="risk-card" id="riskCard">
@@ -234,6 +257,11 @@
             <h3>فیلدهای پیشنهادی باقی‌مانده</h3>
             <p id="missingFields">--</p>
           </section>
+
+          <section class="case-summary" id="caseSummaryBox" hidden>
+            <h3>خلاصه کیس</h3>
+            <pre id="caseSummaryText"></pre>
+          </section>
         </aside>
       </section>
 
@@ -254,6 +282,7 @@
           <small>هدف Sprint 5: حداقل ۵ بازخورد واقعی تا ارائه نهایی</small>
         </div>
         <a class="project-link" href="/docs/deliverables/ITPM_Project_Management_Evidence_Package.docx">بسته شواهد مدیریت پروژه</a>
+        <a class="project-link" href="/docs/final-submission-compliance-2026-06-15.md">چک‌لیست نهایی</a>
       </section>
 
       <section id="feedbackPanel" class="panel feedback-panel">
@@ -263,6 +292,14 @@
             <h2>ثبت بازخورد ذی‌نفع</h2>
           </div>
           <button type="button" class="ghost" id="exportFeedbackBtn">خروجی CSV</button>
+        </div>
+
+        <div class="feedback-target">
+          <div>
+            <span>هدف بازخورد Sprint 5</span>
+            <strong id="feedbackTargetText">0 از 5</strong>
+          </div>
+          <i><b id="feedbackTargetBar"></b></i>
         </div>
 
         <form id="feedbackForm" class="feedback-grid">
