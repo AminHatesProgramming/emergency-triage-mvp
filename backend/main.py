@@ -1,14 +1,32 @@
+import csv
+from datetime import datetime, timezone
+
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
-from backend.schemas import PatientInput, PredictionOutput
+from backend.schemas import (
+    PatientInput,
+    PredictionOutput,
+    StakeholderFeedbackInput,
+    StakeholderFeedbackOutput,
+)
 from ml.inference import TriagePredictor
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = ROOT / "frontend"
 DOCS_DIR = ROOT / "docs"
+FEEDBACK_DIR = ROOT / "data" / "feedback"
+FEEDBACK_CSV = FEEDBACK_DIR / "stakeholder_feedback.csv"
+FEEDBACK_FIELDS = [
+    "recorded_at",
+    "stakeholder_type",
+    "understandability",
+    "ui_clarity",
+    "disclaimer_clarity",
+    "comment",
+]
 
 app = FastAPI(
     title="Emergency Triage Decision Support API",
@@ -47,3 +65,51 @@ def model_info() -> dict:
 @app.post("/predict", response_model=PredictionOutput)
 def predict(patient: PatientInput) -> dict:
     return predictor.predict(patient.model_dump())
+
+
+def ensure_feedback_file() -> None:
+    FEEDBACK_DIR.mkdir(parents=True, exist_ok=True)
+    if not FEEDBACK_CSV.exists():
+        with FEEDBACK_CSV.open("w", newline="", encoding="utf-8-sig") as f:
+            writer = csv.DictWriter(f, fieldnames=FEEDBACK_FIELDS)
+            writer.writeheader()
+
+
+def feedback_count() -> int:
+    ensure_feedback_file()
+    with FEEDBACK_CSV.open("r", newline="", encoding="utf-8-sig") as f:
+        return max(sum(1 for _ in f) - 1, 0)
+
+
+@app.post("/feedback", response_model=StakeholderFeedbackOutput)
+def submit_feedback(feedback: StakeholderFeedbackInput) -> dict:
+    ensure_feedback_file()
+    row = feedback.model_dump()
+    row["recorded_at"] = datetime.now(timezone.utc).isoformat()
+    with FEEDBACK_CSV.open("a", newline="", encoding="utf-8-sig") as f:
+        writer = csv.DictWriter(f, fieldnames=FEEDBACK_FIELDS)
+        writer.writerow({key: row.get(key, "") for key in FEEDBACK_FIELDS})
+    return {
+        "status": "stored",
+        "stored_count": feedback_count(),
+        "export_path": "/feedback/export",
+    }
+
+
+@app.get("/feedback-summary")
+def feedback_summary() -> dict:
+    return {
+        "stored_count": feedback_count(),
+        "target_count": 5,
+        "export_path": "/feedback/export",
+    }
+
+
+@app.get("/feedback/export")
+def export_feedback() -> FileResponse:
+    ensure_feedback_file()
+    return FileResponse(
+        FEEDBACK_CSV,
+        media_type="text/csv; charset=utf-8",
+        filename="triage-stakeholder-feedback.csv",
+    )

@@ -17,6 +17,7 @@
 
 - `docs/agile-delivery-evidence.md`
 - `docs/tooling-operationalization-guide.md`
+- `docs/final-submission-compliance-2026-06-15.md`
 - `docs/artifacts/github-issues-seed.csv`
 - `docs/knowledge-base/README.md`
 - `docs/knowledge-base/stakeholder-feedback-log.md`

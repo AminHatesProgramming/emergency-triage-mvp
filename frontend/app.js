@@ -285,22 +285,45 @@ function updateFeedbackCount() {
   feedbackCount.textContent = `${count} ثبت`;
 }
 
-function submitFeedback(event) {
+async function refreshFeedbackSummary() {
+  try {
+    const res = await fetch(`${API_BASE}/feedback-summary`);
+    if (!res.ok) throw new Error("summary failed");
+    const summary = await res.json();
+    feedbackCount.textContent = `${summary.stored_count} ثبت`;
+  } catch {
+    updateFeedbackCount();
+  }
+}
+
+async function submitFeedback(event) {
   event.preventDefault();
   const data = new FormData(feedbackForm);
   const entry = {
     recorded_at: new Date().toISOString(),
     stakeholder_type: data.get("stakeholder_type"),
-    understandability: data.get("understandability"),
-    ui_clarity: data.get("ui_clarity"),
-    disclaimer_clarity: data.get("disclaimer_clarity"),
+    understandability: Number(data.get("understandability")),
+    ui_clarity: Number(data.get("ui_clarity")),
+    disclaimer_clarity: Number(data.get("disclaimer_clarity")),
     comment: String(data.get("comment") || "").trim(),
   };
-  const entries = getFeedbackEntries();
-  entries.push(entry);
-  saveFeedbackEntries(entries);
+  try {
+    const res = await fetch(`${API_BASE}/feedback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(entry),
+    });
+    if (!res.ok) throw new Error("feedback failed");
+    const result = await res.json();
+    feedbackCount.textContent = `${result.stored_count} ثبت`;
+    feedbackStatus.textContent = "بازخورد روی سرور ثبت شد و در CSV قابل خروجی گرفتن است.";
+  } catch {
+    const entries = getFeedbackEntries();
+    entries.push(entry);
+    saveFeedbackEntries(entries);
+    feedbackStatus.textContent = "API در دسترس نبود؛ بازخورد محلی ذخیره شد و CSV مرورگری دارد.";
+  }
   feedbackForm.reset();
-  feedbackStatus.textContent = "بازخورد ثبت شد. برای گزارش نهایی می‌توانید CSV خروجی بگیرید.";
 }
 
 function csvEscape(value) {
@@ -333,6 +356,22 @@ function exportFeedbackCsv() {
   anchor.click();
   URL.revokeObjectURL(url);
   feedbackStatus.textContent = "فایل CSV بازخوردها آماده شد.";
+}
+
+async function exportFeedback() {
+  try {
+    const res = await fetch(`${API_BASE}/feedback-summary`);
+    if (!res.ok) throw new Error("summary failed");
+    const summary = await res.json();
+    if (summary.stored_count > 0) {
+      window.location.href = `${API_BASE}/feedback/export`;
+      feedbackStatus.textContent = "خروجی CSV سروری در حال دانلود است.";
+      return;
+    }
+  } catch {
+    // Use the browser-local fallback below.
+  }
+  exportFeedbackCsv();
 }
 
 function drawSignal() {
@@ -369,7 +408,7 @@ document.querySelectorAll("[data-jump]").forEach((button) => {
 document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
 feedbackForm.addEventListener("submit", submitFeedback);
-exportFeedbackBtn.addEventListener("click", exportFeedbackCsv);
+exportFeedbackBtn.addEventListener("click", exportFeedback);
 window.addEventListener("resize", drawSignal);
 window.addEventListener("online", checkApi);
 window.addEventListener("offline", () => setStatus(false));
@@ -395,5 +434,5 @@ if ("serviceWorker" in navigator) {
 }
 
 drawSignal();
-updateFeedbackCount();
+refreshFeedbackSummary();
 checkApi();

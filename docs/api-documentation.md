@@ -122,3 +122,37 @@ Base URL در demo محلی:
 ## GET /docs/...
 
 برای demo، پوشه مستندات با StaticFiles روی `/docs` mount شده است. بنابراین از داخل MVP می‌توان فایل‌های رسمی Word مثل بسته شواهد مدیریت پروژه را باز کرد. این endpoint برای demo و تحویل درسی است و در نسخه واقعی باید با کنترل دسترسی جایگزین شود.
+
+## POST /feedback
+
+هدف: ثبت بازخورد ذی‌نفع یا کاربر برای پوشش feedback loop و نمایش استفاده واقعی از MVP.
+
+نمونه ورودی:
+
+```json
+{
+  "stakeholder_type": "medical-student",
+  "understandability": 4,
+  "ui_clarity": 5,
+  "disclaimer_clarity": 5,
+  "comment": "خروجی قابل فهم بود، اما بهتر است اقدام بعدی کوتاه‌تر نمایش داده شود."
+}
+```
+
+نمونه خروجی:
+
+```json
+{
+  "status": "stored",
+  "stored_count": 1,
+  "export_path": "/feedback/export"
+}
+```
+
+## GET /feedback-summary
+
+هدف: نمایش تعداد بازخوردهای ثبت‌شده و مسیر خروجی CSV.
+
+## GET /feedback/export
+
+هدف: خروجی CSV از feedbackهای ثبت‌شده در `data/feedback/stakeholder_feedback.csv`.

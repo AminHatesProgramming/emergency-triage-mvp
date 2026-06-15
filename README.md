@@ -92,6 +92,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [برنامه مدیریت پروژه](docs/project-management-plan.md)
 - [Agile Delivery Evidence پس از بازخورد TA](docs/agile-delivery-evidence.md)
 - [راهنمای عملیاتی‌سازی GitHub Projects و Notion](docs/tooling-operationalization-guide.md)
+- [چک‌لیست تطبیق تحویل نهایی ۱۴۰۵/۰۳/۲۵](docs/final-submission-compliance-2026-06-15.md)
 - [Knowledge Base پروژه](docs/knowledge-base/README.md)
 - [Issue Seed برای GitHub Projects](docs/artifacts/github-issues-seed.csv)
 - [تطبیق با معیارهای نمره‌دهی](docs/grading-rubric-alignment.md)

@@ -44,3 +44,17 @@ class PredictionOutput(BaseModel):
     confidence_band: str
     missing_recommended_fields: list[str]
     disclaimer: str
+
+
+class StakeholderFeedbackInput(BaseModel):
+    stakeholder_type: str = Field(..., min_length=2, max_length=80)
+    understandability: int = Field(..., ge=1, le=5)
+    ui_clarity: int = Field(..., ge=1, le=5)
+    disclaimer_clarity: int = Field(..., ge=1, le=5)
+    comment: str = Field(..., min_length=2, max_length=1000)
+
+
+class StakeholderFeedbackOutput(BaseModel):
+    status: str
+    stored_count: int
+    export_path: str

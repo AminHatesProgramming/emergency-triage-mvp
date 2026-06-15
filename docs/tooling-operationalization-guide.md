@@ -27,6 +27,8 @@ cd C:\Users\Webhouse\Desktop\quera\pm
 
 - GitHub labels برای sprint/status/area
 - issueهای واقعی از روی `docs/artifacts/github-issues-seed.csv`
+- فایل board قابل import در ابزارهای مشابه: `docs/artifacts/work-management-board.csv`
+- time tracking قابل بررسی: `docs/artifacts/time-tracking-log.csv`
 - بسته شدن issueهای Done
 - ساخت GitHub Project board، اگر scope مربوط به project در GitHub CLI فعال باشد
 
@@ -77,3 +79,15 @@ C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\pytho
 ## جمله دفاعی آماده برای ارائه
 
 > برای مدیریت پروژه از GitHub Issues/Projects به عنوان ابزار واقعی Work Management استفاده کردیم؛ هر task دارای sprint، owner، status، story point و evidence link است. برای مدیریت دانش نیز Knowledge Base را در Notion ساختیم که شامل sprint notes، meeting notes، technical decisions، stakeholder feedback و team playbook است. بنابراین پروژه فقط یک خروجی فنی نیست و فرآیند Agile و دانش تولیدشده آن قابل مشاهده و قابل ارزیابی است.
+
+## ثبت لینک‌های نهایی
+
+پس از اجرای ابزارها، لینک‌ها را اینجا و در گزارش نهایی ثبت کنید:
+
+| خروجی | لینک |
+|---|---|
+| GitHub Issues | `https://github.com/AminHatesProgramming/emergency-triage-mvp/issues` |
+| GitHub Project Board | بعد از اجرای اسکریپت اینجا قرار گیرد |
+| Notion Knowledge Base | بعد از اجرای اسکریپت اینجا قرار گیرد |
+| Notion Task Board Database | بعد از اجرای اسکریپت اینجا قرار گیرد |
+| Feedback CSV Export | `http://127.0.0.1:8000/feedback/export` |

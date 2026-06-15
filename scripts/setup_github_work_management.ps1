@@ -2,7 +2,7 @@ param(
   [string]$Repo = "AminHatesProgramming/emergency-triage-mvp",
   [string]$Owner = "AminHatesProgramming",
   [string]$ProjectTitle = "Emergency Triage MVP - Agile Board",
-  [string]$IssueSeed = "docs/artifacts/github-issues-seed.csv"
+  [string]$IssueSeed = "docs/artifacts/work-management-board.csv"
 )
 
 $ErrorActionPreference = "Stop"
@@ -48,16 +48,17 @@ $createdIssues = @()
 
 Write-Host "Creating GitHub issues from $IssueSeed..."
 foreach ($row in $rows) {
+  $title = if ($row.Title) { $row.Title } else { $row.Task }
   $statusLabel = if ($row.Status -eq "Done") { "status: done" } else { "status: todo" }
   $sprintNumber = ($row.Sprint -replace "[^0-9]", "")
   $sprintLabel = "sprint: $sprintNumber"
-  $areaLabel = if ($row.Title -match "model|Train|feature") {
+  $areaLabel = if ($title -match "model|Train|feature") {
     "area: model"
-  } elseif ($row.Title -match "UI|API|MVP|PWA") {
+  } elseif ($title -match "UI|API|MVP|PWA") {
     "area: product"
-  } elseif ($row.Title -match "feedback|Stakeholder") {
+  } elseif ($title -match "feedback|Stakeholder") {
     "area: feedback"
-  } elseif ($row.Title -match "document|Word|poster|Knowledge") {
+  } elseif ($title -match "document|Word|poster|Knowledge") {
     "area: docs"
   } else {
     "area: pm"
@@ -68,19 +69,25 @@ Owner: $($row.Owner)
 Sprint: $($row.Sprint)
 Status: $($row.Status)
 Story Points: $($row.'Story Points')
+Estimated Hours: $($row.'Estimated Hours')
+Time Spent Hours: $($row.'Time Spent Hours')
+Start Date: $($row.'Start Date')
+Done Date: $($row.'Done Date')
 Deliverable: $($row.Deliverable)
 Evidence: $($row.Evidence)
+Future Task: $($row.'Future Task')
 
 Acceptance checklist:
 - [ ] Owner is clear
 - [ ] Deliverable is visible in repository or live tool
 - [ ] Evidence link is available for final presentation
+- [ ] Time tracking is recorded
 - [ ] Review/status has been updated before final submission
 "@
 
   $issueUrl = gh issue create `
     --repo $Repo `
-    --title $row.Title `
+    --title $title `
     --body $body `
     --label $statusLabel `
     --label $sprintLabel `

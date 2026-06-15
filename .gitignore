@@ -4,6 +4,7 @@ __pycache__/
 
 # Large local data and trained artifacts
 data/raw/*.csv
+data/feedback/*.csv
 *.pkl
 models/*.pkl
 
