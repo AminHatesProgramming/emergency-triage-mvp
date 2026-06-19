@@ -13,6 +13,8 @@
 | 2026-06-08 | اضافه کردن missingness features | impute ساده بدون flag | محیط واقعی داده ناقص دارد | پشتیبانی بهتر از ورودی sparse |
 | 2026-06-08 | انتخاب safety-first threshold | balanced FPR mode | هزینه False Negative در تریاژ بالاتر است | Recall نهایی 0.9241 |
 | 2026-06-08 | حذف race/ethnicity/insurance | استفاده برای افزایش عدد مدل | جلوگیری از bias تا قبل از fairness review | اعتبار اخلاقی بیشتر |
+| 2026-06-20 | ارتقا به مدل v7 | نگه داشتن v6 | v7 با حفظ Recall، AUC/Precision را بهتر و FPR را کمتر کرد | نسخه عملیاتی و deploy-ready |
+| 2026-06-20 | انتخاب Docker/PWA برای deploy | فقط اجرای لوکال | نیاز به دسترسی گوشی و انتشار HTTPS | مسیر بازار اندرویدی و Laravel gateway آماده شد |
 | 2026-06-09 | استفاده از پوستر تصویری placeholder | HTML poster قبلی | کیفیت بصری نسخه قبلی کافی نبود | امکان جایگزینی ساده با نسخه ChatGPT نهایی |
 
 ## تصمیمات مدیریتی مهم

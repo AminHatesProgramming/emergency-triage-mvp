@@ -50,11 +50,11 @@ except ImportError:  # pragma: no cover - optional model dependency
 warnings.filterwarnings("ignore")
 
 RANDOM_STATE = 42
-MODEL_VERSION = "v6"
+MODEL_VERSION = "v7"
 TARGET_RECALL = 0.925
-MIN_CC_PREVALENCE = 0.005
-MIN_HISTORY_PREVALENCE = 0.002
-MAX_HISTORY_FEATURES = 120
+MIN_CC_PREVALENCE = 0.003
+MIN_HISTORY_PREVALENCE = 0.0015
+MAX_HISTORY_FEATURES = 160
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "raw" / "triage.csv"
@@ -127,12 +127,6 @@ def training_usecols(path: Path) -> list[str]:
         "triage_vital_o2sat",
         "triage_vital_o2_device",
         "triage_vital_temp",
-        "pulse_last",
-        "resp_last",
-        "spo2_last",
-        "sbp_last",
-        "dbp_last",
-        "temp_last",
     }
     selected = [
         col
@@ -186,6 +180,27 @@ def add_clinical_features(df: pd.DataFrame) -> pd.DataFrame:
     df = normalize_columns(df)
     df = df.copy()
 
+    if "arrivalmode" in df.columns:
+        arrival = df["arrivalmode"].fillna("missing").astype(str).str.strip()
+        arrival_key = arrival.str.lower().str.replace(r"[^a-z0-9]+", "", regex=True)
+        arrival_map = {
+            "ambulance": "ambulance",
+            "walkin": "Walk-in",
+            "wheelchair": "Wheelchair",
+            "car": "Car",
+            "police": "Police",
+            "publictransportation": "Public Transportation",
+            "other": "Other",
+            "missing": "missing",
+        }
+        df["arrivalmode"] = arrival_key.map(arrival_map).fillna(arrival)
+
+    if "triage_vital_o2_device" in df.columns:
+        o2_device = pd.to_numeric(df["triage_vital_o2_device"], errors="coerce")
+        df["triage_vital_o2_device"] = o2_device.map(
+            lambda value: "missing" if pd.isna(value) else f"{float(value):.1f}"
+        )
+
     numeric_cols = [
         "age",
         "triage_vital_hr",
@@ -229,6 +244,8 @@ def add_clinical_features(df: pd.DataFrame) -> pd.DataFrame:
     df["map"] = (df["triage_vital_sbp"] + 2 * dbp) / 3
     df["pulse_pressure"] = df["triage_vital_sbp"] - df["triage_vital_dbp"]
     df["hr_rr_ratio"] = df["triage_vital_hr"] / rr
+    df["sbp_dbp_ratio"] = df["triage_vital_sbp"] / dbp
+    df["o2_hr_ratio"] = df["triage_vital_o2sat"] / df["triage_vital_hr"].replace(0, np.nan)
 
     df["hr_abnormal"] = (
         (df["triage_vital_hr"] < 60) | (df["triage_vital_hr"] > 100)
@@ -245,6 +262,18 @@ def add_clinical_features(df: pd.DataFrame) -> pd.DataFrame:
     ).astype(int)
     df["map_abnormal"] = ((df["map"] < 70) | (df["map"] > 110)).astype(int)
     df["shock_index_abnormal"] = (df["shock_index"] > 1.0).astype(int)
+    df["hypoxia_severe"] = (df["triage_vital_o2sat"] < 90).astype(int)
+    df["hypoxia_warning"] = (
+        (df["triage_vital_o2sat"] >= 90) & (df["triage_vital_o2sat"] < 94)
+    ).astype(int)
+    df["hypotension_severe"] = (df["triage_vital_sbp"] < 90).astype(int)
+    df["hypertension_severe"] = (df["triage_vital_sbp"] >= 180).astype(int)
+    df["tachycardia_severe"] = (df["triage_vital_hr"] >= 130).astype(int)
+    df["bradycardia_severe"] = (df["triage_vital_hr"] < 45).astype(int)
+    df["tachypnea_severe"] = (df["triage_vital_rr"] >= 30).astype(int)
+    df["bradypnea_severe"] = (df["triage_vital_rr"] < 8).astype(int)
+    df["fever_high"] = (df["triage_vital_temp"] >= 39).astype(int)
+    df["hypothermia"] = (df["triage_vital_temp"] < 35).astype(int)
     df["vital_severity_score"] = (
         df["hr_abnormal"]
         + df["sbp_abnormal"]
@@ -254,12 +283,35 @@ def add_clinical_features(df: pd.DataFrame) -> pd.DataFrame:
         + df["map_abnormal"]
         + df["shock_index_abnormal"]
     )
+    df["vital_red_flag_count"] = (
+        df["hypoxia_severe"]
+        + df["hypotension_severe"]
+        + df["tachycardia_severe"]
+        + df["bradycardia_severe"]
+        + df["tachypnea_severe"]
+        + df["bradypnea_severe"]
+        + df["fever_high"]
+        + df["hypothermia"]
+    )
 
     df["age_group"] = pd.cut(
         df["age"], bins=[0, 2, 12, 18, 65, 200], labels=[0, 1, 2, 3, 4]
     ).astype(float)
     df["is_elderly"] = (df["age"] >= 65).astype(int)
+    df["is_very_elderly"] = (df["age"] >= 80).astype(int)
     df["is_pediatric"] = (df["age"] <= 12).astype(int)
+    df["elderly_with_abnormal_vitals"] = (
+        (df["age"] >= 65) & (df["vital_severity_score"] >= 2)
+    ).astype(int)
+    df["pediatric_with_abnormal_vitals"] = (
+        (df["age"] <= 12) & (df["vital_severity_score"] >= 2)
+    ).astype(int)
+    df["shock_or_hypotension"] = (
+        (df["shock_index_abnormal"] == 1) | (df["hypotension_severe"] == 1)
+    ).astype(int)
+    df["hypoxia_or_tachypnea"] = (
+        (df["o2_abnormal"] == 1) | (df["tachypnea_severe"] == 1)
+    ).astype(int)
 
     return df
 
@@ -292,6 +344,7 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "age",
         "age_group",
         "is_elderly",
+        "is_very_elderly",
         "is_pediatric",
         "triage_vital_hr",
         "triage_vital_sbp",
@@ -312,6 +365,8 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "map",
         "pulse_pressure",
         "hr_rr_ratio",
+        "sbp_dbp_ratio",
+        "o2_hr_ratio",
         "hr_abnormal",
         "sbp_abnormal",
         "rr_abnormal",
@@ -319,7 +374,22 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         "temp_abnormal",
         "map_abnormal",
         "shock_index_abnormal",
+        "hypoxia_severe",
+        "hypoxia_warning",
+        "hypotension_severe",
+        "hypertension_severe",
+        "tachycardia_severe",
+        "bradycardia_severe",
+        "tachypnea_severe",
+        "bradypnea_severe",
+        "fever_high",
+        "hypothermia",
         "vital_severity_score",
+        "vital_red_flag_count",
+        "elderly_with_abnormal_vitals",
+        "pediatric_with_abnormal_vitals",
+        "shock_or_hypotension",
+        "hypoxia_or_tachypnea",
     ]
     clinical_features = [feature for feature in clinical_features if feature in df.columns]
 
@@ -328,6 +398,12 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
             numeric_context_features.append(col)
+            df[f"{col}_log1p"] = np.log1p(df[col].clip(lower=0))
+            df[f"{col}_present"] = df[col].notna().astype(int)
+            df[f"{col}_any"] = (df[col] > 0).astype(int)
+            numeric_context_features.extend(
+                [f"{col}_log1p", f"{col}_present", f"{col}_any"]
+            )
 
     categorical_frame, categorical_meta = one_hot_frame(
         df,
@@ -351,6 +427,36 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                 df[col] = values.clip(0, 1)
                 cc_cols.append(col)
 
+    high_risk_cc_tokens = [
+        "chestpain",
+        "shortness",
+        "sob",
+        "respiratory",
+        "syncope",
+        "seizure",
+        "stroke",
+        "weakness",
+        "altered",
+        "trauma",
+        "fall",
+        "fever",
+    ]
+    complaint_summary_features: list[str] = []
+    if cc_cols:
+        df["complaint_known"] = (df[cc_cols].sum(axis=1) > 0).astype(int)
+        high_risk_cc_cols = [
+            col for col in cc_cols if any(token in col for token in high_risk_cc_tokens)
+        ]
+        df["high_risk_complaint_count"] = (
+            df[high_risk_cc_cols].sum(axis=1) if high_risk_cc_cols else 0
+        )
+        df["has_high_risk_complaint"] = (df["high_risk_complaint_count"] > 0).astype(int)
+        complaint_summary_features = [
+            "complaint_known",
+            "high_risk_complaint_count",
+            "has_high_risk_complaint",
+        ]
+
     history_cols = []
     for col in history_candidates:
         if col in df.columns:
@@ -359,9 +465,49 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
                 df[col] = values.clip(0, 1)
                 history_cols.append(col)
 
+    history_summary_features: list[str] = []
+    if history_cols:
+        df["history_condition_count"] = df[history_cols].sum(axis=1)
+        df["history_condition_log1p"] = np.log1p(df["history_condition_count"])
+        df["has_known_history"] = (df["history_condition_count"] > 0).astype(int)
+        cardiopulmonary_cols = [
+            col
+            for col in [
+                "acutemi",
+                "asthma",
+                "chfnonhp",
+                "chrkidneydisease",
+                "copd",
+                "coronathero",
+                "diabmelnoc",
+                "diabmelwcm",
+                "dysrhythmia",
+                "htn",
+                "pneumonia",
+                "pulmhartdx",
+                "tia",
+            ]
+            if col in history_cols
+        ]
+        df["cardiopulmonary_history_count"] = (
+            df[cardiopulmonary_cols].sum(axis=1) if cardiopulmonary_cols else 0
+        )
+        df["has_cardiopulmonary_history"] = (
+            df["cardiopulmonary_history_count"] > 0
+        ).astype(int)
+        history_summary_features = [
+            "history_condition_count",
+            "history_condition_log1p",
+            "has_known_history",
+            "cardiopulmonary_history_count",
+            "has_cardiopulmonary_history",
+        ]
+
     X = pd.concat(
         [
             df[clinical_features + numeric_context_features],
+            df[history_summary_features],
+            df[complaint_summary_features],
             categorical_frame,
             df[history_cols],
             df[cc_cols],
@@ -373,6 +519,8 @@ def build_feature_matrix(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     metadata = {
         "clinical_features": clinical_features,
         "numeric_context_features": numeric_context_features,
+        "history_summary_features": history_summary_features,
+        "complaint_summary_features": complaint_summary_features,
         "categorical": categorical_meta,
         "history_features": history_cols,
         "chief_complaint_features": cc_cols,
@@ -448,54 +596,134 @@ def evaluate_split(y_true: np.ndarray, proba: np.ndarray, threshold: float) -> S
     )
 
 
-def train_models(X_train: np.ndarray, y_train: pd.Series) -> dict:
+def best_f1_threshold(y_true: np.ndarray, proba: np.ndarray) -> tuple[float, dict]:
+    precision, recall, thresholds = precision_recall_curve(y_true, proba)
+    f1 = 2 * precision[:-1] * recall[:-1] / (precision[:-1] + recall[:-1] + 1e-9)
+    idx = int(np.argmax(f1))
+    return float(thresholds[idx]), {
+        "strategy": "max_validation_f1",
+        "validation_precision": float(precision[idx]),
+        "validation_recall": float(recall[idx]),
+        "validation_f1": float(f1[idx]),
+    }
+
+
+def build_operating_points(
+    y_val: np.ndarray,
+    val_proba: np.ndarray,
+    y_test: np.ndarray,
+    test_proba: np.ndarray,
+) -> dict:
+    profile_targets = {
+        "balanced_fpr_mode": 0.90,
+        "safety_first_mode": TARGET_RECALL,
+        "high_sensitivity_mode": 0.94,
+    }
+    points = {}
+    for name, recall_target in profile_targets.items():
+        profile_threshold, threshold_info = choose_threshold(
+            y_val, val_proba, recall_target
+        )
+        points[name] = {
+            "threshold_selection": threshold_info,
+            "validation_metrics": asdict(
+                evaluate_split(y_val, val_proba, profile_threshold)
+            ),
+            "test_metrics": asdict(evaluate_split(y_test, test_proba, profile_threshold)),
+        }
+
+    f1_threshold, f1_info = best_f1_threshold(y_val, val_proba)
+    points["max_f1_mode"] = {
+        "threshold_selection": f1_info,
+        "validation_metrics": asdict(evaluate_split(y_val, val_proba, f1_threshold)),
+        "test_metrics": asdict(evaluate_split(y_test, test_proba, f1_threshold)),
+    }
+    return points
+
+
+def train_models(
+    X_train: np.ndarray,
+    y_train: pd.Series,
+    X_val: np.ndarray | None = None,
+    y_val: pd.Series | None = None,
+) -> dict:
     neg = int((y_train == 0).sum())
     pos = int((y_train == 1).sum())
     scale_pos_weight = neg / max(pos, 1)
 
-    models = {
-        "random_forest": RandomForestClassifier(
-            n_estimators=350,
-            max_depth=18,
+    models = {}
+
+    if xgb is not None:
+        common = {
+            "scale_pos_weight": scale_pos_weight,
+            "objective": "binary:logistic",
+            "eval_metric": "aucpr",
+            "random_state": RANDOM_STATE,
+            "n_jobs": -1,
+            "tree_method": "hist",
+            "verbosity": 0,
+        }
+        configs = {
+            "xgboost_v7_regularized": {
+                "n_estimators": 1400,
+                "max_depth": 4,
+                "learning_rate": 0.018,
+                "subsample": 0.9,
+                "colsample_bytree": 0.85,
+                "min_child_weight": 7,
+                "reg_lambda": 3.0,
+                "reg_alpha": 0.05,
+                "gamma": 0.02,
+                "max_delta_step": 1,
+            },
+            "xgboost_v7_balanced": {
+                "n_estimators": 1100,
+                "max_depth": 5,
+                "learning_rate": 0.025,
+                "subsample": 0.88,
+                "colsample_bytree": 0.82,
+                "min_child_weight": 6,
+                "reg_lambda": 2.2,
+                "reg_alpha": 0.1,
+                "gamma": 0.0,
+                "max_delta_step": 1,
+            },
+            "xgboost_v7_deep": {
+                "n_estimators": 950,
+                "max_depth": 6,
+                "learning_rate": 0.02,
+                "subsample": 0.82,
+                "colsample_bytree": 0.8,
+                "min_child_weight": 10,
+                "reg_lambda": 4.0,
+                "reg_alpha": 0.2,
+                "gamma": 0.05,
+                "max_delta_step": 1,
+            },
+        }
+        for name, params in configs.items():
+            models[name] = xgb.XGBClassifier(**common, **params)
+    else:
+        models["random_forest_fallback"] = RandomForestClassifier(
+            n_estimators=450,
+            max_depth=20,
             min_samples_leaf=8,
             max_features="sqrt",
             class_weight="balanced_subsample",
             random_state=RANDOM_STATE,
             n_jobs=-1,
-        ),
-        "extra_trees": ExtraTreesClassifier(
-            n_estimators=450,
-            max_depth=20,
-            min_samples_leaf=6,
-            max_features="sqrt",
-            class_weight="balanced",
-            random_state=RANDOM_STATE,
-            n_jobs=-1,
-        ),
-    }
-
-    if xgb is not None:
-        models["xgboost"] = xgb.XGBClassifier(
-            n_estimators=850,
-            max_depth=5,
-            learning_rate=0.025,
-            subsample=0.85,
-            colsample_bytree=0.85,
-            min_child_weight=8,
-            reg_lambda=2.0,
-            reg_alpha=0.1,
-            scale_pos_weight=scale_pos_weight,
-            objective="binary:logistic",
-            eval_metric="aucpr",
-            random_state=RANDOM_STATE,
-            n_jobs=-1,
-            tree_method="hist",
-            verbosity=0,
         )
 
     for name, model in models.items():
         print(f"Training {name}...")
-        model.fit(X_train, y_train)
+        fit_kwargs = {}
+        if xgb is not None and name.startswith("xgboost") and X_val is not None and y_val is not None:
+            fit_kwargs = {
+                "eval_set": [(X_val, y_val)],
+                "early_stopping_rounds": 80,
+                "verbose": False,
+            }
+        model.fit(X_train, y_train, **fit_kwargs)
 
     return models
 
@@ -589,13 +817,14 @@ def save_confidence_plot(y_true: np.ndarray, proba: np.ndarray, threshold: float
 
 
 def save_shap_plot(models: dict, X_test: np.ndarray, feature_names: list[str]) -> None:
-    if shap is None or "xgboost" not in models:
+    xgb_name = next((name for name in models if name.startswith("xgboost")), None)
+    if shap is None or xgb_name is None:
         print("Skipping SHAP plot; shap or xgboost is not installed.")
         return
 
     rng = np.random.default_rng(RANDOM_STATE)
     sample_idx = rng.choice(len(X_test), min(1000, len(X_test)), replace=False)
-    explainer = shap.TreeExplainer(models["xgboost"])
+    explainer = shap.TreeExplainer(models[xgb_name])
     shap_values = explainer.shap_values(X_test[sample_idx])
     plt.figure(figsize=(10, 8))
     shap.summary_plot(
@@ -647,7 +876,7 @@ def main(sample_rows: int | None = None) -> None:
     X_val_np = scaler.transform(imputer.transform(X_val))
     X_test_np = scaler.transform(imputer.transform(X_test))
 
-    models = train_models(X_train_np, y_train)
+    models = train_models(X_train_np, y_train, X_val_np, y_val)
     weights, validation_model_auc = make_weights(models, X_val_np, y_val)
     selected_predictor, selected_weights, validation_candidate_auc = select_predictor(
         models, weights, X_val_np, y_val
@@ -662,6 +891,12 @@ def main(sample_rows: int | None = None) -> None:
     test_proba = weighted_ensemble(models, X_test_np, selected_weights)
     test_metrics = evaluate_split(y_test.to_numpy(), test_proba, threshold)
     val_metrics = evaluate_split(y_val.to_numpy(), val_proba, threshold)
+    operating_points = build_operating_points(
+        y_val.to_numpy(),
+        val_proba,
+        y_test.to_numpy(),
+        test_proba,
+    )
 
     y_test_pred = (test_proba >= threshold).astype(int)
     print("\nValidation metrics")
@@ -698,13 +933,19 @@ def main(sample_rows: int | None = None) -> None:
         "threshold_selection": threshold_info,
         "validation_metrics": asdict(val_metrics),
         "test_metrics": asdict(test_metrics),
+        "operating_points": operating_points,
     }
 
     METRICS_PATH.write_text(json.dumps(metrics_report, indent=2), encoding="utf-8")
+    artifact_models = (
+        models
+        if selected_predictor == "weighted_ensemble"
+        else {selected_predictor: models[selected_predictor]}
+    )
 
     artifact = {
         "version": MODEL_VERSION,
-        "models": models,
+        "models": artifact_models,
         "weights": selected_weights,
         "default_ensemble_weights": weights,
         "selected_predictor": selected_predictor,

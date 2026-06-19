@@ -16,7 +16,7 @@
 
 ## مدل و داده
 
-- [x] مدل v6 آموزش داده و ارزیابی شده است.
+- [x] مدل v7 آموزش داده و ارزیابی شده است.
 - [x] train/validation/test جدا هستند.
 - [x] threshold روی validation انتخاب شده است.
 - [x] داده‌های بعد از تریاژ برای کنترل leakage حذف شده‌اند.
@@ -26,8 +26,8 @@
 
 ## متریک‌ها
 
-- [x] AUC تست: 0.8947
-- [x] Recall تست: 0.9241
+- [x] AUC تست: 0.9041
+- [x] Recall تست: 0.9246
 - [x] Average Precision تست: 0.8034
 - [x] trade-off بین safety-first و balanced mode توضیح داده شده است.
 - [x] FPR و Precision در کنار Recall گزارش شده‌اند.

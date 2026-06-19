@@ -30,7 +30,7 @@
 |---|---|---|
 | Project Idea | مسئله، ارزش اجتماعی و scope | انجام شده |
 | ML Baseline | مدل اولیه و متریک‌ها | انجام شده |
-| ML v6 | مدل safety-first، کنترل leakage و گزارش metrics | انجام شده |
+| ML v7 | مدل safety-first، کنترل leakage، کاهش FPR و گزارش metrics | انجام شده |
 | API MVP | `/health`، `/model-info` و `/predict` | انجام شده |
 | Mobile UI MVP | فرم فارسی، سناریوهای demo و خروجی ریسک | انجام شده |
 | Poster Package | محتوا، KPI، Burndown و ماتریس همکاری | آماده محتوا |
@@ -42,8 +42,8 @@
 |---|---|
 | Velocity | ثبت در `docs/agile-dashboard.md` |
 | Burndown | آماده برای پوستر |
-| AUC | 0.8947 |
-| Recall | 0.9241 |
+| AUC | 0.9041 |
+| Recall | 0.9246 |
 | Documentation Completeness | بالا، 15+ سند |
 | API Demo | Pass |
 | Sparse Input Support | Pass |

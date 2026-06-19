@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emergency Triage MVP - Agile Evidence Portal</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Agile / Work Management / Knowledge Base Evidence</p>
+          <h1>پورتال شواهد مدیریت پروژه تریاژ هوشمند اورژانس</h1>
+          <p>
+            این صفحه برای نمایش منظم شواهد مدیریتی پروژه ساخته شده است: backlog، Sprintها،
+            time tracking، ساختار مدیریت دانش، ریسک‌ها و مسیر انتقال به ابزارهای واقعی مانند
+            GitHub Projects و Notion.
+          </p>
+        </div>
+        <aside class="truth-box">
+          <strong>وضعیت صداقت مستندات</strong>
+          <span>GitHub Projects و Notion واقعی نیازمند login/token هستند.</span>
+          <span>این پورتال، evidence محلی و آماده انتقال است؛ نه اسکرین‌شات جعلی.</span>
+        </aside>
+      </header>
+
+      <section class="summary-grid">
+        <article>
+          <span>Work Items</span>
+          <strong>18</strong>
+          <small>از CSV مدیریت کار</small>
+        </article>
+        <article>
+          <span>Done</span>
+          <strong>12</strong>
+          <small>خروجی قابل تحویل</small>
+        </article>
+        <article>
+          <span>Future / To Do</span>
+          <strong>6</strong>
+          <small>مرحله بعدی و ابزار واقعی</small>
+        </article>
+        <article>
+          <span>Logged Time</span>
+          <strong>88h</strong>
+          <small>ثبت تخمینی قابل دفاع</small>
+        </article>
+      </section>
+
+      <section id="work-management-evidence" class="panel">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">Work Management Board</p>
+            <h2>برد چابک معادل Jira / GitHub Projects</h2>
+          </div>
+          <span class="badge">Backlog → To Do → In Progress → Review → Done</span>
+        </div>
+
+        <div class="board">
+          <div class="lane">
+            <h3>Backlog</h3>
+            <article class="task future">
+              <b>اعتبارسنجی بالینی و fairness</b>
+              <span>Phase Next · Health Validation</span>
+            </article>
+            <article class="task future">
+              <b>سبک‌سازی مدل برای deployment</b>
+              <span>Phase Next · ML Ops</span>
+            </article>
+          </div>
+
+          <div class="lane">
+            <h3>To Do</h3>
+            <article class="task todo">
+              <b>جمع‌آوری ۵ بازخورد واقعی</b>
+              <span>Owner: محمدرضا · Sprint 5 · 5h</span>
+            </article>
+            <article class="task todo">
+              <b>ساخت GitHub Project واقعی پس از login</b>
+              <span>Owner: محمدامین · Script ready</span>
+            </article>
+            <article class="task todo">
+              <b>ساخت Notion KB واقعی پس از token</b>
+              <span>Owner: محدثه · Script ready</span>
+            </article>
+          </div>
+
+          <div class="lane">
+            <h3>In Progress</h3>
+            <article class="task progress">
+              <b>پوستر و بسته نهایی evidence</b>
+              <span>Owner: تیم · Poster assets ready</span>
+            </article>
+            <article class="task progress">
+              <b>آماده‌سازی ویدئوی ارائه</b>
+              <span>Owner: محمدامین · Script ready</span>
+            </article>
+          </div>
+
+          <div class="lane">
+            <h3>Review</h3>
+            <article class="task review">
+              <b>بازبینی UI با سناریوهای بحرانی و sparse</b>
+              <span>Owner: محدثه · QA ready</span>
+            </article>
+            <article class="task review">
+              <b>تطبیق با rubric نمره‌دهی</b>
+              <span>Owner: محمدرضا · Compliance matrix</span>
+            </article>
+          </div>
+
+          <div class="lane">
+            <h3>Done</h3>
+            <article class="task done">
+              <b>مدل v6 و کنترل leakage</b>
+              <span>AUC 0.8947 · Recall 0.9241</span>
+            </article>
+            <article class="task done">
+              <b>FastAPI و endpointهای محصول</b>
+              <span>/health · /predict · /model-info</span>
+            </article>
+            <article class="task done">
+              <b>UI فارسی mobile-first و PWA</b>
+              <span>Install guide · Offline shell</span>
+            </article>
+            <article class="task done">
+              <b>Model Card, KPI, Risk, Burndown</b>
+              <span>Docs and poster assets ready</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="two-col">
+        <article class="panel">
+          <p class="eyebrow">Sprint Delivery</p>
+          <h2>خروجی هر Sprint</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Sprint</th>
+                <th>خروجی قابل تحویل</th>
+                <th>Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>0</td><td>تعریف مسئله، scope و ارزش انسانی</td><td>scope-change, stakeholder</td></tr>
+              <tr><td>1</td><td>baseline مدل و featureهای triage-time</td><td>model-card</td></tr>
+              <tr><td>2</td><td>FastAPI و سناریوی ورودی ناقص</td><td>backend/main.py</td></tr>
+              <tr><td>3</td><td>مدل v6، SHAP و threshold safety-first</td><td>metrics_v6.json</td></tr>
+              <tr><td>4</td><td>UI فارسی، PWA و بسته Word</td><td>frontend + deliverables</td></tr>
+              <tr><td>5</td><td>Agile evidence، feedback، poster assets</td><td>poster-assets</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <article class="panel">
+          <p class="eyebrow">Team Time Tracking</p>
+          <h2>ماتریس همکاری تیم</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>عضو</th>
+                <th>نقش</th>
+                <th>ساعت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>محمدامین پورمند</td><td>Lead / ML & System Architect</td><td>47h</td></tr>
+              <tr><td>محمدرضا آرمان پور</td><td>Project Control & Metrics</td><td>18h</td></tr>
+              <tr><td>محدثه حاتمی کیا</td><td>UI / Documentation / QA</td><td>23h</td></tr>
+              <tr class="total"><td colspan="2">جمع کل</td><td>88h</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section id="knowledge-management-evidence" class="panel knowledge">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">Knowledge Management</p>
+            <h2>ساختار مدیریت دانش معادل Notion / Confluence</h2>
+          </div>
+          <span class="badge">docs/knowledge-base</span>
+        </div>
+        <div class="kb-grid">
+          <article><b>Sprint Notes</b><span>خروجی، معیار Done و تغییرات هر Sprint</span></article>
+          <article><b>Meeting Notes</b><span>تصمیم‌ها، هماهنگی‌ها و پیگیری‌ها</span></article>
+          <article><b>Technical Decisions</b><span>چرایی انتخاب XGBoost، threshold و leakage control</span></article>
+          <article><b>Risk Register</b><span>FN, FP, bias, deployment, stakeholder feedback</span></article>
+          <article><b>AI Usage Report</b><span>شفافیت استفاده از AI و کنترل انسانی</span></article>
+          <article><b>Stakeholder Feedback</b><span>فرم محصول و مسیر CSV برای بازخورد واقعی</span></article>
+        </div>
+      </section>
+
+      <section class="two-col">
+        <article class="panel">
+          <p class="eyebrow">Risk Register</p>
+          <h2>ریسک‌های کلیدی</h2>
+          <ul>
+            <li><b>False Negative:</b> تنظیم threshold برای Recall بالا</li>
+            <li><b>False Positive:</b> گزارش FPR و تفسیر به‌عنوان trade-off ایمنی</li>
+            <li><b>Over-reliance:</b> تأکید دائمی بر decision-support بودن</li>
+            <li><b>Fairness:</b> ثبت نیاز به تحلیل subgroup پیش از استفاده واقعی</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <p class="eyebrow">Next Operational Step</p>
+          <h2>مسیر واقعی‌سازی ابزارها</h2>
+          <ol>
+            <li>اجرای `gh auth login` و ساخت Issues/Project با اسکریپت آماده</li>
+            <li>ایجاد Notion integration و اجرای اسکریپت Knowledge Base</li>
+            <li>گرفتن screenshot واقعی از board و KB</li>
+            <li>ثبت حداقل ۵ بازخورد واقعی در فرم MVP</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

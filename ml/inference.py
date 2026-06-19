@@ -11,7 +11,7 @@ from ml.train import add_clinical_features, build_feature_matrix
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL_PATH = ROOT / "models" / "triage_model_v6.pkl"
+DEFAULT_MODEL_PATH = ROOT / "models" / "triage_model_v7.pkl"
 
 HISTORY_LABELS = {
     "htn": "hypertension",
@@ -62,7 +62,7 @@ class TriagePredictor:
         row = {
             "age": patient.get("age"),
             "gender": patient.get("gender", "missing"),
-            "arrivalmode": patient.get("arrivalmode", "Walk-in"),
+            "arrivalmode": self.normalize_arrival_mode(patient.get("arrivalmode", "Walk-in")),
             "arrivalmonth": patient.get("arrivalmonth", "missing"),
             "arrivalday": patient.get("arrivalday", "missing"),
             "arrivalhour_bin": patient.get("arrivalhour_bin", "missing"),
@@ -73,7 +73,7 @@ class TriagePredictor:
             "triage_vital_rr": patient.get("respiratory_rate"),
             "triage_vital_o2sat": patient.get("oxygen_saturation"),
             "triage_vital_temp": patient.get("temperature"),
-            "triage_vital_o2_device": patient.get("oxygen_device", 0),
+            "triage_vital_o2_device": self.normalize_o2_device(patient.get("oxygen_device", 0)),
             "n_edvisits": patient.get("previous_ed_visits", 0),
             "n_admissions": patient.get("previous_admissions", 0),
             "n_surgeries": patient.get("previous_surgeries", 0),
@@ -145,6 +145,27 @@ class TriagePredictor:
             "missing_recommended_fields": missing_fields,
             "disclaimer": "Decision-support only; not a replacement for clinical judgment.",
         }
+
+    @staticmethod
+    def normalize_arrival_mode(value: Any) -> str:
+        cleaned = re.sub(r"[^a-z0-9]+", "", str(value or "missing").lower())
+        return {
+            "ambulance": "ambulance",
+            "walkin": "Walk-in",
+            "wheelchair": "Wheelchair",
+            "car": "Car",
+            "police": "Police",
+            "publictransportation": "Public Transportation",
+            "other": "Other",
+            "missing": "missing",
+        }.get(cleaned, str(value or "missing"))
+
+    @staticmethod
+    def normalize_o2_device(value: Any) -> str:
+        try:
+            return f"{float(value):.1f}"
+        except (TypeError, ValueError):
+            return "missing"
 
     @staticmethod
     def explain(patient: dict[str, Any], safety_flags: list[str] | None = None) -> list[str]:

@@ -291,7 +291,7 @@ def final_report() -> None:
     add_bullets(
         doc,
         [
-            "مدل ML نسخه v6 با threshold safety-first",
+            "مدل ML نسخه v7 با threshold safety-first",
             "Backend با FastAPI شامل endpointهای /health، /model-info و /predict",
             "Frontend فارسی و mobile-first برای demo",
             "نسخه PWA قابل نصب روی موبایل با manifest، service worker و app shell آفلاین",
@@ -317,7 +317,7 @@ def final_report() -> None:
         doc,
         ["مولفه خروجی", "توضیح مدیریتی/فنی"],
         [
-            ["model_probability", "احتمال خام مدل v6 بدون دستکاری"],
+            ["model_probability", "احتمال خام مدل v7 بدون دستکاری"],
             ["critical_probability", "احتمال عملیاتی پس از اعمال guardهای ایمنی شفاف"],
             ["safety_flags", "هشدارهای بالینی ساده مثل SpO2 پایین، فشار بسیار پایین یا درد قفسه سینه با سابقه قلبی"],
             ["next_best_actions", "اقدام بعدی قابل ارائه به پرسنل؛ تصمیم نهایی همچنان انسانی است"],
@@ -335,22 +335,22 @@ def final_report() -> None:
         "داده‌های بعد از تریاژ مثل آزمایش، دارو، تصویربرداری، disposition و تشخیص‌های بعدی حذف شدند. همچنین race، ethnicity و insurance تا قبل از fairness review وارد مدل نشده‌اند.",
     )
 
-    add_heading(doc, "نتایج مدل v6")
+    add_heading(doc, "نتایج مدل v7")
     add_table(
         doc,
         ["KPI", "مقدار تست", "تفسیر"],
         [
-            ["AUC", "0.8947", "کیفیت کلی رتبه‌بندی مدل"],
-            ["Average Precision", "0.8034", "مناسب برای کلاس بحرانی"],
-            ["Recall", "0.9241", "عبور از هدف 0.92"],
-            ["Precision", "0.5269", "trade-off حالت safety-first"],
-            ["FPR", "0.3598", "کمتر از نسخه‌های اولیه با FPR حدود 0.487"],
-            ["Threshold", "0.2962", "انتخاب‌شده روی validation"],
+            ["AUC", "0.9041", "کیفیت کلی رتبه‌بندی مدل"],
+            ["Average Precision", "0.8202", "مناسب برای کلاس بحرانی"],
+            ["Recall", "0.9246", "عبور از هدف 0.92"],
+            ["Precision", "0.5447", "بهتر از v6"],
+            ["FPR", "0.3352", "کمتر از v6 و نسخه‌های اولیه"],
+            ["Threshold", "0.3017", "انتخاب‌شده روی validation"],
         ],
         [4.0, 3.0, 9.0],
     )
-    add_picture_if_exists(doc, ROOT / "reports" / "model" / "confusion_matrix_v6.png", 12.5, "Confusion Matrix مدل v6")
-    add_picture_if_exists(doc, ROOT / "reports" / "model" / "confidence_distribution_v6.png", 14.0, "توزیع confidence در split تست")
+    add_picture_if_exists(doc, ROOT / "reports" / "model" / "confusion_matrix_v7.png", 12.5, "Confusion Matrix مدل v7")
+    add_picture_if_exists(doc, ROOT / "reports" / "model" / "confidence_distribution_v7.png", 14.0, "توزیع confidence در split تست")
 
     add_heading(doc, "رویکرد Agile و مدیریت پروژه")
     add_table(
@@ -360,7 +360,8 @@ def final_report() -> None:
             ["Sprint 0", "انتخاب مسئله و scope", "problem statement و ارزش اجتماعی"],
             ["Sprint 1", "مدل و مستندات پایه", "baseline و docs اولیه"],
             ["Sprint 2", "API و UI demo", "FastAPI و UI فارسی"],
-            ["Sprint 3", "مدل v6 و مستندات", "metrics نهایی و Model Card"],
+            ["Sprint 3", "مدل v6 و مستندات", "metrics و Model Card"],
+            ["Sprint 6", "مدل v7 و deploy وب‌اپ", "کاهش FPR، Docker و مسیر موبایل"],
             ["Sprint 4", "پوستر و تحویل نهایی", "Word/PDF، ویدئو، board و knowledge base"],
         ],
         [3.0, 5.5, 7.5],
@@ -447,10 +448,10 @@ def management_package() -> None:
         doc,
         ["KPI", "مقدار", "هدف", "وضعیت"],
         [
-            ["AUC", "0.8947", ">= 0.87", "سبز"],
-            ["Average Precision", "0.8034", ">= 0.78", "سبز"],
-            ["Recall بحرانی", "0.9241", ">= 0.92", "سبز"],
-            ["FPR", "0.3598", "< 0.487", "سبز"],
+            ["AUC", "0.9041", ">= 0.90", "سبز"],
+            ["Average Precision", "0.8202", ">= 0.80", "سبز"],
+            ["Recall بحرانی", "0.9246", ">= 0.92", "سبز"],
+            ["FPR", "0.3352", "< 0.36", "سبز"],
             ["API health", "Pass", "Pass", "سبز"],
             ["ورودی ناقص", "Pass", "3-4 آیتم", "سبز"],
             ["PWA shell", "Pass", "static/offline shell", "سبز"],
@@ -538,7 +539,7 @@ def management_package() -> None:
         [
             ["تعریف مسئله", "انتخاب تریاژ اورژانس", "decision-support، نه جایگزینی متخصص"],
             ["طراحی MVP", "API-first و mobile-first", "پشتیبانی از ورودی ناقص"],
-            ["ارزیابی مدل", "انتخاب v6", "ثبت safety-first و balanced mode"],
+            ["ارزیابی مدل", "انتخاب v7", "ثبت safety-first و balanced mode"],
             ["تحویل نهایی", "پوستر، ویدئو، گزارش و board", "تقسیم ارائه بین سه عضو"],
             ["بازخوانی rubric", "چک‌لیست مادر", "ساخت اسناد مستقل برای همه معیارها"],
         ],
@@ -564,7 +565,7 @@ def presentation_guide() -> None:
             ["0:00-0:45", "محمدامین", "معرفی پروژه و مسئله اورژانس"],
             ["0:45-1:45", "محمدرضا", "ارزش اجتماعی، ملی و مدیریت بحران"],
             ["1:45-3:00", "محمدامین", "معماری سیستم و MVP"],
-            ["3:00-4:20", "محمدامین", "مدل v6، داده triage-time و leakage control"],
+            ["3:00-4:20", "محمدامین", "مدل v7، داده triage-time و leakage control"],
             ["4:20-5:20", "محمدرضا", "KPIها و trade-off safety-first"],
             ["5:20-7:00", "محدثه", "demo UI موبایل/PWA و سناریوهای test"],
             ["7:00-8:00", "محدثه", "QA، docs و ethics"],

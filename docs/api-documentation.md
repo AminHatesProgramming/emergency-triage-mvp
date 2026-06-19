@@ -26,15 +26,16 @@ Base URL در demo محلی:
 
 ```json
 {
-  "version": "v6",
-  "selected_predictor": "xgboost",
+  "version": "v7",
+  "selected_predictor": "xgboost_v7_balanced",
   "test_metrics": {
-    "auc": 0.894710103871789,
-    "average_precision": 0.8033684286814886,
-    "recall": 0.9240543822754065,
-    "precision": 0.526931846972384,
-    "fpr": 0.35979189414862867
-  }
+    "auc": 0.904149945993152,
+    "average_precision": 0.8202339085626529,
+    "recall": 0.9245579218625041,
+    "precision": 0.5446518932123539,
+    "fpr": 0.3352302652707303
+  },
+  "decision_support_only": true
 }
 ```
 
@@ -77,11 +78,11 @@ Base URL در demo محلی:
 
 ```json
 {
-  "model_version": "v6",
+  "model_version": "v7",
   "operational_mode": "safety_first_hybrid",
   "model_probability": 0.8181,
   "critical_probability": 0.8779,
-  "threshold": 0.2962,
+  "threshold": 0.3017,
   "risk_level": "critical",
   "triage_band": "ESI 1-2 priority suggested",
   "recommended_action": "Immediate clinical review recommended",

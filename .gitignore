@@ -7,6 +7,7 @@ data/raw/*.csv
 data/feedback/*.csv
 *.pkl
 models/*.pkl
+!models/triage_model_v7.pkl
 
 # Keep reproducible reports, but ignore transient notebook/checkpoint files
 .ipynb_checkpoints/

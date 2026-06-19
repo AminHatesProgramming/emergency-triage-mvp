@@ -29,7 +29,7 @@
 ```mermaid
 flowchart LR
   A["ورودی تریاژ"] --> B["FastAPI"]
-  B --> C["مدل v6"]
+  B --> C["مدل v7"]
   C --> D["ریسک + توضیح"]
   D --> E["UI فارسی mobile-first"]
 ```
@@ -38,11 +38,11 @@ flowchart LR
 
 | KPI | مقدار |
 |---|---:|
-| AUC | 0.8947 |
-| Average Precision | 0.8034 |
-| Recall بیماران بحرانی | 0.9241 |
-| Precision | 0.5269 |
-| FPR | 0.3598 |
+| AUC | 0.9041 |
+| Average Precision | 0.8202 |
+| Recall بیماران بحرانی | 0.9246 |
+| Precision | 0.5447 |
+| FPR | 0.3352 |
 | API health | Pass |
 | پشتیبانی از ورودی ناقص | Pass |
 
@@ -62,7 +62,7 @@ flowchart LR
 
 - خط ایده‌آل: از 42 تا 0 story point
 - خط واقعی: از 42 تا 2 story point
-- توضیح کوتاه: «اختلاف انتهایی به دلیل retrain مدل v6 و اصلاح واحد دما رخ داد.»
+- توضیح کوتاه: «بهبود انتهایی به دلیل retrain مدل v7، featureهای بالینی جدید و کنترل سخت‌گیرانه‌تر leakage رخ داد.»
 
 ## بخش 7: مسیر Agile
 
@@ -73,6 +73,7 @@ flowchart LR
 | Sprint 2 | API و UI |
 | Sprint 3 | مدل v6 و مستندات نهایی |
 | Sprint 4 | پوستر، ویدئو و تحویل نهایی |
+| Sprint 6 | مدل v7 و آماده‌سازی deploy وب‌اپ |
 
 ## بخش 8: پیش‌بینی جذب کاربر تا پایان تیر
 

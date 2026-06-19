@@ -42,13 +42,13 @@
 
 ```json
 {
-  "version": "v6",
-  "selected_predictor": "xgboost",
+  "version": "v7",
+  "selected_predictor": "xgboost_v7_balanced",
   "test_metrics": {
-    "auc": 0.8947,
-    "recall": 0.9241,
-    "precision": 0.5269,
-    "fpr": 0.3598
+    "auc": 0.9041,
+    "recall": 0.9246,
+    "precision": 0.5447,
+    "fpr": 0.3352
   }
 }
 ```
@@ -69,7 +69,7 @@
 
 ```json
 {
-  "model_version": "v6",
+  "model_version": "v7",
   "risk_level": "critical",
   "critical_probability": 0.878,
   "data_completeness": 0.5,
@@ -107,7 +107,7 @@
 
 ### جلسه 3: ارزیابی مدل
 
-- خروجی: انتخاب v6
+- خروجی: انتخاب v7
 - تصمیم: ثبت هر دو mode شامل safety-first و balanced-fpr
 
 ### جلسه 4: آماده‌سازی تحویل

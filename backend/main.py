@@ -1,7 +1,9 @@
 import csv
+import os
 from datetime import datetime, timezone
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -33,6 +35,22 @@ app = FastAPI(
     version="0.1.0",
     description="MVP API for an AI-assisted emergency triage decision-support project.",
 )
+
+allowed_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://127.0.0.1:8000,http://localhost:8000",
+    ).split(",")
+    if origin.strip()
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
 predictor = TriagePredictor()
 
 if FRONTEND_DIR.exists():
@@ -49,7 +67,11 @@ def index() -> FileResponse:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "service": "emergency-triage-webapp",
+        "model_version": predictor.version,
+    }
 
 
 @app.get("/model-info")
@@ -59,6 +81,9 @@ def model_info() -> dict:
         "version": predictor.version,
         "selected_predictor": metrics.get("selected_predictor"),
         "test_metrics": metrics.get("test_metrics"),
+        "operating_points": metrics.get("operating_points", {}),
+        "target_definition": metrics.get("target_definition"),
+        "decision_support_only": True,
     }
 
 

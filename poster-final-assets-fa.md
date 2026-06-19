@@ -38,14 +38,14 @@
 
 | شاخص | مقدار نهایی |
 |---|---:|
-| نسخه مدل نهایی | v6 |
-| مدل عملیاتی انتخاب‌شده | XGBoost / safety-first hybrid |
-| AUC تست | 0.8947 |
-| Recall بیماران بحرانی | 0.9241 |
-| Precision | 0.5269 |
-| FPR | 0.3598 |
-| Threshold نهایی | 0.2962 |
-| Average Precision | 0.8034 |
+| نسخه مدل نهایی | v7 |
+| مدل عملیاتی انتخاب‌شده | XGBoost v7 balanced / safety-first hybrid |
+| AUC تست | 0.9041 |
+| Recall بیماران بحرانی | 0.9246 |
+| Precision | 0.5447 |
+| FPR | 0.3352 |
+| Threshold نهایی | 0.3017 |
+| Average Precision | 0.8202 |
 | تعداد ردیف تست | 111,606 |
 | تعریف بیمار بحرانی | ESI 1 یا ESI 2 |
 
@@ -69,12 +69,12 @@
 | خروجی | مسیر فایل | وضعیت |
 |---|---|---|
 | Confusion Matrix | `poster-assets/confusion-matrix.png` | تولید شد |
-| ROC Curve | `poster-assets/roc-curve.png` | با داده تست واقعی v6 تولید شد |
-| Precision-Recall Curve | `poster-assets/precision-recall-curve.png` | با داده تست واقعی v6 تولید شد |
-| Feature Importance / SHAP Summary | `poster-assets/feature-importance.png` | از گزارش SHAP v6 آماده شد |
-| مقایسه نسخه‌های مدل | `poster-assets/model-version-comparison.png` | از status report و metrics v5/v6 تولید شد |
+| ROC Curve | `poster-assets/roc-curve.png` | با داده تست واقعی v7 تولید شد |
+| Precision-Recall Curve | `poster-assets/precision-recall-curve.png` | با داده تست واقعی v7 تولید شد |
+| Feature Importance / SHAP Summary | `poster-assets/feature-importance.png` | از گزارش SHAP v7 آماده شد |
+| مقایسه نسخه‌های مدل | `poster-assets/model-version-comparison.png` | از status report و metrics v5/v7 تولید شد |
 
-یادداشت: برای v2 تا v4 فقط خلاصه مستندات پروژه موجود است؛ artifact کامل آن نسخه‌ها در repo موجود نیست. نمودار مقایسه نسخه‌ها بر اساس `docs/status-report.md` و فایل‌های `metrics_v5/v6.json` تهیه شده است.
+یادداشت: برای v2 تا v4 فقط خلاصه مستندات پروژه موجود است؛ artifact کامل آن نسخه‌ها در repo موجود نیست. نمودار مقایسه نسخه‌ها بر اساس مستندات پروژه و فایل‌های `metrics_v5/v7.json` تهیه شده است.
 
 ---
 
@@ -107,6 +107,7 @@
 | Sprint 3 | 2026-06-06 تا 2026-06-08 | مدل v6، metrics، model card، threshold safety-first |
 | Sprint 4 | 2026-06-09 تا 2026-06-10 | UI فارسی mobile-first، PWA، بسته مستندات Word |
 | Sprint 5 | 2026-06-13 تا 2026-06-16 | evidence مدیریت پروژه، feedback form، seed ابزارهای GitHub/Notion |
+| Sprint 6 | 2026-06-20 | مدل v7، کاهش FPR، آماده‌سازی deploy وب‌اپ و مسیر موبایل |
 
 ### Roadmap پروژه
 - تکمیل پوستر و ویدئوی نهایی
@@ -209,7 +210,7 @@
 
 | عضو تیم | نقش | ساعت تقریبی همکاری | وظایف کلیدی | خروجی قابل اشاره |
 |---|---|---:|---|---|
-| محمدامین پورمند | Project Lead / ML & System Architect | 47 ساعت | مدل، API، معماری، کنترل leakage، یکپارچه‌سازی | مدل v6، FastAPI، UI integration، GitHub repo |
+| محمدامین پورمند | Project Lead / ML & System Architect | 51 ساعت | مدل، API، معماری، کنترل leakage، deploy وب‌اپ | مدل v7، FastAPI، PWA، Docker deploy |
 | محمدرضا آرمان پور | Project Control & Metrics Coordinator | 18 ساعت | KPI، ریسک، burndown، ارزش اجتماعی، trade-offها | KPI Register، Risk Register، Burndown |
 | محدثه حاتمی کیا | UI/Documentation & QA Coordinator | 23 ساعت | مرور UI، سناریوهای تست، مستندات، QA، خوانایی پوستر | UI review، QA checklist، سناریوهای demo |
 
@@ -223,11 +224,11 @@
 
 | KPI | مقدار / وضعیت |
 |---|---:|
-| AUC | 0.8947 |
-| Recall | 0.9241 |
-| Precision | 0.5269 |
-| FPR | 0.3598 |
-| وضعیت MVP | آماده demo محلی |
+| AUC | 0.9041 |
+| Recall | 0.9246 |
+| Precision | 0.5447 |
+| FPR | 0.3352 |
+| وضعیت MVP | آماده demo محلی و LAN/Cloud deploy |
 | وضعیت API | فعال با `/health`, `/predict`, `/model-info` |
 | وضعیت UI | فارسی، mobile-first، قابل نصب به‌صورت PWA |
 | وضعیت مستندات | کامل و متصل به rubric |

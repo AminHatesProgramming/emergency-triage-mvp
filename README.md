@@ -10,7 +10,7 @@
 
 ## وضعیت فعلی
 
-- مدل نهایی: `v6`
+- مدل نهایی: `v7`
 - backend: FastAPI
 - frontend: فارسی، راست‌به‌چپ و mobile-first
 - PWA: قابل نصب روی موبایل با `manifest.webmanifest` و `service worker`
@@ -19,20 +19,20 @@
 - مستندات مدیریتی و فنی در `docs/`
 - گزارش‌های مدل در `reports/model/`
 
-## متریک‌های مدل v6
+## متریک‌های مدل v7
 
 حالت عملیاتی انتخاب‌شده: `safety_first_mode`
 
 | معیار | مقدار تست |
 |---|---:|
-| AUC | 0.8947 |
-| Average Precision | 0.8034 |
-| Recall | 0.9241 |
-| Precision | 0.5269 |
-| FPR | 0.3598 |
-| Threshold | 0.2962 |
+| AUC | 0.9041 |
+| Average Precision | 0.8202 |
+| Recall | 0.9246 |
+| Precision | 0.5447 |
+| FPR | 0.3352 |
+| Threshold | 0.3017 |
 
-حالت جایگزین `balanced_fpr_mode` نیز در `reports/model/metrics_v6.json` ثبت شده است؛ در آن FPR برابر `0.3483` است اما Recall به `0.9190` می‌رسد.
+حالت جایگزین `balanced_fpr_mode` نیز در `reports/model/metrics_v7.json` ثبت شده است؛ در آن FPR برابر `0.2852` است و Recall به `0.9000` می‌رسد. حالت پیش‌فرض محصول همچنان `safety_first_mode` است.
 
 ## ورودی‌های مدل
 
@@ -61,6 +61,21 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe -m uvicorn backend.main:
 http://127.0.0.1:8000/
 ```
 
+اجرای قابل دسترسی از گوشی روی یک شبکه وای‌فای:
+
+```powershell
+.\scripts\start_public_webapp.ps1
+```
+
+اسکریپت، آدرس‌های LAN مثل `http://192.168.x.x:8000/` را چاپ می‌کند. برای نصب کامل PWA روی Android و انتشار در بازار، نسخه نهایی باید روی HTTPS deploy شود.
+
+اجرای Docker برای deploy:
+
+```powershell
+docker build -t emergency-triage-mvp .
+docker run --rm -p 8000:8000 emergency-triage-mvp
+```
+
 آموزش دوباره مدل:
 
 ```powershell
@@ -85,6 +100,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [پیوست Word شواهد Agile و پاسخ به TA](docs/deliverables/ITPM_Agile_Evidence_Addendum.docx)
 - [معماری سیستم](docs/architecture.md)
 - [یادداشت تکمیل نسخه موبایل و PWA](docs/mobile-pwa-completion-note.md)
+- [راهنمای deploy وب‌اپ، موبایل و بازار اندرویدی](docs/deployment-mobile-webapp.md)
 - [API Documentation](docs/api-documentation.md)
 - [Model Card](docs/model-card.md)
 - [گزارش وضعیت](docs/status-report.md)

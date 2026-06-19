@@ -33,6 +33,7 @@
 | v5 | Sprint 3 | فیچرهای بالینی و SHAP-oriented | گزارش مدل و پوستر اولیه |
 | v6 | Sprint 3 | اصلاح دما، سوابق EHR-safe و missingness | AUC 0.8947 و Recall 0.9241 |
 | v6 mobile/PWA | Sprint 4 | safety-first hybrid و UI موبایل | MVP قابل استفاده با داده ناقص |
+| v7 webapp | Sprint 6 | featureهای بالینی جدید، کاهش FPR و آماده‌سازی deploy | AUC 0.9041، Recall 0.9246، FPR 0.3352 |
 
 ## نقش‌های واقعی و قابل ارائه
 

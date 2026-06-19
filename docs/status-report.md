@@ -1,91 +1,74 @@
 # گزارش وضعیت پروژه
 
-تاریخ آخرین به‌روزرسانی: 2026-06-08
+پروژه «سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس» اکنون یک MVP قابل اجرا و قابل deploy دارد: مدل `v7`، API با FastAPI، رابط فارسی mobile-first، PWA، فرم بازخورد، مستندات مدیریتی و مسیر انتشار موبایلی. سیستم جایگزین پزشک یا پرستار نیست و فقط نقش decision-support دارد.
 
-## خلاصه اجرایی
+## وضعیت فعلی
 
-پروژه «سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس» از مرحله ایده و مدل اولیه عبور کرده و اکنون یک MVP قابل demo دارد: مدل v6، API با FastAPI، رابط فارسی mobile-first، مستندات مدیریتی و گزارش‌های مدل. تمرکز اصلی پروژه کمک به اولویت‌بندی بیماران پرخطر در شرایط ازدحام اورژانس است، با تاکید روشن بر اینکه سیستم فقط تصمیم‌یار است.
-
-## تیم و نقش‌ها
-
-| عضو | نقش پروژه | بخش مناسب برای ارائه |
+| بخش | وضعیت | توضیح |
 |---|---|---|
-| محمدامین پورمند | Project Lead / ML & System Architect | معماری، مدل، API و تصمیم‌های فنی |
-| محمدرضا آرمان پور | Project Control & Metrics Coordinator | ارزش اجتماعی، شاخص‌ها، ریسک‌ها و trade-offها |
-| محدثه حاتمی کیا | UI/Documentation & QA Coordinator | جریان کاربر، سناریوهای demo، QA و اخلاق AI |
+| مدل ML | سبز | v7 آموزش داده شد و نسبت به v6 بهبود واقعی دارد. |
+| Backend | سبز | `/health`، `/model-info`، `/predict` و feedback endpoints آماده‌اند. |
+| Frontend | سبز | فارسی، RTL، mobile-first و PWA-ready است. |
+| Deploy | سبز | Dockerfile، Procfile، render.yaml و اجرای LAN آماده شد. |
+| مستندات | سبز | Model Card، KPI، deployment guide و poster assets به‌روزرسانی شدند. |
+| مدیریت پروژه | سبز | Agile evidence portal، backlog، time tracking و knowledge base structure موجود است. |
+| بازخورد واقعی | زرد | فرم و export آماده است؛ هنوز باید بازخورد واقعی جمع‌آوری شود. |
 
-نقش‌ها طوری تعریف شده‌اند که تیمی بودن پروژه حفظ شود، اما بخش هر نفر ساده و قابل توضیح در ارائه باشد.
+## مقایسه نسخه‌های مدل
 
-## وضعیت نسبت به برنامه
+| نسخه | AUC | Recall | Precision | FPR | نکته اصلی |
+|---|---:|---:|---:|---:|---|
+| v2 | 0.8467 | - | - | 0.4870 | calibration نامناسب و FPR بالا |
+| v3 | 0.8467 | - | - | - | تنظیم نامناسب XGBoost |
+| v5 | 0.8917 | 0.9194 | 0.5275 | 0.3572 | بهبود UI/model و کاهش نسبی خطا |
+| v6 | 0.8947 | 0.9241 | 0.5269 | 0.3598 | اصلاح دما، سوابق بالینی و missingness |
+| v7 | 0.9041 | 0.9246 | 0.5447 | 0.3352 | بهترین نسخه فعلی، deploy-ready و سبک‌تر |
 
-| حوزه | وضعیت | توضیح |
-|---|---|---|
-| ایده پروژه | سبز | موضوع AI، سلامت، بحران و اثر اجتماعی دارد |
-| مدل ML | سبز | v6 آموزش داده شد و threshold safety-first ثبت شد |
-| Backend | سبز | `/health`، `/model-info` و `/predict` تست شدند |
-| Frontend | سبز | UI فارسی، mobile-first، سناریوهای demo و ورودی ناقص آماده است |
-| مستندات | سبز | Model Card، گزارش وضعیت، معماری، ریسک، backlog و گزارش AI موجود است |
-| پوستر/ارائه | زرد | محتوای پایه آماده است و باید به فایل نهایی تبدیل شود |
-| اعتبارسنجی ذی‌نفع واقعی | قرمز | نیازمند بازخورد کوتاه از فرد آشنا با اورژانس/سلامت |
-
-## پیشرفت فنی مدل
-
-| نسخه | AUC | نکته اصلی |
-|---|---:|---|
-| v2 | 0.8467 | calibration نامناسب و FPR بالا |
-| v3 | 0.8467 | تنظیم نامناسب XGBoost |
-| v4 | حدود 0.87+ | حذف calibration و بهبود ensemble |
-| v5 | 0.8917 | split تمیز، کنترل leakage و انتخاب XGBoost |
-| v6 | 0.8947 | اصلاح واحد دما، سابقه‌های بالینی، missingness و threshold safety-first |
-
-متریک‌های تست v6 در حالت عملیاتی انتخاب‌شده:
+## متریک‌های تست v7
 
 | معیار | مقدار |
 |---|---:|
-| AUC | 0.8947 |
-| Average Precision | 0.8034 |
-| Recall بیماران بحرانی | 0.9241 |
-| Precision | 0.5269 |
-| FPR | 0.3598 |
-| Threshold | 0.2962 |
-
-نکته قابل دفاع: در حالت balanced، FPR به `0.3483` کاهش می‌یابد اما Recall به `0.9190` می‌رسد. برای نسخه demo، حالت safety-first انتخاب شده چون هدف انسانی پروژه از دست ندادن بیمار بحرانی است.
+| AUC | 0.9041 |
+| Average Precision | 0.8202 |
+| Recall بیماران بحرانی | 0.9246 |
+| Precision | 0.5447 |
+| FPR | 0.3352 |
+| Threshold | 0.3017 |
 
 ## دستاوردهای اخیر
 
-- آموزش مدل v6 با 558,029 رکورد معتبر
-- اصلاح تبدیل دما از Fahrenheit به Celsius
-- اضافه کردن سابقه‌های بالینی قابل پرسش در تریاژ
-- پشتیبانی از ورودی ناقص با `data_completeness` و `missing_recommended_fields`
-- آماده‌سازی UI فارسی با سناریوی بحرانی، متوسط و sparse
-- تست API با ورودی کامل و ورودی ۴ آیتمی
-- ثبت artifactهای تحلیلی در `reports/model`
-- انتشار پروژه در GitHub
+- آموزش مدل v7 روی 558,029 رکورد معتبر
+- حذف ستون‌های مشکوک به post-triage مثل `*_last`
+- اضافه شدن featureهای بالینی قابل دفاع مثل `vital_red_flag_count` و تعامل سن با علائم حیاتی
+- کاهش FPR از 0.3598 به 0.3352 همزمان با حفظ Recall
+- کاهش حجم مدل عملیاتی به حدود ۲.۵MB
+- آماده‌سازی Dockerfile، render.yaml و Procfile
+- افزودن `scripts/start_public_webapp.ps1` برای تست روی گوشی در شبکه داخلی
+- افزودن صفحه privacy و مستند deployment موبایلی
 
-## معماری فعلی
+## شواهد قابل ارائه
 
-- داده: `data/raw/triage.csv`
-- آموزش: `ml/train.py`
-- مدل محلی: `models/triage_model_v6.pkl`
-- گزارش متریک: `reports/model/metrics_v6.json`
-- نمودارها: `reports/model/confusion_matrix_v6.png`، `reports/model/confidence_distribution_v6.png`، `reports/model/shap_summary_v6.png`
-- API و UI: `backend/` و `frontend/`
+- مدل محلی deploy-ready: `models/triage_model_v7.pkl`
+- گزارش متریک: `reports/model/metrics_v7.json`
+- نمودارها: `reports/model/confusion_matrix_v7.png`، `reports/model/confidence_distribution_v7.png`، `reports/model/shap_summary_v7.png`
+- نمودارهای پوستر: `poster-assets/roc-curve.png`، `poster-assets/precision-recall-curve.png`، `poster-assets/model-version-comparison.png`
+- راهنمای deploy: `docs/deployment-mobile-webapp.md`
+- پورتال شواهد مدیریت پروژه: `docs/evidence-portal/index.html`
 
-فایل داده و مدل در Git قرار نمی‌گیرند تا حجم repository و ریسک داده کنترل شود.
+## ریسک‌های فعلی
 
-## ریسک‌ها
-
-| ریسک | وضعیت کنترل |
+| ریسک | کنترل |
 |---|---|
-| False Negative برای بیمار بحرانی | threshold safety-first و تمرکز روی Recall |
-| اتکای بیش از حد به AI | disclaimer، متن گزارش و خروجی decision-support |
-| leakage | حذف labs، meds، imaging، disposition و تشخیص‌های بعدی |
-| bias جمعیتی | حذف race/ethnicity/insurance تا قبل از fairness review |
-| اعتبار بالینی | محدودیت رسمی در Model Card و نیاز به بازخورد ذی‌نفع |
+| False Negative برای بیمار بحرانی | threshold safety-first و safety flags |
+| False Positive و فشار منابع | operating pointهای balanced و گزارش FPR |
+| اتکای بیش از حد به AI | disclaimer، privacy page و decision-support بودن |
+| استفاده بدون HTTPS در موبایل | راهنمای deploy ابری و PWA روی HTTPS |
+| نبود بازخورد واقعی | feedback form و CSV export آماده است |
 
-## Sprint بعدی
+## قدم بعدی
 
-- تبدیل محتوای پوستر و ارائه به فایل نهایی
-- گرفتن یک بازخورد کوتاه از فرد آشنا با اورژانس
-- اضافه کردن بخش «درس‌آموخته‌ها» به ارائه نهایی
-- آماده‌سازی سناریوی demo برای کلاس
+1. اجرای وب‌اپ روی گوشی با `scripts/start_public_webapp.ps1`
+2. deploy روی یک سرویس HTTPS مثل Render/Railway/VPS
+3. جمع‌آوری حداقل ۵ بازخورد واقعی
+4. ساخت Android wrapper با TWA یا Capacitor
+5. در فاز Laravel، افزودن consent، audit log، auth و panel مدیریت بازخورد

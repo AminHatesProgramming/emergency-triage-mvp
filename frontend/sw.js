@@ -1,6 +1,7 @@
-const CACHE_NAME = "triage-ed-v11-product-polish";
+const CACHE_NAME = "triage-ed-v12-v7-market-ready";
 const APP_SHELL = [
   "/",
+  "/static/privacy.html",
   "/static/styles.css",
   "/static/app.js",
   "/static/manifest.webmanifest",

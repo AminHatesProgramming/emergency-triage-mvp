@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 LOG_DIR = ROOT / "logs"
 LOG_DIR.mkdir(exist_ok=True)
+HOST = os.getenv("TRIAGE_HOST", "127.0.0.1")
+PORT = os.getenv("PORT", os.getenv("TRIAGE_PORT", "8000"))
 
 stdout = (LOG_DIR / "api.out.log").open("ab")
 stderr = (LOG_DIR / "api.err.log").open("ab")
@@ -23,9 +26,9 @@ process = subprocess.Popen(
         "uvicorn",
         "backend.main:app",
         "--host",
-        "127.0.0.1",
+        HOST,
         "--port",
-        "8000",
+        PORT,
         "--log-level",
         "info",
     ],

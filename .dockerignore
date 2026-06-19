@@ -1,0 +1,17 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+data/raw
+data/feedback
+docs/deliverables
+logs
+poster-assets
+reports/model/confidence_distribution_v5.png
+reports/model/confusion_matrix_v5.png
+reports/model/shap_summary_v5.png
+models/triage_model_v5.pkl
+models/triage_model_v6.pkl
+experiment7_*
+rubric_*.pdf
