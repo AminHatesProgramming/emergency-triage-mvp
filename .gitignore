@@ -12,6 +12,7 @@ models/*.pkl
 # Keep reproducible reports, but ignore transient notebook/checkpoint files
 .ipynb_checkpoints/
 logs/
+dist/
 server*.log
 experiment7_*
 inspect_experiment7_pdf.js

@@ -12,6 +12,7 @@ flowchart LR
   C --> E["Feature Engineering"]
   C --> F["Safety Flags"]
   C --> G["Feedback CSV"]
+  B --> J["Browser v7 model JSON"]
   H["Docs / Evidence Portal"] --> I["استاد / TA / تیم"]
 ```
 
@@ -26,6 +27,8 @@ flowchart LR
 | Reports | `reports/model/` | metrics و نمودارهای ارزیابی |
 | Docs | `docs/` | مستندات فنی، مدیریتی و Agile |
 | Deployment | `Dockerfile`, `render.yaml`, `Procfile` | اجرای غیرلوکال |
+| Public PWA | `dist/` و GitHub Pages workflow | لینک عمومی قابل ارسال به دیگران |
+| Browser model | `frontend/model-v7.json` | اجرای مدل v7 داخل مرورگر در نسخه static |
 
 ## جریان داده
 
@@ -70,6 +73,14 @@ predictor عملیاتی: `xgboost_v7_balanced`
 این طراحی برای محیط واقعی اورژانس است که ممکن است در لحظه اول فقط ۳ یا ۴ داده موجود باشد.
 
 ## مسیر deploy
+
+نسخه عمومی قابل ارسال:
+
+```text
+https://aminhatesprogramming.github.io/emergency-triage-mvp/
+```
+
+این نسخه با GitHub Pages منتشر می‌شود و در صورت نبود backend، مدل v7 را از `model-v7.json` داخل مرورگر اجرا می‌کند.
 
 برای تست روی گوشی در شبکه داخلی:
 

@@ -1,4 +1,5 @@
 const API_BASE = window.location.protocol === "file:" ? "http://127.0.0.1:8000" : "";
+const BROWSER_MODEL_URL = "static/model-v7.json";
 
 const scenarios = {
   critical: {
@@ -133,6 +134,7 @@ const installHelpText = document.querySelector("#installHelpText");
 let deferredInstallPrompt = null;
 let latestResult = null;
 let latestPayload = null;
+let browserModelPromise = null;
 const FEEDBACK_STORAGE_KEY = "triageStakeholderFeedback";
 
 function translate(text) {
@@ -158,8 +160,13 @@ function renderList(element, items, emptyText) {
   });
 }
 
-function setStatus(ok) {
+function setStatus(ok, mode = "api") {
   const offline = !navigator.onLine;
+  if (mode === "browser") {
+    apiStatus.textContent = "نسخه وب عمومی آماده است";
+    apiStatus.className = "status-pill ok";
+    return;
+  }
   apiStatus.textContent = offline
     ? "آفلاین"
     : ok
@@ -173,7 +180,12 @@ async function checkApi() {
     const res = await fetch(`${API_BASE}/health`);
     setStatus(res.ok);
   } catch {
-    setStatus(false);
+    try {
+      await loadBrowserModel();
+      setStatus(true, "browser");
+    } catch {
+      setStatus(false);
+    }
   }
 }
 
@@ -191,6 +203,367 @@ function readPayload() {
     payload[key] = input && input.type === "number" ? Number(value) : value;
   }
   return payload;
+}
+
+function asNumber(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function isMissing(value) {
+  return value === null || value === undefined || value === "" || Number.isNaN(value);
+}
+
+function normalizeArrivalMode(value) {
+  const cleaned = String(value || "missing").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return {
+    ambulance: "ambulance",
+    walkin: "Walk-in",
+    wheelchair: "Wheelchair",
+    car: "Car",
+    police: "Police",
+    publictransportation: "Public Transportation",
+    other: "Other",
+    missing: "missing",
+  }[cleaned] || String(value || "missing");
+}
+
+function normalizeO2Device(value) {
+  const number = asNumber(value);
+  return number === null ? "missing" : Number(number).toFixed(1);
+}
+
+function normalizeChiefComplaint(value) {
+  const cleaned = String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  return cleaned ? `cc_${cleaned}` : "";
+}
+
+function loadBrowserModel() {
+  if (!browserModelPromise) {
+    browserModelPromise = fetch(BROWSER_MODEL_URL).then((response) => {
+      if (!response.ok) throw new Error("browser model unavailable");
+      return response.json();
+    });
+  }
+  return browserModelPromise;
+}
+
+function buildBrowserFeatures(payload, model) {
+  const values = {};
+  const set = (name, value) => {
+    values[name] = Number.isFinite(value) ? value : null;
+  };
+
+  const age = asNumber(payload.age);
+  const hr = asNumber(payload.heart_rate);
+  const sbp = asNumber(payload.systolic_bp);
+  const dbp = asNumber(payload.diastolic_bp);
+  const rr = asNumber(payload.respiratory_rate);
+  const o2sat = asNumber(payload.oxygen_saturation);
+  let temp = asNumber(payload.temperature);
+  if (temp !== null && temp > 60) temp = (temp - 32) * 5 / 9;
+
+  const numericVitals = {
+    age,
+    triage_vital_hr: hr,
+    triage_vital_sbp: sbp,
+    triage_vital_dbp: dbp,
+    triage_vital_rr: rr,
+    triage_vital_o2sat: o2sat,
+    triage_vital_temp: temp,
+  };
+
+  Object.entries(numericVitals).forEach(([name, value]) => set(name, value));
+  Object.entries(numericVitals).forEach(([name, value]) => {
+    set(`${name}_missing`, isMissing(value) ? 1 : 0);
+  });
+
+  const vitalKeys = [
+    "triage_vital_hr",
+    "triage_vital_sbp",
+    "triage_vital_dbp",
+    "triage_vital_rr",
+    "triage_vital_o2sat",
+    "triage_vital_temp",
+  ];
+  const availableVitalCount = vitalKeys.filter((key) => !isMissing(numericVitals[key])).length;
+  set("available_vital_count", availableVitalCount);
+  set("has_blood_pressure", !isMissing(sbp) && !isMissing(dbp) ? 1 : 0);
+  set("has_core_vitals", availableVitalCount >= 4 ? 1 : 0);
+
+  set("shock_index", hr !== null && sbp ? hr / sbp : null);
+  set("map", sbp !== null && dbp !== null ? (sbp + 2 * dbp) / 3 : null);
+  set("pulse_pressure", sbp !== null && dbp !== null ? sbp - dbp : null);
+  set("hr_rr_ratio", hr !== null && rr ? hr / rr : null);
+  set("sbp_dbp_ratio", sbp !== null && dbp ? sbp / dbp : null);
+  set("o2_hr_ratio", o2sat !== null && hr ? o2sat / hr : null);
+
+  const flags = {
+    hr_abnormal: hr !== null && (hr < 60 || hr > 100),
+    sbp_abnormal: sbp !== null && (sbp < 90 || sbp > 180),
+    rr_abnormal: rr !== null && (rr < 12 || rr > 20),
+    o2_abnormal: o2sat !== null && o2sat < 94,
+    temp_abnormal: temp !== null && (temp < 36 || temp > 38.5),
+    map_abnormal: values.map !== null && (values.map < 70 || values.map > 110),
+    shock_index_abnormal: values.shock_index !== null && values.shock_index > 1.0,
+    hypoxia_severe: o2sat !== null && o2sat < 90,
+    hypoxia_warning: o2sat !== null && o2sat >= 90 && o2sat < 94,
+    hypotension_severe: sbp !== null && sbp < 90,
+    hypertension_severe: sbp !== null && sbp >= 180,
+    tachycardia_severe: hr !== null && hr >= 130,
+    bradycardia_severe: hr !== null && hr < 45,
+    tachypnea_severe: rr !== null && rr >= 30,
+    bradypnea_severe: rr !== null && rr < 8,
+    fever_high: temp !== null && temp >= 39,
+    hypothermia: temp !== null && temp < 35,
+  };
+  Object.entries(flags).forEach(([name, active]) => set(name, active ? 1 : 0));
+  set(
+    "vital_severity_score",
+    [
+      "hr_abnormal",
+      "sbp_abnormal",
+      "rr_abnormal",
+      "o2_abnormal",
+      "temp_abnormal",
+      "map_abnormal",
+      "shock_index_abnormal",
+    ].reduce((sum, name) => sum + values[name], 0),
+  );
+  set(
+    "vital_red_flag_count",
+    [
+      "hypoxia_severe",
+      "hypotension_severe",
+      "tachycardia_severe",
+      "bradycardia_severe",
+      "tachypnea_severe",
+      "bradypnea_severe",
+      "fever_high",
+      "hypothermia",
+    ].reduce((sum, name) => sum + values[name], 0),
+  );
+
+  let ageGroup = null;
+  if (age !== null && age > 0 && age <= 2) ageGroup = 0;
+  else if (age !== null && age <= 12) ageGroup = 1;
+  else if (age !== null && age <= 18) ageGroup = 2;
+  else if (age !== null && age <= 65) ageGroup = 3;
+  else if (age !== null && age <= 200) ageGroup = 4;
+  set("age_group", ageGroup);
+  set("is_elderly", age !== null && age >= 65 ? 1 : 0);
+  set("is_very_elderly", age !== null && age >= 80 ? 1 : 0);
+  set("is_pediatric", age !== null && age <= 12 ? 1 : 0);
+  set("elderly_with_abnormal_vitals", age !== null && age >= 65 && values.vital_severity_score >= 2 ? 1 : 0);
+  set("pediatric_with_abnormal_vitals", age !== null && age <= 12 && values.vital_severity_score >= 2 ? 1 : 0);
+  set("shock_or_hypotension", values.shock_index_abnormal || values.hypotension_severe ? 1 : 0);
+  set("hypoxia_or_tachypnea", values.o2_abnormal || values.tachypnea_severe ? 1 : 0);
+
+  ["n_edvisits", "n_admissions", "n_surgeries"].forEach((featureName) => {
+    const payloadKey = {
+      n_edvisits: "previous_ed_visits",
+      n_admissions: "previous_admissions",
+      n_surgeries: "previous_surgeries",
+    }[featureName];
+    const raw = asNumber(payload[payloadKey]);
+    const value = raw === null ? 0 : Math.max(raw, 0);
+    set(featureName, value);
+    set(`${featureName}_log1p`, Math.log1p(value));
+    set(`${featureName}_present`, raw === null ? 0 : 1);
+    set(`${featureName}_any`, value > 0 ? 1 : 0);
+  });
+
+  const metadata = model.feature_metadata || {};
+  const categorical = metadata.categorical || { columns: [], categories: {} };
+  const categoricalValues = {
+    dep_name: "missing",
+    gender: payload.gender || "missing",
+    arrivalmode: normalizeArrivalMode(payload.arrivalmode || "Walk-in"),
+    arrivalmonth: payload.arrivalmonth || "missing",
+    arrivalday: payload.arrivalday || "missing",
+    arrivalhour_bin: payload.arrivalhour_bin || "missing",
+    previousdispo: payload.previousdispo || "No previous dispo",
+    triage_vital_o2_device: normalizeO2Device(payload.oxygen_device || 0),
+  };
+  categorical.columns.forEach((column) => {
+    (categorical.categories[column] || []).forEach((category) => {
+      set(`${column}_${category}`, categoricalValues[column] === String(category) ? 1 : 0);
+    });
+  });
+
+  const history = new Set((payload.history_conditions || []).map((item) => String(item).toLowerCase()));
+  (metadata.history_features || []).forEach((featureName) => {
+    set(featureName, history.has(featureName) ? 1 : 0);
+  });
+  const historyCount = (metadata.history_features || []).reduce((sum, name) => sum + (values[name] || 0), 0);
+  set("history_condition_count", historyCount);
+  set("history_condition_log1p", Math.log1p(historyCount));
+  set("has_known_history", historyCount > 0 ? 1 : 0);
+  const cardiopulmonary = [
+    "acutemi",
+    "asthma",
+    "chfnonhp",
+    "chrkidneydisease",
+    "copd",
+    "coronathero",
+    "diabmelnoc",
+    "diabmelwcm",
+    "dysrhythmia",
+    "htn",
+    "pneumonia",
+    "pulmhartdx",
+    "tia",
+  ];
+  const cardiopulmonaryCount = cardiopulmonary.reduce((sum, name) => sum + (values[name] || 0), 0);
+  set("cardiopulmonary_history_count", cardiopulmonaryCount);
+  set("has_cardiopulmonary_history", cardiopulmonaryCount > 0 ? 1 : 0);
+
+  const complaintFeature = normalizeChiefComplaint(payload.chief_complaint);
+  (metadata.chief_complaint_features || []).forEach((featureName) => {
+    set(featureName, complaintFeature === featureName ? 1 : 0);
+  });
+  const complaintKnown = (metadata.chief_complaint_features || []).some((name) => values[name] === 1);
+  const highRiskTokens = ["chestpain", "shortness", "sob", "respiratory", "syncope", "seizure", "stroke", "weakness", "altered", "trauma", "fall", "fever"];
+  const highRiskComplaintCount = (metadata.chief_complaint_features || []).reduce((sum, name) => {
+    return sum + (values[name] === 1 && highRiskTokens.some((token) => name.includes(token)) ? 1 : 0);
+  }, 0);
+  set("complaint_known", complaintKnown ? 1 : 0);
+  set("high_risk_complaint_count", highRiskComplaintCount);
+  set("has_high_risk_complaint", highRiskComplaintCount > 0 ? 1 : 0);
+
+  return model.feature_names.map((name, index) => {
+    let value = values[name];
+    if (!Number.isFinite(value)) value = model.imputer_statistics[index] || 0;
+    const scale = model.scaler_scale[index] || 1;
+    return value / scale;
+  });
+}
+
+function evaluateTree(node, features) {
+  let current = node;
+  while (!Object.prototype.hasOwnProperty.call(current, "leaf")) {
+    const featureIndex = Number(String(current.split).replace("f", ""));
+    const value = features[featureIndex];
+    const nextId = value < current.split_condition ? current.yes : current.no;
+    current = current.children.find((child) => child.nodeid === nextId);
+  }
+  return current.leaf;
+}
+
+function sigmoid(value) {
+  return 1 / (1 + Math.exp(-value));
+}
+
+function safetyFlagsForPayload(payload) {
+  const flags = [];
+  const o2sat = asNumber(payload.oxygen_saturation);
+  const sbp = asNumber(payload.systolic_bp);
+  const hr = asNumber(payload.heart_rate);
+  const rr = asNumber(payload.respiratory_rate);
+  const temp = asNumber(payload.temperature);
+  const age = asNumber(payload.age);
+  const complaint = String(payload.chief_complaint || "").toLowerCase();
+  const history = new Set((payload.history_conditions || []).map((item) => String(item).toLowerCase()));
+
+  if (o2sat !== null && o2sat < 90) flags.push("red flag: oxygen saturation below 90%");
+  else if (o2sat !== null && o2sat < 94) flags.push("warning: oxygen saturation below normal triage range");
+  if (sbp !== null && sbp < 90) flags.push("red flag: systolic blood pressure below 90");
+  if (rr !== null && (rr < 8 || rr >= 30)) flags.push("red flag: severely abnormal respiratory rate");
+  if (hr !== null && (hr < 45 || hr >= 130)) flags.push("red flag: severely abnormal heart rate");
+  if (temp !== null && (temp < 35 || temp >= 40)) flags.push("red flag: extreme body temperature");
+  if (
+    complaint.includes("chestpain") &&
+    age !== null &&
+    age >= 50 &&
+    ["coronathero", "acutemi", "dysrhythmia"].some((item) => history.has(item))
+  ) {
+    flags.push("red flag: chest pain with high-risk cardiac history");
+  }
+  return flags.slice(0, 4);
+}
+
+function explainPayload(payload, safetyFlags) {
+  const reasons = [...safetyFlags.slice(0, 2)];
+  const o2sat = asNumber(payload.oxygen_saturation);
+  const sbp = asNumber(payload.systolic_bp);
+  const hr = asNumber(payload.heart_rate);
+  const rr = asNumber(payload.respiratory_rate);
+  const age = asNumber(payload.age);
+  if (o2sat !== null && o2sat < 94) reasons.push("low oxygen saturation");
+  if (sbp && hr && hr / sbp > 1) reasons.push("elevated shock index");
+  if (rr !== null && (rr < 12 || rr > 20)) reasons.push("abnormal respiratory rate");
+  if (age !== null && age >= 65) reasons.push("elderly patient");
+  if (payload.chief_complaint) reasons.push(`chief complaint: ${payload.chief_complaint}`);
+  if (payload.history_conditions && payload.history_conditions.length) {
+    reasons.push(`known history: ${payload.history_conditions.slice(0, 2).join(", ")}`);
+  }
+  return [...new Set(reasons)].slice(0, 4);
+}
+
+function dataQualityForPayload(payload) {
+  const recommended = [
+    ["chief_complaint", "chief complaint"],
+    ["age", "age"],
+    ["heart_rate", "heart rate"],
+    ["systolic_bp", "systolic blood pressure"],
+    ["diastolic_bp", "diastolic blood pressure"],
+    ["respiratory_rate", "respiratory rate"],
+    ["oxygen_saturation", "oxygen saturation"],
+    ["temperature", "temperature"],
+  ];
+  const present = recommended.filter(([key]) => !isMissing(payload[key]));
+  const missing = recommended.filter(([key]) => isMissing(payload[key])).map(([, label]) => label);
+  const completeness = Math.round((present.length / recommended.length) * 100) / 100;
+  const band = completeness >= 0.75 ? "high" : completeness >= 0.45 ? "medium" : "limited";
+  return { completeness, missing, band };
+}
+
+function nextBestActionsForResult(isCritical, confidenceBand, safetyFlags, missingFields) {
+  const actions = [];
+  if (isCritical) {
+    actions.push("notify senior triage nurse or emergency physician");
+    actions.push("repeat vital signs and keep patient in visible monitored area");
+  } else {
+    actions.push("continue standard triage pathway and document model output");
+  }
+  if (safetyFlags.length) actions.push("treat safety flags as clinical prompts, not automated diagnosis");
+  if (confidenceBand !== "high" && missingFields.length) {
+    actions.push("collect the highest-value missing triage fields before final disposition");
+  }
+  return actions.slice(0, 4);
+}
+
+async function predictInBrowser(payload) {
+  const model = await loadBrowserModel();
+  const features = buildBrowserFeatures(payload, model);
+  const rawScore = model.trees.reduce((sum, tree) => sum + evaluateTree(tree, features), 0);
+  const modelProbability = sigmoid(rawScore);
+  const threshold = Number(model.threshold);
+  const safetyFlags = safetyFlagsForPayload(payload);
+  const safetyOverride = safetyFlags.length > 0;
+  const probability = safetyOverride ? Math.max(modelProbability, Math.min(0.99, threshold + 0.08)) : modelProbability;
+  const isCritical = probability >= threshold;
+  const quality = dataQualityForPayload(payload);
+
+  return {
+    model_version: model.version,
+    operational_mode: "browser_v7_static_pwa",
+    model_probability: modelProbability,
+    critical_probability: probability,
+    threshold,
+    risk_level: isCritical ? "critical" : "non_critical",
+    triage_band: isCritical ? "ESI 1-2 priority suggested" : "ESI 3-5 standard workflow",
+    recommended_action: isCritical ? "Immediate clinical review recommended" : "Continue standard triage workflow",
+    explanation: explainPayload(payload, safetyFlags),
+    safety_flags: safetyFlags,
+    next_best_actions: nextBestActionsForResult(isCritical, quality.band, safetyFlags, quality.missing),
+    safety_override: safetyOverride,
+    data_completeness: quality.completeness,
+    confidence_band: quality.band,
+    missing_recommended_fields: quality.missing,
+    disclaimer: "Decision-support only; not a replacement for clinical judgment.",
+  };
 }
 
 function fillScenario(name) {
@@ -253,6 +626,7 @@ function updateResult(result) {
 
 async function submitForm(event) {
   event.preventDefault();
+  const payload = readPayload();
   riskLabel.textContent = "در حال ارزیابی";
   triageBand.textContent = "لطفا چند لحظه صبر کنید.";
   riskAction.textContent = "مدل و قواعد ایمنی همزمان بررسی می‌شوند.";
@@ -260,17 +634,23 @@ async function submitForm(event) {
     const res = await fetch(`${API_BASE}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(readPayload()),
+      body: JSON.stringify(payload),
     });
     if (!res.ok) throw new Error("prediction failed");
     updateResult(await res.json());
     setStatus(true);
     document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
   } catch {
-    setStatus(false);
-    riskLabel.textContent = "خطا در ارتباط";
-    triageBand.textContent = "API را اجرا کنید یا اتصال را بررسی کنید.";
-    riskAction.textContent = "نسخه آفلاین فرم را نگه می‌دارد، ولی پیش‌بینی نیازمند API است.";
+    try {
+      updateResult(await predictInBrowser(payload));
+      setStatus(true, "browser");
+      document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch {
+      setStatus(false);
+      riskLabel.textContent = "خطا در ارتباط";
+      triageBand.textContent = "API یا مدل مرورگر در دسترس نیست.";
+      riskAction.textContent = "لطفا اتصال را بررسی کنید یا صفحه را دوباره بارگذاری کنید.";
+    }
   }
 }
 
@@ -534,7 +914,7 @@ window.addEventListener("appinstalled", () => {
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/static/sw.js").catch(() => {});
+    navigator.serviceWorker.register("sw.js").catch(() => {});
   });
 }
 

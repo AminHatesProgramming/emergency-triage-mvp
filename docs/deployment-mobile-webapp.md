@@ -4,6 +4,14 @@
 
 پروژه اکنون به صورت یک وب‌اپ FastAPI + PWA آماده اجرا است. مدل عملیاتی `v7` داخل `models/triage_model_v7.pkl` نگهداری می‌شود تا deploy بدون دیتاست خام ممکن باشد.
 
+علاوه بر نسخه API، یک نسخه public/static هم آماده شده که روی GitHub Pages منتشر می‌شود و مدل v7 را داخل مرورگر اجرا می‌کند:
+
+```text
+https://aminhatesprogramming.github.io/emergency-triage-mvp/
+```
+
+در این حالت، کاربر با گوشی لینک را باز می‌کند و prediction بدون سرور پایتونی انجام می‌شود. بازخوردها در نسخه static روی همان دستگاه ذخیره می‌شوند؛ برای feedback مرکزی باید backend یا Laravel gateway جدا deploy شود.
+
 ## اجرای سریع روی گوشی در شبکه داخلی
 
 روی لپ‌تاپ:
@@ -29,6 +37,34 @@ docker run --rm -p 8000:8000 emergency-triage-mvp
 ```
 
 برای VPS یا سرویس‌های Docker-based، فقط باید پورت `8000` یا متغیر `PORT` به سرویس داده شود.
+
+## انتشار عمومی با GitHub Pages
+
+فایل workflow آماده است:
+
+```text
+.github/workflows/deploy-pages.yml
+```
+
+مراحل:
+
+1. در GitHub وارد repository شوید.
+2. از مسیر `Settings > Pages`، Source را روی `GitHub Actions` بگذارید.
+3. آخرین push روی branch `main` workflow را اجرا می‌کند.
+4. خروجی در آدرس زیر منتشر می‌شود:
+
+```text
+https://aminhatesprogramming.github.io/emergency-triage-mvp/
+```
+
+ساخت local خروجی Pages:
+
+```powershell
+C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe scripts\export_browser_model.py
+C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe scripts\build_pages.py
+```
+
+خروجی در `dist/` ساخته می‌شود. این پوشه شامل `index.html`، `manifest.webmanifest`، `sw.js`، آیکن‌ها، privacy page و `model-v7.json` است.
 
 ## Render / Railway / Heroku-like
 

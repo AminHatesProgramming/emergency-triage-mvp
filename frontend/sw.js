@@ -1,13 +1,15 @@
 const CACHE_NAME = "triage-ed-v12-v7-market-ready";
 const APP_SHELL = [
-  "/",
-  "/static/privacy.html",
-  "/static/styles.css",
-  "/static/app.js",
-  "/static/manifest.webmanifest",
-  "/static/assets/app-icon.svg",
-  "/static/assets/app-icon-192.png",
-  "/static/assets/app-icon-512.png",
+  "./",
+  "index.html",
+  "manifest.webmanifest",
+  "static/privacy.html",
+  "static/styles.css",
+  "static/app.js",
+  "static/model-v7.json",
+  "static/assets/app-icon.svg",
+  "static/assets/app-icon-192.png",
+  "static/assets/app-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
@@ -29,7 +31,7 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
 
   if (request.mode === "navigate") {
-    event.respondWith(fetch(request).catch(() => caches.match("/")));
+    event.respondWith(fetch(request).catch(() => caches.match("./")));
     return;
   }
 

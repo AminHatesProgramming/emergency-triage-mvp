@@ -14,6 +14,7 @@
 - backend: FastAPI
 - frontend: فارسی، راست‌به‌چپ و mobile-first
 - PWA: قابل نصب روی موبایل با `manifest.webmanifest` و `service worker`
+- نسخه public/static: قابل انتشار با GitHub Pages و دارای مدل v7 داخل مرورگر
 - پشتیبانی از ورودی ناقص
 - خروجی safety-first hybrid شامل `model_probability`، `safety_flags` و `next_best_actions`
 - مستندات مدیریتی و فنی در `docs/`
@@ -68,6 +69,22 @@ http://127.0.0.1:8000/
 ```
 
 اسکریپت، آدرس‌های LAN مثل `http://192.168.x.x:8000/` را چاپ می‌کند. برای نصب کامل PWA روی Android و انتشار در بازار، نسخه نهایی باید روی HTTPS deploy شود.
+
+## لینک عمومی وب‌اپ
+
+نسخه public روی GitHub Pages با این آدرس منتشر می‌شود:
+
+```text
+https://aminhatesprogramming.github.io/emergency-triage-mvp/
+```
+
+این نسخه بدون backend پایتونی هم کار می‌کند؛ مدل v7 به فایل `frontend/model-v7.json` تبدیل شده و prediction داخل مرورگر/گوشی اجرا می‌شود. اگر backend جدا deploy شود، همین UI به endpointهای FastAPI وصل می‌شود.
+
+برای ساخت خروجی GitHub Pages در local:
+
+```powershell
+C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe scripts\build_pages.py
+```
 
 اجرای Docker برای deploy:
 
