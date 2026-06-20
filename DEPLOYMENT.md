@@ -200,6 +200,14 @@ TRIAGE_API_BASE_URL=https://your-render-service.onrender.com
 https://aminhatesprogramming.github.io/emergency-triage-mvp/
 ```
 
+اگر backend عمومی جداگانه ساخته شد و خواستید همین GitHub Pages به آن وصل شود، در GitHub از مسیر `Settings > Secrets and variables > Actions > Variables` یک variable با نام زیر بسازید:
+
+```text
+TRIAGE_API_BASE_URL=https://your-render-service.onrender.com
+```
+
+سپس workflow را دوباره اجرا کنید. اگر این variable خالی باشد، نسخه GitHub Pages به شکل static PWA و بدون backend کار می‌کند.
+
 Build local:
 
 ```powershell

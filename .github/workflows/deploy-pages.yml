@@ -30,6 +30,9 @@ jobs:
           python-version: "3.11"
 
       - name: Build Pages app
+        env:
+          TRIAGE_API_BASE_URL: ${{ vars.TRIAGE_API_BASE_URL }}
+          TRIAGE_TRY_SAME_ORIGIN_API: "false"
         run: python scripts/build_pages.py
 
       - name: Configure Pages
