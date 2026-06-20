@@ -36,14 +36,12 @@ app = FastAPI(
     description="MVP API for an AI-assisted emergency triage decision-support project.",
 )
 
-allowed_origins = [
-    origin.strip()
-    for origin in os.getenv(
-        "ALLOWED_ORIGINS",
-        "http://127.0.0.1:8000,http://localhost:8000",
-    ).split(",")
-    if origin.strip()
-]
+raw_allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").strip()
+allowed_origins = (
+    ["*"]
+    if raw_allowed_origins == "*"
+    else [origin.strip() for origin in raw_allowed_origins.split(",") if origin.strip()]
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,

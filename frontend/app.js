@@ -1,5 +1,7 @@
-const API_BASE = window.location.protocol === "file:" ? "http://127.0.0.1:8000" : "";
-const BROWSER_MODEL_URL = "static/model-v7.json";
+const APP_CONFIG = window.TRIAGE_APP_CONFIG || {};
+const API_BASE = String(APP_CONFIG.API_BASE_URL || "").trim().replace(/\/+$/, "");
+const BROWSER_MODEL_URL = APP_CONFIG.BROWSER_MODEL_URL || "static/model-v7.json";
+const TRY_SAME_ORIGIN_API = APP_CONFIG.TRY_SAME_ORIGIN_API ?? "auto";
 
 const scenarios = {
   critical: {
@@ -176,8 +178,17 @@ function setStatus(ok, mode = "api") {
 }
 
 async function checkApi() {
+  if (!shouldTryApi()) {
+    try {
+      await loadBrowserModel();
+      setStatus(true, "browser");
+    } catch {
+      setStatus(false);
+    }
+    return;
+  }
   try {
-    const res = await fetch(`${API_BASE}/health`);
+    const res = await fetch(apiUrl("/health"));
     setStatus(res.ok);
   } catch {
     try {
@@ -247,6 +258,17 @@ function loadBrowserModel() {
     });
   }
   return browserModelPromise;
+}
+
+function shouldTryApi() {
+  if (API_BASE) return true;
+  if (TRY_SAME_ORIGIN_API === true) return true;
+  if (TRY_SAME_ORIGIN_API === false) return false;
+  return window.location.port === "8000";
+}
+
+function apiUrl(path) {
+  return API_BASE ? `${API_BASE}${path}` : path;
 }
 
 function buildBrowserFeatures(payload, model) {
@@ -627,11 +649,24 @@ function updateResult(result) {
 async function submitForm(event) {
   event.preventDefault();
   const payload = readPayload();
+  if (!shouldTryApi()) {
+    try {
+      updateResult(await predictInBrowser(payload));
+      setStatus(true, "browser");
+      document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch {
+      setStatus(false);
+      riskLabel.textContent = "خطا در ارتباط";
+      triageBand.textContent = "مدل مرورگر در دسترس نیست.";
+      riskAction.textContent = "لطفا اتصال را بررسی کنید یا صفحه را دوباره بارگذاری کنید.";
+    }
+    return;
+  }
   riskLabel.textContent = "در حال ارزیابی";
   triageBand.textContent = "لطفا چند لحظه صبر کنید.";
   riskAction.textContent = "مدل و قواعد ایمنی همزمان بررسی می‌شوند.";
   try {
-    const res = await fetch(`${API_BASE}/predict`, {
+    const res = await fetch(apiUrl("/predict"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -694,8 +729,12 @@ function updateFeedbackCount() {
 }
 
 async function refreshFeedbackSummary() {
+  if (!shouldTryApi()) {
+    updateFeedbackCount();
+    return;
+  }
   try {
-    const res = await fetch(`${API_BASE}/feedback-summary`);
+    const res = await fetch(apiUrl("/feedback-summary"));
     if (!res.ok) throw new Error("summary failed");
     const summary = await res.json();
     feedbackCount.textContent = summary.stored_count
@@ -717,8 +756,16 @@ async function submitFeedback(event) {
     disclaimer_clarity: Number(data.get("disclaimer_clarity")),
     comment: String(data.get("comment") || "").trim(),
   };
+  if (!shouldTryApi()) {
+    const entries = getFeedbackEntries();
+    entries.push(entry);
+    saveFeedbackEntries(entries);
+    feedbackStatus.textContent = "بازخورد روی همین دستگاه ذخیره شد.";
+    feedbackForm.reset();
+    return;
+  }
   try {
-    const res = await fetch(`${API_BASE}/feedback`, {
+    const res = await fetch(apiUrl("/feedback"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(entry),
@@ -797,7 +844,7 @@ function installHelpMessage() {
     return "برنامه همین حالا در حالت نصب‌شده اجرا شده است.";
   }
   const ua = navigator.userAgent.toLowerCase();
-  if (!window.isSecureContext && !["localhost", "127.0.0.1"].includes(window.location.hostname)) {
+  if (!window.isSecureContext) {
     return "برای نصب کامل PWA روی موبایل، صفحه باید از HTTPS باز شود. در حالت شبکه محلی، از گزینه Add to Home screen مرورگر استفاده کنید.";
   }
   if (deferredInstallPrompt) {

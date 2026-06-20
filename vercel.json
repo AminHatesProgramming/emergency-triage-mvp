@@ -1,0 +1,21 @@
+{
+  "buildCommand": "python scripts/build_pages.py",
+  "outputDirectory": "dist",
+  "installCommand": "",
+  "framework": null,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}
