@@ -1,7 +1,7 @@
 {
-  "name": "Emergency Triage Decision Support",
-  "short_name": "Triage ED",
-  "description": "Mobile-first decision-support MVP for emergency triage.",
+  "name": "امدادیار",
+  "short_name": "امدادیار",
+  "description": "پشتیبان تصمیم برای ارزیابی اولیه بیماران اورژانسی.",
   "lang": "fa",
   "dir": "rtl",
   "start_url": "./",

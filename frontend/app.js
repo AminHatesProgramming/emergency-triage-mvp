@@ -62,23 +62,23 @@ const scenarios = {
 };
 
 const translations = {
-  "red flag: oxygen saturation below 90%": "پرچم قرمز: اکسیژن خون کمتر از ۹۰٪",
-  "warning: oxygen saturation below normal triage range": "هشدار: اکسیژن خون پایین‌تر از محدوده طبیعی تریاژ",
-  "red flag: systolic blood pressure below 90": "پرچم قرمز: فشار سیستولیک کمتر از ۹۰",
-  "red flag: severely abnormal respiratory rate": "پرچم قرمز: نرخ تنفس به‌شدت غیرطبیعی",
-  "red flag: severely abnormal heart rate": "پرچم قرمز: ضربان قلب به‌شدت غیرطبیعی",
-  "red flag: extreme body temperature": "پرچم قرمز: دمای بدن در محدوده بحرانی",
-  "red flag: chest pain with high-risk cardiac history": "پرچم قرمز: درد قفسه سینه همراه با سابقه قلبی پرخطر",
+  "red flag: oxygen saturation below 90%": "هشدار جدی: اکسیژن خون کمتر از ۹۰٪",
+  "warning: oxygen saturation below normal triage range": "هشدار: اکسیژن خون پایین‌تر از محدوده طبیعی",
+  "red flag: systolic blood pressure below 90": "هشدار جدی: فشار سیستولیک کمتر از ۹۰",
+  "red flag: severely abnormal respiratory rate": "هشدار جدی: نرخ تنفس به‌شدت غیرطبیعی",
+  "red flag: severely abnormal heart rate": "هشدار جدی: ضربان قلب به‌شدت غیرطبیعی",
+  "red flag: extreme body temperature": "هشدار جدی: دمای بدن در محدوده بحرانی",
+  "red flag: chest pain with high-risk cardiac history": "هشدار جدی: درد قفسه سینه همراه با سابقه قلبی پرخطر",
   "low oxygen saturation": "اشباع اکسیژن پایین",
   "elevated shock index": "شاخص شوک بالا",
   "abnormal respiratory rate": "نرخ تنفس غیرطبیعی",
   "elderly patient": "بیمار سالمند",
   "no single dominant risk factor identified": "عامل غالب مشخصی شناسایی نشد",
-  "notify senior triage nurse or emergency physician": "اطلاع به پرستار ارشد تریاژ یا پزشک اورژانس",
+  "notify senior triage nurse or emergency physician": "اطلاع فوری به پرستار ارشد یا پزشک اورژانس",
   "repeat vital signs and keep patient in visible monitored area": "تکرار علائم حیاتی و نگهداری بیمار در محدوده قابل مشاهده",
-  "continue standard triage pathway and document model output": "ادامه مسیر استاندارد تریاژ و ثبت خروجی مدل",
-  "treat safety flags as clinical prompts, not automated diagnosis": "پرچم‌های ایمنی به‌عنوان هشدار بالینی تفسیر شوند، نه تشخیص خودکار",
-  "collect the highest-value missing triage fields before final disposition": "پیش از تصمیم نهایی، فیلدهای کلیدی باقی‌مانده تکمیل شوند",
+  "continue standard triage pathway and document model output": "ادامه مسیر معمول ارزیابی و ثبت خروجی",
+  "treat safety flags as clinical prompts, not automated diagnosis": "این هشدارها نشانه کمکی هستند، نه تشخیص خودکار",
+  "collect the highest-value missing triage fields before final disposition": "در صورت امکان، اطلاعات کلیدی باقی‌مانده تکمیل شود",
 };
 
 const fieldLabels = {
@@ -605,14 +605,14 @@ function fillScenario(name) {
 }
 
 function bandLabel(value) {
-  if (value === "high") return "اعتماد بالا";
-  if (value === "medium") return "اعتماد متوسط";
+  if (value === "high") return "اطمینان بالا";
+  if (value === "medium") return "اطمینان متوسط";
   return "داده محدود";
 }
 
 function bandPersian(value) {
-  if (value.includes("ESI 1-2")) return "پیشنهاد اولویت ESI 1-2";
-  return "مسیر استاندارد ESI 3-5";
+  if (value.includes("ESI 1-2")) return "اولویت بالا برای بررسی فوری";
+  return "ادامه ارزیابی معمول";
 }
 
 function updateResult(result) {
@@ -625,24 +625,26 @@ function updateResult(result) {
 
   riskCard.classList.toggle("critical", critical);
   riskPercent.textContent = `${percent}%`;
-  modelProbability.textContent = critical ? "بازبینی فوری" : "پایش عادی";
+  modelProbability.textContent = critical ? "بررسی فوری" : "پیگیری معمول";
   gaugeRing.style.background = `radial-gradient(circle at center, #fff 55%, transparent 56%), conic-gradient(${color} ${degrees}deg, #dfe8eb 0deg)`;
-  riskLabel.textContent = critical ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
+  riskLabel.textContent = critical ? "نیازمند بررسی فوری" : "در حال حاضر نشانه بحرانی واضح دیده نشد";
   triageBand.textContent = bandPersian(result.triage_band || "");
-  riskAction.textContent = critical ? "بازبینی سریع بالینی توصیه می‌شود." : "مسیر استاندارد تریاژ ادامه پیدا کند.";
+  riskAction.textContent = critical
+    ? "لطفا بیمار سریع‌تر توسط کادر درمان بررسی شود."
+    : "ارزیابی معمول ادامه پیدا کند و در صورت تغییر علائم دوباره بررسی شود.";
 
   renderList(explanations, result.explanation, "عامل غالب مشخصی شناسایی نشد.");
-  renderList(safetyFlags, result.safety_flags, "پرچم ایمنی فعالی وجود ندارد.");
-  renderList(nextActions, result.next_best_actions, "ادامه مسیر استاندارد تریاژ.");
+  renderList(safetyFlags, result.safety_flags, "هشدار مهمی ثبت نشده است.");
+  renderList(nextActions, result.next_best_actions, "ادامه مسیر معمول ارزیابی.");
 
   dataQuality.textContent = `${Math.round(result.data_completeness * 100)}%`;
   qualityBar.style.width = `${Math.round(result.data_completeness * 100)}%`;
   confidenceBand.textContent = result.safety_override
-    ? `${bandLabel(result.confidence_band)} + ایمنی فعال`
+    ? `${bandLabel(result.confidence_band)} + هشدار فعال`
     : bandLabel(result.confidence_band);
   missingFields.textContent = result.missing_recommended_fields.length
     ? result.missing_recommended_fields.map((field) => fieldLabels[field] || field).join("، ")
-    : "ورودی‌های کلیدی کامل هستند.";
+    : "اطلاعات کلیدی کامل هستند.";
   updateCaseSummary();
 }
 
@@ -662,9 +664,9 @@ async function submitForm(event) {
     }
     return;
   }
-  riskLabel.textContent = "در حال ارزیابی";
+  riskLabel.textContent = "در حال بررسی اطلاعات";
   triageBand.textContent = "لطفا چند لحظه صبر کنید.";
-  riskAction.textContent = "مدل و قواعد ایمنی همزمان بررسی می‌شوند.";
+  riskAction.textContent = "امدادیار اطلاعات واردشده را بررسی می‌کند.";
   try {
     const res = await fetch(apiUrl("/predict"), {
       method: "POST",
@@ -696,15 +698,15 @@ function resetResult() {
   riskCard.classList.remove("critical");
   riskPercent.textContent = "--";
   modelProbability.textContent = "--";
-  riskLabel.textContent = "در انتظار ورودی";
-  triageBand.textContent = "سطح پیشنهادی پس از ارزیابی نمایش داده می‌شود.";
-  riskAction.textContent = "مدل فقط نقش پشتیبان تصمیم دارد.";
+  riskLabel.textContent = "در انتظار اطلاعات بیمار";
+  triageBand.textContent = "پس از ارزیابی، نتیجه ساده و قابل فهم نمایش داده می‌شود.";
+  riskAction.textContent = "امدادیار فقط پشتیبان تصمیم است و جایگزین نظر کادر درمان نمی‌شود.";
   dataQuality.textContent = "--";
   qualityBar.style.width = "0%";
   confidenceBand.textContent = "آماده";
   missingFields.textContent = "--";
   renderList(explanations, [], "پس از ارزیابی نمایش داده می‌شود.");
-  renderList(safetyFlags, [], "موردی ثبت نشده است.");
+  renderList(safetyFlags, [], "هشدار مهمی ثبت نشده است.");
   renderList(nextActions, [], "پس از ارزیابی نمایش داده می‌شود.");
   caseSummaryBox.hidden = true;
   caseSummaryText.textContent = "";
@@ -791,11 +793,11 @@ function formatPercent(value) {
 function updateCaseSummary() {
   if (!latestResult) return;
   const payload = latestPayload || {};
-  const riskText = latestResult.risk_level === "critical" ? "پرخطر / نیازمند توجه فوری" : "فعلا غیر بحرانی";
+  const riskText = latestResult.risk_level === "critical" ? "نیازمند بررسی فوری" : "در حال حاضر نشانه بحرانی واضح دیده نشد";
   const complaint = fieldLabels["chief complaint"] || "شکایت اصلی";
   const complaintText = chiefComplaintLabels[payload.chief_complaint] || payload.chief_complaint || "ثبت نشده";
   const summary = [
-    "خلاصه ارزیابی تریاژ",
+    "خلاصه ارزیابی امدادیار",
     `وضعیت پیشنهادی: ${riskText}`,
     `درصد خطر: ${formatPercent(latestResult.critical_probability)}`,
     `اعتماد خروجی: ${bandLabel(latestResult.confidence_band)}`,
@@ -803,7 +805,7 @@ function updateCaseSummary() {
     `${complaint}: ${complaintText}`,
     `سن: ${payload.age ?? "ثبت نشده"}`,
     `علائم حیاتی: ضربان ${payload.heart_rate ?? "-"} | فشار ${payload.systolic_bp ?? "-"}/${payload.diastolic_bp ?? "-"} | تنفس ${payload.respiratory_rate ?? "-"} | اکسیژن ${payload.oxygen_saturation ?? "-"} | دما ${payload.temperature ?? "-"}`,
-    `پرچم‌های ایمنی: ${(latestResult.safety_flags || []).map(translate).join(" | ") || "موردی فعال نیست"}`,
+    `هشدارهای مهم: ${(latestResult.safety_flags || []).map(translate).join(" | ") || "هشدار مهمی فعال نیست"}`,
     `اقدام پیشنهادی: ${(latestResult.next_best_actions || []).map(translate).join(" | ")}`,
     "تذکر: این خروجی فقط پشتیبان تصمیم است و جایگزین قضاوت بالینی نمی‌شود.",
   ].join("\n");

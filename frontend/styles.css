@@ -62,7 +62,6 @@ button {
 }
 
 .app-header,
-.care-strip,
 .panel {
   border: 1px solid rgba(21, 33, 43, 0.1);
   background: var(--surface);
@@ -161,37 +160,6 @@ h3 {
   border-color: rgba(184, 119, 10, 0.35);
 }
 
-.care-strip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.care-strip article {
-  display: grid;
-  gap: 6px;
-  min-height: 76px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 12px;
-  background: #fff;
-}
-
-.care-strip span {
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.care-strip strong {
-  color: var(--deep-teal);
-  font-size: 0.96rem;
-  font-weight: 800;
-  line-height: 1.6;
-}
-
 .mobile-tabs {
   display: none;
 }
@@ -243,7 +211,20 @@ h3 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 14px;
+}
+
+.scenario-tools {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  border: 1px dashed rgba(8, 127, 140, 0.32);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(238, 247, 246, 0.62);
+}
+
+.scenario-tools h3 {
+  margin: 0;
 }
 
 .input-grid {
@@ -646,8 +627,7 @@ body.modal-open {
 }
 
 @media (max-width: 960px) {
-  .layout-grid,
-  .care-strip {
+  .layout-grid {
     grid-template-columns: 1fr;
   }
 

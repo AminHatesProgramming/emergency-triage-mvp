@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#064e5f" />
-    <title>تریاژ هوشمند اورژانس</title>
+    <title>امدادیار</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="static/assets/app-icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="static/styles.css" />
@@ -16,8 +16,7 @@
         <div class="brand-block">
           <img src="static/assets/app-icon.svg" alt="" class="brand-icon" />
           <div>
-            <p class="eyebrow">Emergency Decision Support</p>
-            <h1>تریاژ هوشمند اورژانس</h1>
+            <h1>امدادیار</h1>
           </div>
         </div>
         <div class="header-actions">
@@ -26,28 +25,9 @@
         </div>
       </header>
 
-      <section class="care-strip" aria-label="قابلیت‌های کاربردی سامانه">
-        <article>
-          <span>داده زمان تریاژ</span>
-          <strong>بدون نیاز به اطلاعات آینده</strong>
-        </article>
-        <article>
-          <span>ورودی ناقص</span>
-          <strong>قابل استفاده با چند داده کلیدی</strong>
-        </article>
-        <article>
-          <span>ایمنی بالینی</span>
-          <strong>هشدارهای قابل بازبینی</strong>
-        </article>
-        <article>
-          <span>نقش سامانه</span>
-          <strong>پشتیبان تصمیم، نه جایگزین پزشک</strong>
-        </article>
-      </section>
-
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
-        <button type="button" data-jump="#triageForm">ورودی</button>
-        <button type="button" data-jump="#resultPanel">خروجی</button>
+        <button type="button" data-jump="#triageForm">سناریو</button>
+        <button type="button" data-jump="#resultPanel">نتیجه</button>
         <button type="button" data-jump="#feedbackPanel">بازخورد</button>
       </nav>
 
@@ -55,17 +35,10 @@
         <form id="triageForm" class="panel form-panel">
           <div class="panel-title">
             <div>
-              <p class="section-kicker">فقط داده زمان تریاژ</p>
-              <h2>ورودی سریع بیمار</h2>
+              <p class="section-kicker">ارزیابی اولیه</p>
+              <h2>اطلاعات بیمار</h2>
             </div>
             <button type="button" class="ghost" id="clearBtn">پاک کردن</button>
-          </div>
-
-          <div class="scenario-row" aria-label="سناریوهای دمو">
-            <button type="button" data-scenario="critical">بحرانی</button>
-            <button type="button" data-scenario="moderate">متوسط</button>
-            <button type="button" data-scenario="sparse">کم‌داده</button>
-            <button type="button" data-scenario="cardiac">قلبی</button>
           </div>
 
           <div class="input-grid">
@@ -171,6 +144,19 @@
             </div>
           </fieldset>
 
+          <section class="scenario-tools" aria-label="نمونه‌های آماده برای تست">
+            <div>
+              <p class="section-kicker">اختیاری</p>
+              <h3>نمونه‌های آماده برای تست</h3>
+            </div>
+            <div class="scenario-row">
+              <button type="button" data-scenario="critical">بیمار پرخطر</button>
+              <button type="button" data-scenario="moderate">بیمار متوسط</button>
+              <button type="button" data-scenario="sparse">اطلاعات کم</button>
+              <button type="button" data-scenario="cardiac">درد قفسه سینه</button>
+            </div>
+          </section>
+
           <button class="primary cta-main" type="submit">ارزیابی بیمار</button>
         </form>
 
@@ -178,7 +164,7 @@
           <div class="panel-title">
             <div>
               <p class="section-kicker">پشتیبان تصمیم، نه جایگزین متخصص</p>
-              <h2>خروجی تصمیم‌یار</h2>
+              <h2>نتیجه ارزیابی</h2>
             </div>
             <div class="result-actions">
               <button type="button" class="ghost mini-action" id="copyCaseBtn">کپی خلاصه</button>
@@ -192,15 +178,15 @@
               <span id="riskPercent">--</span>
             </div>
             <div>
-              <p class="risk-label" id="riskLabel">در انتظار ورودی</p>
-              <p class="triage-band" id="triageBand">سطح پیشنهادی پس از ارزیابی نمایش داده می‌شود.</p>
+              <p class="risk-label" id="riskLabel">در انتظار اطلاعات بیمار</p>
+              <p class="triage-band" id="triageBand">پس از ارزیابی، پیشنهاد ساده و قابل فهم نمایش داده می‌شود.</p>
               <p class="risk-action" id="riskAction">مدل فقط نقش پشتیبان تصمیم دارد.</p>
             </div>
           </div>
 
           <div class="result-stats">
             <article>
-              <span>وضعیت اقدام</span>
+              <span>پیشنهاد سیستم</span>
               <strong id="modelProbability">--</strong>
             </article>
             <article>
@@ -221,9 +207,9 @@
           </section>
 
           <section class="output-section">
-            <h3>پرچم‌های ایمنی</h3>
+            <h3>هشدارهای مهم</h3>
             <ul id="safetyFlags">
-              <li>موردی ثبت نشده است.</li>
+              <li>هشدار مهمی ثبت نشده است.</li>
             </ul>
           </section>
 
