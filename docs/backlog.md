@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Product Backlog و Sprint Plan
 
 ## هدف محصول
@@ -107,3 +110,4 @@
 ## Velocity اولیه
 
 Velocity واقعی پس از پایان Sprint 1 محاسبه می شود. برای شروع، هر user story با پیچیدگی تقریبی 1 تا 5 story point تخمین زده خواهد شد.
+</div>

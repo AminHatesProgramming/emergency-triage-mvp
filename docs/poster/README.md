@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # پوستر A0 پروژه
 
 فایل اصلی پوستر:
@@ -46,3 +49,4 @@ powershell -ExecutionPolicy Bypass -File .\docs\poster\export-poster.ps1
 - داده جذب کاربر: `docs/artifacts/user-acquisition-data.csv`
 
 در نسخه نهایی طراحی گرافیکی، این نمودارها یا داده‌هایشان باید عیناً استفاده شوند تا پوستر با مستندات پروژه سازگار باشد.
+</div>

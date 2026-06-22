@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # بخش آماده برای اضافه شدن به پوستر
 
 ## ابزارهای مدیریت پروژه و دانش
@@ -27,3 +30,4 @@ Artifactهای قابل نمایش:
 متن کوتاه برای پوستر:
 
 > مدیریت چابک پروژه با GitHub Issues/Projects و Knowledge Base انجام شد. هر Sprint خروجی قابل تحویل، owner، KPI و artifact مشخص دارد. در Sprint نهایی، فرم feedback داخل MVP اضافه شد تا پروژه از سطح demo فنی به سمت validation با ذی‌نفعان واقعی حرکت کند.
+</div>

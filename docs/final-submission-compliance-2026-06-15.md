@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Final Submission Compliance - 2026-06-15
 
 این سند بر اساس فایل `ITPM Project Submission - Final (3).pdf` و اسکرین‌شات معیارهای Work Management / Knowledge Management تهیه شده است.
@@ -94,3 +97,4 @@
 ## جمله دفاعی
 
 > برای بخش ۳ نمره‌ای، پروژه فقط فایل مستند ندارد. Work Management با GitHub Issues/Projects ساخته می‌شود که شامل backlog، sprint، owner، status، story point، time tracking و taskهای آینده است. Knowledge Management نیز در Notion ساخته می‌شود و صفحات Sprint Notes، Meeting Notes، Technical Decisions، API Docs، Stakeholder Feedback و Team Playbook دارد. برای استفاده خدمت‌گیرندگان، داخل MVP فرم بازخورد و خروجی CSV سروری اضافه شده است.
+</div>

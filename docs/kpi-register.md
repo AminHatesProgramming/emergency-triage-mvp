@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # KPI Register
 
 ## KPIهای فعلی محصول و مدل
@@ -39,3 +42,4 @@
 ## نکته مدیریتی
 
 Accuracy برای این پروژه معیار کافی نیست. گزارش همزمان Recall، Precision و FPR باعث می‌شود trade-off انسانی پروژه شفاف باشد و مدل فقط با یک عدد تبلیغاتی معرفی نشود.
+</div>

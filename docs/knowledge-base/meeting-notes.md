@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Meeting Notes
 
 ## جلسه 1 - تعریف مسئله
@@ -54,3 +57,4 @@ Action items:
 - محمدرضا: گرفتن حداقل 5 بازخورد و خلاصه‌سازی
 - محدثه: تست UI و آماده‌سازی screenshot از موبایل
 - محمدامین: آپدیت گزارش، README و deliverables
+</div>

@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Agile Delivery Evidence
 
 این سند برای پاسخ مستقیم به نقد TA تهیه شده است: پروژه نباید فقط یک کار فنی یا ML دیده شود؛ باید نشان دهد تیم چگونه با رویکرد Agile کار کرده، هر Sprint چه خروجی قابل تحویل داشته، چه کسی مسئول چه کاری بوده، و مسیر دریافت بازخورد کاربر چگونه طراحی شده است.
@@ -96,3 +99,4 @@ C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\pytho
 4. مهم‌ترین پیشنهاد بهبود چیست؟
 
 خروجی فرم MVP به CSV export می‌شود و باید خلاصه آن در `docs/knowledge-base/stakeholder-feedback-log.md` ثبت شود.
+</div>

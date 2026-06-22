@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # ساختار پیشنهادی سامانه مدیریت کار
 
 این محتوا برای انتقال به Trello، Jira یا Notion board آماده شده است. معیار استاد شامل taskها، assignee، time tracking، Agile بودن و taskهای آینده است.
@@ -99,3 +102,4 @@
 - زمان واقعی یا تخمینی ثبت شده باشد.
 - خروجی قابل مشاهده در repository یا مستندات داشته باشد.
 - برای deliverableهای اصلی، حداقل یک نفر دیگر review کند.
+</div>

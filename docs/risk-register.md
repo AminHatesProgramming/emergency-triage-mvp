@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Risk Register
 
 ## روش ارزیابی
@@ -47,3 +50,4 @@
 
 - محدودیت صریحا در status report و lessons learned ثبت می شود.
 - سناریوهای فرضی با احتیاط و بر اساس پروتکل عمومی تریاژ استفاده می شوند.
+</div>

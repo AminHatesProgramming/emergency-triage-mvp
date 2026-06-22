@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # API Documentation
 
 Backend با FastAPI پیاده‌سازی شده است.
@@ -161,3 +164,4 @@ Base URL در demo محلی:
 ## قابلیت Case Summary در UI
 
 پس از هر `POST /predict`، UI یک خلاصه کیس قابل copy/print تولید می‌کند که برای کاربر بالینی قابل فهم باشد: وضعیت پیشنهادی، درصد خطر، کامل بودن داده‌ها، علائم حیاتی، safety flags، next actions و disclaimer. جزئیات مدیریتی پروژه و متریک‌های ارزیابی مدل در UI کاربر نمایش داده نمی‌شوند و فقط در گزارش رسمی باقی می‌مانند.
+</div>

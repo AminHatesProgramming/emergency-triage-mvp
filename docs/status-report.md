@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # گزارش وضعیت پروژه
 
 پروژه «سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس» اکنون یک MVP قابل اجرا و قابل deploy دارد: مدل `v7`، API با FastAPI، رابط فارسی mobile-first، PWA، فرم بازخورد، مستندات مدیریتی و مسیر انتشار موبایلی. سیستم جایگزین پزشک یا پرستار نیست و فقط نقش decision-support دارد.
@@ -72,3 +75,4 @@
 3. جمع‌آوری حداقل ۵ بازخورد واقعی
 4. ساخت Android wrapper با TWA یا Capacitor
 5. در فاز Laravel، افزودن consent، audit log، auth و panel مدیریت بازخورد
+</div>

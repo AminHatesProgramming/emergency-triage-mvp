@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # راهنمای عملیاتی‌سازی ابزارهای مدیریت پروژه و مدیریت دانش
 
 این سند برای اجرای دقیق خواسته TA است: پروژه باید یک ابزار واقعی برای مدیریت کار شبیه Jira و یک ابزار واقعی برای مدیریت دانش شبیه Notion داشته باشد.
@@ -91,3 +94,4 @@ C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\pytho
 | Notion Knowledge Base | بعد از اجرای اسکریپت اینجا قرار گیرد |
 | Notion Task Board Database | بعد از اجرای اسکریپت اینجا قرار گیرد |
 | Feedback CSV Export | `http://127.0.0.1:8000/feedback/export` |
+</div>

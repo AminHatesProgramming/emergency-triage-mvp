@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Roadmap توسعه آینده
 
 ## هدف
@@ -57,3 +60,4 @@
 - تحلیل محرمانگی و امنیت داده
 - بررسی bias و fairness
 - تایید نهادی/قانونی
+</div>

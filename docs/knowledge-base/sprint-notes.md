@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Sprint Notes
 
 ## Sprint 0 - Project Framing
@@ -75,3 +78,4 @@ Review criteria:
 - حداقل 5 feedback واقعی جمع‌آوری شود.
 - GitHub Issues/Project view با taskها و ownerها قابل نمایش باشد.
 - در ارائه، نقش هر عضو تیم با یک بخش ساده و قابل توضیح مشخص شود.
+</div>

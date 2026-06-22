@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Technical Decisions
 
 | Date | Decision | Rationale | Impact |
@@ -9,3 +12,4 @@
 | 2026-06-10 | Build mobile-first PWA | کاربر واقعی تریاژ بیشتر به موبایل/تبلت نیاز دارد | demo عملیاتی‌تر شد |
 | 2026-06-10 | Add safety-first hybrid layer | مدل با ورودی ناقص ممکن است uncertainty داشته باشد | red flagها جداگانه و شفاف گزارش می‌شوند |
 | 2026-06-13 | Add feedback capture to MVP | TA روی operationalization و user feedback تاکید کرد | امکان جمع‌آوری شواهد واقعی فراهم شد |
+</div>

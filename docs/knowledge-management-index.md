@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # ساختار پیشنهادی سامانه مدیریت دانش
 
 این سند برای انتقال به Notion، Confluence یا Google Docs آماده شده است. معیار استاد شامل ساختار داکیومنت‌ها، API documentation، تصمیمات فنی، صورتجلسات و دانش تولیدشده است.
@@ -129,3 +132,4 @@
 - هر تغییر scope باید در `scope-change-record.md` ثبت شود.
 - خروجی هر sprint باید در `status-report.md` یا `agile-dashboard.md` به‌روزرسانی شود.
 - نسخه نهایی پوستر و گزارش باید در همین فضای دانش لینک شود.
+</div>

@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # معماری سیستم
 
 سامانه «پشتیبان تصمیم‌گیری تریاژ اورژانس» یک MVP هوشمند، mobile-first و API-first است. کاربر اطلاعات قابل دسترسی در لحظه تریاژ را وارد می‌کند و backend با استفاده از مدل `v7` احتمال بحرانی بودن بیمار را برمی‌گرداند. خروجی سامانه فقط decision-support است.
@@ -109,3 +112,4 @@ docker run --rm -p 8000:8000 emergency-triage-mvp
 | Database | بازخورد، تنظیمات نسخه و لاگ غیرحساس |
 
 برای انتشار در بازارهای اندرویدی، مسیر پیشنهادی PWA روی HTTPS + Android wrapper با Trusted Web Activity یا Capacitor است.
+</div>

@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # محتوای پیشنهادی پوستر A0
 
 ابعاد نهایی: حداقل A0، 84.1 در 118.9 سانتی‌متر
@@ -110,3 +113,4 @@ flowchart LR
 قرار دادن QR به GitHub:
 
 `https://github.com/AminHatesProgramming/emergency-triage-mvp`
+</div>

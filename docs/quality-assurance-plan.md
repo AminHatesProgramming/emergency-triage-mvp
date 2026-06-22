@@ -1,3 +1,6 @@
+<!-- rtl-normalized -->
+<div dir="rtl" align="right">
+
 # Quality Assurance Plan
 
 ## هدف QA
@@ -51,3 +54,4 @@
 | سوال استاد درباره topic اولیه Sheet1 | استفاده از `scope-change-record.md` |
 | سوال درباره کاربرد بالینی | تاکید بر decision-support و نیاز به validation |
 | سوال درباره false positives | توضیح trade-off safety-first و balanced mode |
+</div>
