@@ -51,7 +51,7 @@
 
 | الزام استاد | خروجی آماده‌شده | وضعیت |
 |---|---|---|
-| board چابک مشابه Trello/Jira | `docs/work-management-board.md` | آماده برای انتقال |
+| board چابک مشابه Trello/Jira | `docs/work-management-board.md` و `docs/artifacts/jira-import-issues.csv` | آماده برای import در Jira |
 | taskهای تعریف‌شده | task table کامل | آماده |
 | assign شدن وظایف | assignee در تمام taskها | آماده |
 | time tracking از ابتدای ترم | time log در `docs/team-collaboration-matrix.md` | آماده |
@@ -62,7 +62,7 @@
 
 | الزام استاد | خروجی آماده‌شده | وضعیت |
 |---|---|---|
-| ساختار داکیومنت‌ها | `docs/knowledge-management-index.md` | آماده |
+| ساختار داکیومنت‌ها | `docs/knowledge-management-index.md` و `docs/artifacts/github-project-knowledge-items.csv` | آماده |
 | API documentation | `docs/api-documentation.md` | آماده |
 | تصمیمات فنی | `docs/decision-log.md` | آماده |
 | صورتجلسات | `docs/meeting-minutes.md` | آماده |
@@ -70,8 +70,9 @@
 
 ## کارهای انسانی باقی‌مانده
 
-- ایجاد workspace واقعی در Trello/Notion و کپی کردن محتوای آماده‌شده.
-- گرفتن screenshot از board و UI برای نسخه نهایی پوستر.
+- import کردن CSV آماده در Jira و گرفتن screenshot واقعی از board.
+- ساخت GitHub Project مدیریت دانش و گرفتن screenshot واقعی از آن.
+- جمع‌آوری بازخورد واقعی پایلوت؛ داده‌های synthetic فقط برای تحلیل پیش از پایلوت هستند.
 - ضبط ویدئو با حضور هر سه عضو.
 - اگر استاد روی موضوع ثبت‌شده اولیه حساس است، توضیح Scope Pivot را پیش از ارائه آماده داشته باشید.
 </div>

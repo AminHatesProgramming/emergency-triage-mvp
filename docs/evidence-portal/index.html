@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Emergency Triage MVP - Agile Evidence Portal</title>
+    <title>امدادیار - Agile Evidence Portal</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -11,40 +11,40 @@
       <header class="hero">
         <div>
           <p class="eyebrow">Agile / Work Management / Knowledge Base Evidence</p>
-          <h1>پورتال شواهد مدیریت پروژه تریاژ هوشمند اورژانس</h1>
+          <h1>پورتال شواهد مدیریت پروژه امدادیار</h1>
           <p>
             این صفحه برای نمایش منظم شواهد مدیریتی پروژه ساخته شده است: backlog، Sprintها،
-            time tracking، ساختار مدیریت دانش، ریسک‌ها و مسیر انتقال به ابزارهای واقعی مانند
-            GitHub Projects و Notion.
+            time tracking، ساختار مدیریت دانش، ریسک‌ها، مسیر Jira و شواهد عملیاتی شدن محصول
+            به شکل یک PWA عمومی و قابل نصب روی موبایل.
           </p>
         </div>
         <aside class="truth-box">
-          <strong>وضعیت صداقت مستندات</strong>
-          <span>GitHub Projects و Notion واقعی نیازمند login/token هستند.</span>
-          <span>این پورتال، evidence محلی و آماده انتقال است؛ نه اسکرین‌شات جعلی.</span>
+          <strong>وضعیت تحویل</strong>
+          <span>PWA عمومی آماده است: aminhatesprogramming.github.io/emergency-triage-mvp</span>
+          <span>Jira CSV و GitHub Knowledge CSV آماده import هستند؛ اسکرین‌شات جعلی تولید نشده است.</span>
         </aside>
       </header>
 
       <section class="summary-grid">
         <article>
           <span>Work Items</span>
-          <strong>18</strong>
-          <small>از CSV مدیریت کار</small>
+          <strong>19</strong>
+          <small>در Jira import CSV</small>
         </article>
         <article>
           <span>Done</span>
-          <strong>12</strong>
+          <strong>16</strong>
           <small>خروجی قابل تحویل</small>
         </article>
         <article>
-          <span>Future / To Do</span>
-          <strong>6</strong>
-          <small>مرحله بعدی و ابزار واقعی</small>
+          <span>Knowledge Items</span>
+          <strong>16</strong>
+          <small>برای GitHub Project</small>
         </article>
         <article>
           <span>Logged Time</span>
-          <strong>88h</strong>
-          <small>ثبت تخمینی قابل دفاع</small>
+          <strong>116h</strong>
+          <small>ثبت تخمینی و قابل دفاع</small>
         </article>
       </section>
 
@@ -52,7 +52,7 @@
         <div class="panel-title">
           <div>
             <p class="eyebrow">Work Management Board</p>
-            <h2>برد چابک معادل Jira / GitHub Projects</h2>
+            <h2>برد چابک آماده ورود به Jira</h2>
           </div>
           <span class="badge">Backlog → To Do → In Progress → Review → Done</span>
         </div>
@@ -62,27 +62,27 @@
             <h3>Backlog</h3>
             <article class="task future">
               <b>اعتبارسنجی بالینی و fairness</b>
-              <span>Phase Next · Health Validation</span>
+              <span>Phase Next · Health Validation · Owner: محمدامین</span>
             </article>
             <article class="task future">
-              <b>سبک‌سازی مدل برای deployment</b>
-              <span>Phase Next · ML Ops</span>
+              <b>پایلوت ۵ تا ۱۰ کاربر/ذی‌نفع</b>
+              <span>Phase Next · Feedback · Owner: محمدرضا</span>
             </article>
           </div>
 
           <div class="lane">
             <h3>To Do</h3>
             <article class="task todo">
-              <b>جمع‌آوری ۵ بازخورد واقعی</b>
-              <span>Owner: محمدرضا · Sprint 5 · 5h</span>
+              <b>ثبت feedback واقعی در گزارش نهایی</b>
+              <span>Owner: محمدرضا · Sprint 6 · 5h</span>
             </article>
             <article class="task todo">
-              <b>ساخت GitHub Project واقعی پس از login</b>
-              <span>Owner: محمدامین · Script ready</span>
+              <b>Import کردن CSV در Jira</b>
+              <span>Owner: محمدرضا · docs/artifacts/jira-import-issues.csv</span>
             </article>
             <article class="task todo">
-              <b>ساخت Notion KB واقعی پس از token</b>
-              <span>Owner: محدثه · Script ready</span>
+              <b>ساخت GitHub Project دانش</b>
+              <span>Owner: محدثه · github-project-knowledge-items.csv</span>
             </article>
           </div>
 
@@ -90,11 +90,11 @@
             <h3>In Progress</h3>
             <article class="task progress">
               <b>پوستر و بسته نهایی evidence</b>
-              <span>Owner: تیم · Poster assets ready</span>
+              <span>Owner: تیم · Poster assets and QR ready</span>
             </article>
             <article class="task progress">
               <b>آماده‌سازی ویدئوی ارائه</b>
-              <span>Owner: محمدامین · Script ready</span>
+              <span>Owner: محمدامین · Script and talking points ready</span>
             </article>
           </div>
 
@@ -113,16 +113,16 @@
           <div class="lane">
             <h3>Done</h3>
             <article class="task done">
-              <b>مدل v6 و کنترل leakage</b>
-              <span>AUC 0.8947 · Recall 0.9241</span>
+              <b>مدل v7 و کنترل leakage</b>
+              <span>AUC 0.9041 · Recall 0.9246 · FPR 0.3352</span>
             </article>
             <article class="task done">
               <b>FastAPI و endpointهای محصول</b>
               <span>/health · /predict · /model-info</span>
             </article>
             <article class="task done">
-              <b>UI فارسی mobile-first و PWA</b>
-              <span>Install guide · Offline shell</span>
+              <b>UI فارسی mobile-first و PWA عمومی</b>
+              <span>Public URL · Install guide · QR</span>
             </article>
             <article class="task done">
               <b>Model Card, KPI, Risk, Burndown</b>
@@ -151,6 +151,7 @@
               <tr><td>3</td><td>مدل v6، SHAP و threshold safety-first</td><td>metrics_v6.json</td></tr>
               <tr><td>4</td><td>UI فارسی، PWA و بسته Word</td><td>frontend + deliverables</td></tr>
               <tr><td>5</td><td>Agile evidence، feedback، poster assets</td><td>poster-assets</td></tr>
+              <tr><td>6</td><td>مدل v7، deploy عمومی، Jira/KM assets</td><td>metrics_v7 + GitHub Pages</td></tr>
             </tbody>
           </table>
         </article>
@@ -167,10 +168,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>محمدامین پورمند</td><td>Lead / ML & System Architect</td><td>47h</td></tr>
-              <tr><td>محمدرضا آرمان پور</td><td>Project Control & Metrics</td><td>18h</td></tr>
-              <tr><td>محدثه حاتمی کیا</td><td>UI / Documentation / QA</td><td>23h</td></tr>
-              <tr class="total"><td colspan="2">جمع کل</td><td>88h</td></tr>
+              <tr><td>محمدامین پورمند</td><td>Lead / ML & System Architect</td><td>68h</td></tr>
+              <tr><td>محمدرضا آرمان پور</td><td>Project Control & Metrics</td><td>22h</td></tr>
+              <tr><td>محدثه حاتمی کیا</td><td>UI / Documentation / QA</td><td>26h</td></tr>
+              <tr class="total"><td colspan="2">جمع کل</td><td>116h</td></tr>
             </tbody>
           </table>
         </article>
@@ -182,7 +183,7 @@
             <p class="eyebrow">Knowledge Management</p>
             <h2>ساختار مدیریت دانش معادل Notion / Confluence</h2>
           </div>
-          <span class="badge">docs/knowledge-base</span>
+          <span class="badge">docs/knowledge-base + GitHub Project CSV</span>
         </div>
         <div class="kb-grid">
           <article><b>Sprint Notes</b><span>خروجی، معیار Done و تغییرات هر Sprint</span></article>
@@ -190,7 +191,7 @@
           <article><b>Technical Decisions</b><span>چرایی انتخاب XGBoost، threshold و leakage control</span></article>
           <article><b>Risk Register</b><span>FN, FP, bias, deployment, stakeholder feedback</span></article>
           <article><b>AI Usage Report</b><span>شفافیت استفاده از AI و کنترل انسانی</span></article>
-          <article><b>Stakeholder Feedback</b><span>فرم محصول و مسیر CSV برای بازخورد واقعی</span></article>
+          <article><b>Stakeholder Feedback</b><span>فرم محصول، برنامه پایلوت و ثبت شفاف بازخورد واقعی</span></article>
         </div>
       </section>
 
@@ -209,10 +210,10 @@
           <p class="eyebrow">Next Operational Step</p>
           <h2>مسیر واقعی‌سازی ابزارها</h2>
           <ol>
-            <li>اجرای `gh auth login` و ساخت Issues/Project با اسکریپت آماده</li>
-            <li>ایجاد Notion integration و اجرای اسکریپت Knowledge Base</li>
-            <li>گرفتن screenshot واقعی از board و KB</li>
-            <li>ثبت حداقل ۵ بازخورد واقعی در فرم MVP</li>
+            <li>ساخت پروژه Scrum در Jira و import فایل `jira-import-issues.csv`</li>
+            <li>ساخت GitHub Project برای مدیریت دانش و ورود `github-project-knowledge-items.csv`</li>
+            <li>گرفتن screenshot واقعی از board و Knowledge Project</li>
+            <li>ثبت حداقل ۵ بازخورد واقعی با لینک عمومی امدادیار</li>
           </ol>
         </article>
       </section>

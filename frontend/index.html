@@ -28,7 +28,7 @@
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
         <button type="button" data-jump="#triageForm">سناریو</button>
         <button type="button" data-jump="#resultPanel">نتیجه</button>
-        <button type="button" data-jump="#feedbackPanel">بازخورد</button>
+        <button type="button" data-jump="#installHelp">نصب</button>
       </nav>
 
       <section class="layout-grid">
@@ -232,72 +232,29 @@
         </aside>
       </section>
 
-      <section id="feedbackPanel" class="panel feedback-panel">
+      <section id="installHelp" class="panel install-help-panel">
         <div class="panel-title">
           <div>
-            <p class="section-kicker">بازخورد نسخه آزمایشی</p>
-            <h2>بازخورد تجربه کاربری</h2>
+            <p class="section-kicker">نسخه موبایل</p>
+            <h2>نصب سریع امدادیار</h2>
           </div>
-          <span class="feedback-count" id="feedbackCount">آماده دریافت بازخورد</span>
+          <button type="button" class="ghost" id="installHelpBtn">راهنمای نصب</button>
         </div>
-
-        <form id="feedbackForm" class="feedback-grid">
-          <label>
-            نوع ذی‌نفع
-            <select name="stakeholder_type" required>
-              <option value="">انتخاب کنید</option>
-              <option value="medical-student">دانشجوی پزشکی/پرستاری</option>
-              <option value="clinic-or-emergency-contact">آشنا با درمانگاه/اورژانس</option>
-              <option value="engineering-student">دانشجوی مهندسی</option>
-              <option value="crisis-management">آشنا با مدیریت بحران</option>
-              <option value="general-user">کاربر عمومی</option>
-            </select>
-          </label>
-
-          <label>
-            فهم خروجی
-            <select name="understandability" required>
-              <option value="">۱ تا ۵</option>
-              <option value="1">۱ - نامفهوم</option>
-              <option value="2">۲</option>
-              <option value="3">۳</option>
-              <option value="4">۴</option>
-              <option value="5">۵ - کاملا واضح</option>
-            </select>
-          </label>
-
-          <label>
-            وضوح UI
-            <select name="ui_clarity" required>
-              <option value="">۱ تا ۵</option>
-              <option value="1">۱ - گیج‌کننده</option>
-              <option value="2">۲</option>
-              <option value="3">۳</option>
-              <option value="4">۴</option>
-              <option value="5">۵ - سریع و واضح</option>
-            </select>
-          </label>
-
-          <label>
-            وضوح disclaimer
-            <select name="disclaimer_clarity" required>
-              <option value="">۱ تا ۵</option>
-              <option value="1">۱ - نامشخص</option>
-              <option value="2">۲</option>
-              <option value="3">۳</option>
-              <option value="4">۴</option>
-              <option value="5">۵ - کاملا مشخص</option>
-            </select>
-          </label>
-
-          <label class="feedback-wide">
-            پیشنهاد یا نگرانی اصلی
-            <textarea name="comment" rows="3" required placeholder="مثلا: خروجی قابل فهم بود، اما بهتر است اقدام بعدی واضح‌تر باشد."></textarea>
-          </label>
-
-          <button class="primary" type="submit">ثبت بازخورد</button>
-          <p class="feedback-note" id="feedbackStatus">نظر شما برای بهتر شدن نسخه آزمایشی ذخیره می‌شود.</p>
-        </form>
+        <div class="install-help-grid">
+          <article>
+            <strong>Android</strong>
+            <span>در Chrome از منوی سه‌نقطه گزینه Install app یا Add to Home screen را انتخاب کنید.</span>
+          </article>
+          <article>
+            <strong>iPhone</strong>
+            <span>در Safari دکمه Share را بزنید و Add to Home Screen را انتخاب کنید.</span>
+          </article>
+          <article>
+            <strong>حریم خصوصی</strong>
+            <span>اطلاعات بیمار در این نسخه عمومی به‌صورت پیش‌فرض ذخیره نمی‌شود.</span>
+          </article>
+        </div>
+        <p class="sr-only" id="appMessage" aria-live="polite"></p>
       </section>
 
       <footer class="product-footer">
@@ -309,7 +266,7 @@
     <div class="mobile-action-bar">
       <button type="submit" form="triageForm" class="primary">ارزیابی</button>
       <button type="button" class="ghost" id="mobileInstallBtn">نصب</button>
-      <button type="button" class="ghost" data-jump="#feedbackPanel">بازخورد</button>
+      <button type="button" class="ghost" data-jump="#resultPanel">نتیجه</button>
     </div>
 
     <div class="install-sheet" id="installSheet" hidden role="dialog" aria-modal="true" aria-labelledby="installTitle">

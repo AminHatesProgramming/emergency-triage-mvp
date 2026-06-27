@@ -5,6 +5,7 @@ __pycache__/
 # Large local data and trained artifacts
 data/raw/*.csv
 data/feedback/*.csv
+!data/feedback/synthetic-prepilot-feedback-fa.csv
 *.pkl
 models/*.pkl
 !models/triage_model_v7.pkl

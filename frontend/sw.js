@@ -1,4 +1,4 @@
-const CACHE_NAME = "triage-ed-v12-v7-market-ready";
+const CACHE_NAME = "emdadyar-v13-final-product";
 const APP_SHELL = [
   "./",
   "index.html",

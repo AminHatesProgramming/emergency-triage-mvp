@@ -24,7 +24,8 @@
 | Sprint 2 | 2026-06-04 تا 2026-06-05 | API و MVP اولیه | FastAPI، endpointهای `/health` و `/predict`، سناریوی sparse | API با ورودی ناقص پاسخ داد |
 | Sprint 3 | 2026-06-06 تا 2026-06-08 | مدل v6 و explainability | metrics v6، model card، safety-first threshold | Recall هدف 0.92 پاس شد |
 | Sprint 4 | 2026-06-09 تا 2026-06-10 | UI موبایل و package تحویل | PWA، UI فارسی، Word deliverables، poster placeholder | MVP قابل demo و نصب موبایل شد |
-| Sprint 5 | 2026-06-13 تا 2026-06-16 | مدیریت پروژه و بازخورد ذی‌نفع | GitHub Issues seed، Knowledge Base، feedback form، feedback log | حداقل 5 بازخورد واقعی جمع‌آوری شود |
+| Sprint 5 | 2026-06-13 تا 2026-06-16 | مدیریت پروژه و بازخورد ذی‌نفع | Knowledge Base، feedback form، feedback log، poster assets | مسیر پایلوت و شواهد مدیریتی آماده شد |
+| Sprint 6 | 2026-06-20 تا 2026-06-22 | مدل v7، deploy عمومی و ابزارهای مدیریت پروژه | GitHub Pages PWA، QR موبایل، Jira import CSV، GitHub Knowledge CSV | محصول عمومی و evidence قابل انتقال به ابزار واقعی آماده شد |
 
 ## نگاشت نسخه‌ها به Sprint
 
@@ -36,7 +37,7 @@
 | v5 | Sprint 3 | فیچرهای بالینی و SHAP-oriented | گزارش مدل و پوستر اولیه |
 | v6 | Sprint 3 | اصلاح دما، سوابق EHR-safe و missingness | AUC 0.8947 و Recall 0.9241 |
 | v6 mobile/PWA | Sprint 4 | safety-first hybrid و UI موبایل | MVP قابل استفاده با داده ناقص |
-| v7 webapp | Sprint 6 | featureهای بالینی جدید، کاهش FPR و آماده‌سازی deploy | AUC 0.9041، Recall 0.9246، FPR 0.3352 |
+| v7 webapp | Sprint 6 | featureهای بالینی جدید، کاهش FPR و deploy عمومی | AUC 0.9041، Recall 0.9246، FPR 0.3352 |
 
 ## نقش‌های واقعی و قابل ارائه
 
@@ -46,41 +47,24 @@
 | محمدرضا آرمان پور | Project Control & Stakeholder/KPI Coordinator | توضیح KPIها، risk register، burndown، ارزش اجتماعی و برنامه جمع‌آوری بازخورد |
 | محدثه حاتمی کیا | UI/Documentation & QA Coordinator | توضیح UI موبایل، سناریوهای تست، خوانایی خروجی، مستندات و QA |
 
-## Backlog قابل انتقال به GitHub Projects
+## Backlog قابل انتقال به Jira
 
-فایل `docs/artifacts/github-issues-seed.csv` شامل issueهای آماده است. برای ساخت board واقعی، اسکریپت `scripts/setup_github_work_management.ps1` اضافه شده است.
-
-اجرای پیشنهادی:
-
-```powershell
-winget install --id GitHub.cli
-gh auth login
-gh auth refresh -s project
-.\scripts\setup_github_work_management.ps1
-```
+فایل `docs/artifacts/jira-import-issues.csv` شامل Epic، Story و Taskهای آماده برای import در Jira است. این فایل ستون‌های assignee، sprint، story point، original estimate، time spent، priority، label و evidence link دارد.
 
 اگر بخواهید دستی انجام دهید:
 
-1. در GitHub repo وارد تب `Issues` شوید.
-2. issueهای CSV را دستی یا با GitHub CLI بسازید.
-3. از تب `Projects` یک board با ستون‌های `Backlog`, `To Do`, `In Progress`, `Review`, `Done` بسازید.
-4. issueها را بر اساس مقدار ستون `Status` در CSV روی board قرار دهید.
+1. در Jira یک پروژه Scrum با نام `امدادیار - Emergency Decision Support` بسازید.
+2. فایل `docs/artifacts/jira-import-issues.csv` را import کنید.
+3. ستون‌های `Backlog`, `Selected for Sprint`, `In Progress`, `Review/QA`, `Done` را بسازید.
+4. برای هر issue، assignee، sprint، story point و time tracking را بررسی کنید.
 
-## Knowledge Base واقعی در Notion
+## Knowledge Base قابل انتقال به GitHub Project
 
-برای ساخت Knowledge Base واقعی در Notion، اسکریپت `scripts/setup_notion_knowledge_base.py` اضافه شده است. این اسکریپت صفحات Sprint Notes، Meeting Notes، Technical Decisions، Stakeholder Feedback و Team Playbook را در Notion می‌سازد و یک database برای task board ایجاد می‌کند.
+فایل `docs/artifacts/github-project-knowledge-items.csv` شامل آیتم‌های مدیریت دانش است: Sprint Notes، Meeting Notes، Technical Decisions، Stakeholder Feedback، AI Usage، Risk Register و KPI Register. این آیتم‌ها باید در یک GitHub Project یا Wiki به فایل‌های اصلی repository لینک شوند.
 
-اجرای پیشنهادی:
+اگر استاد پرسید چرا screenshot واقعی هنوز در فایل نیست، پاسخ دفاعی:
 
-```powershell
-$env:NOTION_TOKEN='secret_...'
-$env:NOTION_PARENT_PAGE_ID='your_parent_page_id'
-C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe scripts\setup_notion_knowledge_base.py
-```
-
-اگر استاد پرسید چرا Jira استفاده نشده، پاسخ دفاعی:
-
-> برای مقیاس کوچک پروژه از Jira رسمی استفاده نکردیم، اما artifactهای معادل Jira شامل backlog، sprint board، task assignment، time tracking، burndown، KPI tracking و knowledge base در GitHub/Docs پیاده‌سازی شده است.
+> برای جلوگیری از جعل evidence، screenshot واقعی فقط پس از ساخت board با حساب کاربری گرفته می‌شود. در repository فایل‌های import، مستند راهنما، time tracking، backlog، Sprintها و evidence linkها آماده‌اند و قابل انتقال مستقیم به Jira/GitHub Project هستند.
 
 ## برنامه بازخورد ذی‌نفع
 

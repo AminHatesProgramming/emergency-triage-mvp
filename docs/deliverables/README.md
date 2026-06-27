@@ -13,18 +13,22 @@
 | `ITPM_Project_Management_Evidence_Package.docx` | پیوست مدیریت پروژه: KPI، Burndown، RACI، WBS، Time Tracking، Work/Knowledge Management |
 | `ITPM_Presentation_and_Submission_Guide.docx` | راهنمای ویدئوی ۱۰ دقیقه‌ای، demo، نقش اعضا و checklist تحویل |
 | `ITPM_Agile_Evidence_Addendum.docx` | پیوست تکمیلی برای پاسخ به نقد TA درباره Sprint، ابزار مدیریت کار، Knowledge Base و feedback loop |
+| `Emdadyar_Mobile_App_For_Professor.docx` | فایل کوتاه و قابل ارسال برای استاد شامل لینک، QR و روش نصب PWA |
+| `Emdadyar_Market_Release_Package.zip` | بسته آماده انتشار شامل dist، متن مارکت، screenshotها، QR و راهنمای TWA/APK |
 
 ## پیوست‌های جدید پس از بازخورد TA
 
 برای پاسخ به نقد «غیرمدیریت‌پروژه‌ای دیده شدن پروژه»، این artifactها به repo اضافه شدند:
 
 - `docs/agile-delivery-evidence.md`
-- `docs/tooling-operationalization-guide.md`
+- `docs/jira-github-project-import-guide.md`
 - `docs/final-submission-compliance-2026-06-15.md`
-- `docs/artifacts/github-issues-seed.csv`
+- `docs/artifacts/jira-import-issues.csv`
+- `docs/artifacts/github-project-knowledge-items.csv`
 - `docs/knowledge-base/README.md`
 - `docs/knowledge-base/stakeholder-feedback-log.md`
-- فرم بازخورد داخل MVP با امکان خروجی CSV
+- `docs/ux-feedback-synthesis.md`
+- `data/feedback/synthetic-prepilot-feedback-fa.csv` با برچسب شفاف `synthetic_pre_pilot`
 
 ## خروجی PDF
 

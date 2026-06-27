@@ -119,9 +119,7 @@ const modelProbability = document.querySelector("#modelProbability");
 const qualityBar = document.querySelector("#qualityBar");
 const confidenceBand = document.querySelector("#confidenceBand");
 const missingFields = document.querySelector("#missingFields");
-const feedbackForm = document.querySelector("#feedbackForm");
-const feedbackCount = document.querySelector("#feedbackCount");
-const feedbackStatus = document.querySelector("#feedbackStatus");
+const appMessage = document.querySelector("#appMessage");
 const copyCaseBtn = document.querySelector("#copyCaseBtn");
 const printCaseBtn = document.querySelector("#printCaseBtn");
 const caseSummaryBox = document.querySelector("#caseSummaryBox");
@@ -132,12 +130,12 @@ const closeInstallSheet = document.querySelector("#closeInstallSheet");
 const installDoneBtn = document.querySelector("#installDoneBtn");
 const installPromptBtn = document.querySelector("#installPromptBtn");
 const installHelpText = document.querySelector("#installHelpText");
+const installHelpBtn = document.querySelector("#installHelpBtn");
 
 let deferredInstallPrompt = null;
 let latestResult = null;
 let latestPayload = null;
 let browserModelPromise = null;
-const FEEDBACK_STORAGE_KEY = "triageStakeholderFeedback";
 
 function translate(text) {
   if (!text) return "";
@@ -712,77 +710,8 @@ function resetResult() {
   caseSummaryText.textContent = "";
 }
 
-function getFeedbackEntries() {
-  try {
-    return JSON.parse(localStorage.getItem(FEEDBACK_STORAGE_KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
-
-function saveFeedbackEntries(entries) {
-  localStorage.setItem(FEEDBACK_STORAGE_KEY, JSON.stringify(entries));
-  updateFeedbackCount();
-}
-
-function updateFeedbackCount() {
-  const count = getFeedbackEntries().length;
-  feedbackCount.textContent = count ? `${count} بازخورد ثبت‌شده` : "آماده دریافت بازخورد";
-}
-
-async function refreshFeedbackSummary() {
-  if (!shouldTryApi()) {
-    updateFeedbackCount();
-    return;
-  }
-  try {
-    const res = await fetch(apiUrl("/feedback-summary"));
-    if (!res.ok) throw new Error("summary failed");
-    const summary = await res.json();
-    feedbackCount.textContent = summary.stored_count
-      ? `${summary.stored_count} بازخورد ثبت‌شده`
-      : "آماده دریافت بازخورد";
-  } catch {
-    updateFeedbackCount();
-  }
-}
-
-async function submitFeedback(event) {
-  event.preventDefault();
-  const data = new FormData(feedbackForm);
-  const entry = {
-    recorded_at: new Date().toISOString(),
-    stakeholder_type: data.get("stakeholder_type"),
-    understandability: Number(data.get("understandability")),
-    ui_clarity: Number(data.get("ui_clarity")),
-    disclaimer_clarity: Number(data.get("disclaimer_clarity")),
-    comment: String(data.get("comment") || "").trim(),
-  };
-  if (!shouldTryApi()) {
-    const entries = getFeedbackEntries();
-    entries.push(entry);
-    saveFeedbackEntries(entries);
-    feedbackStatus.textContent = "بازخورد روی همین دستگاه ذخیره شد.";
-    feedbackForm.reset();
-    return;
-  }
-  try {
-    const res = await fetch(apiUrl("/feedback"), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(entry),
-    });
-    if (!res.ok) throw new Error("feedback failed");
-    const result = await res.json();
-    feedbackCount.textContent = `${result.stored_count} بازخورد ثبت‌شده`;
-    feedbackStatus.textContent = "بازخورد ثبت شد. ممنون که به بهتر شدن نسخه آزمایشی کمک کردید.";
-  } catch {
-    const entries = getFeedbackEntries();
-    entries.push(entry);
-    saveFeedbackEntries(entries);
-    feedbackStatus.textContent = "اتصال سرور برقرار نبود؛ بازخورد روی همین دستگاه ذخیره شد.";
-  }
-  feedbackForm.reset();
+function setAppMessage(text) {
+  if (appMessage) appMessage.textContent = text;
 }
 
 function formatPercent(value) {
@@ -815,7 +744,7 @@ function updateCaseSummary() {
 
 async function copyCaseSummary() {
   if (!caseSummaryText.textContent) {
-    feedbackStatus.textContent = "ابتدا یک بیمار را ارزیابی کنید.";
+    setAppMessage("ابتدا یک بیمار را ارزیابی کنید.");
     return;
   }
   try {
@@ -831,7 +760,7 @@ async function copyCaseSummary() {
 
 function printCaseSummary() {
   if (!caseSummaryText.textContent) {
-    feedbackStatus.textContent = "ابتدا یک بیمار را ارزیابی کنید.";
+    setAppMessage("ابتدا یک بیمار را ارزیابی کنید.");
     return;
   }
   window.print();
@@ -932,11 +861,11 @@ document.querySelectorAll("[data-jump]").forEach((button) => {
 
 document.querySelector("#clearBtn").addEventListener("click", resetResult);
 form.addEventListener("submit", submitForm);
-feedbackForm.addEventListener("submit", submitFeedback);
 copyCaseBtn.addEventListener("click", copyCaseSummary);
 printCaseBtn.addEventListener("click", printCaseSummary);
 installBtn.addEventListener("click", handleInstallClick);
 if (mobileInstallBtn) mobileInstallBtn.addEventListener("click", handleInstallClick);
+if (installHelpBtn) installHelpBtn.addEventListener("click", handleInstallClick);
 installPromptBtn.addEventListener("click", runInstallPrompt);
 closeInstallSheet.addEventListener("click", closeInstallDialog);
 installDoneBtn.addEventListener("click", closeInstallDialog);
@@ -973,5 +902,4 @@ if (isStandaloneMode()) {
 }
 
 drawSignal();
-refreshFeedbackSummary();
 checkApi();

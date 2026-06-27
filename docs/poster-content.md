@@ -74,9 +74,10 @@ flowchart LR
 | Sprint 0 | انتخاب مسئله و scope |
 | Sprint 1 | مدل و مستندات پایه |
 | Sprint 2 | API و UI |
-| Sprint 3 | مدل v6 و مستندات نهایی |
-| Sprint 4 | پوستر، ویدئو و تحویل نهایی |
-| Sprint 6 | مدل v7 و آماده‌سازی deploy وب‌اپ |
+| Sprint 3 | مدل v6، SHAP و مستندات مدل |
+| Sprint 4 | UI فارسی، PWA و بسته تحویل |
+| Sprint 5 | evidence مدیریت پروژه، feedback form و poster assets |
+| Sprint 6 | مدل v7، deploy عمومی وب‌اپ، QR موبایل و Jira/KM assets |
 
 ## بخش 8: پیش‌بینی جذب کاربر تا پایان تیر
 
@@ -94,7 +95,7 @@ flowchart LR
 - دریافت بازخورد از حداقل 2 فرد آشنا با حوزه سلامت
 - 5 سناریوی demo تاییدشده
 - بررسی fairness برای سن و جنسیت
-- prototype آفلاین/PWA
+- PWA عمومی و قابل نصب روی موبایل
 - زمان پاسخ API کمتر از 300ms در demo
 
 ## بخش 10: چالش‌ها و درخواست بازخورد

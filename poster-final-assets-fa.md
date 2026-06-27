@@ -109,14 +109,14 @@
 | Sprint 2 | 2026-06-04 تا 2026-06-05 | FastAPI، endpointهای `/health` و `/predict`، سناریوی sparse |
 | Sprint 3 | 2026-06-06 تا 2026-06-08 | مدل v6، metrics، model card، threshold safety-first |
 | Sprint 4 | 2026-06-09 تا 2026-06-10 | UI فارسی mobile-first، PWA، بسته مستندات Word |
-| Sprint 5 | 2026-06-13 تا 2026-06-16 | evidence مدیریت پروژه، feedback form، seed ابزارهای GitHub/Notion |
-| Sprint 6 | 2026-06-20 | مدل v7، کاهش FPR، آماده‌سازی deploy وب‌اپ و مسیر موبایل |
+| Sprint 5 | 2026-06-13 تا 2026-06-16 | evidence مدیریت پروژه، feedback form، مستندات Agile |
+| Sprint 6 | 2026-06-20 تا 2026-06-22 | مدل v7، کاهش FPR، deploy عمومی PWA، QR موبایل، Jira/KM import assets |
 
 ### Roadmap پروژه
 - تکمیل پوستر و ویدئوی نهایی
-- جمع‌آوری بازخورد واقعی از حداقل ۵ ذی‌نفع
-- ساخت board واقعی در GitHub Projects یا Trello
-- ساخت Knowledge Base واقعی در Notion یا Docs/Wiki
+- جمع‌آوری بازخورد واقعی از حداقل ۵ ذی‌نفع با لینک عمومی امدادیار
+- import کردن backlog و sprintها در Jira با CSV آماده
+- ساخت GitHub Project مدیریت دانش با CSV آماده
 - اعتبارسنجی دامنه‌ای با فرد آشنا با اورژانس
 - تحلیل fairness و خطاهای False Negative
 
@@ -126,22 +126,24 @@
 - اضافه شدن نصب موبایل با راهنمای fallback
 - تولید خروجی Case Summary قابل copy/print
 - تولید نمودارهای فنی و مدیریتی پوستر
+- آماده شدن لینک عمومی و QR نسخه موبایل قابل نصب
+- آماده شدن فایل Word کوتاه برای ارسال اپلیکیشن به استاد
 
 ### چالش‌های فعلی
 - نیاز به بازخورد واقعی کاربر و ذی‌نفع سلامت
-- نبود اسکرین‌شات واقعی از GitHub Project و Notion تا قبل از login/token
+- نبود اسکرین‌شات واقعی از Jira/GitHub Project تا قبل از ورود دستی با حساب کاربری
 - FPR هنوز trade-off طبیعی رویکرد safety-first است
 - مدل برای استفاده واقعی نیازمند اعتبارسنجی بالینی و بررسی fairness است
 
 ### برنامه مرحله بعد
-تمرکز مرحله بعد روی واقعی‌سازی evidence مدیریتی، جمع‌آوری feedback، سبک‌سازی مدل، و آماده‌سازی demo و ویدئوی نهایی است.
+تمرکز مرحله بعد روی import واقعی در Jira، ساخت GitHub Project مدیریت دانش، جمع‌آوری feedback، و آماده‌سازی demo و ویدئوی نهایی است.
 
 ### ابزارهای مدیریت پروژه و دانش
 پیشنهاد اجرایی و آماده پروژه:
-- مدیریت کار: GitHub Issues / GitHub Projects یا Trello
-- مدیریت دانش: Notion، Google Docs یا Wiki
-- فایل‌های آماده: `docs/artifacts/work-management-board.csv` و `docs/knowledge-base/`
-- اسکریپت‌های آماده: `scripts/setup_github_work_management.ps1` و `scripts/setup_notion_knowledge_base.py`
+- مدیریت کار: Jira Scrum Board با فایل `docs/artifacts/jira-import-issues.csv`
+- مدیریت دانش: GitHub Project / Wiki با فایل `docs/artifacts/github-project-knowledge-items.csv`
+- فایل‌های آماده: `docs/jira-github-project-import-guide.md`، `docs/knowledge-base/` و `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx`
+- لینک محصول: `https://aminhatesprogramming.github.io/emergency-triage-mvp/`
 
 ---
 
@@ -156,7 +158,7 @@
 | خلاصه board مدیریت کار | `poster-assets/work-management-summary.png` | تولید شد؛ screenshot واقعی نیست |
 | ساختار Knowledge Base | `poster-assets/knowledge-base-structure.png` | تولید شد؛ screenshot واقعی Notion نیست |
 
-اسکرین‌شات واقعی `agile-board-screenshot.png` و `knowledge-base-screenshot.png` در پروژه موجود نیست / نیاز به تکمیل دارد. برای تکمیل، باید GitHub Projects و Notion با حساب واقعی ساخته و screenshot گرفته شود.
+اسکرین‌شات واقعی `agile-board-screenshot.png` و `knowledge-base-screenshot.png` هنوز باید پس از ورود دستی به Jira/GitHub Project گرفته شود. برای جلوگیری از جعل evidence، فعلاً نمودار ساختار مدیریت کار و دانش به جای screenshot واقعی استفاده شده است.
 
 ### جدول به‌روزرسانی هفتگی
 
@@ -165,7 +167,8 @@
 | هفته ۱ | تعریف مسئله، scope، baseline مدل | ساخت API و کنترل leakage | انتخاب feature نامناسب |
 | هفته ۲ | API، UI اولیه، سناریوهای demo | بهبود مدل و مستندات | FPR بالا و خطای threshold |
 | هفته ۳ | مدل v6، SHAP، Model Card | تکمیل PWA و گزارش | نبود بازخورد واقعی |
-| هفته ۴ | UI محصولی، feedback form، نمودارهای پوستر | board واقعی و Notion | کمبود زمان برای evidence ابزارها |
+| هفته ۴ | UI محصولی، feedback form، نمودارهای پوستر | deploy عمومی و Jira/KM assets | کمبود زمان برای screenshot ابزارها |
+| هفته ۵ | مدل v7، deploy عمومی، QR موبایل | import واقعی در Jira و پایلوت | نیاز به بازخورد دامنه‌ای |
 | پایان تیر | پایلوت دانشگاهی و بازخورد | اعتبارسنجی دامنه‌ای | استفاده بدون تأیید بالینی |
 
 ### خلاصه Backlog
@@ -178,8 +181,8 @@
 آیتم‌های باز مهم:
 - جمع‌آوری ۵ بازخورد واقعی
 - تست UI با کاربران غیرتخصصی
-- ساخت GitHub Project واقعی پس از login
-- ساخت Notion Knowledge Base واقعی پس از token
+- import کردن CSV در Jira
+- ساخت GitHub Project مدیریت دانش
 - افزودن screenshotهای ابزارها به بسته نهایی
 
 ### خلاصه Risk Register
