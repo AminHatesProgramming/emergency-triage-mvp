@@ -69,6 +69,7 @@
 | ساخت GitHub Project مدیریت دانش با `github-project-knowledge-items.csv` | محدثه | High | 2h |
 | گرفتن screenshot واقعی از Jira board و Knowledge Project | محدثه | High | 2h |
 | ضبط ویدئوی 10 دقیقه‌ای | همه | High | 5h |
+| تایید 9 بازخورد پرستار تریاژ | محمدرضا | High | 4h |
 | گرفتن بازخورد از فرد آشنا با اورژانس | محمدرضا | Medium | 3h |
 | تحلیل False Negativeها | محمدامین | Medium | 4h |
 | بررسی fairness سن/جنسیت | محمدامین | Medium | 5h |
@@ -84,7 +85,8 @@
 | Sprint 3 | 11 | 10 | v6، metrics، report |
 | Sprint 4 | 8 | 8 | UI، PWA، poster assets، final delivery package |
 | Sprint 5 | 9 | 8 | Agile evidence، feedback form، Jira/KM assets |
-| Sprint 6 | 10 | 10 | v7، deploy عمومی، mobile handoff |
+| Sprint 6 | 10 | 10 | v7، deploy عمومی، mobile handoff، polish نهایی UI |
+| Sprint 7 | 8 | 2 | تایید بازخورد پرستاران تریاژ و screenshot ابزارهای مدیریت پروژه |
 
 ## Time Log قابل انتقال به Board
 
@@ -103,6 +105,8 @@
 | 2026-06-21 | محمدامین | deploy عمومی PWA و تست موبایل | 5h |
 | 2026-06-22 | محمدرضا | آماده‌سازی Jira/KM import assets | 4h |
 | 2026-06-22 | محدثه | آماده‌سازی فایل ارسال نسخه موبایل و QR | 3h |
+| 2026-06-27 | محدثه | روتوش نهایی UI و حذف سوال‌های انتهای اپ | 3h |
+| 2026-06-28 | محمدرضا | آماده‌سازی پیش‌نویس تایید 9 بازخورد پرستار تریاژ | 2h |
 
 ## Definition of Done
 

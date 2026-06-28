@@ -6,6 +6,7 @@ __pycache__/
 data/raw/*.csv
 data/feedback/*.csv
 !data/feedback/synthetic-prepilot-feedback-fa.csv
+!data/feedback/triage-nurse-feedback-confirmation-draft.csv
 *.pkl
 models/*.pkl
 !models/triage_model_v7.pkl

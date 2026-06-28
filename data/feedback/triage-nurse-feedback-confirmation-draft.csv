@@ -1,0 +1,10 @@
+id,stakeholder_type,feedback_text,action_taken,confirmation_status,confirmed_date,anonymous_reviewer_code
+TN-01,triage_nurse,"خروجی باید به زبان عملیاتی باشد؛ «نیازمند بررسی فوری» از اصطلاحات تخصصی قابل فهم‌تر است.","متن خروجی ساده شد و عبارت‌های مبهم ESI از UI اصلی حذف شدند.",pending_confirmation,,
+TN-02,triage_nurse,"اگر اکسیژن پایین باشد هشدار باید خیلی واضح دیده شود و اقدام بعدی پیشنهاد شود.","«هشدارهای مهم» و اقدام «تکرار علائم حیاتی/بررسی فوری» حفظ شد.",pending_confirmation,,
+TN-03,triage_nurse,"در ازدحام اورژانس معمولاً همه داده‌ها کامل نیست؛ سیستم باید با چند فیلد هم خروجی اولیه بدهد.","پشتیبانی از ورودی ناقص و نمایش درصد کامل بودن داده حفظ شد.",pending_confirmation,,
+TN-04,triage_nurse,"سناریوهای آماده نباید باعث اشتباه کاربر با فرم اصلی شوند.","نمونه‌های آماده پایین فرم و با برچسب «اختیاری» قرار گرفتند.",pending_confirmation,,
+TN-05,triage_nurse,"خروجی نباید حس تصمیم قطعی پزشکی بدهد؛ باید نقش کمک‌تصمیم مشخص باشد.","هشدار decision-support در نتیجه، footer و privacy حفظ شد.",pending_confirmation,,
+TN-06,triage_nurse,"بهتر است اگر داده کم است، اعتماد خروجی هم کمتر نمایش داده شود.","confidence band و data completeness در کارت نتیجه نمایش داده می‌شود.",pending_confirmation,,
+TN-07,triage_nurse,"در موبایل، دکمه ارزیابی باید همیشه در دسترس باشد.","action bar پایین صفحه برای موبایل حفظ شد.",pending_confirmation,,
+TN-08,triage_nurse,"بعضی اصطلاحات مثل COPD یا شاخص شوک برای کاربر عمومی مبهم است.","اصطلاحات اصلی خروجی ساده شد و ساده‌سازی بیشتر به backlog فاز بعد رفت.",pending_confirmation,,
+TN-09,triage_nurse,"برای استفاده واقعی باید خروجی با پروتکل بیمارستان و نظر متخصص تطبیق داده شود.","محدودیت بالینی و نیاز به validation در Model Card و privacy برجسته شد.",pending_confirmation,,

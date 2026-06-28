@@ -10,7 +10,7 @@ Goal: تعریف مسئله، pivot و ارزش انسانی پروژه.
 Deliverables:
 - `docs/scope-change-record.md`
 - `docs/stakeholder-register.md`
-- `docs/project-idea-one-page.md`
+- `docs/project-management-plan.md`
 
 Review:
 - موضوع از ایده شبکه اجتماعی بازی‌محور به تریاژ هوشمند تغییر کرد، چون با بحران، ارزش اجتماعی و KPIهای کمی هم‌راستاتر بود.

@@ -13,6 +13,7 @@
 | `ITPM_Project_Management_Evidence_Package.docx` | پیوست مدیریت پروژه: KPI، Burndown، RACI، WBS، Time Tracking، Work/Knowledge Management |
 | `ITPM_Presentation_and_Submission_Guide.docx` | راهنمای ویدئوی ۱۰ دقیقه‌ای، demo، نقش اعضا و checklist تحویل |
 | `ITPM_Agile_Evidence_Addendum.docx` | پیوست تکمیلی برای پاسخ به نقد TA درباره Sprint، ابزار مدیریت کار، Knowledge Base و feedback loop |
+| `ITPM_Final_Polish_Addendum_Emdadyar.docx` | پیوست کوتاه روتوش نهایی، پاکسازی مستندات، feedback پرستاران و مسیر Jira/GitHub Project |
 | `Emdadyar_Mobile_App_For_Professor.docx` | فایل کوتاه و قابل ارسال برای استاد شامل لینک، QR و روش نصب PWA |
 | `Emdadyar_Market_Release_Package.zip` | بسته آماده انتشار شامل dist، متن مارکت، screenshotها، QR و راهنمای TWA/APK |
 
@@ -22,13 +23,16 @@
 
 - `docs/agile-delivery-evidence.md`
 - `docs/jira-github-project-import-guide.md`
-- `docs/final-submission-compliance-2026-06-15.md`
+- `docs/final-submission-index.md`
+- `docs/final-submission-master-checklist.md`
 - `docs/artifacts/jira-import-issues.csv`
 - `docs/artifacts/github-project-knowledge-items.csv`
 - `docs/knowledge-base/README.md`
 - `docs/knowledge-base/stakeholder-feedback-log.md`
 - `docs/ux-feedback-synthesis.md`
+- `docs/triage-nurse-feedback-confirmation.md`
 - `data/feedback/synthetic-prepilot-feedback-fa.csv` با برچسب شفاف `synthetic_pre_pilot`
+- `data/feedback/triage-nurse-feedback-confirmation-draft.csv` با وضعیت `pending_confirmation`
 
 ## خروجی PDF
 
