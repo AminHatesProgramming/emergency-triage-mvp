@@ -170,7 +170,7 @@ def build_project_overview() -> None:
 
         | گروه | نیاز اصلی |
         |---|---|
-        | پرستار تریاژ | دریافت提示 سریع و قابل فهم در شرایط فشار |
+        | پرستار تریاژ | دریافت هشدار سریع و قابل فهم در شرایط فشار |
         | تیم اورژانس / درمانگاه | اولویت‌بندی بهتر در ازدحام |
         | مدیریت بحران | سناریوی کمک تصمیم در شرایط حادثه جمعی |
         | استاد و ارزیاب درس | مشاهده یک پروژه Agile با artifactهای قابل دفاع |
@@ -627,15 +627,15 @@ def build_change_log() -> None:
         },
         {
             "Date": "2026-06-08",
-            "Change": "بهبود مدل v6 و اضافه شدن داشبورد Agile و مستندات rubric",
+            "Change": "بهبود نسخه میانی مدل v6 و اضافه شدن داشبورد Agile و مستندات rubric",
             "Before": "مدل و مستندات برای دفاع سختگیرانه کافی نبودند.",
-            "After": "metrics v6، model card، agile dashboard و team matrix اضافه شد.",
+            "After": "metrics نسخه میانی v6، model card، agile dashboard و team matrix اضافه شد.",
             "Reason": "نیاز به اثبات عملکرد مدل و مدیریت پروژه.",
             "Impact": "پروژه از حالت صرفاً فنی به پروژه قابل دفاع مدیریت پروژه نزدیک شد.",
             "Owner": "محمدامین پورمند",
             "Related Jira Issue": "ML-03",
             "Commit/File Evidence": "commit f7ca102; reports/model/metrics_v6.json; docs/agile-dashboard.md",
-            "Test Result": "Recall هدف در v6 گزارش شد.",
+            "Test Result": "Recall هدف در نسخه میانی v6 گزارش شد؛ نسخه عملیاتی نهایی پروژه v7 است.",
             "Status": "Done",
         },
         {
@@ -706,7 +706,7 @@ def build_change_log() -> None:
         {
             "Date": "2026-06-20",
             "Change": "آماده‌سازی مدل v7 و deploy",
-            "Before": "مدل v6 آماده بود ولی نیاز به بهبود و deploy عمومی داشت.",
+            "Before": "نسخه میانی v6 آماده بود، اما برای نسخه عملیاتی نهایی به بهبود مدل و deploy عمومی نیاز داشت.",
             "After": "مدل v7، reports v7، Dockerfile، Procfile، render.yaml و evidence portal اضافه شد.",
             "Reason": "هدف افزایش کیفیت مدل و آماده‌سازی برای deploy واقعی بود.",
             "Impact": "AUC به 0.9041 و Recall به 0.9246 رسید.",
@@ -826,7 +826,7 @@ def build_sprint_notes() -> None:
         |---|---|
         | Goal | ساخت baseline مدل و کنترل data leakage |
         | Tasks | انتخاب features triage-time، حذف داده‌های آینده، آموزش مدل‌های اولیه، تعریف threshold و متریک‌ها |
-        | Deliverables | {ltr("ml/train.py")}، {ltr("docs/model-card.md")}، {ltr("reports/model/metrics_v5.json")} و سپس v6/v7 |
+        | Deliverables | {ltr("ml/train.py")}، {ltr("docs/model-card.md")}، {ltr("reports/model/metrics_v5.json")} و نسخه‌های میانی تا مدل عملیاتی نهایی v7 |
         | Risks | leakage، FPR بالا، وابستگی بیش از حد به age/gender، ناتوانی با داده ناقص |
         | Decisions | استفاده از AUC/Recall/Precision/FPR؛ انتخاب safety-first threshold |
         | What changed? | مدل از آزمایش اولیه به نسخه قابل دفاع‌تر با داده زمان تریاژ رسید. |
@@ -915,7 +915,7 @@ def build_meeting_notes() -> None:
         | افراد حاضر | محمدامین پورمند، محمدرضا آرمان‌پور |
         | دستور جلسه | بررسی نسخه‌های مدل، متریک‌ها، threshold و trade-off Recall/FPR |
         | تصمیم‌ها | Recall به عنوان KPI انسانی اصلی انتخاب شد؛ FPR به عنوان هزینه عملیاتی گزارش شود. |
-        | کارهای تعریف‌شده | محمدامین: آموزش/ارزیابی v6/v7؛ محمدرضا: KPI و risk register |
+        | کارهای تعریف‌شده | محمدامین: آموزش/ارزیابی نسخه‌های میانی و مدل عملیاتی v7؛ محمدرضا: KPI و risk register |
         | وضعیت پیگیری | انجام‌شده؛ evidence در metrics_v7 و kpi-register موجود است. |
         | لینک Jira | ML-03, ML-05, PC-01 |
 

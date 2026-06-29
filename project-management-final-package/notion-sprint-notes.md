@@ -22,7 +22,7 @@
 |---|---|
 | Goal | ساخت baseline مدل و کنترل data leakage |
 | Tasks | انتخاب features triage-time، حذف داده‌های آینده، آموزش مدل‌های اولیه، تعریف threshold و متریک‌ها |
-| Deliverables | <span dir="ltr">ml/train.py</span>، <span dir="ltr">docs/model-card.md</span>، <span dir="ltr">reports/model/metrics_v5.json</span> و سپس v6/v7 |
+| Deliverables | <span dir="ltr">ml/train.py</span>، <span dir="ltr">docs/model-card.md</span>، <span dir="ltr">reports/model/metrics_v5.json</span> و نسخه‌های میانی تا مدل عملیاتی نهایی v7 |
 | Risks | leakage، FPR بالا، وابستگی بیش از حد به age/gender، ناتوانی با داده ناقص |
 | Decisions | استفاده از AUC/Recall/Precision/FPR؛ انتخاب safety-first threshold |
 | What changed? | مدل از آزمایش اولیه به نسخه قابل دفاع‌تر با داده زمان تریاژ رسید. |
