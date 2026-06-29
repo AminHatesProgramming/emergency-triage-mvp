@@ -1,0 +1,12 @@
+﻿Test ID,Scenario,Input Summary,Expected Result,Actual Result,Status,Tester,Date,Related Jira Issue
+QA-01,فرم خالی,هیچ فیلدی پر نشود و ارزیابی اجرا شود,عدم crash؛ نمایش داده محدود و فیلدهای پیشنهادی,نیاز به اجرای نهایی در browser و ثبت screenshot,Needs Run,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-01
+QA-02,بیمار پرخطر,سن بالا، SpO2 پایین، تنفس بالا، سابقه COPD/CHF,نمایش نیازمند بررسی فوری، هشدارهای مهم و اقدام بعدی,شواهد screenshot در docs/market و poster-assets موجود است,Pass - evidence asset,محدثه حاتمی کیا,2026-06-27,QA-02
+QA-03,بیمار متوسط,تب خفیف، علائم حیاتی نسبتاً پایدار,ادامه ارزیابی معمول یا ریسک کمتر,نیاز به اجرای دستی و ثبت خروجی,Needs Run,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-03
+QA-04,اطلاعات کم,فقط شکایت اصلی، سن، HR، SpO2 و سابقه قلبی,ارزیابی اولیه با نمایش data completeness و missing fields,در سناریوی sparse پیاده‌سازی شده؛ screenshot موجود است,Pass - evidence asset,محدثه حاتمی کیا,2026-06-27,QA-04
+QA-05,درد قفسه سینه,شکایت chestpain با سن بالا و سابقه coronary/MI,هشدار مربوط به سابقه قلبی و اقدام بعدی,نیاز به اجرای نهایی و ثبت screenshot,Needs Run,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-05
+QA-06,موبایل,باز کردن لینک public در viewport موبایل,responsive بدون overlap و دکمه‌های قابل استفاده,screenshots موبایل در docs/market موجود است,Pass - evidence asset,محدثه حاتمی کیا,2026-06-27,QA-06
+QA-07,نصب PWA,باز کردن HTTPS و انتخاب Add to Home Screen,نصب روی home screen یا نمایش راهنمای نصب,نصب واقعی روی گوشی استاد/تیم باید دستی تأیید شود,Needs real device confirmation,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-07
+QA-08,QR Code,اسکن QR پوستر/گزارش,باز شدن لینک public app,QR asset موجود است؛ اسکن واقعی باید ثبت شود,Needs scan confirmation,محمدرضا آرمان‌پور,[تاریخ تست واقعی],FD-03
+QA-09,بازخورد کاربر,ارسال feedback از مسیر پایلوت یا endpoint,ثبت CSV و status واقعی,بازخورد خارجی تأییدشده در repo پیدا نشد,Needs real feedback,محمدرضا آرمان‌پور,[تاریخ تست واقعی],FB-02
+QA-10,کپی خلاصه,پس از ارزیابی، دکمه کپی خلاصه زده شود,متن خلاصه در clipboard قرار گیرد,نیاز به اجرای دستی در browser,Needs Run,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-10
+QA-11,پاک کردن فرم,بعد از پر کردن سناریو، دکمه پاک کردن زده شود,فرم reset و نتیجه اولیه شود,نیاز به اجرای دستی در browser,Needs Run,محدثه حاتمی کیا,[تاریخ تست واقعی],QA-11

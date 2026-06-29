@@ -1,0 +1,35 @@
+{
+  "package": "project-management-final-package",
+  "product_name": "امداد یار",
+  "app_url": "https://aminhatesprogramming.github.io/emergency-triage-mvp/",
+  "repo_url": "https://github.com/AminHatesProgramming/emergency-triage-mvp",
+  "generated_files": [
+    "README.md",
+    "jira-board-setup.md",
+    "jira-issues-import.csv",
+    "missing-info-checklist.md",
+    "notion-ai-usage-report.md",
+    "notion-change-log.csv",
+    "notion-decision-log.csv",
+    "notion-home.md",
+    "notion-import-guide.md",
+    "notion-lessons-learned.md",
+    "notion-meeting-notes.md",
+    "notion-product-features.md",
+    "notion-project-overview.md",
+    "notion-qa-test-log.csv",
+    "notion-risk-register.csv",
+    "notion-sprint-notes.md",
+    "notion-stakeholder-feedback.csv",
+    "stakeholder-feedback-form.md"
+  ],
+  "model_version": "v7",
+  "model_test_metrics": {
+    "auc": 0.9041,
+    "recall": 0.9246,
+    "precision": 0.5447,
+    "fpr": 0.3352,
+    "threshold": 0.3017
+  },
+  "honesty_note": "Real Jira/Notion screenshots and real external feedback must be added after actual tool setup and field confirmation."
+}
