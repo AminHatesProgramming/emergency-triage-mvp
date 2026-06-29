@@ -1732,7 +1732,11 @@ def main() -> None:
         "product_name": "امداد یار",
         "app_url": APP_URL,
         "repo_url": REPO_URL,
-        "generated_files": sorted(path.name for path in OUT.iterdir() if path.is_file()),
+        "generated_files": sorted(
+            path.name
+            for path in OUT.iterdir()
+            if path.is_file() and path.name != "package-manifest.json"
+        ),
         "model_version": METRICS["version"],
         "model_test_metrics": {
             "auc": round(TEST_METRICS["auc"], 4),
