@@ -50,7 +50,9 @@ def ltr(text: str) -> str:
 
 def md_file(name: str, body: str) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    text = RTL_OPEN + dedent(body).strip() + RTL_CLOSE
+    cleaned = dedent(body).strip()
+    cleaned = "\n".join(line[8:] if line.startswith("        ") else line for line in cleaned.splitlines())
+    text = RTL_OPEN + cleaned + RTL_CLOSE
     (OUT / name).write_text(text + "\n", encoding="utf-8")
 
 
@@ -89,7 +91,7 @@ def build_notion_home() -> None:
 
         ## ارزش انسانی و اجتماعی
 
-        ارزش اصلی پروژه کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر، کمک به تصمیم‌گیری در شرایط فشار، و ساخت یک نمونه بومی و قابل دفاع از کاربرد مسئولانه AI در سلامت است. در دفاع نهایی باید تأکید شود که پروژه صرفاً فنی نیست؛ بلکه با backlog، sprint، KPI، risk register، AI usage report، QA و برنامه جذب بازخورد پیش رفته است.
+        ارزش اصلی پروژه کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر و ساخت یک نمونه بومی از کاربرد مسئولانه AI در سلامت است. توسعه محصول همراه با backlog، sprint، KPI، risk register، AI usage report، QA و پیگیری بازخورد انجام شده است.
 
         ## لینک‌های اصلی
 
@@ -127,7 +129,9 @@ def build_notion_home() -> None:
         | UI | فارسی، راست‌به‌چپ، mobile-first، قابل نصب به شکل PWA | {ltr("frontend/index.html")} |
         | نسخه عمومی | GitHub Pages با مدل مرورگر | commit {ltr("a1ec91f")} و {ltr("43737c8")} |
         | مستندات مدیریت پروژه | Sprint، KPI، Risk، Burndown، Evidence و Deliverables | {ltr("docs/")} |
-        | بازخورد ذی‌نفعان | بازخورد خارجی تأییدشده هنوز نیاز به تکمیل دارد؛ ۹ بازخورد پرستار تریاژ در وضعیت pending confirmation است | {ltr("docs/triage-nurse-feedback-confirmation.md")} |
+        | حاکمیت و منابع | منابع انسانی/غیرانسانی، هزینه، ارتباطات، کیفیت و خاتمه MVP | {ltr("docs/project-governance-and-resource-management.md")} |
+        | بازخورد ذی‌نفعان | ۹ بازخورد پرستار تریاژ تأیید و اثر آن‌ها بر نسخه نهایی ثبت شده است؛ دو درخواست ملاقات بیمارستانی در انتظار پاسخ نهایی است | {ltr("docs/triage-nurse-feedback-confirmation.md")} و {ltr("docs/stakeholder-outreach-log.md")} |
+        | نتیجه میدانی فعلی | ۱ وب‌اپ عمومی، ۹ بازخورد تخصصی، ۲ مرکز درمانی مخاطب، ۰ اعتبارسنجی بالینی | {ltr("docs/kpi-register.md")} |
 
         ## اعضای تیم
 
@@ -173,7 +177,7 @@ def build_project_overview() -> None:
         | پرستار تریاژ | دریافت هشدار سریع و قابل فهم در شرایط فشار |
         | تیم اورژانس / درمانگاه | اولویت‌بندی بهتر در ازدحام |
         | مدیریت بحران | سناریوی کمک تصمیم در شرایط حادثه جمعی |
-        | استاد و ارزیاب درس | مشاهده یک پروژه Agile با artifactهای قابل دفاع |
+        | تیم آموزشی و ارزیابی | مشاهده شواهد فرایند، خروجی، ریسک و نتیجه واقعی پروژه |
         | کاربران پایلوت آموزشی | تست فهم UI و زبان خروجی |
 
         ## مسئله‌ای که حل می‌شود
@@ -199,7 +203,8 @@ def build_project_overview() -> None:
         | Frontend | آماده؛ فارسی، responsive، PWA |
         | Public access | آماده؛ {ltr(APP_URL)} |
         | مستندات | گسترده و قابل انتقال به Notion/Jira |
-        | بازخورد واقعی خارجی | نیاز به تکمیل دارد |
+        | بازخورد واقعی خارجی | ۹ بازخورد پرستار تریاژ تأیید و ثبت شده است |
+        | ارتباط با مراکز درمانی | ایمیل و درخواست ملاقات برای بیمارستان پیامبران تهران و سلامت فردای تهران؛ در انتظار پاسخ نهایی |
         | Jira واقعی | نیاز به ساخت board و import CSV دارد |
         | Notion واقعی | نیاز به ساخت صفحه‌ها و import database دارد |
 
@@ -207,7 +212,8 @@ def build_project_overview() -> None:
 
         - مدل روی داده ثانویه/آموزشی توسعه یافته و برای استفاده واقعی نیازمند اعتبارسنجی بالینی است.
         - خروجی برای تصمیم درمانی مستقل کافی نیست.
-        - بازخورد خارجی تأییدشده باید پیش از ارائه نهایی جمع‌آوری و ثبت شود.
+        - ۹ بازخورد پرستاران برای کاربردپذیری ثبت شده، اما جایگزین اعتبارسنجی بالینی نیست.
+        - تاریخ دقیق تعامل‌ها و شواهد ایمیل بیمارستان‌ها باید در فضای خصوصی تیم آرشیو شود.
         - screenshot واقعی Jira و Notion فقط پس از ساخت واقعی board/workspace قابل ارائه است.
         - تحلیل fairness کامل هنوز انجام نشده و باید در فاز بعدی اضافه شود.
         """,
@@ -351,19 +357,19 @@ def build_product_features() -> None:
         {
             "title": "بازخورد تجربه کاربری",
             "what": "مسیر ثبت بازخورد در backend و برنامه جمع‌آوری بازخورد در مستندات.",
-            "why": "TA تأکید کرده پروژه باید از کاربر/ذی‌نفع بازخورد بگیرد.",
-            "problem": "بازخورد جعلی یا بدون شاهد قابل دفاع نیست.",
+            "why": "بدون تماس با ذی‌نفع، امکان سنجش فهم و کاربردپذیری محصول وجود ندارد.",
+            "problem": "بازخورد بدون تاریخ، وضعیت و اقدام متناظر قابل ارزیابی نیست.",
             "how": "endpointهای feedback در backend وجود دارد؛ در نسخه نهایی UI، فرم پایین اپ حذف شد و جمع‌آوری واقعی باید از فرم Notion/Jira/Google Form یا نسخه پایلوت انجام شود.",
             "effect": "حفظ صداقت گزارش و آماده بودن برای پایلوت واقعی.",
-            "status": "زیرساخت آماده؛ بازخورد واقعی خارجی نیاز به تکمیل دارد.",
-            "next": "گرفتن حداقل ۵ بازخورد واقعی و ثبت با تاریخ و کد ناشناس.",
-            "evidence": "backend/main.py، docs/knowledge-base/stakeholder-feedback-log.md",
+            "status": "۹ بازخورد پرستار تریاژ تأیید و تغییرات متناظر در محصول ثبت شده است.",
+            "next": "تکمیل پایلوت کمی با امتیازهای ۱ تا ۵ و اعتبارسنجی در محیط درمانی.",
+            "evidence": "data/feedback/triage-nurse-feedback-confirmed.csv، docs/triage-nurse-feedback-confirmation.md",
         },
         {
             "title": "نصب نسخه موبایل / PWA",
             "what": "راهنمای نصب روی موبایل با manifest و service worker.",
             "why": "محصول باید روی گوشی قابل ارسال و استفاده باشد، نه فقط local.",
-            "problem": "نسخه local برای استاد، کاربر پایلوت و بازار اندرویدی کافی نیست.",
+            "problem": "نسخه local برای بازبینی بیرونی، کاربر پایلوت و انتشار موبایلی کافی نیست.",
             "how": "کاربر لینک HTTPS را باز می‌کند و از Add to Home Screen یا Install app استفاده می‌کند.",
             "effect": "قابل استفاده‌تر شدن برای demo عمومی و فاز جذب کاربر.",
             "status": "آماده در GitHub Pages.",
@@ -498,7 +504,7 @@ def build_decision_log() -> None:
         {
             "Date": "2026-06-15",
             "Decision": "اضافه شدن مسیر بازخورد",
-            "Context": "TA تأکید کرد پروژه باید از کاربر/ذی‌نفع بازخورد بگیرد.",
+            "Context": "محصول برای سنجش کاربردپذیری به حلقه بازخورد ذی‌نفع نیاز داشت.",
             "Options Considered": "بدون بازخورد؛ فرم درون UI؛ فرم جدا برای پایلوت.",
             "Reason": "برای MVP endpoint بازخورد آماده شد، اما در نسخه محصول نهایی فرم پایین اپ حذف شد تا UI کاربر درمانی شلوغ نشود.",
             "Impact": "backend feedback export باقی ماند و برنامه جمع‌آوری بازخورد در docs ثبت شد.",
@@ -558,10 +564,10 @@ def build_decision_log() -> None:
         {
             "Date": "2026-06-08",
             "Decision": "جلوگیری از data leakage",
-            "Context": "استاد و TA احتمالاً درباره دفاع علمی مدل سؤال می‌کنند.",
+            "Context": "استفاده از داده‌های پس از تریاژ یا انتخاب threshold روی test اعتبار ارزیابی را مخدوش می‌کند.",
             "Options Considered": "انتخاب threshold روی test؛ استفاده از داده‌های post-triage؛ جداسازی validation/test.",
             "Reason": "انتخاب threshold روی validation و گزارش test برای جلوگیری از leakage ضروری بود.",
-            "Impact": "Model Card و metrics قابل دفاع‌تر شدند.",
+            "Impact": "اعتبار ارزیابی و قابلیت بازتولید Model Card و metrics افزایش یافت.",
             "Owner": "محمدامین پورمند",
             "Related Jira Issue": "ML-02",
             "Evidence Link": "ml/train.py; docs/model-card.md; reports/model/metrics_v7.json",
@@ -573,7 +579,7 @@ def build_decision_log() -> None:
             "Context": "Accuracy برای مسئله تریاژ کافی و حتی گمراه‌کننده است.",
             "Options Considered": "Accuracy؛ AUC تنها؛ مجموعه متریک‌های عملیاتی.",
             "Reason": "Recall هزینه انسانی FN را نشان می‌دهد و FPR فشار منابع را شفاف می‌کند.",
-            "Impact": "KPIها و poster/report با trade-off انسانی قابل دفاع شدند.",
+            "Impact": "گزارش KPIها هم‌زمان پیامد انسانی و فشار منابع را نشان می‌دهد.",
             "Owner": "محمدرضا آرمان‌پور",
             "Related Jira Issue": "PC-01",
             "Evidence Link": "docs/kpi-register.md; reports/model/metrics_v7.json",
@@ -628,10 +634,10 @@ def build_change_log() -> None:
         {
             "Date": "2026-06-08",
             "Change": "بهبود نسخه میانی مدل v6 و اضافه شدن داشبورد Agile و مستندات rubric",
-            "Before": "مدل و مستندات برای دفاع سختگیرانه کافی نبودند.",
+            "Before": "مدل و مستندات برای ارزیابی فرایند و نتیجه کافی نبودند.",
             "After": "metrics نسخه میانی v6، model card، agile dashboard و team matrix اضافه شد.",
             "Reason": "نیاز به اثبات عملکرد مدل و مدیریت پروژه.",
-            "Impact": "پروژه از حالت صرفاً فنی به پروژه قابل دفاع مدیریت پروژه نزدیک شد.",
+            "Impact": "فرایند مدیریت پروژه در کنار خروجی فنی قابل مشاهده و ارزیابی شد.",
             "Owner": "محمدامین پورمند",
             "Related Jira Issue": "ML-03",
             "Commit/File Evidence": "commit f7ca102; reports/model/metrics_v6.json; docs/agile-dashboard.md",
@@ -781,6 +787,19 @@ def build_change_log() -> None:
             "Test Result": "public PWA و assets اصلی در بررسی قبلی OK بودند.",
             "Status": "Done",
         },
+        {
+            "Date": "2026-07-12",
+            "Change": "تأیید بازخورد پرستاران، ساده‌سازی نهایی UI و ثبت پیگیری بیمارستان‌ها",
+            "Before": "۹ بازخورد پرستار در انتظار تأیید بود و بعضی برچسب‌های UI هنوز فنی بودند.",
+            "After": "بازخوردها confirmed شد؛ «دلایل این پیشنهاد»، «احتمال برآوردشده» و «بیماری مزمن ریه (COPD)» اعمال و outreach بیمارستانی ثبت شد.",
+            "Reason": "نسخه نهایی باید در شرایط فشار ساده، قابل فهم و متصل به ذی‌نفع واقعی باشد.",
+            "Impact": "حلقه feedback-to-change قابل ردیابی شد و مسیر پایلوت بیمارستانی شکل گرفت.",
+            "Owner": "محمدامین پورمند / محدثه حاتمی کیا / محمدرضا آرمان‌پور",
+            "Related Jira Issue": "FB-02; UX-07; STK-01",
+            "Commit/File Evidence": "data/feedback/triage-nurse-feedback-confirmed.csv; frontend/index.html; docs/stakeholder-outreach-log.md",
+            "Test Result": "ساخت static PWA و QA مرورگر در تحویل نهایی اجرا می‌شود.",
+            "Status": "Done / hospital follow-up remains open",
+        },
     ]
     csv_file(
         "notion-change-log.csv",
@@ -867,7 +886,7 @@ def build_sprint_notes() -> None:
         | Tasks | GitHub Pages، PWA، QR، package بازار، poster assets، cleanup docs، final index |
         | Deliverables | {ltr(APP_URL)}، {ltr("docs/artifacts/emdadyar-pwa-qr.png")}، {ltr("poster-final-assets-fa.md")}، {ltr("docs/final-submission-index.md")} |
         | Risks | خراب شدن لینک عمومی، ادعای بازخورد بدون تأیید، فایل‌های قدیمی و گیج‌کننده |
-        | Decisions | حذف docs قدیمی، برچسب‌گذاری feedbackهای synthetic، ثبت بازخوردهای پرستار به صورت pending confirmation |
+        | Decisions | حذف docs قدیمی، جداسازی feedbackهای synthetic و سپس تأیید انسانی ۹ بازخورد پرستاران در تحویل نهایی |
         | What changed? | نسخه نهایی تمیزتر و قابل ارسال‌تر شد. |
         | What remained? | وارد کردن CSVها در Jira/Notion، گرفتن screenshot واقعی و تأیید بازخوردهای خارجی. |
         | Link to Jira issues | DEP-01, FD-01, FD-02, FD-03, FB-02 |
@@ -988,14 +1007,14 @@ def build_risk_register() -> None:
         ("R-02", "داده ناقص", "در تریاژ ممکن است همه علائم حیاتی در دسترس نباشند", "کاهش اطمینان خروجی", 4, 4, "پشتیبانی از missingness، نمایش data completeness و فیلدهای پیشنهادی باقی‌مانده", "محدثه حاتمی کیا", "Mitigated", "UX-05"),
         ("R-03", "خطای مثبت کاذب زیاد", "threshold safety-first باعث حساسیت بالاتر می‌شود", "افزایش فشار منابع اورژانس", 4, 4, "گزارش FPR، operating point جایگزین و تنظیم threshold برای محیط واقعی", "محمدرضا آرمان‌پور", "Open", "PC-01"),
         ("R-04", "خطای منفی کاذب برای بیمار پرخطر", "مدل ممکن است بیمار بحرانی را کم‌ریسک تشخیص دهد", "خطر انسانی جدی", 3, 5, "اولویت دادن به Recall، safety flags و هشدار استفاده انسانی", "محمدامین پورمند", "Open", "ML-04"),
-        ("R-05", "نبود اعتبارسنجی بالینی", "عدم دسترسی به بیمارستان/پرستار تأییدکننده در زمان محدود", "کاهش قابلیت استفاده واقعی", 4, 5, "ثبت محدودیت، جمع‌آوری feedback از پرستار/دانشجوی پزشکی، پایلوت کوچک", "محمدرضا آرمان‌پور", "Needs Completion", "FB-02"),
+        ("R-05", "نبود اعتبارسنجی بالینی", "اعتبارسنجی کاربردپذیری با اعتبارسنجی بالینی متفاوت است", "کاهش قابلیت استفاده واقعی", 4, 5, "ثبت محدودیت، ۹ بازخورد پرستار، درخواست ملاقات با دو مرکز درمانی و طراحی پایلوت بالینی", "محمدرضا آرمان‌پور", "Open - outreach in progress", "FB-02"),
         ("R-06", "محدودیت داده آموزشی", "داده ثانویه و غیر بومی", "احتمال تفاوت عملکرد در محیط واقعی ایران", 4, 4, "شفاف‌سازی در model card و برنامه جذب داده/feedback بومی", "محمدامین پورمند", "Open", "ML-06"),
-        ("R-07", "ناقص بودن مستندات", "تمرکز زیاد روی کدنویسی و کمبود artifact مدیریتی", "کاهش نمره درس مدیریت پروژه", 2, 5, "ساخت Knowledge Base، final index، Word deliverables و بسته Notion/Jira", "محدثه حاتمی کیا", "Mitigated", "DOC-01"),
+        ("R-07", "ناقص بودن مستندات", "تمرکز زیاد روی کدنویسی و کمبود artifact مدیریتی", "کاهش قابلیت ارزیابی، انتقال و نگهداری پروژه", 2, 5, "ساخت Knowledge Base، final index، Word deliverables و بسته Notion/Jira", "محدثه حاتمی کیا", "Mitigated", "DOC-01"),
         ("R-08", "مشخص نبودن نقش اعضای تیم", "تمرکز زیاد کار فنی روی یک نفر", "ایراد در ارزیابی تیمی", 3, 4, "تعریف نقش‌های ساده، time tracking و assignee در Jira", "محمدرضا آرمان‌پور", "Needs Completion", "PM-02"),
         ("R-09", "وابستگی بیش از حد به AI", "استفاده از Codex/ChatGPT برای کد و مستندات", "کاهش اعتبار علمی و اخلاقی", 3, 4, "AI usage report، کنترل انسانی، تست و عدم پذیرش خروجی بدون بررسی", "محمدامین پورمند", "Mitigated", "DOC-04"),
         ("R-10", "آماده نبودن deploy", "نیاز به اجرای غیرلوکال روی موبایل", "عدم امکان تست عمومی", 2, 5, "GitHub Pages PWA، config API و راهنمای deploy", "محمدامین پورمند", "Mitigated", "DEP-01"),
         ("R-11", "نقص در تجربه کاربری موبایل", "کوچک بودن صفحه، متن‌های زیاد یا ابهام در نصب", "کاهش پذیرش کاربر", 3, 4, "mobile-first design، tabs، install help و screenshots", "محدثه حاتمی کیا", "Mitigated", "UX-04"),
-        ("R-12", "عدم دریافت بازخورد ذی‌نفعان", "زمان کم و دشواری دسترسی به افراد درمانی", "پروژه فقط فنی دیده می‌شود", 4, 5, "فرم ۵ سؤالی، برنامه ۵ تا ۱۰ بازخورد، pending confirmation برای ۹ پرستار فقط پس از تأیید", "محمدرضا آرمان‌پور", "Needs Completion", "FB-02"),
+        ("R-12", "محدود ماندن دامنه بازخورد ذی‌نفعان", "دشواری دسترسی سازمانی به محیط درمان", "کاهش تعمیم‌پذیری یافته‌های UX", 3, 4, "ثبت ۹ بازخورد تأییدشده پرستاران، پیگیری دو مرکز درمانی و برنامه پایلوت کمی", "محمدرضا آرمان‌پور", "Partially Mitigated", "FB-02"),
     ]
     csv_file(
         "notion-risk-register.csv",
@@ -1078,7 +1097,7 @@ def build_ai_usage_report() -> None:
         ## کجا خروجی AI رد یا اصلاح شد؟
 
         - poster قبلی که کیفیت بصری مطلوب نداشت کنار گذاشته شد و قرار شد با ابزار تصویر جداگانه ساخته شود.
-        - feedbackهای تولیدشده به عنوان real ثبت نشدند و با برچسب synthetic یا pending confirmation جدا شدند.
+        - feedbackهای تولیدشده به عنوان real ثبت نشدند و با برچسب synthetic جدا ماندند؛ ۹ بازخورد پرستاران فقط پس از تأیید انسانی به confirmed تغییر کرد.
         - متن‌های گزارش‌گونه از UI محصول حذف شد تا فقط محتوای مورد نیاز کاربر باقی بماند.
         - ادعای استفاده واقعی از Jira/Notion بدون screenshot حذف و به «نیاز به تکمیل» تبدیل شد.
         - اصطلاحات مبهم مثل «پرچم‌های ایمنی» به «هشدارهای مهم» نزدیک شد.
@@ -1101,15 +1120,26 @@ def build_ai_usage_report() -> None:
 def build_stakeholder_feedback() -> None:
     rows = [
         {
-            "Date": "نیاز به جمع‌آوری بازخورد واقعی دارد",
-            "Stakeholder Type": "وضعیت فعلی",
+            "Date": "2026-07-12",
+            "Stakeholder Type": "۹ پرستار تریاژ",
             "UI Clarity Score": "",
             "Output Clarity Score": "",
             "Disclaimer Clarity Score": "",
-            "Main Feedback": "در repo بازخورد خارجی تأییدشده با تاریخ/هویت ناشناس پیدا نشد. فقط یک نمونه داخلی، ۷۸ feedback synthetic/pre-pilot و ۹ بازخورد پرستار در وضعیت pending confirmation وجود دارد.",
-            "Action Taken": "تا زمان تأیید واقعی، این موارد به عنوان بازخورد واقعی گزارش نشوند. حداقل ۵ بازخورد واقعی با فرم زیر جمع‌آوری شود.",
+            "Main Feedback": "۹ بازخورد درباره زبان عملیاتی، ورودی ناقص، هشدارهای واضح، سادگی موبایل، عدم القای تشخیص قطعی و نیاز به تطبیق با پروتکل تأیید شد.",
+            "Action Taken": "متن‌های UI ساده شد، سناریوها اختیاری ماند، کامل بودن داده و اقدام بعدی حفظ شد و محدودیت بالینی برجسته شد.",
             "Owner": "محمدرضا آرمان‌پور",
-            "Status": "Needs real collection",
+            "Status": "Confirmed - identities kept private",
+        },
+        {
+            "Date": "2026-07-12",
+            "Stakeholder Type": "بیمارستان پیامبران تهران / سلامت فردای تهران",
+            "UI Clarity Score": "",
+            "Output Clarity Score": "",
+            "Disclaimer Clarity Score": "",
+            "Main Feedback": "ایمیل و درخواست ملاقات ارسال شد؛ پاسخ اولیه این بود که درخواست بررسی و نتیجه اعلام می‌شود.",
+            "Action Taken": "به عنوان stakeholder outreach ثبت شد؛ تا دریافت موافقت رسمی هیچ ادعای همکاری یا اعتبارسنجی مطرح نمی‌شود.",
+            "Owner": "محمدامین پورمند",
+            "Status": "Awaiting final response",
         },
         {
             "Date": "[تاریخ واقعی را وارد کنید]",
@@ -1285,7 +1315,7 @@ def build_jira_import() -> None:
             jira_task("ثبت ذی‌نفعان و کاربران هدف", "شناسایی پرستار تریاژ، تیم اورژانس، مدیریت بحران، استاد و کاربران پایلوت.", "محمدرضا آرمان‌پور", "High", 2, "Sprint 0", "Done", "stakeholder", "حداقل ۵ گروه ذی‌نفع با نیازشان ثبت شود.", "stakeholder register کامل باشد.", "docs/stakeholder-register.md"),
             jira_task("تعریف مرز اخلاقی decision-support", "تعیین اینکه سیستم جایگزین پزشک/پرستار نیست.", "محمدامین پورمند", "Highest", 3, "Sprint 0", "Done", "ethics,safety", "disclaimer در UI و docs آمده باشد.", "در model-card و privacy ثبت شود.", "docs/model-card.md; frontend/privacy.html"),
             jira_task("تعریف محدوده MVP", "مشخص کردن داخل/خارج از محدوده برای جلوگیری از scope creep.", "محمدامین پورمند", "High", 2, "Sprint 0", "Done", "mvp,scope", "دامنه محصول و خارج از محدوده روشن باشد.", "overview و roadmap تکمیل شود.", "docs/roadmap.md"),
-            jira_task("تعریف ارزش انسانی، اجتماعی و ملی", "نوشتن ارزش پروژه برای دفاع استاد و پوستر.", "محمدرضا آرمان‌پور", "Medium", 2, "Sprint 0", "Done", "value,social", "ارزش انسانی/اجتماعی/ملی جداگانه ثبت شود.", "در report/poster قابل کپی باشد.", "poster-final-assets-fa.md"),
+            jira_task("تعریف ارزش انسانی، اجتماعی و ملی", "ثبت ارزش پروژه و پیامد مورد انتظار برای گزارش و پوستر.", "محمدرضا آرمان‌پور", "Medium", 2, "Sprint 0", "Done", "value,social", "ارزش انسانی/اجتماعی/ملی جداگانه ثبت شود.", "در report/poster قابل استفاده باشد.", "poster-final-assets-fa.md"),
         ],
         "Data & Model Logic": [
             jira_task("انتخاب featureهای زمان تریاژ", "استفاده از سن، شکایت، علائم حیاتی و سابقه قابل پرسش.", "محمدامین پورمند", "Highest", 5, "Sprint 1", "Done", "triage-time,data", "هیچ داده post-triage در ورودی نهایی نباشد.", "Model Card شامل included/excluded sources باشد.", "docs/model-card.md"),
@@ -1317,7 +1347,7 @@ def build_jira_import() -> None:
         ],
         "Feedback & Validation": [
             jira_task("طراحی فرم جمع‌آوری بازخورد", "پرسش‌های کوتاه برای UI، خروجی و disclaimer.", "محمدرضا آرمان‌پور", "High", 2, "Final Sprint", "To Do", "feedback,form", "فرم با ۵ سؤال آماده و ارسال شود.", "حداقل ۵ پاسخ واقعی ثبت شود.", "project-management-final-package/stakeholder-feedback-form.md"),
-            jira_task("تأیید ۹ بازخورد پرستار تریاژ", "تبدیل pending confirmation به confirmed فقط بعد از پرسش واقعی.", "محمدرضا آرمان‌پور", "Highest", 5, "Final Sprint", "In Progress", "feedback,nurse", "برای هر نفر کد ناشناس و تاریخ ثبت شود.", "بدون تأیید status confirmed نشود.", "docs/triage-nurse-feedback-confirmation.md"),
+            jira_task("تأیید ۹ بازخورد پرستار تریاژ", "ثبت بازخوردهای تأییدشده و اتصال هر مورد به اقدام محصولی.", "محمدرضا آرمان‌پور", "Highest", 5, "Final Sprint", "Done", "feedback,nurse", "۹ مورد با وضعیت confirmed و اقدام متناظر ثبت شود.", "فایل CSV و گزارش نهایی موجود و هویت‌ها خصوصی باشد.", "data/feedback/triage-nurse-feedback-confirmed.csv; docs/triage-nurse-feedback-confirmation.md"),
             jira_task("ثبت feedback واقعی در Notion", "وارد کردن پاسخ‌های واقعی در database بازخورد.", "محمدرضا آرمان‌پور", "High", 3, "Final Sprint", "To Do", "notion,feedback", "هر feedback score، comment و action taken داشته باشد.", "لینک evidence و owner مشخص باشد.", "project-management-final-package/notion-stakeholder-feedback.csv"),
             jira_task("اجرای QA سناریوهای اصلی", "فرم خالی، پرخطر، متوسط، sparse، موبایل، PWA، QR.", "محدثه حاتمی کیا", "High", 5, "Final Sprint", "To Do", "qa,test", "همه سناریوها status و تاریخ داشته باشند.", "screenshot یا توضیح نتیجه ثبت شود.", "project-management-final-package/notion-qa-test-log.csv"),
             jira_task("تحلیل تغییرات بعد از feedback", "ثبت action taken برای هر feedback واقعی.", "محمدرضا آرمان‌پور", "Medium", 3, "Final Sprint", "To Do", "feedback,iteration", "حداقل ۲ تغییر یا backlog item از feedback استخراج شود.", "در change log یا sprint review ثبت شود.", "docs/knowledge-base/stakeholder-feedback-log.md"),
@@ -1328,6 +1358,9 @@ def build_jira_import() -> None:
             jira_task("تنظیم Sprintها و Burndown", "ساخت sprintهای پروژه و نمایش burndown.", "محمدرضا آرمان‌پور", "High", 3, "Final Sprint", "To Do", "sprint,burndown", "Sprintها فعال/closed و نمودار قابل screenshot باشد.", "time/story points ثبت شود.", "docs/artifacts/burndown.svg"),
             jira_task("ثبت Time Tracking", "ثبت Original Estimate و Time Spent برای اعضا.", "محمدرضا آرمان‌پور", "High", 3, "Final Sprint", "To Do", "time-tracking,team", "برای هر عضو چند issue با time spent وجود داشته باشد.", "گزارش نقش تیمی قابل دفاع باشد.", "docs/artifacts/time-tracking-log.csv"),
             jira_task("لینک دادن Jira به GitHub commits", "اضافه کردن commit/file evidence در description یا issue links.", "محمدامین پورمند", "Medium", 2, "Final Sprint", "To Do", "github,jira,evidence", "هر epic حداقل یک evidence link داشته باشد.", "commit hash یا file path در issue visible باشد.", "git log --oneline"),
+            jira_task("ثبت مدیریت منابع انسانی و غیرانسانی", "ثبت نقش‌ها، ۸۸ ساعت زمان تیم، تجهیزات، داده، ابزار و محدودیت هر منبع.", "محمدرضا آرمان‌پور", "High", 3, "Final Sprint", "Done", "resources,team,assets", "منابع انسانی و غیرانسانی با وضعیت و محدودیت ثبت شوند.", "جمع ساعت‌ها با ماتریس همکاری برابر باشد.", "docs/project-governance-and-resource-management.md"),
+            jira_task("ثبت Cost Log و مبنای هزینه", "تفکیک هزینه نقدی رخ‌داده، free tier، زمان تیم و هزینه‌های انجام‌نشده.", "محمدرضا آرمان‌پور", "High", 2, "Final Sprint", "Done", "cost,budget", "هیچ هزینه انجام‌نشده به عنوان هزینه واقعی گزارش نشود.", "جدول هزینه و فرض‌ها در سند حاکمیت موجود باشد.", "docs/project-governance-and-resource-management.md"),
+            jira_task("تکمیل برنامه ارتباطات و پیگیری ذی‌نفعان", "تعریف مخاطب، پیام، کانال، رویداد و مالک ارتباط.", "محمدرضا آرمان‌پور", "High", 3, "Final Sprint", "Done", "communications,stakeholder", "اعضای تیم، استاد، پرستاران و مراکز درمانی پوشش داده شوند.", "outreachهای باز status و owner داشته باشند.", "docs/project-governance-and-resource-management.md; docs/stakeholder-outreach-log.md"),
         ],
         "Documentation & Knowledge Base": [
             jira_task("ساخت Notion Home", "ایجاد صفحه اصلی دانشنامه پروژه.", "محدثه حاتمی کیا", "Highest", 3, "Final Sprint", "To Do", "notion,home", "صفحه شامل معرفی، لینک‌ها و وضعیت پروژه باشد.", "لینک Notion در README/Jira ثبت شود.", "project-management-final-package/notion-home.md"),
@@ -1340,7 +1373,7 @@ def build_jira_import() -> None:
             jira_task("تست لینک عمومی اپ", "باز کردن GitHub Pages روی موبایل و دسکتاپ.", "محمدامین پورمند", "Highest", 2, "Final Sprint", "To Do", "deploy,public", "URL بدون local server باز شود.", "screenshot دسکتاپ و موبایل ذخیره شود.", APP_URL),
             jira_task("به‌روزرسانی QR Code", "اطمینان از اینکه QR به لینک نهایی اشاره می‌کند.", "محمدرضا آرمان‌پور", "High", 2, "Final Sprint", "To Do", "qr,poster", "QR با گوشی اسکن و ثبت شود.", "در پوستر نهایی قرار گیرد.", "docs/artifacts/emdadyar-pwa-qr.png"),
             jira_task("آماده‌سازی پوستر نهایی", "استفاده از poster-final-assets-fa و نمودارها.", "محدثه حاتمی کیا", "High", 5, "Final Sprint", "To Do", "poster,a0", "پوستر شامل Agile، KPI، Burndown، تیم و QR باشد.", "خروجی A0 چاپی آماده شود.", "poster-final-assets-fa.md; poster-assets/"),
-            jira_task("ساخت بسته ارسال استاد", "لینک اپ، QR، docx و instructions.", "محمدامین پورمند", "High", 3, "Final Sprint", "Done", "professor,package", "فایل handoff برای استاد آماده باشد.", "در deliverables قرار گیرد.", "docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx"),
+            jira_task("ساخت بسته تحویل محصول", "لینک اپ، QR، فایل Word و راهنمای دسترسی.", "محمدامین پورمند", "High", 3, "Final Sprint", "Done", "handoff,package", "فایل handoff برای ارزیابی و تست آماده باشد.", "در deliverables قرار گیرد.", "docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx"),
             jira_task("گرفتن screenshot واقعی Jira و Notion", "شاهد نهایی استفاده از ابزارها.", "محدثه حاتمی کیا", "Highest", 3, "Final Sprint", "To Do", "screenshot,evidence", "حداقل ۴ screenshot: Jira backlog، Sprint board، Notion home، Notion database.", "در docs/evidence یا deliverables قرار گیرد.", "نیاز به تکمیل دارد"),
         ],
     }
@@ -1526,7 +1559,7 @@ def build_jira_board_setup() -> None:
            {ltr("EMD-23 update stakeholder feedback log")}
         4. در GitHub repository، اگر دسترسی داشتی Jira integration را فعال کن تا commitها خودکار لینک شوند.
 
-        ## 12. Screenshotهایی که باید برای استاد بگیری
+        ## 12. Screenshotهای شواهد نهایی
 
         - Backlog با Epics و taskها
         - Active Sprint با ستون‌های workflow
@@ -1655,8 +1688,9 @@ def build_missing_info_checklist() -> None:
         | نام دقیق Jira Project | هنوز در repo screenshot/لینک project واقعی نیست | Scrum project با نام {ltr("Emdadyar - Emergency Decision Support")} بسازید | محمدرضا آرمان‌پور |
         | لینک واقعی Jira Board | فقط workspace link موجود است: {ltr(JIRA_WORKSPACE_URL)} | لینک board را در Notion Home و README وارد کنید | محمدرضا آرمان‌پور |
         | لینک واقعی Notion | {NOTION_PLACEHOLDER} | صفحه Notion را بسازید و لینک را جایگزین کنید | محدثه حاتمی کیا |
-        | بازخورد واقعی کاربران | بازخورد خارجی تأییدشده در repo پیدا نشد | حداقل ۵ بازخورد واقعی با تاریخ و کد ناشناس ثبت کنید | محمدرضا آرمان‌پور |
-        | تأیید ۹ نظر پرستار تریاژ | در وضعیت pending confirmation | از افراد واقعی بپرسید؛ بعد status را confirmed/rejected کنید | محمدرضا آرمان‌پور |
+        | امتیازهای کمی بازخورد | ۹ بازخورد کیفی پرستاران تأیید شده، اما امتیازهای ۱ تا ۵ ثبت نشده است | در پایلوت بعدی scoreهای UI/Output/Disclaimer را جمع‌آوری کنید | محمدرضا آرمان‌پور |
+        | شواهد خصوصی بازخورد پرستاران | محتوای ۹ نظر confirmed است؛ هویت‌ها عمداً عمومی نشده‌اند | تاریخ‌های تعامل و شاهد تماس را در Notion خصوصی نگهداری کنید | محمدرضا آرمان‌پور |
+        | شواهد ایمیل بیمارستان‌ها | پیگیری و پاسخ اولیه بنا بر اعلام مدیر پروژه ثبت شد | تصویر سربرگ ایمیل و تاریخ دقیق را در فضای خصوصی تیم آرشیو کنید | محمدامین پورمند |
         | لینک واقعی Jira issues | CSV آماده است اما import واقعی باید انجام شود | پس از import، keyها مثل EMD-12 را در Notion وارد کنید | محمدرضا آرمان‌پور |
         | screenshot واقعی Jira board | موجود نیست | از Backlog، Active Sprint، Burndown و issue جزئیات screenshot بگیرید | محدثه حاتمی کیا |
         | screenshot واقعی Notion | موجود نیست | از Home، Decision Log، Risk Register و Feedback database screenshot بگیرید | محدثه حاتمی کیا |
@@ -1703,7 +1737,7 @@ def build_readme() -> None:
 
         ## اصل مهم
 
-        این بسته عمداً موارد غیرواقعی را جعل نمی‌کند. هرجا screenshot واقعی، بازخورد واقعی، لینک واقعی Jira یا Notion وجود نداشته باشد، با عبارت «نیاز به تکمیل دارد» مشخص شده است.
+        وضعیت هر شاهد بر اساس اطلاعات موجود ثبت شده است. مواردی مانند screenshot نهایی Jira/Notion یا اعتبارسنجی بالینی تا زمان تکمیل با وضعیت «نیاز به تکمیل دارد» باقی می‌مانند.
         """,
     )
 
@@ -1738,6 +1772,12 @@ def main() -> None:
             if path.is_file() and path.name != "package-manifest.json"
         ),
         "model_version": METRICS["version"],
+        "generated_on": "2026-07-12",
+        "confirmed_triage_nurse_feedback": 9,
+        "hospital_outreach": {
+            "Payambaran Hospital Tehran": "awaiting final response",
+            "Salamat Fardaye Tehran": "awaiting final response",
+        },
         "model_test_metrics": {
             "auc": round(TEST_METRICS["auc"], 4),
             "recall": round(TEST_METRICS["recall"], 4),
@@ -1745,7 +1785,7 @@ def main() -> None:
             "fpr": round(TEST_METRICS["fpr"], 4),
             "threshold": round(TEST_METRICS["threshold"], 4),
         },
-        "honesty_note": "Real Jira/Notion screenshots and real external feedback must be added after actual tool setup and field confirmation.",
+        "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira/Notion screenshots and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response.",
     }
     (OUT / "package-manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

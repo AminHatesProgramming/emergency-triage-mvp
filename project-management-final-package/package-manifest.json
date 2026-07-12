@@ -24,6 +24,12 @@
     "stakeholder-feedback-form.md"
   ],
   "model_version": "v7",
+  "generated_on": "2026-07-12",
+  "confirmed_triage_nurse_feedback": 9,
+  "hospital_outreach": {
+    "Payambaran Hospital Tehran": "awaiting final response",
+    "Salamat Fardaye Tehran": "awaiting final response"
+  },
   "model_test_metrics": {
     "auc": 0.9041,
     "recall": 0.9246,
@@ -31,5 +37,5 @@
     "fpr": 0.3352,
     "threshold": 0.3017
   },
-  "honesty_note": "Real Jira/Notion screenshots and real external feedback must be added after actual tool setup and field confirmation."
+  "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira/Notion screenshots and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response."
 }

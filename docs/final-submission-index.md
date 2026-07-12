@@ -11,9 +11,9 @@
 |---|---|---|
 | گزارش نهایی پروژه | `docs/deliverables/ITPM_Final_Report_Emergency_Triage.docx` | گزارش اصلی درس |
 | پیوست شواهد مدیریت پروژه | `docs/deliverables/ITPM_Project_Management_Evidence_Package.docx` | KPI، Burndown، WBS، RACI، Time Tracking |
-| پیوست Agile و پاسخ به TA | `docs/deliverables/ITPM_Agile_Evidence_Addendum.docx` | Sprintها، بازخورد، ابزار مدیریت کار و دانش |
-| پیوست روتوش نهایی | `docs/deliverables/ITPM_Final_Polish_Addendum_Emdadyar.docx` | پاکسازی docs، بازخورد پرستاران، Jira/GitHub Project |
-| راهنمای ارائه و تحویل | `docs/deliverables/ITPM_Presentation_and_Submission_Guide.docx` | سناریوی ویدئو و نقش اعضا |
+| حاکمیت و مدیریت منابع | `docs/deliverables/ITPM_Project_Governance_and_Resource_Management.docx` | چرخه عمر، منابع، هزینه، ارتباطات، کیفیت و دانش |
+| ماتریس انطباق اعلان نهایی | `docs/deliverables/ITPM_Final_Announcement_Compliance_Matrix.docx` | تطبیق مو‌به‌موی الزامات با شاهد و وضعیت |
+| سناریوی ارائه نهایی | `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | تقسیم قطعی ۶ + ۲ + ۲، دمو و پاسخ پرسش‌ها |
 | نسخه موبایلی برای استاد | `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx` | لینک، QR و روش نصب PWA |
 | بسته انتشار امدادیار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | dist، screenshot، متن مارکت و راهنمای TWA |
 
@@ -33,10 +33,12 @@
 | سند | مسیر |
 |---|---|
 | برنامه مدیریت پروژه | `docs/project-management-plan.md` |
+| حاکمیت، منابع، هزینه و ارتباطات | `docs/project-governance-and-resource-management.md` |
 | شواهد Agile و تحویل Sprintها | `docs/agile-delivery-evidence.md` |
 | ساختار مدیریت کار | `docs/work-management-board.md` |
 | راهنمای Jira و GitHub Project | `docs/jira-github-project-import-guide.md` |
 | چک‌لیست مادر تحویل | `docs/final-submission-master-checklist.md` |
+| ماتریس انطباق با اعلان نهایی | `docs/final-announcement-compliance-matrix.md` |
 | KPI Register | `docs/kpi-register.md` |
 | Risk Register | `docs/risk-register.md` |
 | WBS و RACI | `docs/wbs-raci.md` |
@@ -73,8 +75,9 @@
 | سند | وضعیت |
 |---|---|
 | `docs/ux-feedback-synthesis.md` | تحلیل 78 بازخورد شبیه‌سازی‌شده پیش از پایلوت |
-| `docs/triage-nurse-feedback-confirmation.md` | 9 نظر پیشنهادی پرستار تریاژ، در انتظار تایید میدانی |
-| `data/feedback/triage-nurse-feedback-confirmation-draft.csv` | فایل قابل تکمیل پس از تایید واقعی |
+| `docs/triage-nurse-feedback-confirmation.md` | گزارش ۹ بازخورد تأییدشده پرستاران و اقدام‌های نسخه نهایی |
+| `data/feedback/triage-nurse-feedback-confirmed.csv` | ۹ بازخورد تأییدشده با اقدام‌های نسخه نهایی |
+| `docs/stakeholder-outreach-log.md` | پیگیری دو مرکز درمانی و وضعیت در انتظار پاسخ نهایی |
 
 ## 7. فایل‌های پوستر و ارائه
 
@@ -82,7 +85,8 @@
 |---|---|
 | `poster-final-assets-fa.md` | محتوای نهایی آماده برای ساخت پوستر با مدل تصویر |
 | `docs/poster-content.md` | نسخه متنی خلاصه برای پوستر |
-| `docs/video-presentation-script.md` | متن پیشنهادی ویدئوی نهایی |
+| `docs/video-presentation-script.md` | راهنمای ارجاع به سناریوی رسمی ۲۶ دقیقه‌ای |
+| `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | سناریوی دقیق ارائه ۱۰ دقیقه‌ای با تقسیم ۶ + ۲ + ۲ |
 | `docs/market/README.md` | بسته انتشار و screenshotهای مارکت |
 
 ## جمله دفاعی

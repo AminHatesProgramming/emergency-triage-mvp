@@ -166,7 +166,7 @@
 
 زیر آن 9 Sub-task یا Comment ثبت کنید و برای هر کدام کد ناشناس `Nurse-01` تا `Nurse-09` بگذارید. متن کامل در `docs/triage-nurse-feedback-confirmation.md` آماده است. اگر هنوز تایید انجام نشده، وضعیت task را `In Progress` نگه دارید و در description بنویسید: `Pending field confirmation`.
 
-## جمله آماده برای دفاع
+## توضیح کوتاه برای ارائه
 
 برای مدیریت کار، از ساختار Scrum در Jira استفاده کردیم: backlog، sprint، assignee، status، story point، time tracking و لینک شواهد برای هر task مشخص است. برای مدیریت دانش، یک GitHub Project جدا و پوشه مستندات دانش داریم که تصمیم‌های فنی، ریسک‌ها، KPIها، گزارش استفاده از AI، یادداشت‌های sprint و بازخورد ذی‌نفعان را نگهداری می‌کند.
 

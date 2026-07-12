@@ -63,7 +63,7 @@
 | Tasks | GitHub Pages، PWA، QR، package بازار، poster assets، cleanup docs، final index |
 | Deliverables | <span dir="ltr">https://aminhatesprogramming.github.io/emergency-triage-mvp/</span>، <span dir="ltr">docs/artifacts/emdadyar-pwa-qr.png</span>، <span dir="ltr">poster-final-assets-fa.md</span>، <span dir="ltr">docs/final-submission-index.md</span> |
 | Risks | خراب شدن لینک عمومی، ادعای بازخورد بدون تأیید، فایل‌های قدیمی و گیج‌کننده |
-| Decisions | حذف docs قدیمی، برچسب‌گذاری feedbackهای synthetic، ثبت بازخوردهای پرستار به صورت pending confirmation |
+| Decisions | حذف docs قدیمی، جداسازی feedbackهای synthetic و سپس تأیید انسانی ۹ بازخورد پرستاران در تحویل نهایی |
 | What changed? | نسخه نهایی تمیزتر و قابل ارسال‌تر شد. |
 | What remained? | وارد کردن CSVها در Jira/Notion، گرفتن screenshot واقعی و تأیید بازخوردهای خارجی. |
 | Link to Jira issues | DEP-01, FD-01, FD-02, FD-03, FB-02 |

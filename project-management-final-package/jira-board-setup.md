@@ -128,7 +128,7 @@ Mapping پیشنهادی:
    <span dir="ltr">EMD-23 update stakeholder feedback log</span>
 4. در GitHub repository، اگر دسترسی داشتی Jira integration را فعال کن تا commitها خودکار لینک شوند.
 
-## 12. Screenshotهایی که باید برای استاد بگیری
+## 12. Screenshotهای شواهد نهایی
 
 - Backlog با Epics و taskها
 - Active Sprint با ستون‌های workflow

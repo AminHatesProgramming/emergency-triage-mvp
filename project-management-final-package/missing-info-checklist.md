@@ -9,8 +9,9 @@
 | نام دقیق Jira Project | هنوز در repo screenshot/لینک project واقعی نیست | Scrum project با نام <span dir="ltr">Emdadyar - Emergency Decision Support</span> بسازید | محمدرضا آرمان‌پور |
 | لینک واقعی Jira Board | فقط workspace link موجود است: <span dir="ltr">https://pourmand.atlassian.net/jira/for-you</span> | لینک board را در Notion Home و README وارد کنید | محمدرضا آرمان‌پور |
 | لینک واقعی Notion | نیاز به تکمیل دارد: پس از ساخت Workspace/Page در Notion لینک صفحه اصلی را اینجا قرار دهید. | صفحه Notion را بسازید و لینک را جایگزین کنید | محدثه حاتمی کیا |
-| بازخورد واقعی کاربران | بازخورد خارجی تأییدشده در repo پیدا نشد | حداقل ۵ بازخورد واقعی با تاریخ و کد ناشناس ثبت کنید | محمدرضا آرمان‌پور |
-| تأیید ۹ نظر پرستار تریاژ | در وضعیت pending confirmation | از افراد واقعی بپرسید؛ بعد status را confirmed/rejected کنید | محمدرضا آرمان‌پور |
+| امتیازهای کمی بازخورد | ۹ بازخورد کیفی پرستاران تأیید شده، اما امتیازهای ۱ تا ۵ ثبت نشده است | در پایلوت بعدی scoreهای UI/Output/Disclaimer را جمع‌آوری کنید | محمدرضا آرمان‌پور |
+| شواهد خصوصی بازخورد پرستاران | محتوای ۹ نظر confirmed است؛ هویت‌ها عمداً عمومی نشده‌اند | تاریخ‌های تعامل و شاهد تماس را در Notion خصوصی نگهداری کنید | محمدرضا آرمان‌پور |
+| شواهد ایمیل بیمارستان‌ها | پیگیری و پاسخ اولیه بنا بر اعلام مدیر پروژه ثبت شد | تصویر سربرگ ایمیل و تاریخ دقیق را در فضای خصوصی تیم آرشیو کنید | محمدامین پورمند |
 | لینک واقعی Jira issues | CSV آماده است اما import واقعی باید انجام شود | پس از import، keyها مثل EMD-12 را در Notion وارد کنید | محمدرضا آرمان‌پور |
 | screenshot واقعی Jira board | موجود نیست | از Backlog، Active Sprint، Burndown و issue جزئیات screenshot بگیرید | محدثه حاتمی کیا |
 | screenshot واقعی Notion | موجود نیست | از Home، Decision Log، Risk Register و Feedback database screenshot بگیرید | محدثه حاتمی کیا |
