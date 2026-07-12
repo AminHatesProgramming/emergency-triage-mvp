@@ -33,6 +33,8 @@
 | UX، QA و مدیریت دانش | دقیقه ۶ تا ۸ توسط محدثه | آماده |
 | Agile، منابع، KPI و نتیجه اجتماعی | دقیقه ۸ تا ۱۰ توسط محمدرضا | آماده |
 | مشارکت همه اعضا | تقسیم قطعی ۶ + ۲ + ۲ دقیقه | آماده |
+| چالش‌ها، ضعف تیم و درس‌آموخته | تمرکز اولیه کار، مستندسازی دیرهنگام و اصلاح نقش‌ها | آماده |
+| استفاده بهره‌بردار نهایی | ۹ بازخورد تأییدشده؛ تصویر استفاده هنوز ثبت نشده است | نیازمند شاهد رضایت‌دار یا بیان صریح محدودیت |
 | پرسش‌های سخت استاد | پاسخ‌های کوتاه در انتهای Runbook | آماده |
 
 ## بخش C: گزارش نهایی کتبی - ۲ نمره
@@ -54,7 +56,7 @@
 | board چابک مشابه Trello/Jira | `docs/work-management-board.md` و `docs/artifacts/jira-import-issues.csv` | آماده برای import در Jira |
 | taskهای تعریف‌شده | task table کامل | آماده |
 | assign شدن وظایف | assignee در تمام taskها | آماده |
-| time tracking از ابتدای ترم | time log در `docs/team-collaboration-matrix.md` | آماده |
+| time tracking فعالیت‌های ترم | ۸۸ ساعت برآوردی در Time Log با شاهد فایل/commit | آماده برای انتقال؛ نیازمند تأیید اعضا و برچسب بازسازی تاریخی |
 | taskهای آینده | future backlog در `docs/work-management-board.md` | آماده |
 | انطباق با Agile | sprintها، DoD، burndown، velocity | آماده |
 
@@ -65,13 +67,15 @@
 | ساختار داکیومنت‌ها | `docs/knowledge-management-index.md` و `docs/artifacts/github-project-knowledge-items.csv` | آماده |
 | API documentation | `docs/api-documentation.md` | آماده |
 | تصمیمات فنی | `docs/decision-log.md` | آماده |
-| صورتجلسات | `docs/meeting-minutes.md` | آماده |
+| صورتجلسات | `docs/meeting-minutes.md` و `project-management-final-package/notion-meeting-notes.md` | موارد فاقد تاریخ واقعی باید با برچسب نیاز به تکمیل بمانند |
 | ثبت دانش تولیدشده | Model Card، AI Usage، Architecture، Lessons Learned | آماده |
 
 ## کارهای انسانی باقی‌مانده
 
 - import کردن CSV آماده در Jira و گرفتن screenshot واقعی از board.
-- ساخت GitHub Project مدیریت دانش و گرفتن screenshot واقعی از آن.
+- تکمیل Notion واقعی، دادن دسترسی و گرفتن screenshot از صفحه اصلی، تصمیم‌ها، API، جلسه و بازخورد.
+- دعوت استاد/TA به Jira و Notion و آزمودن دسترسی با مرورگر ناشناس.
+- در صورت وجود رضایت، ثبت شاهد کوتاه استفاده واقعی از اپ؛ در غیر این صورت بیان صریح نبود این شاهد.
 - ۹ بازخورد تخصصی پرستاران تأیید و اعمال شده است؛ داده‌های synthetic فقط برای تحلیل پیش از پایلوت باقی می‌مانند.
 - پاسخ نهایی بیمارستان پیامبران تهران و سلامت فردای تهران پیگیری شود؛ پاسخ اولیه به معنی همکاری رسمی نیست.
 - ضبط ویدئو با حضور هر سه عضو.

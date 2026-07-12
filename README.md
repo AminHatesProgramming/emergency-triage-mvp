@@ -1,7 +1,9 @@
 <!-- rtl-normalized -->
 <div dir="rtl" align="right">
 
-# سیستم هوشمند پشتیبان تصمیم‌گیری تریاژ اورژانس
+# امدادیار
+
+سامانه هوشمند ارزیابی اولیه و اولویت‌بندی در شرایط اورژانسی
 
 پروژه درس مدیریت پروژه فناوری اطلاعات
 
@@ -18,7 +20,7 @@
 - frontend: فارسی، راست‌به‌چپ و mobile-first
 - PWA: قابل نصب روی موبایل با `manifest.webmanifest` و `service worker`
 - نسخه public/static: قابل انتشار با GitHub Pages و دارای مدل v7 داخل مرورگر
-- پشتیبانی از ورودی ناقص
+- پشتیبانی از ورودی ناقص؛ حداقل یک شکایت اصلی یا علامت حیاتی لازم است
 - خروجی safety-first hybrid شامل `model_probability`، `safety_flags` و `next_best_actions`
 - مستندات مدیریتی و فنی در `docs/`
 - گزارش‌های مدل در `reports/model/`
@@ -75,7 +77,7 @@ http://127.0.0.1:8000/
 
 ## لینک عمومی وب‌اپ
 
-نسخه public روی GitHub Pages با این آدرس منتشر می‌شود:
+نسخه عمومی روی GitHub Pages با این آدرس در دسترس است:
 
 ```text
 https://aminhatesprogramming.github.io/emergency-triage-mvp/
@@ -102,7 +104,7 @@ docker run --rm -p 8000:8000 emergency-triage-mvp
 C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 ```
 
-توجه: فایل داده خام و فایل مدل آموزش‌دیده به دلیل حجم/حساسیت در Git نگهداری نمی‌شوند.
+توجه: داده خام در Git نگهداری نمی‌شود. artifact سبک و نهایی `models/triage_model_v7.pkl` برای بازتولید inference در مخزن وجود دارد؛ مدل‌های حجیم قدیمی جزو تحویل نیستند.
 
 ## Endpointها
 
@@ -113,6 +115,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 
 ## مستندات کلیدی
 
+- [هسته بسته تحویل، آماده افزودن شواهد واقعی Jira/Notion](Emdadyar_Submission_Core_Ready_For_Platform_Evidence.zip)
 - [فهرست رسمی تحویل نهایی](docs/final-submission-index.md)
 - [خروجی‌های رسمی Word برای تحویل](docs/deliverables/README.md)
 - [گزارش نهایی Word](docs/deliverables/ITPM_Final_Report_Emergency_Triage.docx)
@@ -129,10 +132,11 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [Model Card](docs/model-card.md)
 - [ممیزی نهایی متریک‌های مدل v7](docs/model-final-metrics-audit.md)
 - [تحلیل UX با بازخوردهای شبیه‌سازی‌شده پیش از پایلوت](docs/ux-feedback-synthesis.md)
-- [پیش‌نویس تایید 9 بازخورد پرستار تریاژ](docs/triage-nurse-feedback-confirmation.md)
+- [گزارش تأیید ۹ بازخورد پرستاران تریاژ](docs/triage-nurse-feedback-confirmation.md)
 - [برنامه مدیریت پروژه](docs/project-management-plan.md)
 - [Agile Delivery Evidence پس از بازخورد TA](docs/agile-delivery-evidence.md)
-- [راهنمای عملیاتی‌سازی Jira و GitHub Project](docs/jira-github-project-import-guide.md)
+- [راهنمای عملیاتی‌سازی Jira و مدیریت دانش](docs/jira-github-project-import-guide.md)
+- [بسته نهایی قابل ورود به Jira و Notion](project-management-final-package/README.md)
 - [Knowledge Base پروژه](docs/knowledge-base/README.md)
 - [Jira Import CSV](docs/artifacts/jira-import-issues.csv)
 - [GitHub Knowledge Project CSV](docs/artifacts/github-project-knowledge-items.csv)

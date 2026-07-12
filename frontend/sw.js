@@ -1,4 +1,4 @@
-const CACHE_NAME = "emdadyar-v14-final-submission";
+const CACHE_NAME = "emdadyar-v15-empty-input-safety";
 const APP_SHELL = [
   "./",
   "index.html",

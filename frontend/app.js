@@ -214,6 +214,20 @@ function readPayload() {
   return payload;
 }
 
+function hasMinimumTriageSignal(payload) {
+  const vitalFields = [
+    "heart_rate",
+    "systolic_bp",
+    "diastolic_bp",
+    "respiratory_rate",
+    "oxygen_saturation",
+    "temperature",
+  ];
+  const hasComplaint = Boolean(String(payload.chief_complaint || "").trim());
+  const hasVital = vitalFields.some((field) => payload[field] !== undefined && payload[field] !== null);
+  return hasComplaint || hasVital;
+}
+
 function asNumber(value) {
   if (value === null || value === undefined || value === "") return null;
   const number = Number(value);
@@ -649,6 +663,20 @@ function updateResult(result) {
 async function submitForm(event) {
   event.preventDefault();
   const payload = readPayload();
+  if (!hasMinimumTriageSignal(payload)) {
+    riskLabel.textContent = "اطلاعات کافی نیست";
+    triageBand.textContent = "حداقل شکایت اصلی یا یکی از علائم حیاتی را وارد کنید.";
+    riskAction.textContent = "ارزیابی بدون نشانه بالینی می‌تواند برداشت نادرست ایجاد کند.";
+    renderList(explanations, [], "هنوز نشانه‌ای برای ارزیابی وارد نشده است.");
+    renderList(safetyFlags, [], "هشداری قابل ارزیابی نیست.");
+    renderList(nextActions, [], "شکایت اصلی یا یک علامت حیاتی ثبت شود.");
+    dataQuality.textContent = "0%";
+    qualityBar.style.width = "0%";
+    confidenceBand.textContent = "اطلاعات ناکافی";
+    missingFields.textContent = "شکایت اصلی، ضربان قلب، فشار خون، تنفس، اکسیژن یا دما";
+    document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
   if (!shouldTryApi()) {
     try {
       updateResult(await predictInBrowser(payload));

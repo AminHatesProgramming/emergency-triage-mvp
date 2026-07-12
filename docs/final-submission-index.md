@@ -5,6 +5,8 @@
 
 این فایل مرجع اصلی تحویل پروژه است. برای ارائه به استاد و TA، از همین فهرست استفاده شود و فایل‌های draft یا قدیمی مبنای دفاع قرار نگیرند.
 
+بسته `Emdadyar_Submission_Core_Ready_For_Platform_Evidence.zip` شامل هسته آماده تحویل است. تا زمانی که اسکرین‌شات‌های واقعی Jira/Notion، لینک دسترسی، ویدئوی ۱۰ دقیقه‌ای و پوستر نهایی به آن افزوده نشده‌اند، نباید به‌عنوان ZIP کامل تحویل ارسال شود.
+
 ## 1. خروجی‌های رسمی Word و بسته تحویل
 
 | خروجی | مسیر | کاربرد |
@@ -85,7 +87,7 @@
 |---|---|
 | `poster-final-assets-fa.md` | محتوای نهایی آماده برای ساخت پوستر با مدل تصویر |
 | `docs/poster-content.md` | نسخه متنی خلاصه برای پوستر |
-| `docs/video-presentation-script.md` | راهنمای ارجاع به سناریوی رسمی ۲۶ دقیقه‌ای |
+| `docs/video-presentation-script.md` | راهنمای ارجاع به سناریوی رسمی ۱۰ دقیقه‌ای |
 | `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | سناریوی دقیق ارائه ۱۰ دقیقه‌ای با تقسیم ۶ + ۲ + ۲ |
 | `docs/market/README.md` | بسته انتشار و screenshotهای مارکت |
 

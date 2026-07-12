@@ -30,6 +30,17 @@ const { chromium } = require("playwright");
     percent: document.querySelector("#riskPercent")?.textContent,
     confidence: document.querySelector("#confidenceBand")?.textContent,
   }));
+
+  await page.click("#clearBtn");
+  await page.click('button[type="submit"][form="triageForm"], #triageForm button[type="submit"]');
+  await page.waitForFunction(
+    () => document.querySelector("#riskLabel")?.textContent?.includes("اطلاعات کافی نیست"),
+    { timeout: 5000 },
+  );
+  result.emptyInput = await page.evaluate(() => ({
+    risk: document.querySelector("#riskLabel")?.textContent,
+    message: document.querySelector("#triageBand")?.textContent,
+  }));
   await browser.close();
 
   if (errors.length) {

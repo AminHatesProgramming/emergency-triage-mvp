@@ -2,7 +2,7 @@ import csv
 import os
 from datetime import datetime, timezone
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -31,9 +31,9 @@ FEEDBACK_FIELDS = [
 ]
 
 app = FastAPI(
-    title="Emergency Triage Decision Support API",
-    version="0.1.0",
-    description="MVP API for an AI-assisted emergency triage decision-support project.",
+    title="Emdadyar Decision Support API",
+    version="1.0.0",
+    description="Final MVP API for Emdadyar emergency assessment decision support.",
 )
 
 raw_allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").strip()
@@ -77,7 +77,7 @@ def service_worker() -> FileResponse:
 def health() -> dict[str, str]:
     return {
         "status": "ok",
-        "service": "emergency-triage-webapp",
+        "service": "emdadyar-webapp",
         "model_version": predictor.version,
     }
 
@@ -86,6 +86,7 @@ def health() -> dict[str, str]:
 def model_info() -> dict:
     metrics = predictor.metrics
     return {
+        "product_name": "Emdadyar",
         "version": predictor.version,
         "selected_predictor": metrics.get("selected_predictor"),
         "test_metrics": metrics.get("test_metrics"),
@@ -97,7 +98,23 @@ def model_info() -> dict:
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(patient: PatientInput) -> dict:
-    return predictor.predict(patient.model_dump())
+    payload = patient.model_dump()
+    immediate_signals = (
+        "heart_rate",
+        "systolic_bp",
+        "diastolic_bp",
+        "respiratory_rate",
+        "oxygen_saturation",
+        "temperature",
+    )
+    has_chief_complaint = bool((payload.get("chief_complaint") or "").strip())
+    has_vital_sign = any(payload.get(field) is not None for field in immediate_signals)
+    if not has_chief_complaint and not has_vital_sign:
+        raise HTTPException(
+            status_code=422,
+            detail="At least one chief complaint or vital sign is required for an initial assessment.",
+        )
+    return predictor.predict(payload)
 
 
 def ensure_feedback_file() -> None:
