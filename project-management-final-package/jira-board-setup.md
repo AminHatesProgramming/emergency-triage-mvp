@@ -1,18 +1,20 @@
 <!-- rtl: fa -->
 <div dir="rtl" align="right">
 
-# راهنمای ساخت Jira Board برای امداد یار
+# تنظیمات واقعی Jira و راهنمای نگهداری برد امداد یار
 
-## 1. ساخت پروژه
+## 1. پروژه اجراشده
 
-1. وارد Jira شوید: <span dir="ltr">https://pourmand.atlassian.net/jira/for-you</span>
-2. گزینه Create Project را بزنید.
-3. نوع پروژه را Scrum انتخاب کنید، نه Kanban.
-4. نام پروژه:
-   <span dir="ltr">Emdadyar - Emergency Decision Support</span>
-5. Key پیشنهادی:
-   <span dir="ltr">EMD</span>
-6. اگر Jira فارسی/انگلیسی بود مهم نیست؛ نام issueها فارسی هستند.
+| فیلد | مقدار واقعی |
+|---|---|
+| نام پروژه | <span dir="ltr">Emdadyar - Emergency Decision Support</span> |
+| Key | <span dir="ltr">EMD</span> |
+| نوع | Team-managed software / Scrum workflow |
+| لینک | <span dir="ltr">https://pourmand.atlassian.net/jira/software/projects/EMD/board</span> |
+| ساختار | ۹ Epic، ۴۵ Story واردشده و ۶ Task نهایی |
+| آخرین بازبینی | ۲۰۲۶-۰۷-۱۶ |
+
+تمام ۴۵ Story قدیمی به Epic درست متصل شده‌اند. Taskهای <span dir="ltr">EMD-56</span> تا <span dir="ltr">EMD-61</span> ممیزی انتشار، Android، Notion، تست دستگاه و پایلوت را پوشش می‌دهند.
 
 ## 2. Board Type
 
@@ -41,7 +43,7 @@
 - Bug
 - Spike
 
-اگر Jira اجازه import Epic Name نداد، اول ۹ Epic را دستی بسازید و سپس taskها را import کنید.
+این ۹ Epic اکنون با کلیدهای <span dir="ltr">EMD-2</span> تا <span dir="ltr">EMD-10</span> موجودند.
 
 ## 5. Epics
 
@@ -55,12 +57,12 @@
 8. Documentation & Knowledge Base
 9. Final Deliverables
 
-## 6. Import CSV
+## 6. سابقه Import CSV
 
 فایل import:
 <span dir="ltr">project-management-final-package/jira-issues-import.csv</span>
 
-Mapping پیشنهادی:
+CSV وارد شده است و اکنون به عنوان نسخه قابل بازسازی نگهداری می‌شود. Mapping استفاده‌شده:
 
 | CSV Column | Jira Field |
 |---|---|
@@ -80,7 +82,7 @@ Mapping پیشنهادی:
 | Notion Link Placeholder | Description |
 | Evidence Link | Description یا Web Link |
 
-## 7. Sprints پیشنهادی
+## 7. ساختار اسپرینت قابل ردیابی
 
 | Sprint | بازه قابل دفاع | خروجی |
 |---|---|---|
@@ -110,16 +112,19 @@ Mapping پیشنهادی:
 | Validation/Feedback | محمدرضا آرمان‌پور |
 | Final Delivery | محمدامین پورمند |
 
-## 10. لینک دادن Jira به Notion
+## 10. اتصال Jira به Notion
 
-1. پس از ساخت Notion Home، URL صفحه را کپی کنید.
-2. در Jira یک Project Shortcut با نام «Notion Knowledge Base» بسازید.
-3. برای هر Epic، لینک صفحه Notion مرتبط را در Description قرار دهید.
-4. در Notion هم یک property به نام Jira Issue بسازید و key issue را وارد کنید.
+Notion Home واقعی در این آدرس قرار دارد:
+<span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span>
+
+رکوردهای Notion به کلید و URL واقعی Issueها وصل شده‌اند. Task پیاده‌سازی این اتصال <span dir="ltr">EMD-59</span> است. برای دسترسی سریع برد، یک Project Shortcut با عنوان «Notion Knowledge Base» در رابط Jira اضافه شود؛ این اقدام UIمحور است و باید با حساب مالک پروژه انجام شود.
 
 ## 11. لینک دادن Jira به GitHub commits
 
-چون commitهای قدیمی key Jira ندارند، ساده‌ترین راه:
+Commitهای قدیمی الزاماً key Jira ندارند؛ بنابراین Evidence هر Issue به hash و مسیر فایل متصل شده است. آخرین انتشار قابل استناد:
+<span dir="ltr">16b6fc9 - Finalize safety validation and Android release</span>
+
+برای commitهای بعدی:
 
 1. در description هر issue بخش Evidence بسازید.
 2. commit hash یا مسیر فایل را بگذارید؛ مثال:
@@ -128,7 +133,7 @@ Mapping پیشنهادی:
    <span dir="ltr">EMD-23 update stakeholder feedback log</span>
 4. در GitHub repository، اگر دسترسی داشتی Jira integration را فعال کن تا commitها خودکار لینک شوند.
 
-## 12. Screenshotهای شواهد نهایی
+## 12. Screenshotهای شواهد نهایی نیازمند ثبت دستی
 
 - Backlog با Epics و taskها
 - Active Sprint با ستون‌های workflow

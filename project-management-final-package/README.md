@@ -1,9 +1,14 @@
 <!-- rtl: fa -->
 <div dir="rtl" align="right">
 
-# بسته نهایی انتقال مدیریت پروژه به Notion و Jira
+# بسته نهایی مدیریت پروژه و دانش امداد یار
 
-این پوشه برای پر کردن سریع و دقیق Notion و Jira پروژه «امداد یار» ساخته شده است. فایل‌ها فارسی، راست‌چین، قابل کپی و همراه با evidence link هستند.
+این پوشه نسخه قابل بازسازی و قابل ممیزی دانشنامه Notion و پروژه Jira «امداد یار» است. فایل‌ها فارسی، راست‌چین و همراه با evidence link هستند. انتقال واقعی در ۲۰۲۶-۰۷-۱۶ انجام شده است.
+
+| ابزار | وضعیت واقعی |
+|---|---|
+| Jira | پروژه <span dir="ltr">EMD</span>، ۹ Epic و ۵۱ Story/Task: <span dir="ltr">https://pourmand.atlassian.net/jira/software/projects/EMD/board</span> |
+| Notion | ۷ صفحه، ۵ دیتابیس و ۶۶ رکورد: <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> |
 
 ## خروجی‌های اصلی
 
@@ -21,14 +26,14 @@
 | <span dir="ltr">notion-stakeholder-feedback.csv</span> | ساختار ثبت بازخورد واقعی |
 | <span dir="ltr">notion-qa-test-log.csv</span> | دیتابیس تست‌ها |
 | <span dir="ltr">notion-lessons-learned.md</span> | درس‌آموخته‌ها |
-| <span dir="ltr">jira-issues-import.csv</span> | import آماده Jira، شامل ۹ Epic و حداقل ۵ task برای هر Epic |
-| <span dir="ltr">jira-board-setup.md</span> | راهنمای ساخت Jira board |
-| <span dir="ltr">notion-import-guide.md</span> | راهنمای ورود فایل‌ها به Notion |
+| <span dir="ltr">jira-issues-import.csv</span> | نسخه بازسازی Jira، شامل ۹ Epic و حداقل ۵ task برای هر Epic |
+| <span dir="ltr">jira-board-setup.md</span> | تنظیمات واقعی و راهنمای نگهداری Jira board |
+| <span dir="ltr">notion-import-guide.md</span> | وضعیت پیاده‌سازی و راهنمای بازیابی Notion |
 | <span dir="ltr">missing-info-checklist.md</span> | مواردی که واقعاً باید تکمیل شوند |
 | <span dir="ltr">stakeholder-feedback-form.md</span> | فرم پیشنهادی برای گرفتن بازخورد واقعی |
 
 ## اصل مهم
 
-وضعیت هر شاهد بر اساس اطلاعات موجود ثبت شده است. مواردی مانند screenshot نهایی Jira/Notion یا اعتبارسنجی بالینی تا زمان تکمیل با وضعیت «نیاز به تکمیل دارد» باقی می‌مانند.
+وضعیت هر شاهد بر اساس اطلاعات موجود ثبت شده است. screenshot نهایی رابط Jira/Notion، حساب دو عضو تیم، نصب روی گوشی واقعی و اعتبارسنجی بالینی همچنان جدا و صریح در <span dir="ltr">missing-info-checklist.md</span> باز مانده‌اند.
 </div>
 

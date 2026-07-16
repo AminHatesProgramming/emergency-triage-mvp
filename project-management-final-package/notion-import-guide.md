@@ -1,15 +1,20 @@
 <!-- rtl: fa -->
 <div dir="rtl" align="right">
 
-# راهنمای ورود بسته به Notion
+# وضعیت پیاده‌سازی و راهنمای بازیابی Notion
 
-## 1. ساخت ساختار صفحه‌ها
+پیاده‌سازی واقعی در ۲۰۲۶-۰۷-۱۶ انجام شد. صفحه اصلی:
+<span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span>
 
-در Notion یک صفحه اصلی بسازید:
+در وضعیت فعلی ۷ sub-page، پنج database و ۶۶ رکورد ایجاد شده است. مراحل زیر فقط برای بازسازی، انتقال به Workspace دیگر یا نگهداری آینده حفظ می‌شوند.
+
+## 1. ساختار صفحه‌های اجراشده
+
+صفحه اصلی با این نام ساخته شده است:
 
 «امداد یار | دانشنامه پروژه و مدیریت دانش»
 
-سپس این sub-pageها را بسازید:
+این sub-pageها زیر آن قرار دارند:
 
 | صفحه | فایل منبع |
 |---|---|
@@ -22,7 +27,7 @@
 | Jira Import & Board Setup | jira-board-setup.md |
 | Missing Info Checklist | missing-info-checklist.md |
 
-## 2. وارد کردن Markdownها
+## 2. روش بازیابی Markdownها
 
 بهترین روش:
 
@@ -31,9 +36,9 @@
 3. اگر جدول‌ها بهم ریختند، از Notion table ساده استفاده کنید.
 4. لینک‌های مسیر فایل را به repository یا GitHub raw/file link تبدیل کنید.
 
-## 3. ساخت Databaseها از CSV
+## 3. بازیابی Databaseها از CSV
 
-فایل‌های زیر را با گزینه Import یا Merge with CSV وارد کنید:
+نسخه واقعی این databaseها ساخته و پر شده است. برای Workspace جایگزین، فایل‌های زیر با Import یا Merge with CSV قابل بازیابی‌اند:
 
 | Database | فایل |
 |---|---|
@@ -65,9 +70,9 @@
 - Last Updated: Date
 - Needs Completion: Checkbox
 
-## 6. اضافه کردن Jira issue link
+## 6. Jira issue link اجراشده
 
-پس از import در Jira:
+کلیدهای واقعی <span dir="ltr">EMD</span> در رکوردهای Notion ثبت شده‌اند. برای رکوردهای بعدی:
 
 1. key هر issue مثل EMD-12 را بردارید.
 2. در Notion property «Jira Issue» وارد کنید.
@@ -96,8 +101,8 @@
 6. آخرین Sprint و کارهای باقی‌مانده
 7. بخش Evidence برای screenshotها
 
-## 9. نکته مهم برای صداقت دفاع
+## 9. قاعده صداقت و نگهداری
 
-هر چیزی که هنوز واقعی نیست، با عبارت «نیاز به تکمیل دارد» نگه دارید. بعد از ساخت واقعی Jira board، Notion database، گرفتن feedback واقعی و screenshotها، همان itemها را به Done یا Confirmed تغییر دهید.
+هر چیزی که هنوز واقعی نیست، با عبارت «نیاز به تکمیل دارد» نگه دارید. ساخت Jira و Notion و ثبت ۹ بازخورد پرستاران تکمیل شده است؛ screenshot رابط، حساب دو عضو تیم، تست گوشی و اعتبارسنجی بالینی هنوز باز هستند و نباید Done شوند.
 </div>
 

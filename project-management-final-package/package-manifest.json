@@ -3,6 +3,20 @@
   "product_name": "امداد یار",
   "app_url": "https://aminhatesprogramming.github.io/emergency-triage-mvp/",
   "repo_url": "https://github.com/AminHatesProgramming/emergency-triage-mvp",
+  "jira": {
+    "project_key": "EMD",
+    "project_url": "https://pourmand.atlassian.net/jira/software/projects/EMD/board",
+    "epics": 9,
+    "stories_and_tasks": 51,
+    "linked_to_epics": true,
+    "open_external_tasks": ["EMD-60", "EMD-61"]
+  },
+  "notion": {
+    "home_url": "https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3",
+    "content_pages": 7,
+    "databases": 5,
+    "database_records": 66
+  },
   "generated_files": [
     "README.md",
     "jira-board-setup.md",
@@ -46,5 +60,5 @@
     "browser_backend_decision_mismatches": 0,
     "clinical_validation": false
   },
-  "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira/Notion screenshots and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response."
+  "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira and Notion are implemented in the connected workspaces. UI screenshots, team-member Jira accounts, physical-device installation, and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response."
 }

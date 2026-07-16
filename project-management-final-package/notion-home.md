@@ -3,72 +3,66 @@
 
 # امداد یار | دانشنامه پروژه و مدیریت دانش
 
-## معرفی کوتاه
+## معرفی پروژه
 
-«امداد یار» یک سامانه هوشمند ارزیابی اولیه و اولویت‌بندی آسیب‌دیدگان در شرایط اورژانسی است. هدف محصول کمک به تصمیم‌گیری سریع‌تر در تریاژ، با تمرکز بر داده‌های قابل دسترس در لحظه ارزیابی اولیه است. این سامانه ابزار پشتیبان تصمیم است و جایگزین متخصص، پرستار تریاژ یا پروتکل رسمی درمانی نیست.
+«امداد یار» سامانه هوشمند ارزیابی اولیه و اولویت‌بندی آسیب‌دیدگان در شرایط اورژانسی است. محصول با داده‌های قابل دسترس در زمان تریاژ، برآورد اولیه، سطح فوریت، دلایل قابل فهم و اقدام بعدی ارائه می‌کند.
 
-## مسئله
+> **مرز اخلاقی:** سامانه ابزار پشتیبان تصمیم است؛ تشخیص پزشکی، نسخه درمانی یا جایگزین پزشک و پرستار تریاژ نیست.
 
-در محیط‌های شلوغ اورژانس، فشار زمانی، کمبود منابع و وابستگی زیاد به تجربه فردی می‌تواند باعث تأخیر در شناسایی بیمار پرخطر شود. پروژه تلاش می‌کند با یک MVP قابل اجرا، احتمال از دست رفتن بیمار بحرانی را کاهش دهد و همزمان محدودیت‌ها و مسئولیت اخلاقی را شفاف نگه دارد.
+## وضعیت فعلی
 
-## راه‌حل
-
-محصول از فرم فارسی و راست‌به‌چپ، نمونه‌های آماده تست، مدل v7، ارزیابی با ورودی ناقص، هشدارهای مهم، اقدام بعدی، خلاصه کیس، نصب PWA و لینک عمومی استفاده می‌کند. نسخه public روی GitHub Pages بدون نیاز به سرور local قابل باز شدن است.
-
-## ارزش انسانی و اجتماعی
-
-ارزش اصلی پروژه کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر و ساخت یک نمونه بومی از کاربرد مسئولانه AI در سلامت است. توسعه محصول همراه با backlog، sprint، KPI، risk register، AI usage report، QA و پیگیری بازخورد انجام شده است.
-
-## لینک‌های اصلی
-
-| مورد | لینک / مسیر | وضعیت |
-|---|---|---|
-| اپ عمومی امداد یار | <span dir="ltr">https://aminhatesprogramming.github.io/emergency-triage-mvp/</span> | آماده |
-| ریپازیتوری GitHub | <span dir="ltr">https://github.com/AminHatesProgramming/emergency-triage-mvp</span> | آماده |
-| Jira Workspace | <span dir="ltr">https://pourmand.atlassian.net/jira/for-you</span> | موجود |
-| Jira Project / Board | نیاز به تکمیل دارد: پس از ساخت پروژه در Jira لینک دقیق project/board را اینجا قرار دهید. | نیاز به تکمیل |
-| Notion Home | نیاز به تکمیل دارد: پس از ساخت Workspace/Page در Notion لینک صفحه اصلی را اینجا قرار دهید. | نیاز به تکمیل |
-
-## صفحات مهم Notion که باید ساخته شوند
-
-| صفحه | فایل آماده انتقال |
+| محور | وضعیت مستند |
 |---|---|
-| معرفی و دانشنامه اصلی | <span dir="ltr">project-management-final-package/notion-home.md</span> |
-| نمای کلی پروژه | <span dir="ltr">project-management-final-package/notion-project-overview.md</span> |
-| قابلیت‌های محصول | <span dir="ltr">project-management-final-package/notion-product-features.md</span> |
-| Sprint Notes | <span dir="ltr">project-management-final-package/notion-sprint-notes.md</span> |
-| Meeting Notes | <span dir="ltr">project-management-final-package/notion-meeting-notes.md</span> |
-| AI Usage Report | <span dir="ltr">project-management-final-package/notion-ai-usage-report.md</span> |
-| Lessons Learned | <span dir="ltr">project-management-final-package/notion-lessons-learned.md</span> |
-| Decision Log Database | <span dir="ltr">project-management-final-package/notion-decision-log.csv</span> |
-| Change Log Database | <span dir="ltr">project-management-final-package/notion-change-log.csv</span> |
-| Risk Register Database | <span dir="ltr">project-management-final-package/notion-risk-register.csv</span> |
-| Stakeholder Feedback Database | <span dir="ltr">project-management-final-package/notion-stakeholder-feedback.csv</span> |
-| QA Test Log Database | <span dir="ltr">project-management-final-package/notion-qa-test-log.csv</span> |
+| محصول | وب‌اپ عمومی فارسی، راست‌به‌چپ، mobile-first و قابل نصب به شکل PWA |
+| مدل عملیاتی | v7 با AUC برابر 0.9041، Recall برابر 0.9246، Precision برابر 0.5447 و FPR برابر 0.3352 در ارزیابی داخلی نگه‌داشته‌شده |
+| ورودی ناقص | دو الگوی sparse با آستانه مستقل روی داده held-out اعتبارسنجی شده‌اند؛ تعمیم به همه ترکیب‌های ناقص ادعا نمی‌شود |
+| لایه ایمنی | نسخه 2026.07.2، سن‌محور و مستقل از احتمال خام مدل |
+| کنترل کیفیت | ۱۱۸ تست Python، ۵۰۰۰ ترکیب بذرثابت، ۱۱۱۶۰۶ رکورد test و ۱۱۶۷ سناریوی تطبیق مرورگر/API |
+| Android | APK و AAB امضاشده و آفلاین آماده‌اند؛ نصب روی دستگاه واقعی هنوز باید ثبت شود |
+| اعتبار بالینی | انجام نشده است؛ استفاده درمانی بدون پایلوت و تأیید مرکز مجاز نیست |
 
-## وضعیت فعلی پروژه
+## لینک‌های واقعی
 
-| بخش | وضعیت | شاهد |
+| مورد | لینک | وضعیت |
 |---|---|---|
-| مدل عملیاتی | v7، AUC=0.9041، Recall=0.9246 | <span dir="ltr">reports/model/metrics_v7.json</span> |
-| API | Endpointهای <span dir="ltr">/health</span>، <span dir="ltr">/model-info</span> و <span dir="ltr">/predict</span> | <span dir="ltr">backend/main.py</span> |
-| UI | فارسی، راست‌به‌چپ، mobile-first، قابل نصب به شکل PWA | <span dir="ltr">frontend/index.html</span> |
-| نسخه عمومی | GitHub Pages با مدل مرورگر | commit <span dir="ltr">a1ec91f</span> و <span dir="ltr">43737c8</span> |
-| مستندات مدیریت پروژه | Sprint، KPI، Risk، Burndown، Evidence و Deliverables | <span dir="ltr">docs/</span> |
-| حاکمیت و منابع | منابع انسانی/غیرانسانی، هزینه، ارتباطات، کیفیت و خاتمه MVP | <span dir="ltr">docs/project-governance-and-resource-management.md</span> |
-| بازخورد ذی‌نفعان | ۹ بازخورد پرستار تریاژ تأیید و اثر آن‌ها بر نسخه نهایی ثبت شده است؛ دو درخواست ملاقات بیمارستانی در انتظار پاسخ نهایی است | <span dir="ltr">docs/triage-nurse-feedback-confirmation.md</span> و <span dir="ltr">docs/stakeholder-outreach-log.md</span> |
-| نتیجه میدانی فعلی | ۱ وب‌اپ عمومی، ۹ بازخورد تخصصی، ۲ مرکز درمانی مخاطب، ۰ اعتبارسنجی بالینی | <span dir="ltr">docs/kpi-register.md</span> |
+| وب‌اپ عمومی | <span dir="ltr">https://aminhatesprogramming.github.io/emergency-triage-mvp/</span> | فعال |
+| ریپازیتوری | <span dir="ltr">https://github.com/AminHatesProgramming/emergency-triage-mvp</span> | فعال |
+| Jira Project | <span dir="ltr">https://pourmand.atlassian.net/jira/software/projects/EMD/board</span> | فعال؛ ۹ Epic و ۵۱ Story/Task |
+| Notion Home | <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> | فعال؛ ۷ صفحه و ۵ دیتابیس |
+
+## شواهد میدانی و اجتماعی
+
+- ۹ بازخورد کیفی پرستاران تریاژ تأیید و اثر آن‌ها بر زبان خروجی، سادگی فرم، ورودی ناقص و هشدار اخلاقی ثبت شده است.
+- برای بیمارستان پیامبران تهران و سلامت فردای تهران درخواست ملاقات و ایمیل ارسال شد؛ پاسخ اولیه «در حال بررسی» بوده و هنوز موافقت رسمی یا اعتبارسنجی بالینی دریافت نشده است.
+- حلقه بازخورد به تغییر محصول متصل شد: ساده‌سازی واژگان، انتقال نمونه‌ها به بخش جدا، توضیح اقدام بعدی و نمایش کامل بودن داده.
+- ادعای همکاری بیمارستانی یا اثربخشی بالینی تا دریافت شاهد رسمی مطرح نمی‌شود.
+
+## مدیریت پروژه و دانش
+
+Jira برای Backlog، Workflow، Epic/Story، مسئول، شواهد و کارهای باز استفاده می‌شود. Notion نیز دفتر تصمیم‌ها، تغییرات، ریسک‌ها، بازخورد و QA را نگهداری می‌کند. Taskهای بیرونی اثبات‌نشده، مانند تست دستگاه واقعی و پایلوت بیمارستانی، عمداً باز مانده‌اند.
+
+| پایگاه Notion | تعداد رکورد |
+|---|---:|
+| دفتر تصمیم‌ها | ۱۷ |
+| دفتر تغییرات | ۱۶ |
+| دفتر ریسک‌ها | ۱۴ |
+| بازخورد ذی‌نفعان | ۳، شامل دو شاهد واقعی و یک قالب صریح آینده |
+| دفتر آزمون و کنترل کیفیت | ۱۶ |
 
 ## اعضای تیم
 
-| عضو | نقش |
+| عضو | نقش و خروجی قابل دفاع |
 |---|---|
-| محمدامین پورمند | Project Lead / ML & System Architect |
-| محدثه حاتمی کیا | UI / Documentation & QA Coordinator |
-| محمدرضا آرمان‌پور | Project Control & Metrics Coordinator |
+| محمدامین پورمند | Project Lead / ML & System Architect؛ مدل، API، معماری، انتشار و ممیزی |
+| محدثه حاتمی کیا | UI / Documentation & QA Coordinator؛ بازبینی تجربه کاربر، مستندات و سناریوهای QA |
+| محمدرضا آرمان‌پور | Project Control & Metrics Coordinator؛ KPI، ریسک، Burndown، بازخورد و پیگیری ذی‌نفعان |
 
-## هشدار اخلاقی
+## صفحات اصلی Notion
 
-امداد یار خروجی تشخیصی قطعی تولید نمی‌کند. خروجی سامانه باید فقط به عنوان کمک تصمیم‌گیری اولیه تفسیر شود و تصمیم نهایی با متخصص، پرستار تریاژ و پروتکل رسمی مرکز درمانی است.
+نمای کلی پروژه، قابلیت‌های محصول، یادداشت‌های اسپرینت، یادداشت‌های جلسات، گزارش استفاده مسئولانه از هوش مصنوعی، درس‌آموخته‌ها و فهرست موارد نیازمند تکمیل زیر صفحه Home ساخته شده‌اند.
+
+## جمع‌بندی اخلاقی
+
+ارزیابی آماری داخلی، آزمون نرم‌افزاری و بازخورد کاربردپذیری با اعتبارسنجی بالینی یکسان نیستند. تصمیم نهایی همیشه با متخصص و پروتکل رسمی مرکز درمانی است.
+
 </div>
-

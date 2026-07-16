@@ -1,11 +1,20 @@
 <!-- rtl-normalized -->
 <div dir="rtl" align="right">
 
-# فهرست رسمی تحویل نهایی امدادیار
+# فهرست رسمی تحویل نهایی امداد یار
 
 این فایل مرجع اصلی تحویل پروژه است. برای ارائه به استاد و TA، از همین فهرست استفاده شود و فایل‌های draft یا قدیمی مبنای دفاع قرار نگیرند.
 
-بسته `Emdadyar_Submission_Core_Ready_For_Platform_Evidence.zip` شامل هسته آماده تحویل است. تا زمانی که اسکرین‌شات‌های واقعی Jira/Notion، لینک دسترسی، ویدئوی ۱۰ دقیقه‌ای و پوستر نهایی به آن افزوده نشده‌اند، نباید به‌عنوان ZIP کامل تحویل ارسال شود.
+بسته `Emdadyar_Submission_Core_Ready_For_Platform_Evidence.zip` شامل هسته آماده تحویل است. لینک‌های Jira و Notion واقعی‌اند؛ اسکرین‌شات رابط، آزمون دسترسی مهمان، ویدئوی ۱۰ دقیقه‌ای و فایل پوستر انتخاب‌شده باید پیش از ارسال نهایی کنار بسته قرار گیرند.
+
+## ابزارهای واقعی پروژه
+
+| ابزار | لینک و وضعیت |
+|---|---|
+| Jira Work Management | `https://pourmand.atlassian.net/jira/software/projects/EMD/board`؛ ۹ Epic و ۵۱ Story/Task |
+| Notion Knowledge Base | `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3`؛ ۷ صفحه، ۵ دیتابیس و ۶۶ رکورد |
+| GitHub Repository | `https://github.com/AminHatesProgramming/emergency-triage-mvp` |
+| وب‌اپ عمومی | `https://aminhatesprogramming.github.io/emergency-triage-mvp/` |
 
 ## 1. خروجی‌های رسمی Word و بسته تحویل
 
@@ -62,12 +71,13 @@
 | گزارش استفاده از AI | `docs/ai-usage-report.md` |
 | درس‌آموخته‌ها | `docs/lessons-learned.md` |
 
-## 5. فایل‌های آماده ورود به ابزارها
+## 5. ابزارهای اجراشده و فایل‌های قابل بازسازی
 
 | فایل | کاربرد |
 |---|---|
-| `docs/artifacts/jira-import-issues.csv` | ورود backlog، Sprintها، assignee و time tracking به Jira |
-| `docs/artifacts/github-project-knowledge-items.csv` | ورود آیتم‌های مدیریت دانش به GitHub Project |
+| `project-management-final-package/` | نسخه قابل بازسازی Jira/Notion و چک‌لیست شواهد بیرونی |
+| `docs/artifacts/jira-import-issues.csv` | سابقه اولیه ورود backlog به Jira؛ وضعیت زنده در پروژه EMD مرجع نهایی است |
+| `docs/artifacts/github-project-knowledge-items.csv` | نسخه آرشیوی آیتم‌های مدیریت دانش؛ Notion زنده مرجع نهایی است |
 | `docs/artifacts/time-tracking-log.csv` | شواهد زمان همکاری تیم |
 | `docs/artifacts/burndown.svg` | نمودار Burndown |
 | `docs/artifacts/velocity.svg` | نمودار Velocity |
@@ -96,6 +106,6 @@
 
 ## جمله دفاعی
 
-پروژه امدادیار فقط یک مدل هوش مصنوعی نیست؛ یک MVP قابل اجرا با رویکرد Agile است که برای آن backlog، Sprint، assignee، time tracking، KPI، risk register، مدیریت دانش، بازخورد کاربر، مستندات فنی و نسخه قابل نصب موبایل آماده شده است.
+پروژه امداد یار فقط یک مدل هوش مصنوعی نیست؛ یک MVP قابل اجرا با رویکرد Agile است که برای آن backlog، Sprint، owner، time tracking، KPI، risk register، مدیریت دانش، بازخورد کاربر، مستندات فنی و نسخه قابل نصب موبایل آماده شده است. Assignee دو عضو پس از دعوت حساب واقعی و تست دستگاه Android همچنان کار باز هستند.
 
 </div>

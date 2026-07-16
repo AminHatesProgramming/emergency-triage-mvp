@@ -1,71 +1,77 @@
 <!-- rtl: fa -->
 <div dir="rtl" align="right">
 
-# Sprint Notes | امداد یار
+# یادداشت‌های اسپرینت | امداد یار
+
+اسپرینت‌ها از روی خروجی‌های قابل ردیابی repo بازسازی شده‌اند. تاریخ دقیق جلسه‌ها باید جداگانه توسط اعضا تأیید شود؛ Deliverable و Evidence هر اسپرینت قابل مشاهده است.
 
 ## Sprint 0: تعریف مسئله و محدوده
 
 | بخش | توضیح |
 |---|---|
-| Goal | انتخاب مسئله سلامت‌محور، تعریف ارزش انسانی و محدوده MVP |
-| Tasks | تعریف مسئله، ذی‌نفعان، ارزش اجتماعی/ملی، نقش decision-support، محدودیت اخلاقی |
+| Goal | انتخاب مسئله سلامت‌محور، تعریف ارزش انسانی، ذی‌نفعان و مرز اخلاقی MVP |
+| Tasks | تعریف مسئله، کاربران هدف، نقش decision-support، دامنه و ارزش اجتماعی |
 | Deliverables | <span dir="ltr">docs/project-management-plan.md</span>، <span dir="ltr">docs/stakeholder-register.md</span>، <span dir="ltr">docs/scope-change-record.md</span> |
-| Risks | ادعای بیش از حد پزشکی؛ دامنه مبهم؛ نبود ارزش قابل اندازه‌گیری |
-| Decisions | تمرکز بر تریاژ اورژانس و تعریف سامانه به عنوان پشتیبان تصمیم |
-| What changed? | پروژه از ایده خام به محصول سلامت‌محور با KPI مشخص تبدیل شد. |
-| What remained? | تاریخ دقیق جلسه و لینک واقعی Jira هنوز باید تکمیل شود. |
-| Link to Jira issues | PD-01, PD-02, SAFE-01 |
+| Risks | ادعای بیش از حد پزشکی، دامنه مبهم و نبود معیار قابل اندازه‌گیری |
+| Decisions | تمرکز بر تریاژ اورژانس و ممنوعیت جایگزینی متخصص |
+| Outcome | مسئله، محدوده، ذی‌نفع و هشدار اخلاقی ثبت شد |
+| Jira | <span dir="ltr">EMD-2, EMD-11..EMD-15</span> |
 
-## Sprint 1: مدل/منطق ارزیابی
-
-| بخش | توضیح |
-|---|---|
-| Goal | ساخت baseline مدل و کنترل data leakage |
-| Tasks | انتخاب features triage-time، حذف داده‌های آینده، آموزش مدل‌های اولیه، تعریف threshold و متریک‌ها |
-| Deliverables | <span dir="ltr">ml/train.py</span>، <span dir="ltr">docs/model-card.md</span>، <span dir="ltr">reports/model/metrics_v5.json</span> و نسخه‌های میانی تا مدل عملیاتی نهایی v7 |
-| Risks | leakage، FPR بالا، وابستگی بیش از حد به age/gender، ناتوانی با داده ناقص |
-| Decisions | استفاده از AUC/Recall/Precision/FPR؛ انتخاب safety-first threshold |
-| What changed? | مدل از آزمایش اولیه به نسخه قابل دفاع‌تر با داده زمان تریاژ رسید. |
-| What remained? | اعتبارسنجی بالینی و تحلیل fairness در فاز بعدی. |
-| Link to Jira issues | ML-01, ML-02, ML-03, ML-04, ML-05 |
-
-## Sprint 2: UI و تجربه کاربر
+## Sprint 1: داده و مدل
 
 | بخش | توضیح |
 |---|---|
-| Goal | تبدیل مدل به تجربه قابل استفاده برای کاربر فارسی‌زبان |
-| Tasks | طراحی فرم، خروجی قابل فهم، نمونه‌های تست، هشدارهای مهم، اقدام بعدی، خلاصه کیس |
-| Deliverables | <span dir="ltr">frontend/index.html</span>، <span dir="ltr">frontend/app.js</span>، <span dir="ltr">frontend/styles.css</span> |
-| Risks | شلوغی UI، سوءبرداشت از خروجی، سختی استفاده روی موبایل |
-| Decisions | فارسی و راست‌به‌چپ؛ متن ساده؛ قرار گرفتن نمونه‌های تست پایین فرم |
-| What changed? | خروجی از ESI/عدد خام به پیام قابل عمل تبدیل شد. |
-| What remained? | تست خوانایی با کاربر واقعی. |
-| Link to Jira issues | UX-01, UX-02, UX-03, SAFE-02, SAFE-03 |
+| Goal | ساخت خط مبنا، کنترل data leakage و تعریف KPIهای مناسب سلامت |
+| Tasks | انتخاب ویژگی‌های triage-time، جداسازی validation/test، آموزش نسخه‌ها و threshold tuning |
+| Deliverables | <span dir="ltr">ml/train.py</span>، <span dir="ltr">docs/model-card.md</span>، <span dir="ltr">reports/model/metrics_v7.json</span> |
+| Risks | leakage، FPR بالا، داده ناقص و وابستگی به داده غیر بومی |
+| Decisions | گزارش هم‌زمان AUC، Recall، Precision و FPR؛ اولویت Recall با شفافیت هزینه عملیاتی |
+| Outcome | مدل v7 با AUC=0.9041 و Recall=0.9246 در test داخلی تثبیت شد |
+| Jira | <span dir="ltr">EMD-3, EMD-16..EMD-20, EMD-57</span> |
 
-## Sprint 3: مستندسازی، بازخورد و آماده‌سازی دفاع
-
-| بخش | توضیح |
-|---|---|
-| Goal | پاسخ به نقد TA درباره غیرمدیریت‌پروژه‌ای بودن کار |
-| Tasks | ساخت Knowledge Base، Sprint Notes، Meeting Notes، Risk Register، KPI، Burndown، AI Usage Report |
-| Deliverables | <span dir="ltr">docs/knowledge-base/</span>، <span dir="ltr">docs/agile-delivery-evidence.md</span>، <span dir="ltr">docs/kpi-register.md</span>، <span dir="ltr">docs/risk-register.md</span> |
-| Risks | کم‌رنگ دیده شدن نقش اعضا؛ نبود evidence واقعی ابزار مدیریت پروژه؛ نبود feedback خارجی |
-| Decisions | تعریف نقش‌های قابل ارائه برای هر عضو؛ آماده‌سازی CSV import برای Jira و knowledge project |
-| What changed? | پروژه از demo فنی به بسته مدیریت پروژه با artifactهای قابل دفاع تبدیل شد. |
-| What remained? | ساخت واقعی Jira/Notion و گرفتن screenshot واقعی. |
-| Link to Jira issues | PM-01, PM-02, PM-03, DOC-01, DOC-04 |
-
-## Final Sprint: deploy، QR، پوستر و تحویل نهایی
+## Sprint 2: Backend و تجربه کاربر
 
 | بخش | توضیح |
 |---|---|
-| Goal | آماده‌سازی نسخه عمومی و بسته تحویل نهایی |
-| Tasks | GitHub Pages، PWA، QR، package بازار، poster assets، cleanup docs، final index |
-| Deliverables | <span dir="ltr">https://aminhatesprogramming.github.io/emergency-triage-mvp/</span>، <span dir="ltr">docs/artifacts/emdadyar-pwa-qr.png</span>، <span dir="ltr">poster-final-assets-fa.md</span>، <span dir="ltr">docs/final-submission-index.md</span> |
-| Risks | خراب شدن لینک عمومی، ادعای بازخورد بدون تأیید، فایل‌های قدیمی و گیج‌کننده |
-| Decisions | حذف docs قدیمی، جداسازی feedbackهای synthetic و سپس تأیید انسانی ۹ بازخورد پرستاران در تحویل نهایی |
-| What changed? | نسخه نهایی تمیزتر و قابل ارسال‌تر شد. |
-| What remained? | وارد کردن CSVها در Jira/Notion، گرفتن screenshot واقعی و تأیید بازخوردهای خارجی. |
-| Link to Jira issues | DEP-01, FD-01, FD-02, FD-03, FB-02 |
+| Goal | تبدیل مدل به محصول فارسی، ساده و قابل استفاده روی موبایل |
+| Tasks | API، فرم، سناریوها، نتیجه قابل فهم، کامل بودن داده، PWA و QR |
+| Deliverables | <span dir="ltr">backend/main.py</span>، <span dir="ltr">frontend/</span>، <span dir="ltr">docs/artifacts/emdadyar-pwa-qr.png</span> |
+| Risks | شلوغی UI، اصطلاحات نامفهوم، ورودی اشتباه و وابستگی به local server |
+| Decisions | فارسی RTL، نمونه‌های جدا از فرم، عبارت «اقدام بعدی» و انتشار GitHub Pages |
+| Outcome | وب‌اپ عمومی و mobile-first بدون نیاز به سرور محلی منتشر شد |
+| Jira | <span dir="ltr">EMD-4, EMD-5, EMD-21..EMD-30, EMD-51, EMD-52</span> |
+
+## Sprint 3: ایمنی، بازخورد و مدیریت دانش
+
+| بخش | توضیح |
+|---|---|
+| Goal | پاسخ به نقد TA و اتصال توسعه فنی به بازخورد، ریسک و تصمیم مستند |
+| Tasks | safety/explainability، Knowledge Base، KPI، Risk، Burndown، AI Usage و QA |
+| Deliverables | <span dir="ltr">docs/knowledge-base/</span>، <span dir="ltr">docs/kpi-register.md</span>، <span dir="ltr">project-management-final-package/</span> |
+| Risks | کم‌رنگ بودن همکاری، نبود شاهد ابزار واقعی و ادعای feedback بدون منبع |
+| Decisions | نقش‌های قابل ارائه، تفکیک بازخورد واقعی از synthetic و ثبت موارد باز |
+| Outcome | ۹ بازخورد پرستار تأیید شد؛ Jira و Notion واقعی ساخته و لینک شدند |
+| Jira | <span dir="ltr">EMD-6..EMD-9, EMD-31..EMD-50, EMD-59</span> |
+
+## Final Release Sprint: ممیزی، Android و تحویل
+
+| بخش | توضیح |
+|---|---|
+| Goal | آزمون سناریوهای مرزی، هم‌ارزی نسخه‌ها و تولید بسته قابل انتشار |
+| Tasks | قواعد سن‌محور، held-out sparse validation، differential test، APK/AAB، docs و package |
+| Deliverables | <span dir="ltr">reports/model/release_validation_v7.json</span>، <span dir="ltr">docs/model-release-scenario-audit-fa.md</span>، <span dir="ltr">docs/market/release/</span> |
+| Risks | تلقی قواعد به‌عنوان پروتکل بالینی، FPR ورودی ناقص و مشکل دستگاه واقعی |
+| Decisions | عدم دست‌کاری probability، رد core-vitals با FPR=0.784 و اجرای آفلاین Android |
+| Outcome | ۱۱۸ تست Python، ۵۰۰۰ ترکیب بذرثابت، ۱۱۱۶۰۶ رکورد test و ۱۱۶۷ سناریوی browser/API عبور کردند |
+| Open work | تست نصب دستگاه واقعی در <span dir="ltr">EMD-60</span> و پیگیری پایلوت درمانی در <span dir="ltr">EMD-61</span> |
+| Jira | <span dir="ltr">EMD-10, EMD-53..EMD-61</span> |
+
+## Retrospective نهایی
+
+- مهم‌ترین ارزش محصول، سادگی کار در فشار است؛ امکاناتی که شلوغی ایجاد می‌کردند از صفحه اصلی کنار گذاشته شدند.
+- Accuracy به تنهایی معیار مناسبی نبود؛ Recall و FPR باید هم‌زمان دیده شوند.
+- داده ناقص به پروفایل اعتبارسنجی‌شده نیاز دارد؛ کاهش عمومی threshold قابل دفاع نیست.
+- کنترل مهندسی با اعتبارسنجی بالینی یکسان نیست و این محدودیت در همه خروجی‌ها حفظ شد.
+- ابزار مدیریت پروژه باید تاریخچه تصمیم و کار باز را نشان دهد، نه فقط فهرستی از موارد Done.
+
 </div>
-

@@ -63,6 +63,21 @@ def add_body(document: Document, text: str, *, bullet: bool = False) -> None:
 def update_final_report() -> None:
     path = DELIVERABLES / "ITPM_Final_Report_Emergency_Triage.docx"
     document = Document(path)
+    replace_paragraph(
+        document,
+        "backlog آماده Jira شامل ۹ Epic",
+        "پروژه واقعی Jira با کلید EMD شامل ۹ Epic و ۵۱ Story/Task است؛ همه Story/Taskها به Epic والد متصل شده‌اند و وضعیت Workflow بر اساس شواهد repo به‌روزرسانی شده است.",
+    )
+    replace_paragraph(
+        document,
+        "انتقال backlog قدیمی به Jira",
+        "ساعت‌های ۴۷، ۲۳ و ۱۸، برآورد مبتنی بر فعالیت‌های ثبت‌شده‌اند و ادعای تایم‌شیت لحظه‌ای از ابتدای ترم نیستند. backlog قدیمی در Jira با اتکا به شواهد Git و فایل‌ها بازسازی شده است؛ تاریخ ایجاد پلتفرم به‌عنوان تاریخ انجام کار معرفی نمی‌شود. حساب Jira محدثه و محمدرضا برای ثبت Assignee و worklog شخصی هنوز باید با ایمیل واقعی دعوت شود.",
+    )
+    replace_paragraph(
+        document,
+        "لینک و screenshot واقعی Jira/Notion",
+        "ابزارهای واقعی فعال‌اند: Jira در https://pourmand.atlassian.net/jira/software/projects/EMD/board و Notion در https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3. ثبت screenshot رابط، آزمون دسترسی مهمان و دعوت حساب دو عضو همچنان اقدام انسانی پیش از تحویل است.",
+    )
     marker = "ضمیمه ممیزی فنی نسخه انتشار"
     if not any(marker in paragraph.text for paragraph in document.paragraphs):
         document.add_page_break()
@@ -89,12 +104,28 @@ def update_final_report() -> None:
             "شواهد: docs/model-release-scenario-audit-fa.md، reports/model/release_validation_v7.json، "
             "reports/model/browser_backend_differential_v7.json و docs/market/build-verification-fa.md.",
         )
+    pm_marker = "شواهد ابزارهای واقعی مدیریت پروژه و دانش"
+    if not any(pm_marker in paragraph.text for paragraph in document.paragraphs):
+        add_heading(document, pm_marker)
+        items = [
+            "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task، Parent واقعی و ۵۲ مورد Done؛ کارهای بیرونی اثبات‌نشده باز مانده‌اند.",
+            "Notion: هفت صفحه محتوایی، پنج دیتابیس و ۶۶ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
+            "بازخورد: ۹ نظر کیفی پرستاران تأیید شده؛ outreach دو مرکز درمانی در انتظار پاسخ نهایی است و همکاری رسمی ادعا نمی‌شود.",
+            "کارهای باز: حساب Jira دو عضو، screenshot، تست APK/PWA روی گوشی، ضبط ویدئو، fairness و اعتبارسنجی بالینی.",
+        ]
+        for item in items:
+            add_body(document, item, bullet=True)
     document.save(path)
 
 
 def update_runbook() -> None:
     path = DELIVERABLES / "Emdadyar_Final_Presentation_Runbook.docx"
     document = Document(path)
+    replace_paragraph(
+        document,
+        "Jira/Notion package",
+        "اپ عمومی، نمودار مدل، Burndown، برد واقعی Jira، دانشنامه واقعی Notion و گزارش بازخورد را در تب‌های جدا باز کنید.",
+    )
     replace_paragraph(
         document,
         "مدل نهایی v7 فقط از اطلاعات زمان تریاژ استفاده می‌کند",
@@ -110,12 +141,33 @@ def update_runbook() -> None:
         "چرا FPR برابر ۰٫۳۳۵۲ است؟",
         "چرا FPR برابر ۰٫۳۳۵۲ است؟ حالت پیش‌فرض برای حفظ Recall بالا انتخاب شده است. برای ورودی ناقص FPR بالاتر نیز جدا گزارش شده و گزینه فقط علائم حیاتی با FPR برابر ۰٫۷۸۴۰ عمداً از محصول کنار گذاشته شد؛ تنظیم نهایی باید با ظرفیت و پروتکل مرکز درمانی انجام شود.",
     )
+    links_marker = "لینک‌های آماده پیش از ضبط"
+    if not any(links_marker in paragraph.text for paragraph in document.paragraphs):
+        add_heading(document, links_marker)
+        links = [
+            "وب‌اپ: https://aminhatesprogramming.github.io/emergency-triage-mvp/",
+            "Jira: https://pourmand.atlassian.net/jira/software/projects/EMD/board",
+            "Notion: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3",
+            "GitHub: https://github.com/AminHatesProgramming/emergency-triage-mvp",
+        ]
+        for item in links:
+            add_body(document, item, bullet=True)
     document.save(path)
 
 
 def update_pm_evidence() -> None:
     path = DELIVERABLES / "ITPM_Project_Management_Evidence_Package.docx"
     document = Document(path)
+    replace_paragraph(
+        document,
+        "برای نمره کامل، همین ساختار باید",
+        "ساختار در ابزارهای واقعی اجرا شده است: پروژه EMD در Jira برای Work Management و صفحه «امداد یار | دانشنامه پروژه و مدیریت دانش» در Notion برای Knowledge Management. Storyها به Epic والد، شواهد Git و رکوردهای دانش متصل شده‌اند.",
+    )
+    replace_paragraph(
+        document,
+        "ورود/اسکرین‌شات نهایی Jira و Notion",
+        "ریسک باز: اعتبارسنجی بالینی، fairness، نصب دستگاه واقعی، screenshot رابط Jira/Notion، آزمون دسترسی مهمان و دعوت حساب Jira دو عضو تیم.",
+    )
     marker = "کنترل انتشار و شواهد نهایی"
     if not any(marker in paragraph.text for paragraph in document.paragraphs):
         document.add_page_break()
@@ -125,8 +177,19 @@ def update_pm_evidence() -> None:
             "Evidence ارزیابی: ۱۱۱٬۶۰۶ رکورد test، ۱۱۸ تست Python و ۱٬۱۶۷ سناریوی تطابق مرورگر/API.",
             "تصمیم کنترل دامنه: آستانه core-vitals با FPR=0.7840 رد شد؛ فقط دو الگوی sparse دارای شواهد validation فعال‌اند.",
             "Evidence ذی‌نفع: ۹ بازخورد کیفی تأییدشده پرستاران؛ دو درخواست ملاقات درمانی در انتظار پاسخ نهایی.",
-            "ریسک باز: اعتبارسنجی بالینی، fairness، نصب دستگاه واقعی و ورود/اسکرین‌شات نهایی Jira و Notion.",
+            "ریسک باز: اعتبارسنجی بالینی، fairness، نصب دستگاه واقعی، screenshot رابط و حساب Jira دو عضو تیم.",
             "مالک شواهد فنی: محمدامین؛ مالک QA و مستندسازی: محدثه؛ مالک KPI، ریسک و پیگیری ذی‌نفع: محمدرضا.",
+        ]
+        for item in items:
+            add_body(document, item, bullet=True)
+    tools_marker = "وضعیت ابزارهای واقعی"
+    if not any(tools_marker in paragraph.text for paragraph in document.paragraphs):
+        add_heading(document, tools_marker)
+        items = [
+            "Jira Project: https://pourmand.atlassian.net/jira/software/projects/EMD/board؛ ۹ Epic و ۵۱ Story/Task.",
+            "Notion Home: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3؛ ۷ صفحه، ۵ دیتابیس و ۶۶ رکورد.",
+            "۵۲ Issue در وضعیت Done، پنج مورد In Progress، یک مورد In Review و دو Task بیرونی در Backlog ثبت شده‌اند.",
+            "Labelهای owner برای هر سه عضو ثبت شده‌اند؛ Assignee مستقیم محدثه و محمدرضا پس از دعوت حساب واقعی تکمیل می‌شود.",
         ]
         for item in items:
             add_body(document, item, bullet=True)
