@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const chromeDebuggerUrl = process.env.CHROME_DEBUGGER_URL || "http://127.0.0.1:9222";
 const targetUrl =
   process.env.PWA_URL || "https://aminhatesprogramming.github.io/emergency-triage-mvp/";
@@ -130,6 +133,20 @@ async function main() {
   try {
     await client.send("Page.enable");
     await client.send("Runtime.enable");
+    await client.send("Network.enable");
+    await client.send("Network.setCacheDisabled", { cacheDisabled: true });
+    await client.send("Network.setBypassServiceWorker", { bypass: true });
+    await client.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        window.__emdadyarReleaseErrors = [];
+        window.addEventListener('error', (event) => {
+          window.__emdadyarReleaseErrors.push(String(event.message || event.error || 'window error'));
+        });
+        window.addEventListener('unhandledrejection', (event) => {
+          window.__emdadyarReleaseErrors.push(String(event.reason || 'unhandled rejection'));
+        });
+      `,
+    });
     await client.send("Emulation.setDeviceMetricsOverride", {
       width: viewport.width,
       height: viewport.height,
@@ -157,17 +174,100 @@ async function main() {
     const critical = await runScenario(client, "critical");
     const sparse = await runScenario(client, "sparse");
 
-    console.log(
-      JSON.stringify(
-        {
-          viewport,
-          pageInfo,
-          scenarios: { critical, sparse },
-        },
-        null,
-        2,
-      ),
+    const evaluatorChecks = await evaluate(
+      client,
+      `(async () => {
+        const base = {
+          chief_complaint: 'abdominalpain', age: 30, gender: 'Female', arrivalmode: 'Walk-in',
+          heart_rate: 78, systolic_bp: 120, diastolic_bp: 75, respiratory_rate: 16,
+          oxygen_saturation: 98, temperature: 36.8, previous_ed_visits: null,
+          previous_admissions: null, previous_surgeries: null, oxygen_device: 0,
+          history_conditions: [],
+        };
+        const sparsePayload = {
+          ...base, chief_complaint: 'shortnessofbreath', age: null, heart_rate: 125,
+          oxygen_saturation: 92, systolic_bp: null, diastolic_bp: null,
+          respiratory_rate: null, temperature: null,
+        };
+        const sparse3 = await predictInBrowser(sparsePayload);
+        const sparse4 = await predictInBrowser({ ...sparsePayload, age: 68 });
+        const heartRate150 = await predictInBrowser({ ...base, heart_rate: 150 });
+        const normal = await predictInBrowser(base);
+        return {
+          sparse3: {
+            profile: sparse3.operating_profile,
+            threshold: sparse3.threshold,
+            risk: sparse3.risk_level,
+          },
+          sparse4: {
+            profile: sparse4.operating_profile,
+            threshold: sparse4.threshold,
+            risk: sparse4.risk_level,
+          },
+          heartRate150: {
+            profile: heartRate150.operating_profile,
+            risk: heartRate150.risk_level,
+            safetyOverride: heartRate150.safety_override,
+            severity: heartRate150.safety_severity,
+            reasons: heartRate150.safety_flags,
+          },
+          normal: {
+            profile: normal.operating_profile,
+            risk: normal.risk_level,
+            safetyOverride: normal.safety_override,
+          },
+          runtimeErrors: window.__emdadyarReleaseErrors || [],
+        };
+      })()`,
     );
+
+    const documentReset = await evaluate(
+      client,
+      `(() => {
+        document.querySelector('#clearBtn')?.click();
+        return {
+          riskPercent: document.querySelector('#riskPercent')?.textContent?.trim(),
+          selectedScenario: document.querySelector('[data-scenario].is-active')?.dataset?.scenario || null,
+        };
+      })()`,
+    );
+
+    const checks = {
+      title: pageInfo.title.includes("امداد یار"),
+      loaded: pageInfo.readyState === "complete",
+      manifest: pageInfo.hasManifest,
+      serviceWorkerCapability: pageInfo.hasServiceWorker,
+      noRuntimeErrors: evaluatorChecks.runtimeErrors.length === 0,
+      criticalScenarioRendered: critical.percent !== "--" && Boolean(critical.triageBand),
+      sparseScenarioRendered: sparse.percent !== "--" && Boolean(sparse.missingFields),
+      sparse3Profile: evaluatorChecks.sparse3.profile === "validated_sparse_3",
+      sparse4Profile: evaluatorChecks.sparse4.profile === "validated_sparse_4",
+      heartRate150Escalates:
+        evaluatorChecks.heartRate150.risk === "critical"
+        && evaluatorChecks.heartRate150.safetyOverride === true
+        && evaluatorChecks.heartRate150.severity === "immediate",
+      normalDoesNotSafetyEscalate: evaluatorChecks.normal.safetyOverride === false,
+      clearResetsResult: documentReset.riskPercent === "--",
+    };
+
+    const report = {
+      generated_at: new Date().toISOString(),
+      targetUrl,
+      viewport,
+      pageInfo,
+      scenarios: { critical, sparse },
+      evaluatorChecks,
+      documentReset,
+      checks,
+      passed: Object.values(checks).every(Boolean),
+    };
+
+    const reportPath = path.resolve(__dirname, "..", "reports", "model", "ui_smoke_v7.json");
+    fs.mkdirSync(path.dirname(reportPath), { recursive: true });
+    fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
+
+    console.log(JSON.stringify(report, null, 2));
+    if (!report.passed) process.exitCode = 1;
   } finally {
     client.close();
   }

@@ -1,0 +1,47 @@
+{
+  "product": "Emdadyar",
+  "display_name_fa": "امدادیار",
+  "package_name": "ir.pourmand.emdadyar",
+  "version_name": "1.0.0",
+  "version_code": 1,
+  "min_sdk": 23,
+  "target_sdk": 36,
+  "model_version": "v7",
+  "safety_rule_version": "2026.07.2",
+  "built_at": "2026-07-16",
+  "artifacts": [
+    {
+      "file": "Emdadyar-1.0.0-release.apk",
+      "bytes": 443920,
+      "sha256": "136F57F1CDA715AE53C37E0A279F8A3ABB43752098FC5321C99F8829A540C93F"
+    },
+    {
+      "file": "Emdadyar-1.0.0-release.aab",
+      "bytes": 435107,
+      "sha256": "26AA1B865D0A0E52BAAD4D9C6592329CD9F21FF0593A42BE9DB3768A49AFF3CE"
+    },
+    {
+      "file": "Emdadyar-feature-graphic-1024x500.png",
+      "bytes": 48356,
+      "sha256": "1E145BE11A4DC394D6563A936AE7511B1A2694E349AB3E763BEE078571525F53"
+    }
+  ],
+  "signing": {
+    "certificate_sha256": "5A66707F347BEED576B967B4B93C5056C33D6E923CE4A230FF529260E601A54D",
+    "key_algorithm": "RSA",
+    "key_size_bits": 4096,
+    "apk_schemes": ["v1", "v2", "v3"]
+  },
+  "verification": {
+    "python_tests_passed": 118,
+    "browser_backend_differential_scenarios": 1167,
+    "browser_backend_decision_mismatches": 0,
+    "browser_smoke_test": true,
+    "embedded_web_assets_match_dist": true,
+    "apk_signature_verified": true,
+    "aab_signature_verified": true,
+    "physical_device_install_test": false
+  },
+  "clinical_validation": false,
+  "decision_support_only": true
+}

@@ -5,7 +5,7 @@
 
 Backend نهایی با FastAPI و عنوان `Emdadyar Decision Support API`، نسخه `1.0.0`، پیاده‌سازی شده است.
 
-Base URL در demo محلی:
+Base URL در اجرای محلی:
 
 `http://127.0.0.1:8000`
 
@@ -69,6 +69,8 @@ Base URL در demo محلی:
 | `previous_surgeries` | integer | بله | سابقه جراحی |
 | `history_conditions` | list[string] | بله | سوابق مثل `copd` یا `coronathero` |
 
+نام‌های رایج `arrival_mode`، `systolic_blood_pressure`، `diastolic_blood_pressure` و `body_temperature` نیز به‌عنوان alias پذیرفته می‌شوند. کلید ناشناخته با کد `422` رد می‌شود تا هیچ داده‌ای بی‌صدا کنار گذاشته نشود.
+
 ### نمونه sparse input
 
 ```json
@@ -87,25 +89,33 @@ Base URL در demo محلی:
 {
   "model_version": "v7",
   "operational_mode": "safety_first_hybrid",
-  "model_probability": 0.8181,
-  "critical_probability": 0.8779,
-  "threshold": 0.3017,
+  "operating_profile": "validated_sparse_4",
+  "model_probability": 0.8366,
+  "critical_probability": 0.8366,
+  "threshold": 0.1882,
   "risk_level": "critical",
-  "triage_band": "ESI 1-2 priority suggested",
+  "triage_band": "priority_1_immediate_review",
   "recommended_action": "Immediate clinical review recommended",
   "explanation": [
+    "urgent: oxygen saturation below normal triage range",
+    "immediate: chest pain with high-risk cardiac history",
     "low oxygen saturation",
-    "chief complaint: chestpain",
-    "known history: coronary atherosclerosis"
+    "chief complaint: chestpain"
   ],
   "safety_flags": [
-    "red flag: chest pain with high-risk cardiac history"
+    "urgent: oxygen saturation below normal triage range",
+    "immediate: chest pain with high-risk cardiac history"
   ],
   "next_best_actions": [
     "notify senior triage nurse or emergency physician",
     "repeat vital signs and keep patient in visible monitored area"
   ],
   "safety_override": true,
+  "safety_severity": "immediate",
+  "assessment_basis": "model_and_safety_rule",
+  "safety_rule_version": "2026.07.2",
+  "measurement_warnings": [],
+  "out_of_distribution": false,
   "data_completeness": 0.5,
   "confidence_band": "medium",
   "missing_recommended_fields": [
@@ -123,8 +133,12 @@ Base URL در demo محلی:
 - همه فیلدهای بالینی اصلی optional هستند تا سیستم با ورودی ناقص هم کار کند.
 - ورودی کاملاً بدون شکایت یا علامت حیاتی رد می‌شود؛ «ورودی ناقص» با «نبود هرگونه نشانه بالینی» یکسان نیست.
 - خروجی حتماً `data_completeness` و `missing_recommended_fields` دارد.
-- `model_probability` خروجی خام مدل است و `critical_probability` خروجی عملیاتی safety-first است.
+- `model_probability` خروجی خام مدل است و برای سازگاری API در `critical_probability` نیز بدون دست‌کاری تکرار می‌شود.
+- `operating_profile` مشخص می‌کند آستانه پیش‌فرض کامل یا یکی از دو پروفایل ناقص اعتبارسنجی‌شده استفاده شده است.
+- آستانه‌های sparse فقط روی validation انتخاب شده‌اند؛ متریک test سه‌فیلدی AUC=`0.8159` و Recall=`0.9411` و متریک چهارفیلدی AUC=`0.8356` و Recall=`0.9246` است. FPR بالاتر این حالت‌ها در Model Card شفاف ثبت شده است.
+- `safety_severity` و `assessment_basis` فوریت قاعده‌محور و مبنای تصمیم را جدا از احتمال مدل ثبت می‌کنند.
 - `safety_flags` و `next_best_actions` برای توضیح بهتر در شرایط اورژانسی اضافه شده‌اند.
+- مقادیر بسیار دور از محدوده در `measurement_warnings` گزارش می‌شوند تا حسگر و اندازه‌گیری دوباره بررسی شود.
 - API خروجی را به صورت decision-support ارائه می‌کند و disclaimer دارد.
 - مدل فقط داده‌های triage-time و EHR-safe را استفاده می‌کند.
 

@@ -17,7 +17,7 @@
 | ماتریس انطباق اعلان نهایی | `docs/deliverables/ITPM_Final_Announcement_Compliance_Matrix.docx` | تطبیق مو‌به‌موی الزامات با شاهد و وضعیت |
 | سناریوی ارائه نهایی | `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | تقسیم قطعی ۶ + ۲ + ۲، دمو و پاسخ پرسش‌ها |
 | نسخه موبایلی برای استاد | `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx` | لینک، QR و روش نصب PWA |
-| بسته انتشار امدادیار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | dist، screenshot، متن مارکت و راهنمای TWA |
+| بسته انتشار امدادیار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | APK/AAB امضاشده، تصویرها، متن مارکت، Data Safety و گزارش صحت build |
 
 ## 2. مستندات فنی رسمی
 
@@ -27,6 +27,7 @@
 | مستند API | `docs/api-documentation.md` |
 | Model Card | `docs/model-card.md` |
 | ممیزی نهایی متریک مدل | `docs/model-final-metrics-audit.md` |
+| ممیزی held-out و سناریوهای ایمنی | `docs/model-release-scenario-audit-fa.md` |
 | راهنمای deploy عمومی و موبایل | `docs/deployment-mobile-webapp.md` |
 | یادداشت تکمیل PWA | `docs/mobile-pwa-completion-note.md` |
 
@@ -71,6 +72,8 @@
 | `docs/artifacts/burndown.svg` | نمودار Burndown |
 | `docs/artifacts/velocity.svg` | نمودار Velocity |
 | `docs/artifacts/user-acquisition.svg` | پیش‌بینی جذب کاربر پایلوت |
+| `reports/model/release_validation_v7.json` | بازتولید متریک روی ۱۱۱٬۶۰۶ رکورد test و ارزیابی sparse |
+| `reports/model/browser_backend_differential_v7.json` | تطابق ۱٬۱۶۷ سناریوی مرورگر و API |
 
 ## 6. بازخورد و اعتبارسنجی کاربر
 

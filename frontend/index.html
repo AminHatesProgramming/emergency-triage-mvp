@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="header-actions">
-          <button type="button" class="icon-button" id="installBtn" title="نصب نسخه موبایل">نصب روی موبایل</button>
+          <button type="button" class="icon-button" id="installBtn" title="نصب نسخه موبایل">نصب</button>
           <span class="status-pill" id="apiStatus">بررسی سرویس</span>
         </div>
       </header>
@@ -50,7 +50,7 @@
                 <option value="chestpain">درد قفسه سینه</option>
                 <option value="fever">تب</option>
                 <option value="abdominalpain">درد شکم</option>
-                <option value="headache">سردرد</option>
+                <option value="headache">سردرد جدید یا متفاوت</option>
                 <option value="fall">سقوط</option>
                 <option value="weakness">ضعف عمومی</option>
               </select>
@@ -186,7 +186,7 @@
 
           <div class="result-stats">
             <article>
-              <span>احتمال برآوردشده</span>
+              <span>برآورد آماری مدل</span>
               <strong id="modelProbability">--</strong>
             </article>
             <article>
@@ -283,6 +283,22 @@
         <div class="install-actions">
           <button type="button" class="primary" id="installPromptBtn" hidden>نصب خودکار</button>
           <button type="button" class="ghost" id="installDoneBtn">متوجه شدم</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="install-sheet" id="safetyNotice" hidden role="dialog" aria-modal="true" aria-labelledby="safetyNoticeTitle">
+      <div class="install-card safety-notice-card">
+        <p class="section-kicker">استفاده مسئولانه</p>
+        <h2 id="safetyNoticeTitle">پیش از شروع</h2>
+        <ul class="notice-list">
+          <li>امدادیار یک نسخه آزمایشی و آموزشی برای پشتیبانی از ارزیابی اولیه است و هنوز اعتبارسنجی بالینی نشده است.</li>
+          <li>خروجی سامانه تشخیص پزشکی یا دستور درمان نیست و جایگزین نظر پزشک، پرستار یا پروتکل رسمی نمی‌شود.</li>
+          <li>در وضعیت واقعی و فوری، ارزیابی متخصص را به تأخیر نیندازید.</li>
+        </ul>
+        <div class="notice-actions">
+          <a class="emergency-link" href="tel:115">تماس با اورژانس ۱۱۵</a>
+          <button type="button" class="primary" id="acceptSafetyNotice">متوجه شدم و می‌پذیرم</button>
         </div>
       </div>
     </div>

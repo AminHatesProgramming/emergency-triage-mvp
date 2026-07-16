@@ -98,18 +98,19 @@ docker build -t emergency-triage-mvp .
 docker run --rm -p 8000:8000 emergency-triage-mvp
 ```
 
-در سرویس‌هایی مثل Render، فایل `render.yaml` و Dockerfile آماده‌اند. نسخه موبایلی کامل برای نصب PWA نیازمند HTTPS است.
+در سرویس‌هایی مثل Render، فایل `render.yaml` و Dockerfile آماده‌اند. نصب PWA از مرورگر نیازمند HTTPS است؛ نسخه Android فعلی، رابط و مدل را داخل بسته نگه می‌دارد و به localhost وابسته نیست.
 
-## فاز Laravel / Android
+## نسخه Android فعلی و فاز عملیاتی بعدی
 
-در فاز بعد، Laravel نباید جایگزین مدل شود؛ نقش Laravel لایه محصولی و عملیاتی است:
+نسخه `1.0.0` به‌صورت یک Android wrapper بومی ساخته شده است. فایل‌های `dist` و مدل v7 داخل APK/AAB قرار دارند، پردازش روی دستگاه انجام می‌شود و نسخه فعلی داده‌ای را به سرور ارسال نمی‌کند.
 
 | لایه | مسئولیت |
 |---|---|
 | FastAPI | inference و مدل |
-| Laravel | auth، consent، audit log، feedback management، admin panel |
-| PWA/TWA | تجربه کاربری و انتشار در بازار اندرویدی |
-| Database | بازخورد، تنظیمات نسخه و لاگ غیرحساس |
+| PWA | اجرای عمومی روی HTTPS و نصب از مرورگر |
+| Android wrapper | اجرای آفلاین دارایی‌های وب و مدل داخل برنامه |
+| Laravel اختیاری در فاز بعد | رضایت آگاهانه، audit log، مدیریت بازخورد و پنل مدیریت |
+| Database آینده | بازخورد، تنظیمات نسخه و لاگ غیرحساس پس از تعیین سیاست حریم خصوصی |
 
-برای انتشار در بازارهای اندرویدی، مسیر پیشنهادی PWA روی HTTPS + Android wrapper با Trusted Web Activity یا Capacitor است.
+خروجی‌های امضاشده Android در `docs/market/release/` قرار دارند. افزودن حساب کاربری یا گردآوری مرکزی داده فقط پس از طراحی رضایت آگاهانه، کنترل دسترسی و بازبینی حقوقی/اخلاقی انجام می‌شود.
 </div>

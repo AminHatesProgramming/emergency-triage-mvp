@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-16",
+  "environment": "local warm API loop on the development machine",
+  "endpoint": "POST /predict",
+  "request_count": 30,
+  "median_ms": 459.94,
+  "p95_ms": 632.74,
+  "max_ms": 662.22,
+  "interpretation": "Engineering measurement only; hosted latency must be measured separately after deployment."
+}

@@ -24,7 +24,7 @@
     "stakeholder-feedback-form.md"
   ],
   "model_version": "v7",
-  "generated_on": "2026-07-12",
+  "generated_on": "2026-07-16",
   "confirmed_triage_nurse_feedback": 9,
   "hospital_outreach": {
     "Payambaran Hospital Tehran": "awaiting final response",
@@ -36,6 +36,15 @@
     "precision": 0.5447,
     "fpr": 0.3352,
     "threshold": 0.3017
+  },
+  "safety_rule_version": "2026.07.2",
+  "release_validation": {
+    "held_out_rows": 111606,
+    "python_tests_passed": 118,
+    "seeded_random_safety_combinations": 5000,
+    "browser_backend_scenarios": 1167,
+    "browser_backend_decision_mismatches": 0,
+    "clinical_validation": false
   },
   "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira/Notion screenshots and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response."
 }

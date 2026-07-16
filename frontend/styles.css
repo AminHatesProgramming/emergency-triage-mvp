@@ -383,6 +383,11 @@ textarea {
   background: linear-gradient(135deg, rgba(196, 59, 59, 0.09), #fff);
 }
 
+.risk-card.urgent {
+  border-color: rgba(184, 119, 10, 0.3);
+  background: linear-gradient(135deg, rgba(184, 119, 10, 0.1), #fff);
+}
+
 .gauge-ring {
   width: 128px;
   aspect-ratio: 1;
@@ -615,6 +620,38 @@ ul {
   box-shadow: 0 24px 70px rgba(10, 30, 42, 0.26);
 }
 
+.safety-notice-card {
+  border-top: 5px solid var(--deep-teal);
+}
+
+.notice-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+  padding-right: 20px;
+  color: var(--ink);
+  line-height: 1.85;
+}
+
+.notice-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 10px;
+  align-items: stretch;
+}
+
+.emergency-link {
+  display: grid;
+  place-items: center;
+  min-height: 46px;
+  border: 1px solid rgba(196, 59, 59, 0.35);
+  border-radius: 8px;
+  color: var(--red);
+  background: rgba(196, 59, 59, 0.06);
+  font-weight: 900;
+  text-decoration: none;
+}
+
 .install-card h2 {
   margin-bottom: 10px;
   font-size: 1.22rem;
@@ -659,6 +696,10 @@ body.modal-open {
   display: none;
 }
 
+.android-wrapper #installHelp {
+  display: none;
+}
+
 @media (max-width: 960px) {
   .layout-grid {
     grid-template-columns: 1fr;
@@ -684,14 +725,17 @@ body.modal-open {
   }
 
   .app-header {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
     position: static;
+    padding: 12px 14px;
   }
 
   .header-actions {
-    width: 100%;
-    justify-content: space-between;
+    width: auto;
+    margin-right: auto;
+    justify-content: flex-end;
+    gap: 6px;
   }
 
   h1 {
@@ -699,8 +743,15 @@ body.modal-open {
   }
 
   .brand-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .status-pill,
+  .icon-button {
+    min-height: 36px;
+    padding: 7px 9px;
+    font-size: 0.78rem;
   }
 
   .mobile-tabs {
@@ -724,6 +775,10 @@ body.modal-open {
     padding: 14px;
   }
 
+  .result-panel {
+    scroll-margin-top: 78px;
+  }
+
   .panel-title {
     align-items: flex-start;
     flex-direction: column;
@@ -744,6 +799,10 @@ body.modal-open {
   .risk-card,
   .result-stats,
   .install-help-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .notice-actions {
     grid-template-columns: 1fr;
   }
 
@@ -771,8 +830,11 @@ body.modal-open {
     gap: 8px;
     padding: 10px max(10px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(12px);
+    background: #fff;
+  }
+
+  .android-wrapper .mobile-action-bar {
+    grid-template-columns: 1fr 0.7fr;
   }
 }
 

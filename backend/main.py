@@ -14,7 +14,7 @@ from backend.schemas import (
     StakeholderFeedbackInput,
     StakeholderFeedbackOutput,
 )
-from ml.inference import TriagePredictor
+from ml.inference import SAFETY_RULE_VERSION, SPARSE_OPERATING_THRESHOLDS, TriagePredictor
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = ROOT / "frontend"
@@ -92,6 +92,34 @@ def model_info() -> dict:
         "test_metrics": metrics.get("test_metrics"),
         "operating_points": metrics.get("operating_points", {}),
         "target_definition": metrics.get("target_definition"),
+        "safety_layer": {
+            "version": SAFETY_RULE_VERSION,
+            "mode": "age-aware deterministic escalation with combined-vital review",
+            "model_probability_is_modified": False,
+            "adult_age_definition": ">=16 years",
+            "adult_tachycardia": {
+                "urgent_bpm": "130-149",
+                "immediate_bpm": ">=150",
+            },
+            "pediatric_thresholds_are_age_adjusted": True,
+            "combined_vital_sign_escalation": True,
+            "outlier_measurements_require_repeat_check": True,
+        },
+        "validated_sparse_operating_points": {
+            "complaint_hr_o2": {
+                "threshold": SPARSE_OPERATING_THRESHOLDS["complaint_hr_o2"],
+                "test_auc": 0.8158535508343744,
+                "test_recall": 0.941085868309588,
+                "test_fpr": 0.5900828569593423,
+            },
+            "complaint_age_hr_o2": {
+                "threshold": SPARSE_OPERATING_THRESHOLDS["complaint_age_hr_o2"],
+                "test_auc": 0.8355945883084874,
+                "test_recall": 0.9245579218625041,
+                "test_fpr": 0.5177468045474982,
+            },
+            "core_vitals_low_threshold_rejected_for_excessive_fpr": True,
+        },
         "decision_support_only": True,
     }
 

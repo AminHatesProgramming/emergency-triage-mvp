@@ -1,0 +1,402 @@
+{
+  "generated_at_utc": "2026-07-16T19:43:13.920693+00:00",
+  "validation_type": "internal retrospective held-out release verification",
+  "model_version": "v7",
+  "safety_rule_version": "2026.07.2",
+  "target_definition": "critical = ESI 1 or ESI 2",
+  "clinical_validation": false,
+  "dataset": {
+    "path": "data\\raw\\triage.csv",
+    "source_file_bytes": 1556892496,
+    "rows_after_filter": 558029,
+    "critical_rate": 0.30250219970646686,
+    "validation_rows": 89285,
+    "test_rows": 111606,
+    "random_state": 42
+  },
+  "reproduction": {
+    "passed": true,
+    "absolute_differences": {
+      "auc": 0.0,
+      "average_precision": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "fpr": 0.0,
+      "specificity": 0.0
+    },
+    "max_absolute_difference": 0.0
+  },
+  "profiles": {
+    "full_triage_time": {
+      "operating_threshold": 0.3016650974750519,
+      "threshold_selection": {
+        "strategy": "max_precision_at_target_recall",
+        "validation_precision": 0.543494811946662,
+        "validation_recall": 0.9250620163649154,
+        "target_recall": 0.925
+      },
+      "validation_metrics": {
+        "auc": 0.9047188938699935,
+        "average_precision": 0.8199915111367706,
+        "threshold": 0.3016650974750519,
+        "precision": 0.543494811946662,
+        "recall": 0.9250620163649154,
+        "f1": 0.6847081392162235,
+        "fpr": 0.33698374975913675,
+        "specificity": 0.6630162502408633,
+        "tp": 24985,
+        "fp": 20986,
+        "tn": 41290,
+        "fn": 2024
+      },
+      "default_threshold_test_metrics": {
+        "auc": 0.904149945993152,
+        "average_precision": 0.8202339085626529,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5446518932123539,
+        "recall": 0.9245579218625041,
+        "f1": 0.6854871473904975,
+        "fpr": 0.3352302652707303,
+        "specificity": 0.6647697347292697,
+        "tp": 31214,
+        "fp": 26096,
+        "tn": 51749,
+        "fn": 2547
+      },
+      "model_only": {
+        "auc": 0.904149945993152,
+        "average_precision": 0.8202339085626529,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5446518932123539,
+        "recall": 0.9245579218625041,
+        "f1": 0.6854871473904975,
+        "fpr": 0.3352302652707303,
+        "specificity": 0.6647697347292697,
+        "tp": 31214,
+        "fp": 26096,
+        "tn": 51749,
+        "fn": 2547
+      },
+      "hybrid_critical": {
+        "auc": null,
+        "average_precision": null,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5439278061357816,
+        "recall": 0.924794881668197,
+        "f1": 0.6849783901186898,
+        "fpr": 0.3362964866080031,
+        "specificity": 0.663703513391997,
+        "tp": 31222,
+        "fp": 26179,
+        "tn": 51666,
+        "fn": 2539
+      },
+      "safety": {
+        "immediate_count": 3285,
+        "urgent_count": 11485,
+        "measurement_warning_count": 23,
+        "false_negatives_rescued": 8,
+        "additional_false_positives": 83
+      }
+    },
+    "core_vitals": {
+      "operating_threshold": 0.15296417474746704,
+      "threshold_selection": {
+        "strategy": "max_precision_at_target_recall",
+        "validation_precision": 0.3397060613025784,
+        "validation_recall": 0.9302454737309785,
+        "target_recall": 0.925
+      },
+      "validation_metrics": {
+        "auc": 0.6957171169247992,
+        "average_precision": 0.4906314128724461,
+        "threshold": 0.15296417474746704,
+        "precision": 0.3397060613025784,
+        "recall": 0.9302454737309785,
+        "f1": 0.49767257601267706,
+        "fpr": 0.7841865245038216,
+        "specificity": 0.2158134754961783,
+        "tp": 25125,
+        "fp": 48836,
+        "tn": 13440,
+        "fn": 1884
+      },
+      "default_threshold_test_metrics": {
+        "auc": 0.6947928651545574,
+        "average_precision": 0.4891651470262843,
+        "threshold": 0.3016650974750519,
+        "precision": 0.49380059103173585,
+        "recall": 0.45534788661473297,
+        "f1": 0.4737953246112832,
+        "fpr": 0.20244074763954012,
+        "specificity": 0.7975592523604599,
+        "tp": 15373,
+        "fp": 15759,
+        "tn": 62086,
+        "fn": 18388
+      },
+      "model_only": {
+        "auc": 0.6947928651545574,
+        "average_precision": 0.4891651470262843,
+        "threshold": 0.15296417474746704,
+        "precision": 0.33942004827519023,
+        "recall": 0.9288231983649773,
+        "f1": 0.4971620636078257,
+        "fpr": 0.783980987860492,
+        "specificity": 0.216019012139508,
+        "tp": 31358,
+        "fp": 61029,
+        "tn": 16816,
+        "fn": 2403
+      },
+      "hybrid_critical": {
+        "auc": null,
+        "average_precision": null,
+        "threshold": 0.15296417474746704,
+        "precision": 0.33942004827519023,
+        "recall": 0.9288231983649773,
+        "f1": 0.4971620636078257,
+        "fpr": 0.783980987860492,
+        "specificity": 0.216019012139508,
+        "tp": 31358,
+        "fp": 61029,
+        "tn": 16816,
+        "fn": 2403
+      },
+      "safety": {
+        "immediate_count": 1546,
+        "urgent_count": 11679,
+        "measurement_warning_count": 23,
+        "false_negatives_rescued": 0,
+        "additional_false_positives": 0
+      }
+    },
+    "complaint_age_hr_o2": {
+      "operating_threshold": 0.1881568878889084,
+      "threshold_selection": {
+        "strategy": "max_precision_at_target_recall",
+        "validation_precision": 0.4359699174649706,
+        "validation_recall": 0.9250620163649154,
+        "target_recall": 0.925
+      },
+      "validation_metrics": {
+        "auc": 0.8341542906764775,
+        "average_precision": 0.7075065713640816,
+        "threshold": 0.1881568878889084,
+        "precision": 0.4359699174649706,
+        "recall": 0.9250620163649154,
+        "f1": 0.5926373965226879,
+        "fpr": 0.5190442546085169,
+        "specificity": 0.48095574539148306,
+        "tp": 24985,
+        "fp": 32324,
+        "tn": 29952,
+        "fn": 2024
+      },
+      "default_threshold_test_metrics": {
+        "auc": 0.8355945883084874,
+        "average_precision": 0.7119231928293317,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5668548624810104,
+        "recall": 0.7404993927904979,
+        "f1": 0.6421452789479092,
+        "fpr": 0.24539790609544607,
+        "specificity": 0.7546020939045539,
+        "tp": 25000,
+        "fp": 19103,
+        "tn": 58742,
+        "fn": 8761
+      },
+      "model_only": {
+        "auc": 0.8355945883084874,
+        "average_precision": 0.7119231928293317,
+        "threshold": 0.1881568878889084,
+        "precision": 0.43644956514443917,
+        "recall": 0.9245579218625041,
+        "f1": 0.5929767569980718,
+        "fpr": 0.5177468045474982,
+        "specificity": 0.4822531954525018,
+        "tp": 31214,
+        "fp": 40304,
+        "tn": 37541,
+        "fn": 2547
+      },
+      "hybrid_critical": {
+        "auc": null,
+        "average_precision": null,
+        "threshold": 0.1881568878889084,
+        "precision": 0.4364208318769661,
+        "recall": 0.9245875418382157,
+        "f1": 0.5929563284767205,
+        "fpr": 0.5178238807887469,
+        "specificity": 0.48217611921125314,
+        "tp": 31215,
+        "fp": 40310,
+        "tn": 37535,
+        "fn": 2546
+      },
+      "safety": {
+        "immediate_count": 515,
+        "urgent_count": 7090,
+        "measurement_warning_count": 0,
+        "false_negatives_rescued": 1,
+        "additional_false_positives": 6
+      }
+    },
+    "complaint_hr_o2": {
+      "operating_threshold": 0.16415970027446747,
+      "threshold_selection": {
+        "strategy": "max_precision_at_target_recall",
+        "validation_precision": 0.4088483055752042,
+        "validation_recall": 0.9416120552408457,
+        "target_recall": 0.925
+      },
+      "validation_metrics": {
+        "auc": 0.8138497903681433,
+        "average_precision": 0.6757815152627326,
+        "threshold": 0.16415970027446747,
+        "precision": 0.4088483055752042,
+        "recall": 0.9416120552408457,
+        "f1": 0.5701411229305146,
+        "fpr": 0.5904682381655855,
+        "specificity": 0.40953176183441453,
+        "tp": 25432,
+        "fp": 36772,
+        "tn": 25504,
+        "fn": 1577
+      },
+      "default_threshold_test_metrics": {
+        "auc": 0.8158535508343744,
+        "average_precision": 0.6804791662935096,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5562925253316364,
+        "recall": 0.6732324279494091,
+        "f1": 0.6092014098285959,
+        "fpr": 0.232885862932751,
+        "specificity": 0.7671141370672491,
+        "tp": 22729,
+        "fp": 18129,
+        "tn": 59716,
+        "fn": 11032
+      },
+      "model_only": {
+        "auc": 0.8158535508343744,
+        "average_precision": 0.6804791662935096,
+        "threshold": 0.16415970027446747,
+        "precision": 0.40886921384173885,
+        "recall": 0.941085868309588,
+        "f1": 0.5700649513761797,
+        "fpr": 0.5900828569593423,
+        "specificity": 0.40991714304065774,
+        "tp": 31772,
+        "fp": 45935,
+        "tn": 31910,
+        "fn": 1989
+      },
+      "hybrid_critical": {
+        "auc": null,
+        "average_precision": null,
+        "threshold": 0.16415970027446747,
+        "precision": 0.4088662977737743,
+        "recall": 0.9411154882852996,
+        "f1": 0.5700675512016579,
+        "fpr": 0.5901085490397585,
+        "specificity": 0.4098914509602415,
+        "tp": 31773,
+        "fp": 45937,
+        "tn": 31908,
+        "fn": 1988
+      },
+      "safety": {
+        "immediate_count": 515,
+        "urgent_count": 7090,
+        "measurement_warning_count": 0,
+        "false_negatives_rescued": 1,
+        "additional_false_positives": 2
+      }
+    }
+  },
+  "subgroups_full_input": {
+    "age_group": [
+      {
+        "group": "16_to_64",
+        "rows": 83953,
+        "auc": 0.9088541089824267,
+        "average_precision": 0.8043338078515376,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5301350645063682,
+        "recall": 0.8983358970773319,
+        "f1": 0.6667819949486212,
+        "fpr": 0.273296,
+        "specificity": 0.726704,
+        "tp": 19272,
+        "fp": 17081,
+        "tn": 45419,
+        "fn": 2181
+      },
+      {
+        "group": "65_plus",
+        "rows": 27652,
+        "auc": 0.8685288074987618,
+        "average_precision": 0.843917884575432,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5698129414010308,
+        "recall": 0.9702608271715284,
+        "f1": 0.7179749270961729,
+        "fpr": 0.5874877810361682,
+        "specificity": 0.4125122189638319,
+        "tp": 11941,
+        "fp": 9015,
+        "tn": 6330,
+        "fn": 366
+      }
+    ],
+    "gender": [
+      {
+        "group": "Female",
+        "rows": 61600,
+        "auc": 0.8967205986152157,
+        "average_precision": 0.7836884387870096,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5060653293575494,
+        "recall": 0.9094507368164657,
+        "f1": 0.6502808377236905,
+        "fpr": 0.32265704546460666,
+        "specificity": 0.6773429545353933,
+        "tp": 14935,
+        "fp": 14577,
+        "tn": 30601,
+        "fn": 1487
+      },
+      {
+        "group": "Male",
+        "rows": 50006,
+        "auc": 0.9097638846507425,
+        "average_precision": 0.8511457962999862,
+        "threshold": 0.3016650974750519,
+        "precision": 0.5856176703359954,
+        "recall": 0.9388661399157967,
+        "f1": 0.7213151073398764,
+        "fpr": 0.3526188508280528,
+        "specificity": 0.6473811491719472,
+        "tp": 16279,
+        "fp": 11519,
+        "tn": 21148,
+        "fn": 1060
+      }
+    ]
+  },
+  "scenario_qa": {
+    "boundary_test_count": 107,
+    "api_and_contract_test_count": 11,
+    "pytest_total_count": 118,
+    "seeded_random_combinations": 5000,
+    "browser_backend_differential_report": "reports/model/browser_backend_differential_v7.json"
+  },
+  "limitations": [
+    "Internal retrospective evaluation is not external or prospective clinical validation.",
+    "ESI labels are used as the target and may contain site-specific judgment variation.",
+    "Partial-input profiles measure graceful degradation, not permission to omit available data.",
+    "Safety rules are conservative review prompts and may increase false positives."
+  ]
+}

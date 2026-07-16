@@ -1,0 +1,13 @@
+{
+  "generated_at_utc": "2026-07-16T18:43:52.611Z",
+  "frontend_url": "http://127.0.0.1:8765/",
+  "backend_url": "http://127.0.0.1:8001",
+  "model_version": "v7",
+  "safety_rule_version": "2026.07.2",
+  "scenario_count": 1167,
+  "probability_tolerance": 0.000001,
+  "max_probability_difference": 3.539608393055005e-7,
+  "mismatch_count": 0,
+  "passed": true,
+  "mismatch_sample": []
+}

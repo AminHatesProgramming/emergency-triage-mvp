@@ -82,6 +82,15 @@ async function navigate(client, viewport) {
   await client.send("Page.navigate", { url: targetUrl });
   await client.waitEvent("Page.loadEventFired", 30000);
   await sleep(2200);
+  await evaluate(
+    client,
+    `(() => {
+      const notice = document.querySelector('#safetyNotice');
+      if (notice && !notice.hidden) document.querySelector('#acceptSafetyNotice')?.click();
+      return true;
+    })()`,
+  );
+  await sleep(750);
 }
 
 async function runScenario(client, name) {
@@ -97,7 +106,13 @@ async function runScenario(client, name) {
       const started = Date.now();
       while (Date.now() - started < 15000) {
         const text = document.querySelector('#riskPercent')?.textContent || '';
-        if (text.includes('%') && !text.includes('--')) return true;
+        if (text.trim() && !text.includes('--')) {
+          const panel = document.querySelector('#resultPanel');
+          const panelTop = panel.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo(0, Math.max(0, panelTop - 118));
+          await wait(300);
+          return true;
+        }
         await wait(150);
       }
       throw new Error('scenario did not render');
@@ -105,8 +120,48 @@ async function runScenario(client, name) {
   );
 }
 
+async function runHeartRate150Scenario(client) {
+  await evaluate(
+    client,
+    `(async () => {
+      const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      document.querySelector('#clearBtn')?.click();
+      await wait(120);
+      const form = document.querySelector('#triageForm');
+      const values = {
+        age: 30,
+        heart_rate: 150,
+        systolic_bp: 120,
+        diastolic_bp: 80,
+        respiratory_rate: 16,
+        oxygen_saturation: 98,
+        temperature: 36.8,
+      };
+      Object.entries(values).forEach(([name, value]) => {
+        form.elements[name].value = value;
+      });
+      form.requestSubmit();
+      const started = Date.now();
+      while (Date.now() - started < 15000) {
+        if (document.querySelector('#riskPercent')?.textContent?.trim() === 'فوری') {
+          const panel = document.querySelector('#resultPanel');
+          const panelTop = panel.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo(0, Math.max(0, panelTop - 118));
+          await wait(250);
+          return true;
+        }
+        await wait(150);
+      }
+      throw new Error('heart-rate-150 scenario did not render as immediate');
+    })()`,
+  );
+}
+
 async function capture(client, filename) {
-  const result = await client.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: true });
+  await sleep(1100);
+  await client.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  await sleep(450);
+  const result = await client.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
   fs.mkdirSync(outputDir, { recursive: true });
   fs.writeFileSync(path.join(outputDir, filename), Buffer.from(result.data, "base64"));
 }
@@ -123,6 +178,8 @@ async function main() {
     await capture(client, "emdadyar-mobile-critical.png");
     await runScenario(client, "sparse");
     await capture(client, "emdadyar-mobile-partial-input.png");
+    await runHeartRate150Scenario(client);
+    await capture(client, "emdadyar-mobile-heart-rate-150.png");
 
     await navigate(client, { width: 1366, height: 900, deviceScaleFactor: 1, mobile: false });
     await runScenario(client, "critical");

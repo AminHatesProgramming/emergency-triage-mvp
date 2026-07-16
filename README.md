@@ -20,8 +20,11 @@
 - frontend: فارسی، راست‌به‌چپ و mobile-first
 - PWA: قابل نصب روی موبایل با `manifest.webmanifest` و `service worker`
 - نسخه public/static: قابل انتشار با GitHub Pages و دارای مدل v7 داخل مرورگر
+- نسخه Android آفلاین: `APK` و `AAB` امضاشده با شناسه `ir.pourmand.emdadyar`
 - پشتیبانی از ورودی ناقص؛ حداقل یک شکایت اصلی یا علامت حیاتی لازم است
-- خروجی safety-first hybrid شامل `model_probability`، `safety_flags` و `next_best_actions`
+- آستانه validationمحور برای الگوهای سه و چهار ورودی پرکاربرد؛ بدون تغییر احتمال خام مدل
+- خروجی ترکیبی شامل احتمال خام مدل، سطح فوریت مستقل، دلیل هشدار و اقدام پیشنهادی
+- لایه ایمنی سن‌محور برای مقادیر دور از محدوده، همراه با هشدار تکرار اندازه‌گیری
 - مستندات مدیریتی و فنی در `docs/`
 - گزارش‌های مدل در `reports/model/`
 
@@ -39,6 +42,8 @@
 | Threshold | 0.3017 |
 
 حالت جایگزین `balanced_fpr_mode` نیز در `reports/model/metrics_v7.json` ثبت شده است؛ در آن FPR برابر `0.2852` است و Recall به `0.9000` می‌رسد. حالت پیش‌فرض محصول همچنان `safety_first_mode` است.
+
+برای ورودی ناقص، الگوی «شکایت + ضربان + SpO2» روی test به AUC=`0.8159` و Recall=`0.9411` و الگوی چهارفیلدی همراه سن به AUC=`0.8356` و Recall=`0.9246` رسید. این حالت‌ها FPR بالاتری دارند و با برچسب محدودیت داده استفاده می‌شوند. آستانه پیشنهادیِ «فقط علائم حیاتی» به دلیل FPR=`0.7840` رد و وارد محصول نشد.
 
 ## ورودی‌های مدل
 
@@ -73,7 +78,7 @@ http://127.0.0.1:8000/
 .\scripts\start_public_webapp.ps1
 ```
 
-اسکریپت، آدرس‌های LAN مثل `http://192.168.x.x:8000/` را چاپ می‌کند. برای نصب کامل PWA روی Android و انتشار در بازار، نسخه نهایی باید روی HTTPS deploy شود.
+اسکریپت، آدرس‌های LAN مثل `http://192.168.x.x:8000/` را چاپ می‌کند. نصب PWA از مرورگر به HTTPS نیاز دارد؛ نسخه Android بازار، وب‌اپ و مدل را داخل بسته نگه می‌دارد و برای ارزیابی آفلاین به سرور وابسته نیست.
 
 ## لینک عمومی وب‌اپ
 
@@ -131,6 +136,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [API Documentation](docs/api-documentation.md)
 - [Model Card](docs/model-card.md)
 - [ممیزی نهایی متریک‌های مدل v7](docs/model-final-metrics-audit.md)
+- [ممیزی ۱۱۱٬۶۰۶ رکورد test و سناریوهای ناقص/مرزی](docs/model-release-scenario-audit-fa.md)
 - [تحلیل UX با بازخوردهای شبیه‌سازی‌شده پیش از پایلوت](docs/ux-feedback-synthesis.md)
 - [گزارش تأیید ۹ بازخورد پرستاران تریاژ](docs/triage-nurse-feedback-confirmation.md)
 - [برنامه مدیریت پروژه](docs/project-management-plan.md)
@@ -138,6 +144,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [راهنمای عملیاتی‌سازی Jira و مدیریت دانش](docs/jira-github-project-import-guide.md)
 - [بسته نهایی قابل ورود به Jira و Notion](project-management-final-package/README.md)
 - [Knowledge Base پروژه](docs/knowledge-base/README.md)
+- [تعریف و اعتبارسنجی لایه ایمنی سن‌محور](docs/knowledge-base/safety-layer-v1-fa.md)
 - [Jira Import CSV](docs/artifacts/jira-import-issues.csv)
 - [GitHub Knowledge Project CSV](docs/artifacts/github-project-knowledge-items.csv)
 - [چک‌لیست مادر تحویل نهایی](docs/final-submission-master-checklist.md)
@@ -160,7 +167,10 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [اسکریپت ویدئوی نهایی](docs/video-presentation-script.md)
 - [ساختار board مدیریت کار](docs/work-management-board.md)
 - [ساختار مدیریت دانش](docs/knowledge-management-index.md)
-- [راهنمای انتشار اندرویدی و TWA](docs/market/README.md)
+- [بسته انتشار Android و راهنمای بازار](docs/market/README.md)
+- [فایل APK امضاشده امدادیار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.apk)
+- [فایل AAB امضاشده امدادیار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.aab)
+- [ZIP یکپارچه انتشار Android 1.0.0](docs/market/Emdadyar_Android_Market_Release_1.0.0.zip)
 
 ## نمودارها و داده‌های مدیریتی
 
@@ -176,8 +186,8 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 | عضو | نقش |
 |---|---|
 | محمدامین پورمند | Project Lead / ML & System Architect |
-| محمدرضا آرمان پور | Project Control & Metrics Coordinator |
 | محدثه حاتمی کیا | UI/Documentation & QA Coordinator |
+| محمدرضا آرمان‌پور | Project Control & Metrics Coordinator |
 
 ## هشدار اخلاقی
 

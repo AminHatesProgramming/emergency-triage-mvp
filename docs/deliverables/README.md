@@ -15,7 +15,7 @@
 | `ITPM_Final_Announcement_Compliance_Matrix.docx` | تطبیق هر الزام اعلان نهایی با شاهد، وضعیت و اقدام باقی‌مانده |
 | `Emdadyar_Final_Presentation_Runbook.docx` | سناریوی دقیق ارائه ۱۰ دقیقه‌ای با تقسیم زمان ۶، ۲ و ۲ دقیقه |
 | `Emdadyar_Mobile_App_For_Professor.docx` | فایل کوتاه و قابل ارسال برای استاد شامل لینک، QR و روش نصب PWA |
-| `Emdadyar_Market_Release_Package.zip` | بسته آماده انتشار شامل dist، متن مارکت، screenshotها، QR و راهنمای TWA/APK |
+| `Emdadyar_Market_Release_Package.zip` | بسته آماده انتشار شامل APK/AAB امضاشده، متن مارکت، screenshotها، دارایی‌های گرافیکی و گزارش کنترل کیفیت |
 
 ## پیوست‌های جدید پس از بازخورد TA
 
