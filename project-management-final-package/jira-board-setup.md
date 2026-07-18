@@ -122,7 +122,7 @@ Notion Home واقعی در این آدرس قرار دارد:
 ## 11. لینک دادن Jira به GitHub commits
 
 Commitهای قدیمی الزاماً Jira Key ندارند؛ بنابراین Evidence هر Issue به hash و مسیر فایل متصل شده است. آخرین انتشار قابل استناد:
-<span dir="ltr">176996a - Finalize synchronized evidence and release artifacts</span>
+<span dir="ltr">a8fb828 - Record public deployment smoke test</span>
 
 رویه نگهداری از این مرحله، ثبت Jira Key در پیام commit و افزودن لینک commit یا فایل در بخش Evidence همان Issue است.
 

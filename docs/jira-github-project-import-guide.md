@@ -56,7 +56,7 @@ Workflow ثبت‌شده شامل Backlog، انتخاب برای Sprint، In Pr
 
 - Issueهای Jira به فایل، گزارش یا کامیت مرتبط لینک شده‌اند.
 - رکوردهای Notion دارای Owner، Jira Key و Evidence هستند.
-- آخرین انتشار ممیزی‌شده: <span dir="ltr">176996a</span>.
+- آخرین انتشار ممیزی‌شده: <span dir="ltr">a8fb828</span>.
 - گزارش مرورگر: <span dir="ltr">reports/model/ui_smoke_v7.json</span>.
 - گزارش held-out: <span dir="ltr">reports/model/release_validation_v7.json</span>.
 

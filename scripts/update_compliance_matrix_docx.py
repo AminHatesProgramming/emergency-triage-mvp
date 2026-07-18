@@ -76,7 +76,7 @@ def main() -> None:
         {
             1: "API Docs، Architecture، Decision Log و Evidence",
             2: "اجراشده",
-            3: "لینک commit نهایی پس از انتشار main به‌روزرسانی شود",
+            3: "لینک کامیت نهایی a8fb828 در Home و شواهد Jira ثبت شد",
         },
     )
     update_row(
