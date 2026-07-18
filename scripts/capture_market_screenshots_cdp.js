@@ -109,7 +109,8 @@ async function runScenario(client, name) {
         if (text.trim() && !text.includes('--')) {
           const panel = document.querySelector('#resultPanel');
           const panelTop = panel.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo(0, Math.max(0, panelTop - 118));
+          const offset = window.innerWidth <= 600 ? 16 : 118;
+          window.scrollTo(0, Math.max(0, panelTop - offset));
           await wait(300);
           return true;
         }
@@ -146,7 +147,8 @@ async function runHeartRate150Scenario(client) {
         if (document.querySelector('#riskPercent')?.textContent?.trim() === 'فوری') {
           const panel = document.querySelector('#resultPanel');
           const panelTop = panel.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo(0, Math.max(0, panelTop - 118));
+          const offset = window.innerWidth <= 600 ? 16 : 118;
+          window.scrollTo(0, Math.max(0, panelTop - offset));
           await wait(250);
           return true;
         }
@@ -166,7 +168,7 @@ async function capture(client, filename) {
   fs.writeFileSync(path.join(outputDir, filename), Buffer.from(result.data, "base64"));
 }
 
-async function main() {
+async function mainCdp() {
   const client = await connect(await getWebSocketUrl());
   try {
     await client.send("Page.enable");
@@ -191,7 +193,133 @@ async function main() {
   }
 }
 
-main().catch((error) => {
+function chromeExecutable(chromium) {
+  return [
+    process.env.CHROME_EXECUTABLE,
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    chromium.executablePath(),
+  ].find((candidate) => candidate && fs.existsSync(candidate));
+}
+
+async function preparePlaywrightPage(browser, options) {
+  const context = await browser.newContext(options);
+  const page = await context.newPage();
+  await page.goto(targetUrl, { waitUntil: "networkidle" });
+  await page.locator("#acceptSafetyNotice").click({ timeout: 3000 }).catch(() => {});
+  await page.waitForTimeout(500);
+  return { context, page };
+}
+
+async function runPlaywrightScenario(page, name) {
+  await page.evaluate(async (scenarioName) => {
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    document.querySelector("#clearBtn")?.click();
+    await wait(120);
+    document.querySelector(`[data-scenario="${scenarioName}"]`)?.click();
+    await wait(250);
+    document.querySelector("#triageForm")?.requestSubmit();
+    const started = Date.now();
+    while (Date.now() - started < 15000) {
+      const text = document.querySelector("#riskPercent")?.textContent || "";
+      if (text.trim() && !text.includes("--")) {
+        const panel = document.querySelector("#resultPanel");
+        const panelTop = panel.getBoundingClientRect().top + window.scrollY;
+        const offset = window.innerWidth <= 600 ? 16 : 118;
+        window.scrollTo(0, Math.max(0, panelTop - offset));
+        await wait(300);
+        return;
+      }
+      await wait(150);
+    }
+    throw new Error(`Scenario ${scenarioName} did not render.`);
+  }, name);
+}
+
+async function runPlaywrightHeartRate150(page) {
+  await page.evaluate(async () => {
+    const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    document.querySelector("#clearBtn")?.click();
+    await wait(120);
+    const form = document.querySelector("#triageForm");
+    const values = {
+      age: 30,
+      heart_rate: 150,
+      systolic_bp: 120,
+      diastolic_bp: 80,
+      respiratory_rate: 16,
+      oxygen_saturation: 98,
+      temperature: 36.8,
+    };
+    Object.entries(values).forEach(([name, value]) => {
+      form.elements[name].value = value;
+    });
+    form.requestSubmit();
+    const started = Date.now();
+    while (Date.now() - started < 15000) {
+      if (document.querySelector("#riskPercent")?.textContent?.trim() === "فوری") {
+        const panel = document.querySelector("#resultPanel");
+        const panelTop = panel.getBoundingClientRect().top + window.scrollY;
+        const offset = window.innerWidth <= 600 ? 16 : 118;
+        window.scrollTo(0, Math.max(0, panelTop - offset));
+        await wait(300);
+        return;
+      }
+      await wait(150);
+    }
+    throw new Error("Heart-rate-150 scenario did not render as immediate.");
+  });
+}
+
+async function mainPlaywright() {
+  const { chromium } = require("playwright");
+  const executablePath = chromeExecutable(chromium);
+  if (!executablePath) throw new Error("No Chromium-compatible browser executable was found.");
+  const browser = await chromium.launch({ headless: true, executablePath });
+  fs.mkdirSync(outputDir, { recursive: true });
+  try {
+    const mobile = await preparePlaywrightPage(browser, {
+      viewport: { width: 390, height: 844 },
+      deviceScaleFactor: 2,
+      isMobile: true,
+      hasTouch: true,
+    });
+    try {
+      await mobile.page.screenshot({ path: path.join(outputDir, "emdadyar-mobile-empty.png") });
+      await runPlaywrightScenario(mobile.page, "critical");
+      await mobile.page.screenshot({ path: path.join(outputDir, "emdadyar-mobile-critical.png") });
+      await runPlaywrightScenario(mobile.page, "sparse");
+      await mobile.page.screenshot({ path: path.join(outputDir, "emdadyar-mobile-partial-input.png") });
+      await runPlaywrightHeartRate150(mobile.page);
+      await mobile.page.screenshot({ path: path.join(outputDir, "emdadyar-mobile-heart-rate-150.png") });
+    } finally {
+      await mobile.context.close();
+    }
+
+    const desktop = await preparePlaywrightPage(browser, {
+      viewport: { width: 1366, height: 900 },
+      deviceScaleFactor: 1,
+    });
+    try {
+      await runPlaywrightScenario(desktop.page, "critical");
+      await desktop.page.screenshot({ path: path.join(outputDir, "emdadyar-desktop-critical.png") });
+    } finally {
+      await desktop.context.close();
+    }
+  } finally {
+    await browser.close();
+  }
+  console.log(JSON.stringify({ outputDir, files: fs.readdirSync(outputDir).sort() }, null, 2));
+}
+
+(async () => {
+  try {
+    await mainCdp();
+  } catch (error) {
+    console.warn(`CDP unavailable (${error.message}); using headless Chromium.`);
+    await mainPlaywright();
+  }
+})().catch((error) => {
   console.error(error);
   process.exit(1);
 });

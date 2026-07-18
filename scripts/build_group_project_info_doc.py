@@ -21,7 +21,7 @@ GRAY_FILL = "F2F4F7"
 DXA_PER_INCH = 1440
 
 PROJECT_DESCRIPTION = (
-    "امدادیار یک وب‌اپ پشتیبان تصمیم برای ارزیابی اولیه بیماران اورژانسی است. "
+    "امداد یار یک وب‌اپ پشتیبان تصمیم برای ارزیابی اولیه بیماران اورژانسی است. "
     "سامانه با دریافت علائم حیاتی، شکایت اصلی و سوابق قابل دسترس، احتمال نیاز به بررسی فوری را تخمین می‌زند. "
     "خروجی فقط برای کمک به تصمیم کادر درمان است و جایگزین پزشک یا پرستار نیست."
 )
@@ -181,7 +181,7 @@ def build() -> None:
     subtitle = doc.add_paragraph()
     set_paragraph_rtl(subtitle)
     subtitle.paragraph_format.space_after = Pt(12)
-    subtitle_run = subtitle.add_run("درس مدیریت پروژه فناوری اطلاعات | پروژه امدادیار")
+    subtitle_run = subtitle.add_run("درس مدیریت پروژه فناوری اطلاعات | پروژه امداد یار")
     set_run_font(subtitle_run, size=11, color=RGBColor(85, 85, 85))
 
     add_heading(doc, "۱. مشخصات تیم")
@@ -211,7 +211,7 @@ def build() -> None:
     add_body_paragraph(doc, PROJECT_DESCRIPTION, after=6)
     add_body_paragraph(doc, "تعداد کلمات شرح پروژه: ۴۵ کلمه", after=0)
 
-    doc.core_properties.title = "اطلاعات تکمیلی گروه پروژه امدادیار"
+    doc.core_properties.title = "اطلاعات تکمیلی گروه پروژه امداد یار"
     doc.core_properties.subject = "درس مدیریت پروژه فناوری اطلاعات"
     doc.core_properties.author = "محمدامین پورمند"
     doc.save(OUT_PATH)

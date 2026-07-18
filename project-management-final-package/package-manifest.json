@@ -9,16 +9,24 @@
     "epics": 9,
     "stories_and_tasks": 51,
     "linked_to_epics": true,
-    "open_external_tasks": ["EMD-60", "EMD-61"]
+    "status_counts": {
+      "Done": 51,
+      "In Progress": 6,
+      "In Review": 1,
+      "Backlog": 2
+    },
+    "open_work_items": ["EMD-43", "EMD-44", "EMD-52", "EMD-55", "EMD-60", "EMD-61"],
+    "open_epics": ["EMD-7", "EMD-8", "EMD-10"]
   },
   "notion": {
     "home_url": "https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3",
-    "content_pages": 7,
+    "content_pages": 8,
     "databases": 5,
-    "database_records": 66
+    "database_records": 73
   },
   "generated_files": [
     "README.md",
+    "final-screenshot-evidence-guide.md",
     "jira-board-setup.md",
     "jira-issues-import.csv",
     "missing-info-checklist.md",
@@ -38,7 +46,7 @@
     "stakeholder-feedback-form.md"
   ],
   "model_version": "v7",
-  "generated_on": "2026-07-16",
+  "generated_on": "2026-07-18",
   "confirmed_triage_nurse_feedback": 9,
   "hospital_outreach": {
     "Payambaran Hospital Tehran": "awaiting final response",
@@ -60,5 +68,5 @@
     "browser_backend_decision_mismatches": 0,
     "clinical_validation": false
   },
-  "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira and Notion are implemented in the connected workspaces. UI screenshots, team-member Jira accounts, physical-device installation, and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response."
+  "honesty_note": "Nine triage-nurse usability feedback items are confirmed and documented. Jira and Notion are implemented in the connected workspaces. UI screenshots, team-member Jira accounts and personal worklogs, physical QR/PWA and Android installation, final hospital responses, and clinical validation remain separate evidence requirements."
 }

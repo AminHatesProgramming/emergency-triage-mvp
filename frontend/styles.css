@@ -755,8 +755,7 @@ body.modal-open {
   }
 
   .mobile-tabs {
-    position: sticky;
-    top: 8px;
+    position: static;
     z-index: 5;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -776,7 +775,7 @@ body.modal-open {
   }
 
   .result-panel {
-    scroll-margin-top: 78px;
+    scroll-margin-top: 16px;
   }
 
   .panel-title {

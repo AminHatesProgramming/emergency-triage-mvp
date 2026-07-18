@@ -21,8 +21,8 @@ METRICS_PATH = ROOT / "reports" / "model" / "metrics_v7.json"
 APP_URL = "https://aminhatesprogramming.github.io/emergency-triage-mvp/"
 REPO_URL = "https://github.com/AminHatesProgramming/emergency-triage-mvp"
 JIRA_WORKSPACE_URL = "https://pourmand.atlassian.net/jira/for-you"
-JIRA_PROJECT_PLACEHOLDER = "نیاز به تکمیل دارد: پس از ساخت پروژه در Jira لینک دقیق project/board را اینجا قرار دهید."
-NOTION_PLACEHOLDER = "نیاز به تکمیل دارد: پس از ساخت Workspace/Page در Notion لینک صفحه اصلی را اینجا قرار دهید."
+JIRA_PROJECT_URL = "https://pourmand.atlassian.net/jira/software/projects/EMD/board"
+NOTION_HOME_URL = "https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3"
 
 TEAM = [
     ("محمدامین پورمند", "Project Lead / ML & System Architect"),
@@ -91,7 +91,7 @@ def build_notion_home() -> None:
 
         ## ارزش انسانی و اجتماعی
 
-        ارزش اصلی پروژه کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر و ساخت یک نمونه بومی از کاربرد مسئولانه AI در سلامت است. توسعه محصول همراه با backlog، sprint، KPI، risk register، AI usage report، QA و پیگیری بازخورد انجام شده است.
+        ارزش اصلی پروژه کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر و ساخت یک نمونه بومی از کاربرد مسئولانه سامانه‌های پشتیبان تصمیم در سلامت است. توسعه محصول همراه با backlog، sprint، KPI، risk register، حاکمیت ابزارهای کمکی، QA و پیگیری بازخورد انجام شده است.
 
         ## لینک‌های اصلی
 
@@ -99,9 +99,9 @@ def build_notion_home() -> None:
         |---|---|---|
         | اپ عمومی امداد یار | {ltr(APP_URL)} | آماده |
         | ریپازیتوری GitHub | {ltr(REPO_URL)} | آماده |
-        | Jira Workspace | {ltr(JIRA_WORKSPACE_URL)} | موجود |
-        | Jira Project / Board | {JIRA_PROJECT_PLACEHOLDER} | نیاز به تکمیل |
-        | Notion Home | {NOTION_PLACEHOLDER} | نیاز به تکمیل |
+        | Jira Workspace | {ltr(JIRA_WORKSPACE_URL)} | فعال |
+        | Jira Project / Board | {ltr(JIRA_PROJECT_URL)} | فعال؛ پروژه EMD |
+        | Notion Home | {ltr(NOTION_HOME_URL)} | فعال؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
 
         ## صفحات مهم Notion که باید ساخته شوند
 
@@ -112,7 +112,7 @@ def build_notion_home() -> None:
         | قابلیت‌های محصول | {ltr("project-management-final-package/notion-product-features.md")} |
         | Sprint Notes | {ltr("project-management-final-package/notion-sprint-notes.md")} |
         | Meeting Notes | {ltr("project-management-final-package/notion-meeting-notes.md")} |
-        | AI Usage Report | {ltr("project-management-final-package/notion-ai-usage-report.md")} |
+        | حاکمیت ابزارهای کمکی و کنترل انسانی | {ltr("project-management-final-package/notion-ai-usage-report.md")} |
         | Lessons Learned | {ltr("project-management-final-package/notion-lessons-learned.md")} |
         | Decision Log Database | {ltr("project-management-final-package/notion-decision-log.csv")} |
         | Change Log Database | {ltr("project-management-final-package/notion-change-log.csv")} |
@@ -189,7 +189,7 @@ def build_project_overview() -> None:
         | نوع ارزش | توضیح |
         |---|---|
         | انسانی | کاهش احتمال تأخیر در رسیدگی به بیمار پرخطر |
-        | اجتماعی | کمک به استفاده مسئولانه از AI در سلامت |
+        | اجتماعی | کمک به استفاده مسئولانه از سامانه‌های پشتیبان تصمیم در سلامت |
         | ملی | حرکت به سمت نمونه‌های بومی و قابل توسعه برای شرایط کشور |
         | آموزشی | نمایش مدیریت پروژه، Agile، KPI، ریسک و مستندسازی تیمی |
         | فنی | مدل v7، API، PWA، مدل مرورگر و کنترل data leakage |
@@ -202,11 +202,12 @@ def build_project_overview() -> None:
         | Backend | آماده demo و deploy؛ FastAPI |
         | Frontend | آماده؛ فارسی، responsive، PWA |
         | Public access | آماده؛ {ltr(APP_URL)} |
-        | مستندات | گسترده و قابل انتقال به Notion/Jira |
+        | مستندات | اجراشده در Notion و Jira با شواهد متقابل |
         | بازخورد واقعی خارجی | ۹ بازخورد پرستار تریاژ تأیید و ثبت شده است |
         | ارتباط با مراکز درمانی | ایمیل و درخواست ملاقات برای بیمارستان پیامبران تهران و سلامت فردای تهران؛ در انتظار پاسخ نهایی |
-        | Jira واقعی | نیاز به ساخت board و import CSV دارد |
-        | Notion واقعی | نیاز به ساخت صفحه‌ها و import database دارد |
+        | Jira واقعی | اجراشده؛ پروژه EMD با ۹ Epic و ۵۱ Story/Task |
+        | Notion واقعی | اجراشده؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
+        | Android | APK و AAB امضاشده آماده‌اند؛ تست دستگاه واقعی باز است |
 
         ## محدودیت‌ها
 
@@ -214,7 +215,7 @@ def build_project_overview() -> None:
         - خروجی برای تصمیم درمانی مستقل کافی نیست.
         - ۹ بازخورد پرستاران برای کاربردپذیری ثبت شده، اما جایگزین اعتبارسنجی بالینی نیست.
         - تاریخ دقیق تعامل‌ها و شواهد ایمیل بیمارستان‌ها باید در فضای خصوصی تیم آرشیو شود.
-        - screenshot واقعی Jira و Notion فقط پس از ساخت واقعی board/workspace قابل ارائه است.
+        - Jira و Notion واقعی ساخته شده‌اند؛ تصاویر رابط آن‌ها هنوز باید ثبت شود.
         - تحلیل fairness کامل هنوز انجام نشده و باید در فاز بعدی اضافه شود.
         """,
     )
@@ -459,7 +460,7 @@ def build_decision_log() -> None:
             "Context": "حوزه سلامت و خروجی AI ریسک اخلاقی مستقیم دارد.",
             "Options Considered": "تشخیص قطعی خودکار؛ پیشنهاد مستقل؛ پشتیبان تصمیم.",
             "Reason": "پشتیبان تصمیم با مسئولیت بالینی و استاندارد اخلاقی سازگارتر است.",
-            "Impact": "Disclaimer در UI، docs، model card و AI usage report تکرار شد.",
+            "Impact": "Disclaimer در UI، docs، model card و مستند حاکمیت ابزارهای کمکی تکرار شد.",
             "Owner": "محمدامین پورمند",
             "Related Jira Issue": "SAFE-01",
             "Evidence Link": "docs/model-card.md; frontend/index.html; docs/ai-usage-report.md",
@@ -587,11 +588,11 @@ def build_decision_log() -> None:
         },
         {
             "Date": "2026-06-06",
-            "Decision": "ثبت AI Usage و کنترل انسانی",
+            "Decision": "ثبت حاکمیت ابزارهای کمکی و کنترل انسانی",
             "Context": "استفاده از AI باید شفاف، اخلاقی و تحت کنترل تیم باشد.",
-            "Options Considered": "عدم ثبت؛ ثبت کلی؛ گزارش تفصیلی AI usage.",
+            "Options Considered": "عدم ثبت؛ اشاره پراکنده؛ مستند متمرکز حاکمیت و کنترل انسانی.",
             "Reason": "شفافیت برای درس مدیریت پروژه و حوزه سلامت ضروری است.",
-            "Impact": "گزارش AI Usage و بخش‌های کنترل انسانی آماده شد.",
+            "Impact": "دامنه استفاده، کنترل انسانی و شواهد پذیرش در یک سند متمرکز شد.",
             "Owner": "محمدامین پورمند",
             "Related Jira Issue": "DOC-04",
             "Evidence Link": "docs/ai-usage-report.md; commit e1962ae",
@@ -870,7 +871,7 @@ def build_sprint_notes() -> None:
         | بخش | توضیح |
         |---|---|
         | Goal | پاسخ به نقد TA درباره غیرمدیریت‌پروژه‌ای بودن کار |
-        | Tasks | ساخت Knowledge Base، Sprint Notes، Meeting Notes، Risk Register، KPI، Burndown، AI Usage Report |
+        | Tasks | ساخت Knowledge Base، Sprint Notes، Meeting Notes، Risk Register، KPI، Burndown و مستند حاکمیت ابزارهای کمکی |
         | Deliverables | {ltr("docs/knowledge-base/")}، {ltr("docs/agile-delivery-evidence.md")}، {ltr("docs/kpi-register.md")}، {ltr("docs/risk-register.md")} |
         | Risks | کم‌رنگ دیده شدن نقش اعضا؛ نبود evidence واقعی ابزار مدیریت پروژه؛ نبود feedback خارجی |
         | Decisions | تعریف نقش‌های قابل ارائه برای هر عضو؛ آماده‌سازی CSV import برای Jira و knowledge project |
@@ -898,16 +899,16 @@ def build_meeting_notes() -> None:
     md_file(
         "notion-meeting-notes.md",
         """
-        # Meeting Notes | امداد یار
+        # یادداشت‌های جلسات و نقاط هم‌راستاسازی | امداد یار
 
-        نکته صداقت: بعضی تاریخ‌ها از فایل‌های موجود و commit history قابل برداشت هستند؛ اگر جلسه واقعی تیمی با همان تاریخ برگزار نشده، در Notion تاریخ واقعی را جایگزین کنید. هیچ screenshot یا حضور واقعی بدون تأیید تیم نباید ادعا شود.
+        تاریخ‌های این سند «تاریخ مرجع شواهد» هستند و به‌تنهایی اثبات‌کننده برگزاری جلسه یا حضور افراد نیستند. نقش‌های درگیر، تصمیم‌ها و خروجی‌های قابل ردیابی ثبت می‌شوند.
 
         ## جلسه انتخاب مسئله
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-01 بر اساس docs/knowledge-base/meeting-notes.md؛ در صورت تفاوت، تاریخ واقعی را وارد کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-01 |
+        | نقش‌های درگیر | مدیریت فنی و مدل؛ تحلیل ذی‌نفعان؛ طراحی تجربه کاربر |
         | دستور جلسه | انتخاب موضوع، بررسی ارزش انسانی، امکان مدل‌سازی، تناسب با درس مدیریت پروژه |
         | تصمیم‌ها | موضوع تریاژ هوشمند انتخاب شد؛ تمرکز روی decision-support قرار گرفت. |
         | کارهای تعریف‌شده | محمدامین: بررسی داده و مدل؛ محمدرضا: ارزش اجتماعی و ذی‌نفعان؛ محدثه: خوانایی ایده برای ارائه |
@@ -918,8 +919,8 @@ def build_meeting_notes() -> None:
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-01 یا [تاریخ واقعی را وارد کنید] |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-01 |
+        | نقش‌های درگیر | مدل و داده؛ UX و متن محصول؛ مدیریت ریسک |
         | دستور جلسه | تعیین مرز MVP، عدم جایگزینی متخصص، جلوگیری از ادعای تشخیص |
         | تصمیم‌ها | disclaimer اخلاقی در UI و docs الزامی شد؛ داده‌های پس از تریاژ از مدل حذف شوند. |
         | کارهای تعریف‌شده | محمدامین: کنترل leakage؛ محدثه: متن disclaimer؛ محمدرضا: ثبت ریسک اخلاقی |
@@ -930,8 +931,8 @@ def build_meeting_notes() -> None:
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-08 بر اساس commit f7ca102 و decision-log؛ در صورت تفاوت، تاریخ واقعی را وارد کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-08 |
+        | نقش‌های درگیر | توسعه مدل؛ KPI و مدیریت ریسک |
         | دستور جلسه | بررسی نسخه‌های مدل، متریک‌ها، threshold و trade-off Recall/FPR |
         | تصمیم‌ها | Recall به عنوان KPI انسانی اصلی انتخاب شد؛ FPR به عنوان هزینه عملیاتی گزارش شود. |
         | کارهای تعریف‌شده | محمدامین: آموزش/ارزیابی نسخه‌های میانی و مدل عملیاتی v7؛ محمدرضا: KPI و risk register |
@@ -942,8 +943,8 @@ def build_meeting_notes() -> None:
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-04 در meeting-notes و 2026-06-21 در polish UI؛ تاریخ واقعی را در Notion نهایی کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین و محدثه |
+        | تاریخ مرجع شواهد | 2026-06-04 تا 2026-06-21 |
+        | نقش‌های درگیر | UX و QA؛ اتصال مدل و API |
         | دستور جلسه | ساده‌سازی فرم، خروجی قابل فهم، موبایل، سناریوهای آماده |
         | تصمیم‌ها | UI فارسی RTL، متن ساده، نمونه‌های تست پایین فرم و توضیح «پشتیبان تصمیم» حفظ شود. |
         | کارهای تعریف‌شده | محدثه: بازبینی UX و سناریوها؛ محمدامین: اتصال به API/مدل مرورگر |
@@ -954,32 +955,32 @@ def build_meeting_notes() -> None:
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | [تاریخ واقعی را وارد کنید]؛ نقش‌ها در docs/team-collaboration-matrix.md و CSVهای جدید ثبت شده‌اند |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | مبنای ثبت | نقش‌ها در docs/team-collaboration-matrix.md و Jira ثبت شده‌اند |
+        | نقش‌های درگیر | مدل و معماری؛ UI و QA؛ KPI و کنترل پروژه |
         | دستور جلسه | مشخص کردن نقش واقعی و قابل توضیح هر عضو برای ارائه |
         | تصمیم‌ها | محمدامین: مدل/API/معماری؛ محدثه: UI/Docs/QA؛ محمدرضا: KPI/Risk/Burndown/Feedback |
         | کارهای تعریف‌شده | هر عضو حداقل یک بخش ساده و قابل دفاع در ارائه داشته باشد. |
-        | وضعیت پیگیری | نیاز به تأیید شفاهی تیم و درج در Jira با assignee واقعی |
-        | لینک Jira | PM-02, PM-03 |
+        | وضعیت پیگیری | نقش‌ها و مالکیت‌ها در Jira ثبت شده‌اند؛ Assignee مستقیم دو عضو پس از ساخت حساب واقعی تکمیل می‌شود. |
+        | لینک Jira | EMD-41، EMD-44 |
 
         ## جلسه بازخورد TA و تغییر مسیر مستندسازی
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-13 بر اساس docs/agile-delivery-evidence.md؛ در صورت تفاوت، تاریخ واقعی را وارد کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-13 |
+        | نقش‌های درگیر | هماهنگی فنی؛ مستندات و QA؛ کنترل پروژه |
         | دستور جلسه | پاسخ به نقد TA درباره ابزار مدیریت پروژه، feedback و Agile |
         | تصمیم‌ها | ساخت بسته Agile Evidence، Knowledge Base، Jira/GitHub CSV، برنامه feedback و time tracking |
         | کارهای تعریف‌شده | محمدرضا: backlog/KPI/risk؛ محدثه: docs/QA/screenshots؛ محمدامین: هماهنگی فنی و deploy |
-        | وضعیت پیگیری | بخش عمده انجام‌شده؛ وارد کردن واقعی در Jira/Notion و screenshot هنوز نیاز به تکمیل دارد |
-        | لینک Jira | PM-01, PM-04, DOC-04, FB-01 |
+        | وضعیت پیگیری | Jira و Notion واقعی تکمیل شده‌اند؛ تصویربرداری رابط و Worklog شخصی باز است. |
+        | لینک Jira | EMD-41، EMD-42، EMD-44، EMD-55، EMD-59 |
 
         ## جلسه آماده‌سازی پوستر
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-15 بر اساس poster-assets؛ در صورت تفاوت، تاریخ واقعی را وارد کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-15 |
+        | نقش‌های درگیر | محتوای فنی؛ طراحی و QA؛ KPI و Burndown |
         | دستور جلسه | آماده‌سازی متن‌ها و نمودارهای پوستر A0 |
         | تصمیم‌ها | استفاده از metrics v7، UI screenshots، burndown، KPI و تأکید بر ارزش انسانی/اخلاقی |
         | کارهای تعریف‌شده | محمدامین: نمودار مدل؛ محدثه: تصویر UI؛ محمدرضا: KPI/Burndown/Risk |
@@ -990,8 +991,8 @@ def build_meeting_notes() -> None:
 
         | فیلد | مقدار |
         |---|---|
-        | تاریخ | 2026-06-28 بر اساس commit cf9248e؛ تاریخ جلسه واقعی را در صورت تفاوت جایگزین کنید |
-        | افراد حاضر | نیاز به تأیید اعضا؛ نقش‌های مرتبط: محمدامین، محدثه و محمدرضا |
+        | تاریخ مرجع شواهد | 2026-06-28 |
+        | نقش‌های درگیر | بسته تحویل؛ QA و تصاویر؛ کنترل زمان و شواهد |
         | دستور جلسه | پاکسازی docs، شفاف‌سازی feedback، آماده‌سازی deliverables و بسته Notion/Jira |
         | تصمیم‌ها | ادعای feedback واقعی بدون تأیید ممنوع؛ docs قدیمی حذف/جدا شوند؛ Jira/Notion با evidence link تکمیل شود. |
         | کارهای تعریف‌شده | محمدامین: final package؛ محدثه: QA و screenshot؛ محمدرضا: import و تکمیل time tracking |
@@ -1003,7 +1004,7 @@ def build_meeting_notes() -> None:
 
 def build_risk_register() -> None:
     rows = [
-        ("R-01", "برداشت اشتباه از سیستم به‌عنوان تشخیص پزشکی", "اعتماد بیش از حد به AI یا متن خروجی نامناسب", "ریسک اخلاقی و تصمیم درمانی اشتباه", 3, 5, "تکرار disclaimer، متن decision-support، آموزش کاربر و تأیید متخصص در فاز بعد", "محمدامین پورمند", "Open", "SAFE-01"),
+        ("R-01", "برداشت اشتباه از سیستم به‌عنوان تشخیص پزشکی", "اتکای بیش از حد کاربر به خروجی یا متن نامناسب محصول", "ریسک اخلاقی و تصمیم درمانی اشتباه", 3, 5, "تکرار disclaimer، متن decision-support، آموزش کاربر و تأیید متخصص در فاز بعد", "محمدامین پورمند", "Open", "EMD-34"),
         ("R-02", "داده ناقص", "در تریاژ ممکن است همه علائم حیاتی در دسترس نباشند", "کاهش اطمینان خروجی", 4, 4, "پشتیبانی از missingness، نمایش data completeness و فیلدهای پیشنهادی باقی‌مانده", "محدثه حاتمی کیا", "Mitigated", "UX-05"),
         ("R-03", "خطای مثبت کاذب زیاد", "threshold safety-first باعث حساسیت بالاتر می‌شود", "افزایش فشار منابع اورژانس", 4, 4, "گزارش FPR، operating point جایگزین و تنظیم threshold برای محیط واقعی", "محمدرضا آرمان‌پور", "Open", "PC-01"),
         ("R-04", "خطای منفی کاذب برای بیمار پرخطر", "مدل ممکن است بیمار بحرانی را کم‌ریسک تشخیص دهد", "خطر انسانی جدی", 3, 5, "اولویت دادن به Recall، safety flags و هشدار استفاده انسانی", "محمدامین پورمند", "Open", "ML-04"),
@@ -1011,10 +1012,12 @@ def build_risk_register() -> None:
         ("R-06", "محدودیت داده آموزشی", "داده ثانویه و غیر بومی", "احتمال تفاوت عملکرد در محیط واقعی ایران", 4, 4, "شفاف‌سازی در model card و برنامه جذب داده/feedback بومی", "محمدامین پورمند", "Open", "ML-06"),
         ("R-07", "ناقص بودن مستندات", "تمرکز زیاد روی کدنویسی و کمبود artifact مدیریتی", "کاهش قابلیت ارزیابی، انتقال و نگهداری پروژه", 2, 5, "ساخت Knowledge Base، final index، Word deliverables و بسته Notion/Jira", "محدثه حاتمی کیا", "Mitigated", "DOC-01"),
         ("R-08", "مشخص نبودن نقش اعضای تیم", "تمرکز زیاد کار فنی روی یک نفر", "ایراد در ارزیابی تیمی", 3, 4, "تعریف نقش‌های ساده، time tracking و assignee در Jira", "محمدرضا آرمان‌پور", "Needs Completion", "PM-02"),
-        ("R-09", "وابستگی بیش از حد به AI", "استفاده از Codex/ChatGPT برای کد و مستندات", "کاهش اعتبار علمی و اخلاقی", 3, 4, "AI usage report، کنترل انسانی، تست و عدم پذیرش خروجی بدون بررسی", "محمدامین پورمند", "Mitigated", "DOC-04"),
+        ("R-09", "وابستگی بیش از حد به ابزارهای کمکی", "پذیرش خروجی ابزارهای توسعه و تحلیل بدون بازبینی مستقل", "کاهش اعتبار علمی و اخلاقی", 3, 4, "مستند حاکمیت ابزارهای کمکی، کنترل انسانی، آزمون و عدم پذیرش خروجی بدون بررسی", "محمدامین پورمند", "Mitigated", "EMD-49"),
         ("R-10", "آماده نبودن deploy", "نیاز به اجرای غیرلوکال روی موبایل", "عدم امکان تست عمومی", 2, 5, "GitHub Pages PWA، config API و راهنمای deploy", "محمدامین پورمند", "Mitigated", "DEP-01"),
         ("R-11", "نقص در تجربه کاربری موبایل", "کوچک بودن صفحه، متن‌های زیاد یا ابهام در نصب", "کاهش پذیرش کاربر", 3, 4, "mobile-first design، tabs، install help و screenshots", "محدثه حاتمی کیا", "Mitigated", "UX-04"),
-        ("R-12", "محدود ماندن دامنه بازخورد ذی‌نفعان", "دشواری دسترسی سازمانی به محیط درمان", "کاهش تعمیم‌پذیری یافته‌های UX", 3, 4, "ثبت ۹ بازخورد تأییدشده پرستاران، پیگیری دو مرکز درمانی و برنامه پایلوت کمی", "محمدرضا آرمان‌پور", "Partially Mitigated", "FB-02"),
+        ("R-12", "محدود ماندن دامنه بازخورد ذی‌نفعان", "دشواری دسترسی سازمانی به محیط درمان", "کاهش تعمیم‌پذیری یافته‌های UX", 3, 4, "ثبت ۹ بازخورد تأییدشده پرستاران، پیگیری دو مرکز درمانی و برنامه پایلوت کمی", "محمدرضا آرمان‌پور", "Partially Mitigated", "EMD-61"),
+        ("R-13", "برداشت قواعد ایمنی به‌عنوان پروتکل بالینی تأییدشده", "قواعد مهندسی در بیمارستان مقصد اعتبارسنجی نشده‌اند", "استفاده خارج از دامنه و اعتماد بیش از حد", 3, 5, "نمایش disclaimer، نسخه‌گذاری قواعد و الزام تطبیق با پروتکل محلی", "محمدامین پورمند", "Open", "EMD-56"),
+        ("R-14", "آزمون نشدن APK روی سخت‌افزار واقعی", "دستگاه متصل هنگام بسته‌بندی در دسترس نبود", "احتمال کشف دیرهنگام مشکل WebView یا نصب", 3, 4, "نصب روی Android 6+ و ثبت سناریوهای خالی، بحرانی، ناقص و آفلاین", "محدثه حاتمی کیا", "Open", "EMD-60"),
     ]
     csv_file(
         "notion-risk-register.csv",
@@ -1052,84 +1055,64 @@ def build_ai_usage_report() -> None:
     md_file(
         "notion-ai-usage-report.md",
         """
-        # گزارش استفاده از AI
+        # حاکمیت ابزارهای کمکی و کنترل انسانی
 
-        ## اصل شفافیت
+        ## هدف و دامنه
 
-        در پروژه امداد یار از ابزارهای AI به عنوان کمک‌یار توسعه، مستندسازی و تحلیل استفاده شد؛ اما تصمیم نهایی، کنترل کیفیت، پذیرش خروجی، انتخاب دامنه محصول و مسئولیت اخلاقی بر عهده تیم پروژه است. این بخش نباید طوری ارائه شود که انگار AI مالک پروژه بوده است.
+        در پروژه امداد یار از ابزارهای کمکی توسعه و تحلیل برای افزایش سرعت کدنویسی، بازبینی مستندات، طراحی سناریوهای آزمون و استخراج شواهد استفاده شد. مالکیت محصول، تصمیم‌های فنی، پذیرش تغییرات، کنترل کیفیت و مسئولیت اخلاقی در تمام مراحل بر عهده اعضای تیم باقی ماند.
 
-        ## Codex برای چه کارهایی استفاده شد؟
-
-        | حوزه | نوع استفاده | کنترل انسانی |
-        |---|---|---|
-        | کدنویسی | اصلاح frontend، backend، اسکریپت‌های build و package | اجرای تست، بررسی git diff و حذف ادعاهای غیرواقعی |
-        | مستندسازی | ساخت گزارش‌ها، بسته‌های Word، index و package مدیریت پروژه | بازبینی متن، تطبیق با rubric و اصلاح لحن فارسی |
-        | تحلیل repo | استخراج evidence از commitها و فایل‌ها | استفاده از git history واقعی و عدم جعل screenshot |
-        | QA | پیشنهاد سناریوهای تست و فایل‌های CSV | ثبت وضعیت «نیاز به تکمیل» برای تست‌های انسانی انجام‌نشده |
-
-        ## ChatGPT برای چه کارهایی استفاده شد؟
+        ## حوزه‌های استفاده
 
         | حوزه | نوع استفاده | کنترل انسانی |
         |---|---|---|
-        | ایده‌پردازی | ساختار گزارش، متن پوستر و تحلیل نقد TA | انتخاب نهایی توسط تیم و حذف بخش‌های غیرقابل دفاع |
-        | طراحی محتوا | متن فارسی رسمی و کوتاه برای پوستر/ارائه | اصلاح بر اساس پروژه واقعی و فایل‌های موجود |
-        | تحلیل UX | پیشنهاد ایرادهای احتمالی کاربر | برچسب‌گذاری به عنوان synthetic/pre-pilot، نه feedback واقعی |
+        | توسعه نرم‌افزار | پیش‌نویس تغییرات frontend، backend و build | بررسی diff، اجرای آزمون و پذیرش آگاهانه تغییر |
+        | مستندسازی | ساختاردهی گزارش‌ها، جدول‌ها و بسته‌های تحویل | تطبیق با داده‌های واقعی، rubric و شواهد موجود |
+        | تحلیل پروژه | استخراج ارتباط commit، تصمیم، ریسک و تسک | کنترل با تاریخچه Git، Jira و خروجی‌های واقعی |
+        | QA | پیشنهاد سناریوهای آزمون و موارد مرزی | اجرای آزمون و باز نگه داشتن موارد فاقد شاهد |
 
-        ## چه چیزهایی توسط انسان بررسی و اصلاح شد؟
+        ## تصمیم‌های انسانی تیم
 
         - انتخاب موضوع امداد یار و مرز اخلاقی decision-support.
-        - تصمیم به تمرکز روی داده‌های زمان تریاژ و حذف داده‌های post-triage.
-        - تأیید اینکه feedbackهای synthetic نباید به عنوان بازخورد واقعی گزارش شوند.
-        - انتخاب نقش‌های قابل ارائه برای اعضای تیم.
-        - بررسی خروجی UI روی موبایل/دسکتاپ و اصلاح زبان محصول.
-        - تصمیم به ساخت Notion/Jira واقعی به جای ادعای استفاده از ابزار بدون evidence.
+        - تمرکز روی داده‌های زمان تریاژ و حذف داده‌های post-triage.
+        - اولویت Recall همراه با گزارش Precision و FPR.
+        - طراحی فارسی RTL، mobile-first، PWA و Android آفلاین.
+        - تفکیک بازخورد کاربردپذیری از اعتبارسنجی بالینی.
+        - باز نگه داشتن تست دستگاه و پایلوت تا دریافت شاهد معتبر.
 
-        ## چه تصمیم‌هایی انسانی بوده‌اند؟
+        ## فرآیند کنترل و پذیرش
 
-        | تصمیم | دلیل انسانی بودن |
-        |---|---|
-        | انتخاب دامنه سلامت و ارزش انسانی پروژه | به ارزش اجتماعی، دفاع دانشگاهی و اولویت تیم مربوط است |
-        | تعیین محصول به عنوان پشتیبان تصمیم | تصمیم اخلاقی و دامنه مسئولیت است |
-        | اولویت دادن به Recall | trade-off انسانی میان خطر از دست دادن بیمار بحرانی و افزایش بررسی اضافه است |
-        | عدم جعل feedback واقعی | تصمیم صداقت پروژه و اعتبار دفاع است |
-        | حذف فرم feedback از UI نهایی | تصمیم تجربه کاربر و تمرکز محصول |
+        1. هر تغییر فنی با diff و فایل‌های واقعی مخزن بررسی شد.
+        2. اعداد عملکرد فقط از گزارش‌های نسخه v7 و فایل‌های آزمون استخراج شدند.
+        3. تغییرهای حساس با تست‌های Python و تطبیق مرورگر/API ارزیابی شدند.
+        4. ادعاهای فاقد شاهد به‌عنوان کار باز در Jira و Notion ثبت شدند.
+        5. تصمیم‌های اخلاقی و محصولی در Decision Log با مالک انسانی نگهداری شدند.
 
-        ## کجا خروجی AI رد یا اصلاح شد؟
+        ## اصل مسئولیت‌پذیری
 
-        - poster قبلی که کیفیت بصری مطلوب نداشت کنار گذاشته شد و قرار شد با ابزار تصویر جداگانه ساخته شود.
-        - feedbackهای تولیدشده به عنوان real ثبت نشدند و با برچسب synthetic جدا ماندند؛ ۹ بازخورد پرستاران فقط پس از تأیید انسانی به confirmed تغییر کرد.
-        - متن‌های گزارش‌گونه از UI محصول حذف شد تا فقط محتوای مورد نیاز کاربر باقی بماند.
-        - ادعای استفاده واقعی از Jira/Notion بدون screenshot حذف و به «نیاز به تکمیل» تبدیل شد.
-        - اصطلاحات مبهم مثل «پرچم‌های ایمنی» به «هشدارهای مهم» نزدیک شد.
-
-        ## چگونه از وابستگی کامل به AI جلوگیری شد؟
-
-        - هر ادعا باید evidence link به فایل، commit یا artifact داشته باشد.
-        - متریک‌های مدل از reports واقعی خوانده می‌شوند، نه متن تبلیغاتی.
-        - بازخورد واقعی تا زمان تأیید با تاریخ و کد ناشناس، واقعی نامیده نمی‌شود.
-        - تصمیم‌های حساس در decision log با owner انسانی ثبت می‌شوند.
-        - Jira/Notion باید توسط اعضای تیم import و screenshot واقعی شوند.
-
-        ## چرا در پروژه سلامت شفافیت اخلاقی ضروری است؟
-
-        در سلامت، خروجی AI می‌تواند روی برداشت انسان از فوریت وضعیت اثر بگذارد. بنابراین شفافیت درباره محدودیت‌ها، داده آموزشی، نبود اعتبارسنجی بالینی، احتمال خطا و نقش پشتیبان تصمیم بخشی از کیفیت فنی پروژه است؛ نه یک پیوست تزئینی.
+        ابزار کمکی مسئول تصمیم پزشکی یا مدیریتی نیست. مسئولیت تفسیر خروجی، پذیرش تغییر، گزارش محدودیت‌ها و هرگونه استفاده از محصول بر عهده تیم و در کاربرد واقعی بر عهده متخصص انسانی است.
         """,
     )
 
 
 def build_stakeholder_feedback() -> None:
-    rows = [
-        {
-            "Date": "2026-07-12",
-            "Stakeholder Type": "۹ پرستار تریاژ",
-            "UI Clarity Score": "",
-            "Output Clarity Score": "",
-            "Disclaimer Clarity Score": "",
-            "Main Feedback": "۹ بازخورد درباره زبان عملیاتی، ورودی ناقص، هشدارهای واضح، سادگی موبایل، عدم القای تشخیص قطعی و نیاز به تطبیق با پروتکل تأیید شد.",
-            "Action Taken": "متن‌های UI ساده شد، سناریوها اختیاری ماند، کامل بودن داده و اقدام بعدی حفظ شد و محدودیت بالینی برجسته شد.",
-            "Owner": "محمدرضا آرمان‌پور",
-            "Status": "Confirmed - identities kept private",
-        },
+    rows: list[dict[str, object]] = []
+    source = ROOT / "data" / "feedback" / "triage-nurse-feedback-confirmed.csv"
+    with source.open("r", encoding="utf-8-sig", newline="") as handle:
+        for item in csv.DictReader(handle):
+            rows.append(
+                {
+                    "Date": item["recorded_date"],
+                    "Stakeholder Type": f"پرستار تریاژ ناشناس {item['id']}",
+                    "UI Clarity Score": "",
+                    "Output Clarity Score": "",
+                    "Disclaimer Clarity Score": "",
+                    "Main Feedback": item["feedback_text"],
+                    "Action Taken": item["action_taken"],
+                    "Owner": "محمدرضا آرمان‌پور",
+                    "Status": "Confirmed qualitative feedback - identity private",
+                }
+            )
+    rows.append(
         {
             "Date": "2026-07-12",
             "Stakeholder Type": "بیمارستان پیامبران تهران / سلامت فردای تهران",
@@ -1137,22 +1120,11 @@ def build_stakeholder_feedback() -> None:
             "Output Clarity Score": "",
             "Disclaimer Clarity Score": "",
             "Main Feedback": "ایمیل و درخواست ملاقات ارسال شد؛ پاسخ اولیه این بود که درخواست بررسی و نتیجه اعلام می‌شود.",
-            "Action Taken": "به عنوان stakeholder outreach ثبت شد؛ تا دریافت موافقت رسمی هیچ ادعای همکاری یا اعتبارسنجی مطرح نمی‌شود.",
+            "Action Taken": "تا دریافت موافقت رسمی هیچ ادعای همکاری یا اعتبارسنجی مطرح نمی‌شود.",
             "Owner": "محمدامین پورمند",
             "Status": "Awaiting final response",
-        },
-        {
-            "Date": "[تاریخ واقعی را وارد کنید]",
-            "Stakeholder Type": "پرستار تریاژ / دانشجوی پزشکی / دانشجوی پرستاری / کاربر عمومی",
-            "UI Clarity Score": "[۱ تا ۵]",
-            "Output Clarity Score": "[۱ تا ۵]",
-            "Disclaimer Clarity Score": "[۱ تا ۵]",
-            "Main Feedback": "فرم پیشنهادی: ۱) خروجی قابل فهم بود؟ ۲) UI سریع و واضح بود؟ ۳) مشخص بود سیستم جایگزین پزشک نیست؟ ۴) با ورودی ناقص هم خروجی قابل قبول بود؟ ۵) مهم‌ترین پیشنهاد بهبود چیست؟",
-            "Action Taken": "[اقدام انجام‌شده بعد از بازخورد را وارد کنید]",
-            "Owner": "[مسئول پیگیری]",
-            "Status": "Template - complete after real interview",
-        },
-    ]
+        }
+    )
     csv_file(
         "notion-stakeholder-feedback.csv",
         [
@@ -1173,7 +1145,7 @@ def build_stakeholder_feedback() -> None:
         """
         # فرم پیشنهادی جمع‌آوری بازخورد واقعی
 
-        این فرم را برای حداقل ۵ نفر ارسال کنید. اگر ۹ پرستار تریاژ واقعاً نظرها را تأیید کردند، برای هر نفر یک کد ناشناس مثل NURSE-01 ثبت کنید و تاریخ واقعی را بنویسید.
+        این فرم برای دور بعدی پایلوت کمی نگهداری می‌شود. در دور فعلی، ۹ بازخورد کیفی پرستاران تریاژ با کد ناشناس تأیید و ثبت شده‌اند؛ امتیاز عددی فقط وقتی ثبت می‌شود که واقعاً با مقیاس یکسان جمع‌آوری شده باشد.
 
         ## اطلاعات ثبت
 
@@ -1292,7 +1264,7 @@ def jira_task(summary: str, desc: str, assignee: str, priority: str, points: int
         "Labels": labels,
         "Acceptance Criteria": ac,
         "Definition of Done": dod,
-        "Notion Link Placeholder": "پس از import در Notion لینک صفحه/DB مرتبط را اضافه کنید.",
+        "Notion Link": NOTION_HOME_URL,
         "Evidence Link": evidence,
     }
 
@@ -1306,7 +1278,7 @@ def build_jira_import() -> None:
         ("Explainability & Safety", "هشدارهای مهم، اقدام بعدی، disclaimer، data completeness و ایمنی استفاده.", "محمدامین پورمند", "Sprint 3", "safety,explainability,ethics"),
         ("Feedback & Validation", "برنامه جمع‌آوری بازخورد، QA، تست پایلوت، ثبت نظر ذی‌نفعان و اصلاح محصول.", "محمدرضا آرمان‌پور", "Final Sprint", "feedback,validation,qa"),
         ("Project Management & Agile", "Backlog، Sprint، Burndown، KPI، risk، time tracking و role assignment.", "محمدرضا آرمان‌پور", "Sprint 3", "agile,kpi,risk"),
-        ("Documentation & Knowledge Base", "Notion/Knowledge Base، decision log، AI usage، lessons و deliverables.", "محدثه حاتمی کیا", "Sprint 3", "docs,knowledge,ai-usage"),
+        ("Documentation & Knowledge Base", "Notion/Knowledge Base، decision log، حاکمیت ابزارهای کمکی، lessons و deliverables.", "محدثه حاتمی کیا", "Sprint 3", "docs,knowledge,governance"),
         ("Final Deliverables", "Deploy عمومی، QR، پوستر، بسته بازار، فایل‌های Word و تحویل نهایی.", "محمدامین پورمند", "Final Sprint", "final,deploy,poster"),
     ]
     tasks_by_epic = {
@@ -1366,7 +1338,7 @@ def build_jira_import() -> None:
             jira_task("ساخت Notion Home", "ایجاد صفحه اصلی دانشنامه پروژه.", "محدثه حاتمی کیا", "Highest", 3, "Final Sprint", "To Do", "notion,home", "صفحه شامل معرفی، لینک‌ها و وضعیت پروژه باشد.", "لینک Notion در README/Jira ثبت شود.", "project-management-final-package/notion-home.md"),
             jira_task("Import کردن decision log", "ساخت database تصمیم‌ها در Notion.", "محدثه حاتمی کیا", "High", 3, "Final Sprint", "To Do", "notion,decision-log", "ستون‌ها و relationها درست map شوند.", "حداقل تصمیم‌های کلیدی وارد شوند.", "project-management-final-package/notion-decision-log.csv"),
             jira_task("Import کردن change log", "ساخت database تغییرات از git history.", "محدثه حاتمی کیا", "High", 3, "Final Sprint", "To Do", "notion,change-log", "هر تغییر دلیل، اثر و evidence داشته باشد.", "به Jira issue لینک شود.", "project-management-final-package/notion-change-log.csv"),
-            jira_task("ثبت AI Usage Report", "انتقال گزارش استفاده از AI و کنترل انسانی.", "محمدامین پورمند", "High", 2, "Final Sprint", "To Do", "ai-usage,ethics", "گزارش نشان دهد AI کمک‌یار بوده نه مالک پروژه.", "در Notion و گزارش نهایی لینک شود.", "project-management-final-package/notion-ai-usage-report.md"),
+            jira_task("ثبت حاکمیت ابزارهای کمکی و کنترل انسانی", "ثبت دامنه استفاده، بازبینی، مسئولیت انسانی و شواهد کنترل کیفیت.", "محمدامین پورمند", "High", 2, "Final Sprint", "Done", "governance,human-review,ethics", "صفحه با شواهد Git، Jira و آزمون همگام باشد.", "نسخه حرفه‌ای در Notion و مخزن ثبت شود.", "project-management-final-package/notion-ai-usage-report.md"),
             jira_task("ثبت Lessons Learned", "انتقال درس‌آموخته‌های مدیریت پروژه.", "محدثه حاتمی کیا", "Medium", 2, "Final Sprint", "To Do", "lessons,knowledge", "حداقل ۶ درس‌آموخته ثبت شود.", "در ارائه به آن اشاره شود.", "project-management-final-package/notion-lessons-learned.md"),
         ],
         "Final Deliverables": [
@@ -1395,7 +1367,7 @@ def build_jira_import() -> None:
                 "Labels": labels,
                 "Acceptance Criteria": "Epic شامل حداقل ۵ task/story با owner، evidence و DoD باشد.",
                 "Definition of Done": "همه taskهای ضروری انجام یا با وضعیت Needs Completion صادقانه ثبت شوند.",
-                "Notion Link Placeholder": "پس از ساخت Notion لینک epic/صفحه مرتبط را وارد کنید.",
+                "Notion Link": NOTION_HOME_URL,
                 "Evidence Link": "project-management-final-package/",
             }
         )
@@ -1421,7 +1393,7 @@ def build_jira_import() -> None:
             "Labels",
             "Acceptance Criteria",
             "Definition of Done",
-            "Notion Link Placeholder",
+            "Notion Link",
             "Evidence Link",
         ],
         rows,
@@ -1508,7 +1480,7 @@ def build_jira_board_setup() -> None:
         | Labels | Labels |
         | Acceptance Criteria | Description یا Custom Field |
         | Definition of Done | Description یا Custom Field |
-        | Notion Link Placeholder | Description |
+        | Notion Link | Description یا Web Link |
         | Evidence Link | Description یا Web Link |
 
         ## 7. Sprints پیشنهادی
@@ -1590,7 +1562,7 @@ def build_notion_import_guide() -> None:
         | Product Features | notion-product-features.md |
         | Sprint Notes | notion-sprint-notes.md |
         | Meeting Notes | notion-meeting-notes.md |
-        | AI Usage Report | notion-ai-usage-report.md |
+        | حاکمیت ابزارهای کمکی و کنترل انسانی | notion-ai-usage-report.md |
         | Lessons Learned | notion-lessons-learned.md |
         | Jira Import & Board Setup | jira-board-setup.md |
         | Missing Info Checklist | missing-info-checklist.md |
@@ -1687,7 +1659,7 @@ def build_missing_info_checklist() -> None:
         | تاریخ دقیق جلسات | بعضی تاریخ‌ها از docs/commit history برداشت شده‌اند | تاریخ واقعی جلسه‌ها را با تیم تطبیق دهید | محمدامین پورمند |
         | نام دقیق Jira Project | هنوز در repo screenshot/لینک project واقعی نیست | Scrum project با نام {ltr("Emdadyar - Emergency Decision Support")} بسازید | محمدرضا آرمان‌پور |
         | لینک واقعی Jira Board | فقط workspace link موجود است: {ltr(JIRA_WORKSPACE_URL)} | لینک board را در Notion Home و README وارد کنید | محمدرضا آرمان‌پور |
-        | لینک واقعی Notion | {NOTION_PLACEHOLDER} | صفحه Notion را بسازید و لینک را جایگزین کنید | محدثه حاتمی کیا |
+        | لینک واقعی Notion | {ltr(NOTION_HOME_URL)} | تکمیل شده و نیازمند نگهداری لینک است | محدثه حاتمی کیا |
         | امتیازهای کمی بازخورد | ۹ بازخورد کیفی پرستاران تأیید شده، اما امتیازهای ۱ تا ۵ ثبت نشده است | در پایلوت بعدی scoreهای UI/Output/Disclaimer را جمع‌آوری کنید | محمدرضا آرمان‌پور |
         | شواهد خصوصی بازخورد پرستاران | محتوای ۹ نظر confirmed است؛ هویت‌ها عمداً عمومی نشده‌اند | تاریخ‌های تعامل و شاهد تماس را در Notion خصوصی نگهداری کنید | محمدرضا آرمان‌پور |
         | شواهد ایمیل بیمارستان‌ها | پیگیری و پاسخ اولیه بنا بر اعلام مدیر پروژه ثبت شد | تصویر سربرگ ایمیل و تاریخ دقیق را در فضای خصوصی تیم آرشیو کنید | محمدامین پورمند |
@@ -1730,7 +1702,7 @@ def build_readme() -> None:
         | {ltr("notion-sprint-notes.md")} | یادداشت Sprintها |
         | {ltr("notion-meeting-notes.md")} | صورت‌جلسه‌ها با شفافیت درباره تاریخ‌ها |
         | {ltr("notion-risk-register.csv")} | دیتابیس ریسک‌ها |
-        | {ltr("notion-ai-usage-report.md")} | گزارش استفاده از AI |
+        | {ltr("notion-ai-usage-report.md")} | حاکمیت ابزارهای کمکی و کنترل انسانی |
         | {ltr("notion-stakeholder-feedback.csv")} | ساختار ثبت بازخورد واقعی |
         | {ltr("notion-qa-test-log.csv")} | دیتابیس تست‌ها |
         | {ltr("notion-lessons-learned.md")} | درس‌آموخته‌ها |
@@ -1777,7 +1749,7 @@ def main() -> None:
             if path.is_file() and path.name != "package-manifest.json"
         ),
         "model_version": METRICS["version"],
-        "generated_on": "2026-07-12",
+        "generated_on": "2026-07-18",
         "confirmed_triage_nurse_feedback": 9,
         "hospital_outreach": {
             "Payambaran Hospital Tehran": "awaiting final response",
@@ -1790,7 +1762,7 @@ def main() -> None:
             "fpr": round(TEST_METRICS["fpr"], 4),
             "threshold": round(TEST_METRICS["threshold"], 4),
         },
-        "honesty_note": "Nine triage-nurse feedback items are confirmed and documented. Jira/Notion screenshots and clinical validation remain separate evidence requirements; hospital outreach is awaiting final response.",
+        "honesty_note": "Nine triage-nurse usability feedback items are confirmed and documented. Jira/Notion screenshots, personal worklogs, physical device tests, final hospital responses, and clinical validation remain separate evidence requirements.",
     }
     (OUT / "package-manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

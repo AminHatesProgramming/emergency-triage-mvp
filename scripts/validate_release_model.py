@@ -392,7 +392,7 @@ def write_markdown(report: dict[str, Any]) -> None:
     full = profiles["full_triage_time"]
     content = f"""<div dir="rtl" align="right">
 
-# ممیزی نهایی مدل و سناریوهای ایمنی امدادیار
+# ممیزی نهایی مدل و سناریوهای ایمنی امداد یار
 
 **تاریخ اجرا:** `{report['generated_at_utc']}`<br>
 **نسخه مدل:** `{report['model_version']}`<br>

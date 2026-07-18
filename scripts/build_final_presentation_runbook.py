@@ -100,6 +100,7 @@ def add_heading(doc, text: str, level: int) -> None:
     if level == 2 and ("بخش اول" in text or "بخش دوم" in text or "بخش سوم" in text):
         doc.add_page_break()
     p = doc.add_paragraph()
+    p.style = f"Heading {level}"
     set_rtl(p)
     sizes = {1: 24, 2: 16, 3: 12.5}
     colors = {1: NAVY, 2: NAVY, 3: TEAL}
@@ -152,7 +153,7 @@ def add_header_footer(doc: Document, running_title: str) -> None:
     style_paragraph(p, size=8.5, color=MUTED, after=0, line=1.0)
 
 
-def build(source: Path = SOURCE, output: Path = OUTPUT, running_title: str = "امدادیار | سناریوی نهایی ارائه") -> None:
+def build(source: Path = SOURCE, output: Path = OUTPUT, running_title: str = "امداد یار | سناریوی نهایی ارائه") -> None:
     doc = Document()
     section = doc.sections[0]
     section.page_width = Inches(8.5)
@@ -227,6 +228,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, default=SOURCE)
     parser.add_argument("--output", type=Path, default=OUTPUT)
-    parser.add_argument("--header", default="امدادیار | سناریوی نهایی ارائه")
+    parser.add_argument("--header", default="امداد یار | سناریوی نهایی ارائه")
     args = parser.parse_args()
     build(args.source, args.output, args.header)

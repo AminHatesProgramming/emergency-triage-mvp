@@ -6,7 +6,7 @@
 پیاده‌سازی واقعی در ۲۰۲۶-۰۷-۱۶ انجام شد. صفحه اصلی:
 <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span>
 
-در وضعیت فعلی ۷ sub-page، پنج database و ۶۶ رکورد ایجاد شده است. مراحل زیر فقط برای بازسازی، انتقال به Workspace دیگر یا نگهداری آینده حفظ می‌شوند.
+در وضعیت فعلی ۸ sub-page، پنج database و ۷۳ رکورد ایجاد شده است. مراحل زیر فقط برای بازسازی، انتقال به Workspace دیگر یا نگهداری آینده حفظ می‌شوند.
 
 ## 1. ساختار صفحه‌های اجراشده
 
@@ -22,10 +22,10 @@
 | Product Features | notion-product-features.md |
 | Sprint Notes | notion-sprint-notes.md |
 | Meeting Notes | notion-meeting-notes.md |
-| AI Usage Report | notion-ai-usage-report.md |
+| حاکمیت ابزارهای کمکی و کنترل انسانی | notion-ai-usage-report.md |
 | Lessons Learned | notion-lessons-learned.md |
-| Jira Import & Board Setup | jira-board-setup.md |
 | Missing Info Checklist | missing-info-checklist.md |
+| راهنمای تصویربرداری نهایی Jira و Notion | final-screenshot-evidence-guide.md |
 
 ## 2. روش بازیابی Markdownها
 
@@ -103,6 +103,6 @@
 
 ## 9. قاعده صداقت و نگهداری
 
-هر چیزی که هنوز واقعی نیست، با عبارت «نیاز به تکمیل دارد» نگه دارید. ساخت Jira و Notion و ثبت ۹ بازخورد پرستاران تکمیل شده است؛ screenshot رابط، حساب دو عضو تیم، تست گوشی و اعتبارسنجی بالینی هنوز باز هستند و نباید Done شوند.
+هر چیزی که هنوز واقعی نیست، با وضعیت باز و معیار بسته‌شدن روشن نگه دارید. ساخت Jira و Notion و ثبت ۹ بازخورد پرستاران تکمیل شده است؛ screenshot رابط، حساب دو عضو تیم، Time Tracking شخصی، آزمون فیزیکی QR/PWA، تست گوشی و اعتبارسنجی بالینی هنوز باز هستند و نباید Done شوند.
 </div>
 

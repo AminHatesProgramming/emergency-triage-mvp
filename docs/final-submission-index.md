@@ -12,7 +12,7 @@
 | ابزار | لینک و وضعیت |
 |---|---|
 | Jira Work Management | `https://pourmand.atlassian.net/jira/software/projects/EMD/board`؛ ۹ Epic و ۵۱ Story/Task |
-| Notion Knowledge Base | `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3`؛ ۷ صفحه، ۵ دیتابیس و ۶۶ رکورد |
+| Notion Knowledge Base | `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3`؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
 | GitHub Repository | `https://github.com/AminHatesProgramming/emergency-triage-mvp` |
 | وب‌اپ عمومی | `https://aminhatesprogramming.github.io/emergency-triage-mvp/` |
 
@@ -26,7 +26,7 @@
 | ماتریس انطباق اعلان نهایی | `docs/deliverables/ITPM_Final_Announcement_Compliance_Matrix.docx` | تطبیق مو‌به‌موی الزامات با شاهد و وضعیت |
 | سناریوی ارائه نهایی | `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | تقسیم قطعی ۶ + ۲ + ۲، دمو و پاسخ پرسش‌ها |
 | نسخه موبایلی برای استاد | `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx` | لینک، QR و روش نصب PWA |
-| بسته انتشار امدادیار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | APK/AAB امضاشده، تصویرها، متن مارکت، Data Safety و گزارش صحت build |
+| بسته انتشار امداد یار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | APK/AAB امضاشده، تصویرها، متن مارکت، Data Safety و گزارش صحت build |
 
 ## 2. مستندات فنی رسمی
 
@@ -84,6 +84,7 @@
 | `docs/artifacts/user-acquisition.svg` | پیش‌بینی جذب کاربر پایلوت |
 | `reports/model/release_validation_v7.json` | بازتولید متریک روی ۱۱۱٬۶۰۶ رکورد test و ارزیابی sparse |
 | `reports/model/browser_backend_differential_v7.json` | تطابق ۱٬۱۶۷ سناریوی مرورگر و API |
+| `reports/model/ui_smoke_v7.json` | اجرای واقعی مرورگر موبایل برای حالت پرخطر، ورودی ناقص، ضربان ۱۵۰، حالت عادی و پاک‌کردن فرم |
 
 ## 6. بازخورد و اعتبارسنجی کاربر
 

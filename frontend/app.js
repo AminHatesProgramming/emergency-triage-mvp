@@ -948,7 +948,7 @@ async function submitForm(event) {
   }
   riskLabel.textContent = "در حال بررسی اطلاعات";
   triageBand.textContent = "لطفا چند لحظه صبر کنید.";
-  riskAction.textContent = "امدادیار اطلاعات واردشده را بررسی می‌کند.";
+  riskAction.textContent = "امداد یار اطلاعات واردشده را بررسی می‌کند.";
   try {
     const res = await fetch(apiUrl("/predict"), {
       method: "POST",
@@ -982,7 +982,7 @@ function resetResult() {
   modelProbability.textContent = "--";
   riskLabel.textContent = "در انتظار اطلاعات بیمار";
   triageBand.textContent = "پس از ارزیابی، نتیجه ساده و قابل فهم نمایش داده می‌شود.";
-  riskAction.textContent = "امدادیار فقط پشتیبان تصمیم است و جایگزین نظر کادر درمان نمی‌شود.";
+  riskAction.textContent = "امداد یار فقط پشتیبان تصمیم است و جایگزین نظر کادر درمان نمی‌شود.";
   dataQuality.textContent = "--";
   qualityBar.style.width = "0%";
   confidenceBand.textContent = "آماده";
@@ -1019,7 +1019,7 @@ function updateCaseSummary() {
   const complaint = fieldLabels["chief complaint"] || "شکایت اصلی";
   const complaintText = chiefComplaintLabels[payload.chief_complaint] || payload.chief_complaint || "ثبت نشده";
   const summary = [
-    "خلاصه ارزیابی امدادیار",
+    "خلاصه ارزیابی امداد یار",
     `وضعیت پیشنهادی: ${riskText}`,
     `برآورد آماری مدل: ${formatPercent(latestResult.model_probability ?? latestResult.critical_probability)}`,
     `مبنای اولویت: ${assessmentBasis}`,

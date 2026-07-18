@@ -53,7 +53,7 @@
 
 اگر بخواهید دستی انجام دهید:
 
-1. در Jira یک پروژه Scrum با نام `امدادیار - Emergency Decision Support` بسازید.
+1. در Jira یک پروژه Scrum با نام `امداد یار - Emergency Decision Support` بسازید.
 2. فایل `docs/artifacts/jira-import-issues.csv` را import کنید.
 3. ستون‌های `Backlog`, `Selected for Sprint`, `In Progress`, `Review/QA`, `Done` را بسازید.
 4. برای هر issue، assignee، sprint، story point و time tracking را بررسی کنید.

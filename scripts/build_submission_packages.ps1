@@ -48,6 +48,7 @@ $coreMappings = @{
     (Join-Path $root "docs\model-release-scenario-audit-fa.md") = "model-release-scenario-audit-fa.md"
     (Join-Path $root "reports\model\release_validation_v7.json") = "release_validation_v7.json"
     (Join-Path $root "reports\model\browser_backend_differential_v7.json") = "browser_backend_differential_v7.json"
+    (Join-Path $root "reports\model\ui_smoke_v7.json") = "ui_smoke_v7.json"
     (Join-Path $root "docs\market\Emdadyar_Android_Market_Release_1.0.0.zip") = "Emdadyar_Android_Market_Release_1.0.0.zip"
     (Join-Path $root "docs\artifacts\burndown-final.png") = "burndown-final.png"
     (Join-Path $root "docs\artifacts\velocity-final.png") = "velocity-final.png"

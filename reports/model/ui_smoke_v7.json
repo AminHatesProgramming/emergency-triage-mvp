@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-07-18T16:59:58.791Z",
+  "targetUrl": "http://127.0.0.1:8765/",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "mobile": true
+  },
+  "pageInfo": {
+    "title": "امداد یار",
+    "url": "http://127.0.0.1:8765/",
+    "readyState": "complete",
+    "configApiBase": "",
+    "hasManifest": true,
+    "hasServiceWorker": true,
+    "localNetworkRequests": [
+      "http://127.0.0.1:8765/static/styles.css",
+      "http://127.0.0.1:8765/static/assets/app-icon.svg",
+      "http://127.0.0.1:8765/static/config.js",
+      "http://127.0.0.1:8765/static/app.js",
+      "http://127.0.0.1:8765/static/model-v7.json",
+      "http://127.0.0.1:8765/manifest.webmanifest",
+      "http://127.0.0.1:8765/static/assets/app-icon.svg",
+      "http://127.0.0.1:8765/static/assets/app-icon.svg"
+    ]
+  },
+  "scenarios": {
+    "critical": {
+      "scenario": "critical",
+      "status": "آماده",
+      "risk": "رسیدگی فوری لازم است",
+      "percent": "فوری",
+      "confidence": "اطمینان بالا + قانون ایمنی فعال",
+      "completeness": "100%",
+      "triageBand": "اولویت یک: بررسی فوری",
+      "missingFields": "اطلاعات کلیدی کامل هستند."
+    },
+    "sparse": {
+      "scenario": "sparse",
+      "status": "آماده",
+      "risk": "رسیدگی فوری لازم است",
+      "percent": "فوری",
+      "confidence": "اطمینان متوسط + قانون ایمنی فعال",
+      "completeness": "50%",
+      "triageBand": "اولویت یک: بررسی فوری",
+      "missingFields": "فشار سیستولیک، فشار دیاستولیک، نرخ تنفس، دما"
+    }
+  },
+  "evaluatorChecks": {
+    "sparse3": {
+      "profile": "validated_sparse_3",
+      "threshold": 0.16415970027446747,
+      "risk": "critical"
+    },
+    "sparse4": {
+      "profile": "validated_sparse_4",
+      "threshold": 0.1881568878889084,
+      "risk": "critical"
+    },
+    "heartRate150": {
+      "profile": "full_v7_default",
+      "risk": "critical",
+      "safetyOverride": true,
+      "severity": "immediate",
+      "reasons": [
+        "immediate: adult heart rate at or above 150/min",
+        "immediate: markedly elevated shock index"
+      ]
+    },
+    "normal": {
+      "profile": "full_v7_default",
+      "risk": "non_critical",
+      "safetyOverride": false
+    },
+    "runtimeErrors": []
+  },
+  "documentReset": {
+    "riskPercent": "--",
+    "selectedScenario": null
+  },
+  "checks": {
+    "title": true,
+    "loaded": true,
+    "manifest": true,
+    "serviceWorkerCapability": true,
+    "noRuntimeErrors": true,
+    "criticalScenarioRendered": true,
+    "sparseScenarioRendered": true,
+    "sparse3Profile": true,
+    "sparse4Profile": true,
+    "heartRate150Escalates": true,
+    "normalDoesNotSafetyEscalate": true,
+    "clearResetsResult": true
+  },
+  "passed": true
+}

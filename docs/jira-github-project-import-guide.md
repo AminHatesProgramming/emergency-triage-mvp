@@ -2,7 +2,7 @@
 
 <div dir="rtl" align="right">
 
-# راهنمای عملیاتی Jira و GitHub Project برای امدادیار
+# راهنمای عملیاتی Jira و GitHub Project برای امداد یار
 
 این سند برای پاسخ مستقیم به ایراد TA آماده شده است: پروژه باید فقط «کدنویسی» دیده نشود، بلکه به‌صورت یک کار تیمی Agile با backlog، sprint، assignment، time tracking، مستندسازی دانش و شواهد قابل مشاهده ارائه شود.
 
@@ -27,7 +27,7 @@
 
 1. وارد [Jira Cloud](https://pourmand.atlassian.net/jira/for-you) شوید.
 2. یک پروژه Scrum بسازید.
-3. نام پیشنهادی پروژه: `امدادیار - Emergency Decision Support`
+3. نام پیشنهادی پروژه: `امداد یار - Emergency Decision Support`
 4. کلید پیشنهادی پروژه: `EMD`
 5. ستون‌های board را به این شکل تنظیم کنید:
 
@@ -100,7 +100,7 @@
 | یک issue بازشده با assignee، زمان، sprint و evidence link | نشان‌دهنده کار تیمی و time tracking است |
 | Burndown Report | پاسخ مستقیم به معیار مدیریت پروژه |
 | صفحه GitHub Project دانش | پاسخ مستقیم به معیار Knowledge Management |
-| لینک عمومی امدادیار روی موبایل | نشان‌دهنده عملیاتی شدن محصول |
+| لینک عمومی امداد یار روی موبایل | نشان‌دهنده عملیاتی شدن محصول |
 
 ## ساخت GitHub Project برای مدیریت دانش
 

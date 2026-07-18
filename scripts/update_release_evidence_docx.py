@@ -38,6 +38,24 @@ def replace_paragraph(document: Document, marker: str, text: str) -> None:
     raise RuntimeError(f"Paragraph marker not found: {marker}")
 
 
+def iter_paragraphs(document: Document):
+    yield from document.paragraphs
+    for table in document.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                yield from cell.paragraphs
+
+
+def replace_text_in_runs(document: Document, old: str, new: str) -> int:
+    replacements = 0
+    for paragraph in iter_paragraphs(document):
+        for run in paragraph.runs:
+            if old in run.text:
+                run.text = run.text.replace(old, new)
+                replacements += 1
+    return replacements
+
+
 def add_heading(document: Document, text: str) -> None:
     paragraph = document.add_paragraph()
     paragraph.paragraph_format.space_before = Pt(10)
@@ -78,6 +96,11 @@ def update_final_report() -> None:
         "لینک و screenshot واقعی Jira/Notion",
         "ابزارهای واقعی فعال‌اند: Jira در https://pourmand.atlassian.net/jira/software/projects/EMD/board و Notion در https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3. ثبت screenshot رابط، آزمون دسترسی مهمان و دعوت حساب دو عضو همچنان اقدام انسانی پیش از تحویل است.",
     )
+    replace_paragraph(
+        document,
+        "Notion: هفت صفحه محتوایی",
+        "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
+    )
     marker = "ضمیمه ممیزی فنی نسخه انتشار"
     if not any(marker in paragraph.text for paragraph in document.paragraphs):
         document.add_page_break()
@@ -108,13 +131,18 @@ def update_final_report() -> None:
     if not any(pm_marker in paragraph.text for paragraph in document.paragraphs):
         add_heading(document, pm_marker)
         items = [
-            "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task، Parent واقعی و ۵۲ مورد Done؛ کارهای بیرونی اثبات‌نشده باز مانده‌اند.",
-            "Notion: هفت صفحه محتوایی، پنج دیتابیس و ۶۶ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
+            "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task و Parent واقعی ثبت شده است؛ در ممیزی نهایی ۵۱ Issue در وضعیت Done، ۶ مورد In Progress، یک مورد In Review و دو مورد Backlog بوده‌اند.",
+            "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
             "بازخورد: ۹ نظر کیفی پرستاران تأیید شده؛ outreach دو مرکز درمانی در انتظار پاسخ نهایی است و همکاری رسمی ادعا نمی‌شود.",
             "کارهای باز: حساب Jira دو عضو، screenshot، تست APK/PWA روی گوشی، ضبط ویدئو، fairness و اعتبارسنجی بالینی.",
         ]
         for item in items:
             add_body(document, item, bullet=True)
+    replace_paragraph(
+        document,
+        "Jira: پروژه EMD با ۹ Epic",
+        "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task و Parent واقعی ثبت شده است؛ در ممیزی نهایی ۵۱ Issue در وضعیت Done، ۶ مورد In Progress، یک مورد In Review و دو مورد Backlog بوده‌اند.",
+    )
     document.save(path)
 
 
@@ -187,12 +215,17 @@ def update_pm_evidence() -> None:
         add_heading(document, tools_marker)
         items = [
             "Jira Project: https://pourmand.atlassian.net/jira/software/projects/EMD/board؛ ۹ Epic و ۵۱ Story/Task.",
-            "Notion Home: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3؛ ۷ صفحه، ۵ دیتابیس و ۶۶ رکورد.",
-            "۵۲ Issue در وضعیت Done، پنج مورد In Progress، یک مورد In Review و دو Task بیرونی در Backlog ثبت شده‌اند.",
+            "Notion Home: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد.",
+            "۵۱ Issue در وضعیت Done، شش مورد In Progress، یک مورد In Review و دو Task بیرونی در Backlog ثبت شده‌اند.",
             "Labelهای owner برای هر سه عضو ثبت شده‌اند؛ Assignee مستقیم محدثه و محمدرضا پس از دعوت حساب واقعی تکمیل می‌شود.",
         ]
         for item in items:
             add_body(document, item, bullet=True)
+    replace_paragraph(
+        document,
+        "Issue در وضعیت Done",
+        "۵۱ Issue در وضعیت Done، شش مورد In Progress، یک مورد In Review و دو Task بیرونی در Backlog ثبت شده‌اند.",
+    )
     document.save(path)
 
 
@@ -209,7 +242,7 @@ def update_mobile_handoff() -> None:
         )
         details = [
             "شناسه بسته: ir.pourmand.emdadyar؛ نسخه 1.0.0؛ حداقل Android 6 (API 23).",
-            "SHA-256 فایل APK: 136F57F1CDA715AE53C37E0A279F8A3ABB43752098FC5321C99F8829A540C93F.",
+            "SHA-256 فایل APK: AB18DA12535748BFFA8BD02D77D2B524E42154B0C9B258C9787F0E9B54EBE4D6.",
             "فایل AAB برای پنل مارکت است و مستقیماً روی گوشی نصب نمی‌شود.",
             "برای نصب مستقیم APK ممکن است لازم باشد اجازه نصب از منبع انتخاب‌شده در تنظیمات Android فعال شود.",
             "امضا و دارایی‌های داخلی تأیید شده‌اند؛ نصب روی یک گوشی فیزیکی همچنان باید پیش از انتشار عمومی ثبت شود.",
@@ -219,9 +252,27 @@ def update_mobile_handoff() -> None:
     document.save(path)
 
 
+def normalize_all_deliverables() -> None:
+    replacements = {
+        "امدادیار": "امداد یار",
+        "هفت صفحه محتوایی، پنج دیتابیس و ۶۶ رکورد": "هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد",
+        "۷ صفحه محتوایی، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه محتوایی، ۵ دیتابیس و ۷۳ رکورد",
+        "۷ صفحه، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه، ۵ دیتابیس و ۷۳ رکورد",
+        "۵۲ Issue در وضعیت Done، پنج مورد In Progress": "۵۱ Issue در وضعیت Done، شش مورد In Progress",
+    }
+    for path in DELIVERABLES.glob("*.docx"):
+        document = Document(path)
+        changed = 0
+        for old, new in replacements.items():
+            changed += replace_text_in_runs(document, old, new)
+        if changed:
+            document.save(path)
+
+
 if __name__ == "__main__":
     update_final_report()
     update_runbook()
     update_pm_evidence()
     update_mobile_handoff()
+    normalize_all_deliverables()
     print("Updated final report, presentation runbook, PM evidence, and mobile handoff.")

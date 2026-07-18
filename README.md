@@ -1,7 +1,7 @@
 <!-- rtl-normalized -->
 <div dir="rtl" align="right">
 
-# امدادیار
+# امداد یار
 
 سامانه هوشمند ارزیابی اولیه و اولویت‌بندی در شرایط اورژانسی
 
@@ -129,7 +129,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [حاکمیت و مدیریت منابع پروژه](docs/deliverables/ITPM_Project_Governance_and_Resource_Management.docx)
 - [ماتریس انطباق با اعلان نهایی](docs/deliverables/ITPM_Final_Announcement_Compliance_Matrix.docx)
 - [فایل Word ارسال نسخه موبایل به استاد](docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx)
-- [بسته انتشار/مارکت امدادیار](docs/deliverables/Emdadyar_Market_Release_Package.zip)
+- [بسته انتشار/مارکت امداد یار](docs/deliverables/Emdadyar_Market_Release_Package.zip)
 - [معماری سیستم](docs/architecture.md)
 - [یادداشت تکمیل نسخه موبایل و PWA](docs/mobile-pwa-completion-note.md)
 - [راهنمای deploy وب‌اپ، موبایل و بازار اندرویدی](docs/deployment-mobile-webapp.md)
@@ -168,8 +168,8 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [ساختار board مدیریت کار](docs/work-management-board.md)
 - [ساختار مدیریت دانش](docs/knowledge-management-index.md)
 - [بسته انتشار Android و راهنمای بازار](docs/market/README.md)
-- [فایل APK امضاشده امدادیار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.apk)
-- [فایل AAB امضاشده امدادیار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.aab)
+- [فایل APK امضاشده امداد یار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.apk)
+- [فایل AAB امضاشده امداد یار 1.0.0](docs/market/release/Emdadyar-1.0.0-release.aab)
 - [ZIP یکپارچه انتشار Android 1.0.0](docs/market/Emdadyar_Android_Market_Release_1.0.0.zip)
 
 ## نمودارها و داده‌های مدیریتی

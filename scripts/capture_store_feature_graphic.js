@@ -51,7 +51,7 @@ function connect(url) {
   });
 }
 
-(async () => {
+async function captureViaCdp() {
   const client = await connect(await createTarget());
   try {
     await client.send("Page.enable");
@@ -70,10 +70,42 @@ function connect(url) {
     });
     fs.mkdirSync(path.dirname(output), { recursive: true });
     fs.writeFileSync(output, Buffer.from(screenshot.data, "base64"));
-    console.log(output);
   } finally {
     client.close();
   }
+}
+
+async function captureViaPlaywright() {
+  const { chromium } = require("playwright");
+  const executablePath = [
+    process.env.CHROME_EXECUTABLE,
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    chromium.executablePath(),
+  ].find((candidate) => candidate && fs.existsSync(candidate));
+  if (!executablePath) throw new Error("No Chromium-compatible browser executable was found.");
+  const browser = await chromium.launch({
+    headless: true,
+    executablePath,
+  });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1024, height: 500 } });
+    await page.goto(`file:///${source.replace(/\\/g, "/")}`, { waitUntil: "load" });
+    await page.screenshot({ path: output });
+  } finally {
+    await browser.close();
+  }
+}
+
+(async () => {
+  fs.mkdirSync(path.dirname(output), { recursive: true });
+  try {
+    await captureViaCdp();
+  } catch (error) {
+    console.warn(`CDP unavailable (${error.message}); using headless Chromium.`);
+    await captureViaPlaywright();
+  }
+  console.log(output);
 })().catch((error) => {
   console.error(error);
   process.exit(1);

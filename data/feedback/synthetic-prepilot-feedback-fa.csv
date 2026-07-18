@@ -55,11 +55,11 @@ SPF-053,synthetic_pre_pilot,false,دانشجوی کامپیوتر,Desktop/Firefo
 SPF-054,synthetic_pre_pilot,false,کاربر عمومی,Android/Chrome,4,4,4,4,4,به نظرم نتیجه با رنگ قرمز برای خطر خوب منتقل می‌شود.,visual-risk,رنگ خطر در gauge حفظ شد.
 SPF-055,synthetic_pre_pilot,false,دانشجوی پرستاری,Android/Chrome,4,4,5,4,4,فهرست اقدام بعدی برای فهم خروجی کمک می‌کند.,next-actions,اقدام بعدی حفظ شد.
 SPF-056,synthetic_pre_pilot,false,مدیریت بحران,Desktop/Chrome,4,4,5,4,4,برای شرایط بحران، نصب بدون اپ‌استور هم مزیت است ولی برای مارکت باید APK بعداً ساخته شود.,"market,apk",market handoff با توضیح PWA/APK آماده می‌شود.
-SPF-057,synthetic_pre_pilot,false,کاربر عمومی,Android/Chrome,3,4,5,4,3,نام امدادیار خوب است و فارسی بودن حس اعتماد می‌دهد.,branding,نام امدادیار در manifest/title حفظ شد.
+SPF-057,synthetic_pre_pilot,false,کاربر عمومی,Android/Chrome,3,4,5,4,3,نام امداد یار خوب است و فارسی بودن حس اعتماد می‌دهد.,branding,نام امداد یار در manifest/title حفظ شد.
 SPF-058,synthetic_pre_pilot,false,دانشجوی پزشکی,Desktop/Chrome,4,4,5,4,4,از نظر علمی باید data leakage واضح توضیح داده شود.,"leakage,docs",Model Card و poster assets روی leakage تاکید دارند.
 SPF-059,synthetic_pre_pilot,false,آشنا با درمانگاه,Android/Chrome,4,4,5,4,4,اگر اینترنت قطع باشد، باز شدن shell برنامه مفید است.,"offline,pwa",service worker برای app shell حفظ شد.
 SPF-060,synthetic_pre_pilot,false,دانشجوی کامپیوتر,Android/Chrome,5,4,5,4,4,مدل داخل مرورگر کار می‌کند؛ این برای demo خیلی خوب است.,browser-model,مدل static مرورگر حفظ شد.
-SPF-061,synthetic_pre_pilot,false,کاربر عمومی,Android/Chrome,3,4,5,4,3,بهتر است نوشته‌های بالای صفحه زیاد نباشد. فقط امدادیار کافی است.,header-copy,هدر کوتاه و فقط برند باقی ماند.
+SPF-061,synthetic_pre_pilot,false,کاربر عمومی,Android/Chrome,3,4,5,4,3,بهتر است نوشته‌های بالای صفحه زیاد نباشد. فقط امداد یار کافی است.,header-copy,هدر کوتاه و فقط برند باقی ماند.
 SPF-062,synthetic_pre_pilot,false,دانشجوی مدیریت,Desktop/Chrome,4,4,5,4,4,برای استاد، نمودارها و KPIها باید جدا از محصول باشند.,docs-vs-product,محتوای مدیریتی از UI جدا شد.
 SPF-063,synthetic_pre_pilot,false,پرستار تریاژ,Android/Chrome,4,4,5,4,4,باید در خروجی مشخص باشد اگر داده کم است، اعتماد کمتر است.,"confidence,partial-input",confidence band و completeness حفظ شد.
 SPF-064,synthetic_pre_pilot,false,کاربر عمومی,iPhone/Safari,4,4,4,3,4,اگر QR را اسکن کنم راحت‌تر از تایپ لینک است.,qr,QR در بسته استاد و مارکت آماده شد.

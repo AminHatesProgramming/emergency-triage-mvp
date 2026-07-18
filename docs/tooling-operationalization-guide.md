@@ -61,7 +61,7 @@ gh auth refresh -s project
 cd C:\Users\Webhouse\Desktop\quera\pm
 $env:NOTION_TOKEN='secret_...'
 $env:NOTION_PARENT_PAGE_ID='your_parent_page_id'
-C:\Users\Webhouse\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe scripts\setup_notion_knowledge_base.py
+python scripts\setup_notion_knowledge_base.py
 ```
 
 خروجی:

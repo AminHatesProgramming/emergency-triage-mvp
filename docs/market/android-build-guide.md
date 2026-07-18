@@ -1,7 +1,7 @@
 <!-- rtl-normalized -->
 <div dir="rtl" align="right">
 
-# راهنمای بازتولید APK و AAB امدادیار
+# راهنمای بازتولید APK و AAB امداد یار
 
 ## پیش‌نیاز
 

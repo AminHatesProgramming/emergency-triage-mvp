@@ -1,7 +1,7 @@
 ﻿Title,Area,Owner,Status,Sprint,Evidence Link,Description
 Project Home,Overview,محمدامین پورمند,Done,Sprint 0,docs/project-management-plan.md,تعریف پروژه، هدف، نقش‌ها و لینک‌های کلیدی
 Problem & Stakeholders,Stakeholder Knowledge,محمدرضا آرمان پور,Done,Sprint 0,docs/stakeholder-register.md,ذی‌نفعان، ارزش اجتماعی و ملی، محدودیت اخلاقی
-Scope Change Record,Decision Record,محمدامین پورمند,Done,Sprint 0,docs/scope-change-record.md,تبدیل پروژه از صرفاً مدل به محصول امدادیار
+Scope Change Record,Decision Record,محمدامین پورمند,Done,Sprint 0,docs/scope-change-record.md,تبدیل پروژه از صرفاً مدل به محصول امداد یار
 Architecture,Technical Documentation,محمدامین پورمند,Done,Sprint 2,docs/architecture.md,معماری API-first، PWA و مدل مرورگر
 API Documentation,Technical Documentation,محمدامین پورمند,Done,Sprint 2,docs/api-documentation.md,endpointها، payload نمونه و sparse input
 Model Card,AI Governance,محمدامین پورمند,Done,Sprint 3,docs/model-card.md,داده، متریک، leakage و محدودیت‌ها

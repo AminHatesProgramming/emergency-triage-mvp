@@ -3,7 +3,7 @@
 
 # یادداشت‌های اسپرینت | امداد یار
 
-اسپرینت‌ها از روی خروجی‌های قابل ردیابی repo بازسازی شده‌اند. تاریخ دقیق جلسه‌ها باید جداگانه توسط اعضا تأیید شود؛ Deliverable و Evidence هر اسپرینت قابل مشاهده است.
+این گزارش بر پایه تاریخچه مخزن، خروجی‌های تحویل، Jira و مستندات ثبت‌شده تهیه شده است. Deliverable، Evidence، تصمیم‌ها و کارهای باز هر مرحله به‌صورت قابل ردیابی ارائه می‌شوند.
 
 ## Sprint 0: تعریف مسئله و محدوده
 
@@ -25,7 +25,7 @@
 | Tasks | انتخاب ویژگی‌های triage-time، جداسازی validation/test، آموزش نسخه‌ها و threshold tuning |
 | Deliverables | <span dir="ltr">ml/train.py</span>، <span dir="ltr">docs/model-card.md</span>، <span dir="ltr">reports/model/metrics_v7.json</span> |
 | Risks | leakage، FPR بالا، داده ناقص و وابستگی به داده غیر بومی |
-| Decisions | گزارش هم‌زمان AUC، Recall، Precision و FPR؛ اولویت Recall با شفافیت هزینه عملیاتی |
+| Decisions | گزارش همزمان AUC، Recall، Precision و FPR؛ اولویت Recall با شفافیت هزینه عملیاتی |
 | Outcome | مدل v7 با AUC=0.9041 و Recall=0.9246 در test داخلی تثبیت شد |
 | Jira | <span dir="ltr">EMD-3, EMD-16..EMD-20, EMD-57</span> |
 
@@ -45,11 +45,11 @@
 
 | بخش | توضیح |
 |---|---|
-| Goal | پاسخ به نقد TA و اتصال توسعه فنی به بازخورد، ریسک و تصمیم مستند |
-| Tasks | safety/explainability، Knowledge Base، KPI، Risk، Burndown، AI Usage و QA |
+| Goal | تکمیل شواهد مدیریت پروژه و اتصال توسعه فنی به بازخورد، ریسک و تصمیم‌های مستند |
+| Tasks | safety/explainability، Knowledge Base، KPI، Risk، Burndown، حاکمیت ابزارهای کمکی و QA |
 | Deliverables | <span dir="ltr">docs/knowledge-base/</span>، <span dir="ltr">docs/kpi-register.md</span>، <span dir="ltr">project-management-final-package/</span> |
-| Risks | کم‌رنگ بودن همکاری، نبود شاهد ابزار واقعی و ادعای feedback بدون منبع |
-| Decisions | نقش‌های قابل ارائه، تفکیک بازخورد واقعی از synthetic و ثبت موارد باز |
+| Risks | کم‌رنگ بودن همکاری تیمی، ناقص‌بودن شواهد ابزارها و ثبت بازخورد بدون منبع قابل تأیید |
+| Decisions | تفکیک بازخورد تأییدشده از داده‌های آزمایشی و ثبت شفاف موارد باز |
 | Outcome | ۹ بازخورد پرستار تأیید شد؛ Jira و Notion واقعی ساخته و لینک شدند |
 | Jira | <span dir="ltr">EMD-6..EMD-9, EMD-31..EMD-50, EMD-59</span> |
 
@@ -63,13 +63,13 @@
 | Risks | تلقی قواعد به‌عنوان پروتکل بالینی، FPR ورودی ناقص و مشکل دستگاه واقعی |
 | Decisions | عدم دست‌کاری probability، رد core-vitals با FPR=0.784 و اجرای آفلاین Android |
 | Outcome | ۱۱۸ تست Python، ۵۰۰۰ ترکیب بذرثابت، ۱۱۱۶۰۶ رکورد test و ۱۱۶۷ سناریوی browser/API عبور کردند |
-| Open work | تست نصب دستگاه واقعی در <span dir="ltr">EMD-60</span> و پیگیری پایلوت درمانی در <span dir="ltr">EMD-61</span> |
+| Open work | Burndown در EMD-43، Time Tracking در EMD-44، آزمون فیزیکی QR/PWA در EMD-52، تصاویر نهایی در EMD-55، تست دستگاه واقعی در EMD-60 و پیگیری مراکز درمانی در EMD-61 |
 | Jira | <span dir="ltr">EMD-10, EMD-53..EMD-61</span> |
 
 ## Retrospective نهایی
 
 - مهم‌ترین ارزش محصول، سادگی کار در فشار است؛ امکاناتی که شلوغی ایجاد می‌کردند از صفحه اصلی کنار گذاشته شدند.
-- Accuracy به تنهایی معیار مناسبی نبود؛ Recall و FPR باید هم‌زمان دیده شوند.
+- Accuracy به‌تنهایی معیار مناسبی نبود؛ Recall و FPR باید همزمان دیده شوند.
 - داده ناقص به پروفایل اعتبارسنجی‌شده نیاز دارد؛ کاهش عمومی threshold قابل دفاع نیست.
 - کنترل مهندسی با اعتبارسنجی بالینی یکسان نیست و این محدودیت در همه خروجی‌ها حفظ شد.
 - ابزار مدیریت پروژه باید تاریخچه تصمیم و کار باز را نشان دهد، نه فقط فهرستی از موارد Done.

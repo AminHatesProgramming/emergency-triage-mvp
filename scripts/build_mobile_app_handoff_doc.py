@@ -185,7 +185,7 @@ def build_docx() -> None:
     title = doc.add_paragraph()
     set_paragraph_rtl(title, WD_ALIGN_PARAGRAPH.CENTER)
     title.paragraph_format.space_after = Pt(2)
-    run = title.add_run("نسخه موبایلی قابل نصب «امدادیار»")
+    run = title.add_run("نسخه موبایلی قابل نصب «امداد یار»")
     set_run_font(run, size=20, bold=True)
     run.font.color.rgb = RGBColor.from_string("063B4A")
 
@@ -207,7 +207,7 @@ def build_docx() -> None:
     set_cell_text(left, "لینک مستقیم نسخه عمومی:", bold=True, color="063B4A")
     link_p = left.add_paragraph()
     set_paragraph_rtl(link_p)
-    add_hyperlink(link_p, PUBLIC_URL, PUBLIC_URL)
+    add_hyperlink(link_p, PUBLIC_URL, "باز کردن وب‌اپ عمومی امداد یار")
     note_p = left.add_paragraph()
     set_paragraph_rtl(note_p)
     note_run = note_p.add_run("این نسخه بدون سرور local روی موبایل و دسکتاپ باز می‌شود و پس از اولین باز شدن، مانند وب‌اپ قابل نصب است.")
@@ -218,7 +218,9 @@ def build_docx() -> None:
         qr_p = right.paragraphs[0]
         qr_p.text = ""
         qr_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        qr_p.add_run().add_picture(str(QR), width=Inches(1.6))
+        picture = qr_p.add_run().add_picture(str(QR), width=Inches(1.6))
+        picture._inline.docPr.set("descr", "QR Code وب‌اپ عمومی امداد یار")
+        picture._inline.docPr.set("title", "QR Code امداد یار")
         cap = right.add_paragraph()
         set_paragraph_rtl(cap, WD_ALIGN_PARAGRAPH.CENTER)
         cap_run = cap.add_run("QR Code لینک وب‌اپ")
@@ -228,7 +230,7 @@ def build_docx() -> None:
     for item in [
         "لینک بالا را با Chrome روی گوشی باز کنید.",
         "از منوی سه‌نقطه گزینه Install app یا Add to Home screen را انتخاب کنید.",
-        "آیکن «امدادیار» روی صفحه اصلی گوشی اضافه می‌شود و مثل یک اپلیکیشن اجرا می‌شود.",
+        "آیکن «امداد یار» روی صفحه اصلی گوشی اضافه می‌شود و مثل یک اپلیکیشن اجرا می‌شود.",
     ]:
         add_body(doc, f"• {item}")
 
@@ -260,7 +262,7 @@ def build_docx() -> None:
     add_heading(doc, "نکته اخلاقی و آموزشی")
     add_body(
         doc,
-        "امدادیار یک نمونه آموزشی از سامانه پشتیبان تصمیم‌گیری تریاژ است. خروجی سامانه جایگزین پزشک، پرستار یا پروتکل رسمی درمانی نیست و فقط برای نمایش مسیر محصول، ارزیابی اولیه و تصمیم‌سازی در پروژه درس مدیریت پروژه فناوری اطلاعات ارائه شده است.",
+        "امداد یار یک نمونه آموزشی از سامانه پشتیبان تصمیم‌گیری تریاژ است. خروجی سامانه جایگزین پزشک، پرستار یا پروتکل رسمی درمانی نیست و فقط برای نمایش مسیر محصول، ارزیابی اولیه و تصمیم‌سازی در پروژه درس مدیریت پروژه فناوری اطلاعات ارائه شده است.",
     )
 
     add_heading(doc, "سناریوی پیشنهادی برای تست")
