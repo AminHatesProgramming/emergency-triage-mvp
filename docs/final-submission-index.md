@@ -85,8 +85,11 @@
 | `reports/model/release_validation_v7.json` | بازتولید متریک روی ۱۱۱٬۶۰۶ رکورد test و ارزیابی sparse |
 | `reports/model/browser_backend_differential_v7.json` | تطابق ۱٬۱۶۷ سناریوی مرورگر و API |
 | `reports/model/ui_smoke_v7.json` | اجرای مرورگر موبایل برای حالت پرخطر، ورودی ناقص، ضربان ۱۵۰، حالت عادی، کپی خلاصه و پاک‌کردن فرم |
+| `reports/model/ui_smoke_public_v7.json` | اجرای همان آزمون‌ها روی نسخه عمومی GitHub Pages پس از انتشار کامیت نهایی |
 | `reports/model/android_wrapper_ui_v1.json` | کنترل حذف نصب، تب راهنما، حالت خالی و نبود خطای runtime در حالت wrapper Android |
 | `docs/market/device-test-checklist-fa.md` | دستور آزمون hash نهایی روی دستگاه واقعی و ثبت شواهد EMD-60 |
+| `reports/deliverable-docx-audit.json` | اعتبار ساختاری، RTL و نبود متن خراب در هفت فایل Word تحویلی |
+| `reports/project-management-package-audit.json` | ممیزی UTF-8، RTL، CSV و محتوای بسته مدیریت پروژه |
 
 ## 6. بازخورد و اعتبارسنجی کاربر
 

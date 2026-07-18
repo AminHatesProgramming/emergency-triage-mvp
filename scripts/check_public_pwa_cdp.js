@@ -289,7 +289,9 @@ async function main() {
       passed: Object.values(checks).every(Boolean),
     };
 
-    const reportPath = path.resolve(__dirname, "..", "reports", "model", "ui_smoke_v7.json");
+    const reportPath = path.resolve(
+      process.env.UI_SMOKE_REPORT || path.join(__dirname, "..", "reports", "model", "ui_smoke_v7.json"),
+    );
     fs.mkdirSync(path.dirname(reportPath), { recursive: true });
     fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-18T22:25:38.109Z",
-  "targetUrl": "http://127.0.0.1:8765/",
+  "generated_at": "2026-07-18T22:25:20.784Z",
+  "targetUrl": "https://aminhatesprogramming.github.io/emergency-triage-mvp/",
   "viewport": {
     "width": 390,
     "height": 844,
@@ -8,20 +8,12 @@
   },
   "pageInfo": {
     "title": "امداد یار",
-    "url": "http://127.0.0.1:8765/",
+    "url": "https://aminhatesprogramming.github.io/emergency-triage-mvp/",
     "readyState": "complete",
     "configApiBase": "",
     "hasManifest": true,
     "hasServiceWorker": true,
-    "localNetworkRequests": [
-      "http://127.0.0.1:8765/static/styles.css",
-      "http://127.0.0.1:8765/static/assets/app-icon.svg",
-      "http://127.0.0.1:8765/static/config.js",
-      "http://127.0.0.1:8765/static/app.js",
-      "http://127.0.0.1:8765/manifest.webmanifest",
-      "http://127.0.0.1:8765/static/model-v7.json",
-      "http://127.0.0.1:8765/static/assets/app-icon.svg"
-    ]
+    "localNetworkRequests": []
   },
   "scenarios": {
     "critical": {
