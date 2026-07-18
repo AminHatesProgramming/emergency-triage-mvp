@@ -4,14 +4,14 @@ Problem & Stakeholders,Stakeholder Knowledge,محمدرضا آرمان پور,Do
 Scope Change Record,Decision Record,محمدامین پورمند,Done,Sprint 0,docs/scope-change-record.md,تبدیل پروژه از صرفاً مدل به محصول امداد یار
 Architecture,Technical Documentation,محمدامین پورمند,Done,Sprint 2,docs/architecture.md,معماری API-first، PWA و مدل مرورگر
 API Documentation,Technical Documentation,محمدامین پورمند,Done,Sprint 2,docs/api-documentation.md,endpointها، payload نمونه و sparse input
-Model Card,AI Governance,محمدامین پورمند,Done,Sprint 3,docs/model-card.md,داده، متریک، leakage و محدودیت‌ها
+Model Card,Model Governance,محمدامین پورمند,Done,Sprint 3,docs/model-card.md,داده، متریک، leakage و محدودیت‌ها
 Risk Register,Project Control,محمدرضا آرمان پور,Done,Sprint 3,docs/risk-register.md,ریسک‌ها، احتمال، اثر و پاسخ
 KPI Register,Project Control,محمدرضا آرمان پور,Done,Sprint 3,docs/kpi-register.md,KPIهای مدل، محصول و فاز بعدی
 Agile Dashboard,Project Control,محمدرضا آرمان پور,Done,Sprint 3,docs/agile-dashboard.md,burndown، velocity و وضعیت Sprintها
 Sprint Notes,Team Knowledge,محدثه حاتمی کیا,Done,Sprint 5,docs/knowledge-base/sprint-notes.md,خروجی هر Sprint و شواهد deliverable
 Meeting Notes,Team Knowledge,محدثه حاتمی کیا,Done,Sprint 5,docs/knowledge-base/meeting-notes.md,صورت‌جلسات و تصمیم‌های تیمی
 Technical Decisions,Decision Record,محمدامین پورمند,Done,Sprint 5,docs/knowledge-base/technical-decisions.md,تصمیم‌های مهم فنی و علت آنها
-AI Usage Report,AI Governance,محدثه حاتمی کیا,Done,Sprint 5,docs/ai-usage-report.md,شفافیت استفاده از AI و نقش انسان
+حاکمیت ابزارهای کمکی,Governance,محدثه حاتمی کیا,Done,Sprint 5,docs/ai-usage-report.md,ثبت کنترل انسانی و مسئولیت تیم
 Lessons Learned,Retrospective,محدثه حاتمی کیا,Done,Sprint 5,docs/lessons-learned.md,یادگیری‌های فنی، مدیریتی و اخلاقی
 Triage Nurse Feedback Confirmation,Validation,محمدرضا آرمان پور,Done,Final Sprint,docs/triage-nurse-feedback-confirmation.md,۹ بازخورد تأییدشده پرستاران و اقدام‌های محصولی متناظر
 Stakeholder Feedback Log,Validation,محمدرضا آرمان پور,In Progress,Sprint 6,docs/knowledge-base/stakeholder-feedback-log.md,ثبت بازخورد کاربران پایلوت و اقدامات اصلاحی

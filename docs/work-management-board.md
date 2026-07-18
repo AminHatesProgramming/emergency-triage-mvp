@@ -31,7 +31,7 @@
 | E2 - ML Model | ساخت و ارزیابی مدل | v7 model، metrics، charts |
 | E3 - Backend/API | سرویس پیش‌بینی | FastAPI endpoints |
 | E4 - Frontend Demo | تجربه کاربر | UI فارسی mobile-first |
-| E5 - Documentation | مدیریت دانش | گزارش، Model Card، AI report |
+| E5 - Documentation | مدیریت دانش | گزارش، Model Card و حاکمیت ابزارهای کمکی |
 | E6 - Final Delivery | تحویل نهایی | پوستر، ویدئو، board، گزارش |
 
 ## Taskهای انجام‌شده

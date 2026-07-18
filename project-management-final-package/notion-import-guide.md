@@ -1,108 +1,55 @@
 <!-- rtl: fa -->
 <div dir="rtl" align="right">
 
-# وضعیت پیاده‌سازی و راهنمای بازیابی Notion
+# ثبت ساختار و بازیابی دانشنامه Notion
 
-پیاده‌سازی واقعی در ۲۰۲۶-۰۷-۱۶ انجام شد. صفحه اصلی:
-<span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span>
+پیاده‌سازی اصلی دانشنامه در ۲۰۲۶-۰۷-۱۶ انجام و در ۲۰۲۶-۰۷-۱۸ ممیزی شد. این سند ساختار فعال و روش بازیابی آن در صورت انتقال Workspace را ثبت می‌کند.
 
-در وضعیت فعلی ۸ sub-page، پنج database و ۷۳ رکورد ایجاد شده است. مراحل زیر فقط برای بازسازی، انتقال به Workspace دیگر یا نگهداری آینده حفظ می‌شوند.
+صفحه اصلی: <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span>
 
-## 1. ساختار صفحه‌های اجراشده
+## ساختار فعال
 
-صفحه اصلی با این نام ساخته شده است:
+| نوع | تعداد | محتوا |
+|---|---:|---|
+| صفحه محتوایی | ۸ | نمای کلی، قابلیت‌ها، Sprint، نقاط هم‌راستاسازی، حاکمیت ابزارها، درس‌آموخته‌ها، شواهد باز و راهنمای تصاویر |
+| پایگاه داده | ۵ | تصمیم‌ها، تغییرات، ریسک‌ها، بازخورد و QA |
+| رکورد | ۷۵ | رکوردهای دارای مالک، وضعیت و Evidence |
 
-«امداد یار | دانشنامه پروژه و مدیریت دانش»
+## نگاشت فایل‌های پشتیبان
 
-این sub-pageها زیر آن قرار دارند:
-
-| صفحه | فایل منبع |
+| بخش Notion | منبع قابل بازیابی |
 |---|---|
-| Project Overview | notion-project-overview.md |
-| Product Features | notion-product-features.md |
-| Sprint Notes | notion-sprint-notes.md |
-| Meeting Notes | notion-meeting-notes.md |
-| حاکمیت ابزارهای کمکی و کنترل انسانی | notion-ai-usage-report.md |
-| Lessons Learned | notion-lessons-learned.md |
-| Missing Info Checklist | missing-info-checklist.md |
-| راهنمای تصویربرداری نهایی Jira و Notion | final-screenshot-evidence-guide.md |
+| صفحه اصلی | <span dir="ltr">notion-home.md</span> |
+| نمای کلی | <span dir="ltr">notion-project-overview.md</span> |
+| قابلیت‌های محصول | <span dir="ltr">notion-product-features.md</span> |
+| Sprint Notes | <span dir="ltr">notion-sprint-notes.md</span> |
+| نقاط هم‌راستاسازی | <span dir="ltr">notion-meeting-notes.md</span> |
+| حاکمیت ابزارهای کمکی | <span dir="ltr">notion-ai-usage-report.md</span> |
+| درس‌آموخته‌ها | <span dir="ltr">notion-lessons-learned.md</span> |
+| شواهد باز | <span dir="ltr">missing-info-checklist.md</span> |
 
-## 2. روش بازیابی Markdownها
+## پایگاه‌های داده و فایل بازیابی
 
-بهترین روش:
-
-1. محتوای هر فایل markdown را باز کنید.
-2. متن داخل فایل را در صفحه مربوط Notion paste کنید.
-3. اگر جدول‌ها بهم ریختند، از Notion table ساده استفاده کنید.
-4. لینک‌های مسیر فایل را به repository یا GitHub raw/file link تبدیل کنید.
-
-## 3. بازیابی Databaseها از CSV
-
-نسخه واقعی این databaseها ساخته و پر شده است. برای Workspace جایگزین، فایل‌های زیر با Import یا Merge with CSV قابل بازیابی‌اند:
-
-| Database | فایل |
+| پایگاه داده | فایل CSV |
 |---|---|
-| Decision Log | notion-decision-log.csv |
-| Change Log | notion-change-log.csv |
-| Risk Register | notion-risk-register.csv |
-| Stakeholder Feedback | notion-stakeholder-feedback.csv |
-| QA Test Log | notion-qa-test-log.csv |
+| Decision Log | <span dir="ltr">notion-decision-log.csv</span> |
+| Change Log | <span dir="ltr">notion-change-log.csv</span> |
+| Risk Register | <span dir="ltr">notion-risk-register.csv</span> |
+| Stakeholder Feedback | <span dir="ltr">notion-stakeholder-feedback.csv</span> |
+| QA Test Log | <span dir="ltr">notion-qa-test-log.csv</span> |
 
-## 4. Relationهای پیشنهادی
+فایل‌های CSV با UTF-8 BOM ذخیره شده‌اند تا متن فارسی هنگام Import به‌هم نریزد. Markdownها نیز دارای ظرف راست‌به‌چپ هستند.
 
-| From Database | Relation To | دلیل |
-|---|---|---|
-| Decision Log | Jira Issues | هر تصمیم باید issue مرتبط داشته باشد |
-| Change Log | Decision Log | بعضی تغییرها نتیجه تصمیم هستند |
-| Risk Register | Jira Issues | هر ریسک باید action یا task داشته باشد |
-| QA Test Log | Jira Issues | تست‌ها باید به taskهای QA وصل شوند |
-| Stakeholder Feedback | Change Log | هر بازخورد مهم باید action taken داشته باشد |
+## روابط دانشی
 
-## 5. Propertyهای مهم Notion
+- تصمیم‌ها به Issue و Evidence مرتبط‌اند.
+- تغییرها به تصمیم، فایل و نتیجه آزمون متصل‌اند.
+- ریسک‌ها دارای پاسخ، مالک و کار مرتبط هستند.
+- QA به سناریو، آزمون‌گر و Issue متصل است.
+- بازخوردها به اقدام محصولی و وضعیت پیگیری متصل‌اند.
 
-برای هر database این propertyها را بسازید:
+## کنترل نگهداری
 
-- Owner: Person یا Text
-- Status: Select
-- Sprint: Select
-- Jira Issue: URL یا Text
-- Evidence Link: URL یا Text
-- Last Updated: Date
-- Needs Completion: Checkbox
+مرجع وضعیت کار Jira و مرجع دانش پروژه Notion است. نسخه این پوشه برای بازیابی و ممیزی نگهداری می‌شود. هر ادعای وابسته به حضور، دستگاه واقعی، پاسخ بیمارستان یا اعتبارسنجی بالینی فقط پس از ثبت شاهد مستقل بسته می‌شود.
 
-## 6. Jira issue link اجراشده
-
-کلیدهای واقعی <span dir="ltr">EMD</span> در رکوردهای Notion ثبت شده‌اند. برای رکوردهای بعدی:
-
-1. key هر issue مثل EMD-12 را بردارید.
-2. در Notion property «Jira Issue» وارد کنید.
-3. در Jira هم لینک Notion page/database item را در description یا web link بگذارید.
-
-## 7. اضافه کردن Evidence Link
-
-برای هر item، حداقل یکی از این شواهد را بگذارید:
-
-- مسیر فایل در repo، مثل frontend/app.js
-- commit hash، مثل 43737c8
-- artifact تصویری، مثل poster-assets/ui-mobile-view.png
-- گزارش، مثل reports/model/metrics_v7.json
-- لینک عمومی اپ
-- screenshot واقعی Jira/Notion پس از ساخت
-
-## 8. مرتب کردن صفحه اصلی مثل دانشنامه پروژه
-
-ترتیب پیشنهادی صفحه Home:
-
-1. معرفی کوتاه و warning اخلاقی
-2. لینک اپ، repo، Jira و Notion
-3. وضعیت فعلی MVP
-4. اعضای تیم و نقش‌ها
-5. Quick Links به databaseها
-6. آخرین Sprint و کارهای باقی‌مانده
-7. بخش Evidence برای screenshotها
-
-## 9. قاعده صداقت و نگهداری
-
-هر چیزی که هنوز واقعی نیست، با وضعیت باز و معیار بسته‌شدن روشن نگه دارید. ساخت Jira و Notion و ثبت ۹ بازخورد پرستاران تکمیل شده است؛ screenshot رابط، حساب دو عضو تیم، Time Tracking شخصی، آزمون فیزیکی QR/PWA، تست گوشی و اعتبارسنجی بالینی هنوز باز هستند و نباید Done شوند.
 </div>
-

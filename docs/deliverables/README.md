@@ -38,7 +38,7 @@
 ## ابزارهای واقعی مدیریت پروژه و دانش
 
 - Jira: `https://pourmand.atlassian.net/jira/software/projects/EMD/board` با ۹ Epic و ۵۱ Story/Task
-- Notion: `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3` با ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد
+- Notion: `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3` با ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد
 - وضعیت‌های باز عمداً حفظ شده‌اند: حساب دو عضو تیم، screenshot رابط، تست گوشی، ویدئو و اعتبارسنجی بالینی
 
 ## خروجی PDF

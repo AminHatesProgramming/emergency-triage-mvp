@@ -28,7 +28,7 @@
 | وب‌اپ عمومی | <span dir="ltr">https://aminhatesprogramming.github.io/emergency-triage-mvp/</span> | فعال |
 | ریپازیتوری | <span dir="ltr">https://github.com/AminHatesProgramming/emergency-triage-mvp</span> | فعال |
 | Jira Project | <span dir="ltr">https://pourmand.atlassian.net/jira/software/projects/EMD/board</span> | فعال؛ ۹ Epic و ۵۱ Story/Task |
-| Notion Home | <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> | فعال؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
+| Notion Home | <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> | فعال؛ ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد |
 
 ## شواهد میدانی و اجتماعی
 

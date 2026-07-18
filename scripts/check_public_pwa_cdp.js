@@ -174,6 +174,28 @@ async function main() {
     const critical = await runScenario(client, "critical");
     const sparse = await runScenario(client, "sparse");
 
+    const copySummary = await evaluate(
+      client,
+      `(async () => {
+        window.__emdadyarCopiedSummary = '';
+        Object.defineProperty(navigator, 'clipboard', {
+          configurable: true,
+          value: {
+            writeText: async (value) => {
+              window.__emdadyarCopiedSummary = String(value || '');
+            },
+          },
+        });
+        document.querySelector('#copyCaseBtn')?.click();
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        return {
+          buttonLabel: document.querySelector('#copyCaseBtn')?.textContent?.trim(),
+          copiedLength: window.__emdadyarCopiedSummary.length,
+          containsDisclaimer: window.__emdadyarCopiedSummary.includes('پشتیبان تصمیم'),
+        };
+      })()`,
+    );
+
     const evaluatorChecks = await evaluate(
       client,
       `(async () => {
@@ -240,6 +262,10 @@ async function main() {
       noRuntimeErrors: evaluatorChecks.runtimeErrors.length === 0,
       criticalScenarioRendered: critical.percent !== "--" && Boolean(critical.triageBand),
       sparseScenarioRendered: sparse.percent !== "--" && Boolean(sparse.missingFields),
+      caseSummaryCopyWorks:
+        copySummary.buttonLabel === "کپی شد"
+        && copySummary.copiedLength > 30
+        && copySummary.containsDisclaimer,
       sparse3Profile: evaluatorChecks.sparse3.profile === "validated_sparse_3",
       sparse4Profile: evaluatorChecks.sparse4.profile === "validated_sparse_4",
       heartRate150Escalates:
@@ -256,6 +282,7 @@ async function main() {
       viewport,
       pageInfo,
       scenarios: { critical, sparse },
+      copySummary,
       evaluatorChecks,
       documentReset,
       checks,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-18T16:59:58.791Z",
+  "generated_at": "2026-07-18T22:10:36.386Z",
   "targetUrl": "http://127.0.0.1:8765/",
   "viewport": {
     "width": 390,
@@ -18,9 +18,8 @@
       "http://127.0.0.1:8765/static/assets/app-icon.svg",
       "http://127.0.0.1:8765/static/config.js",
       "http://127.0.0.1:8765/static/app.js",
-      "http://127.0.0.1:8765/static/model-v7.json",
       "http://127.0.0.1:8765/manifest.webmanifest",
-      "http://127.0.0.1:8765/static/assets/app-icon.svg",
+      "http://127.0.0.1:8765/static/model-v7.json",
       "http://127.0.0.1:8765/static/assets/app-icon.svg"
     ]
   },
@@ -45,6 +44,11 @@
       "triageBand": "اولویت یک: بررسی فوری",
       "missingFields": "فشار سیستولیک، فشار دیاستولیک، نرخ تنفس، دما"
     }
+  },
+  "copySummary": {
+    "buttonLabel": "کپی شد",
+    "copiedLength": 859,
+    "containsDisclaimer": true
   },
   "evaluatorChecks": {
     "sparse3": {
@@ -86,6 +90,7 @@
     "noRuntimeErrors": true,
     "criticalScenarioRendered": true,
     "sparseScenarioRendered": true,
+    "caseSummaryCopyWorks": true,
     "sparse3Profile": true,
     "sparse4Profile": true,
     "heartRate150Escalates": true,

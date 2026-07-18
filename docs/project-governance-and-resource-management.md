@@ -77,7 +77,7 @@
 2. دانش فنی: Architecture، API Documentation، Model Card و Metrics Audit
 3. دانش تصمیم: Decision Log، Change Log و Technical Decisions
 4. دانش اجرا: Sprint Notes، Meeting Notes، QA Log و Time Tracking
-5. دانش یادگیری و حاکمیت AI: Lessons Learned و AI Usage Report
+5. دانش یادگیری و حاکمیت ابزارهای کمکی: Lessons Learned و گزارش کنترل انسانی
 
 ## خاتمه و انتقال
 

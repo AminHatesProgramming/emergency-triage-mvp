@@ -50,7 +50,7 @@
 - [x] model card
 - [x] status report
 - [x] final report draft
-- [x] AI usage report
+- [x] گزارش حاکمیت ابزارهای کمکی و کنترل انسانی
 - [x] lessons learned
 - [x] poster content
 - [x] presentation outline

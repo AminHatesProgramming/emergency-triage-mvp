@@ -2,7 +2,9 @@ const APP_CONFIG = window.TRIAGE_APP_CONFIG || {};
 const API_BASE = String(APP_CONFIG.API_BASE_URL || "").trim().replace(/\/+$/, "");
 const BROWSER_MODEL_URL = APP_CONFIG.BROWSER_MODEL_URL || "static/model-v7.json";
 const TRY_SAME_ORIGIN_API = APP_CONFIG.TRY_SAME_ORIGIN_API ?? "auto";
-const IS_ANDROID_WRAPPER = window.location.hostname === "appassets.androidplatform.net";
+const IS_ANDROID_WRAPPER =
+  window.location.hostname === "appassets.androidplatform.net" ||
+  navigator.userAgent.includes("EmdadyarAndroid");
 
 if (IS_ANDROID_WRAPPER) document.documentElement.classList.add("android-wrapper");
 
@@ -142,6 +144,7 @@ const chiefComplaintLabels = {
 const form = document.querySelector("#triageForm");
 const apiStatus = document.querySelector("#apiStatus");
 const installBtn = document.querySelector("#installBtn");
+const resultPanel = document.querySelector("#resultPanel");
 const riskCard = document.querySelector("#riskCard");
 const riskPercent = document.querySelector("#riskPercent");
 const riskLabel = document.querySelector("#riskLabel");
@@ -161,7 +164,6 @@ const copyCaseBtn = document.querySelector("#copyCaseBtn");
 const printCaseBtn = document.querySelector("#printCaseBtn");
 const caseSummaryBox = document.querySelector("#caseSummaryBox");
 const caseSummaryText = document.querySelector("#caseSummaryText");
-const mobileInstallBtn = document.querySelector("#mobileInstallBtn");
 const installSheet = document.querySelector("#installSheet");
 const closeInstallSheet = document.querySelector("#closeInstallSheet");
 const installDoneBtn = document.querySelector("#installDoneBtn");
@@ -852,7 +854,7 @@ function fillScenario(name) {
     }
     if (form.elements[key]) form.elements[key].value = value;
   });
-  document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+  resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function bandLabel(value) {
@@ -868,6 +870,7 @@ function bandPersian(value) {
 }
 
 function updateResult(result) {
+  resultPanel.classList.remove("is-empty");
   latestResult = result;
   latestPayload = readPayload();
   const modelEstimate = Number(result.model_probability ?? result.critical_probability ?? 0);
@@ -918,6 +921,7 @@ function updateResult(result) {
 
 async function submitForm(event) {
   event.preventDefault();
+  resultPanel.classList.remove("is-empty");
   const payload = readPayload();
   if (!hasMinimumTriageSignal(payload)) {
     riskLabel.textContent = "اطلاعات کافی نیست";
@@ -930,14 +934,14 @@ async function submitForm(event) {
     qualityBar.style.width = "0%";
     confidenceBand.textContent = "اطلاعات ناکافی";
     missingFields.textContent = "شکایت اصلی، ضربان قلب، فشار خون، تنفس، اکسیژن یا دما";
-    document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     return;
   }
   if (!shouldTryApi()) {
     try {
       updateResult(await predictInBrowser(payload));
       setStatus(true, "browser");
-      document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+      resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch {
       setStatus(false);
       riskLabel.textContent = "خطا در ارتباط";
@@ -958,12 +962,12 @@ async function submitForm(event) {
     if (!res.ok) throw new Error("prediction failed");
     updateResult(await res.json());
     setStatus(true);
-    document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   } catch {
     try {
       updateResult(await predictInBrowser(payload));
       setStatus(true, "browser");
-      document.querySelector("#resultPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+      resultPanel.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch {
       setStatus(false);
       riskLabel.textContent = "خطا در ارتباط";
@@ -975,6 +979,7 @@ async function submitForm(event) {
 
 function resetResult() {
   form.reset();
+  resultPanel.classList.add("is-empty");
   latestResult = null;
   latestPayload = null;
   riskCard.classList.remove("critical", "urgent");
@@ -1131,7 +1136,6 @@ async function runInstallPrompt() {
   installPromptBtn.hidden = true;
   if (choice.outcome === "accepted") {
     installBtn.textContent = "نصب شد";
-    if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
     closeInstallDialog();
   } else {
     installHelpText.textContent = installHelpMessage();
@@ -1182,7 +1186,6 @@ form.addEventListener("submit", submitForm);
 copyCaseBtn.addEventListener("click", copyCaseSummary);
 printCaseBtn.addEventListener("click", printCaseSummary);
 installBtn.addEventListener("click", handleInstallClick);
-if (mobileInstallBtn) mobileInstallBtn.addEventListener("click", handleInstallClick);
 if (installHelpBtn) installHelpBtn.addEventListener("click", handleInstallClick);
 installPromptBtn.addEventListener("click", runInstallPrompt);
 closeInstallSheet.addEventListener("click", closeInstallDialog);
@@ -1199,13 +1202,11 @@ window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
   installBtn.textContent = "نصب برنامه";
-  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب";
 });
 
 window.addEventListener("appinstalled", () => {
   deferredInstallPrompt = null;
   installBtn.textContent = "نصب شد";
-  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
   closeInstallDialog();
 });
 
@@ -1217,10 +1218,8 @@ if ("serviceWorker" in navigator && !IS_ANDROID_WRAPPER) {
 
 if (IS_ANDROID_WRAPPER) {
   installBtn.hidden = true;
-  if (mobileInstallBtn) mobileInstallBtn.hidden = true;
 } else if (isStandaloneMode()) {
   installBtn.textContent = "نصب شد";
-  if (mobileInstallBtn) mobileInstallBtn.textContent = "نصب شد";
 }
 
 drawSignal();

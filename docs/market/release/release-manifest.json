@@ -8,17 +8,17 @@
   "target_sdk": 36,
   "model_version": "v7",
   "safety_rule_version": "2026.07.2",
-  "built_at": "2026-07-18",
+  "built_at": "2026-07-19",
   "artifacts": [
     {
       "file": "Emdadyar-1.0.0-release.apk",
-      "bytes": 443921,
-      "sha256": "AB18DA12535748BFFA8BD02D77D2B524E42154B0C9B258C9787F0E9B54EBE4D6"
+      "bytes": 443920,
+      "sha256": "1E4FC0C64CB79EA561F9E069D37841759A5E34806734A119A1F1E350FB38FE7E"
     },
     {
       "file": "Emdadyar-1.0.0-release.aab",
-      "bytes": 435110,
-      "sha256": "DD32C4D51A86C87FE5A993DB029FF618F90F4BE1E53470475412A70796B4A1C3"
+      "bytes": 436238,
+      "sha256": "AD735740088D3BC156D764E8F2EAF3BE6BBBDB2B4E77B6405A84FF88151DC510"
     },
     {
       "file": "Emdadyar-feature-graphic-1024x500.png",
@@ -37,10 +37,14 @@
     "browser_backend_differential_scenarios": 1167,
     "browser_backend_decision_mismatches": 0,
     "browser_smoke_test": true,
+    "android_wrapper_ui_emulation": true,
+    "native_safe_area_handling": true,
+    "native_install_controls_hidden": true,
     "embedded_web_assets_match_dist": true,
     "apk_signature_verified": true,
     "aab_signature_verified": true,
-    "physical_device_install_test": false
+    "prior_build_observed_on_physical_device": true,
+    "final_artifact_physical_device_test": false
   },
   "clinical_validation": false,
   "decision_support_only": true

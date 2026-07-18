@@ -160,7 +160,7 @@ C:\Users\Webhouse\Desktop\quera\qenv\Scripts\python.exe ml\train.py
 - [Roadmap](docs/roadmap.md)
 - [Backlog و Sprintها](docs/backlog.md)
 - [ثبت ریسک‌ها](docs/risk-register.md)
-- [گزارش استفاده از AI](docs/ai-usage-report.md)
+- [حاکمیت ابزارهای کمکی و کنترل انسانی](docs/ai-usage-report.md)
 - [درس‌آموخته‌ها](docs/lessons-learned.md)
 - [محتوای پوستر](docs/poster-content.md)
 - [محتوای نهایی آماده برای پوستر](poster-final-assets-fa.md)

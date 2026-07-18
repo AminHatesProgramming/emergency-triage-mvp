@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-07-18T22:11:46.139Z",
+  "target_url": "http://127.0.0.1:8765/",
+  "test_mode": "headless Android-wrapper UI emulation; not a physical-device installation test",
+  "state": {
+    "androidClass": true,
+    "installHeaderVisible": false,
+    "installGuideVisible": false,
+    "obsoleteMobileInstallExists": false,
+    "mobileTabs": [
+      "سناریو",
+      "نتیجه",
+      "راهنما"
+    ],
+    "actionBar": [
+      "ارزیابی",
+      "نتیجه",
+      "راهنما"
+    ],
+    "guideExists": true,
+    "emptyResultCompact": true,
+    "runtimeErrors": []
+  },
+  "checks": {
+    "nativeModeDetected": true,
+    "installControlsHidden": true,
+    "obsoleteInstallRemoved": true,
+    "mobileTabsCorrect": true,
+    "actionBarCorrect": true,
+    "guideAvailable": true,
+    "compactEmptyResult": true,
+    "noRuntimeErrors": true
+  },
+  "passed": true
+}

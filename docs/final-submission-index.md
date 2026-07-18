@@ -12,7 +12,7 @@
 | ابزار | لینک و وضعیت |
 |---|---|
 | Jira Work Management | `https://pourmand.atlassian.net/jira/software/projects/EMD/board`؛ ۹ Epic و ۵۱ Story/Task |
-| Notion Knowledge Base | `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3`؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
+| Notion Knowledge Base | `https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3`؛ ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد |
 | GitHub Repository | `https://github.com/AminHatesProgramming/emergency-triage-mvp` |
 | وب‌اپ عمومی | `https://aminhatesprogramming.github.io/emergency-triage-mvp/` |
 
@@ -25,7 +25,7 @@
 | حاکمیت و مدیریت منابع | `docs/deliverables/ITPM_Project_Governance_and_Resource_Management.docx` | چرخه عمر، منابع، هزینه، ارتباطات، کیفیت و دانش |
 | ماتریس انطباق اعلان نهایی | `docs/deliverables/ITPM_Final_Announcement_Compliance_Matrix.docx` | تطبیق مو‌به‌موی الزامات با شاهد و وضعیت |
 | سناریوی ارائه نهایی | `docs/deliverables/Emdadyar_Final_Presentation_Runbook.docx` | تقسیم قطعی ۶ + ۲ + ۲، دمو و پاسخ پرسش‌ها |
-| نسخه موبایلی برای استاد | `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx` | لینک، QR و روش نصب PWA |
+| نسخه موبایلی برای استاد | `docs/deliverables/Emdadyar_Mobile_App_For_Professor.docx` | لینک، QR، روش نصب PWA و مشخصات APK نهایی |
 | بسته انتشار امداد یار | `docs/deliverables/Emdadyar_Market_Release_Package.zip` | APK/AAB امضاشده، تصویرها، متن مارکت، Data Safety و گزارش صحت build |
 
 ## 2. مستندات فنی رسمی
@@ -68,7 +68,7 @@
 | Team Playbook | `docs/knowledge-base/team-playbook.md` |
 | Stakeholder Feedback Log | `docs/knowledge-base/stakeholder-feedback-log.md` |
 | ساختار مدیریت دانش | `docs/knowledge-management-index.md` |
-| گزارش استفاده از AI | `docs/ai-usage-report.md` |
+| حاکمیت ابزارهای کمکی و کنترل انسانی | `docs/ai-usage-report.md` |
 | درس‌آموخته‌ها | `docs/lessons-learned.md` |
 
 ## 5. ابزارهای اجراشده و فایل‌های قابل بازسازی
@@ -84,7 +84,9 @@
 | `docs/artifacts/user-acquisition.svg` | پیش‌بینی جذب کاربر پایلوت |
 | `reports/model/release_validation_v7.json` | بازتولید متریک روی ۱۱۱٬۶۰۶ رکورد test و ارزیابی sparse |
 | `reports/model/browser_backend_differential_v7.json` | تطابق ۱٬۱۶۷ سناریوی مرورگر و API |
-| `reports/model/ui_smoke_v7.json` | اجرای واقعی مرورگر موبایل برای حالت پرخطر، ورودی ناقص، ضربان ۱۵۰، حالت عادی و پاک‌کردن فرم |
+| `reports/model/ui_smoke_v7.json` | اجرای مرورگر موبایل برای حالت پرخطر، ورودی ناقص، ضربان ۱۵۰، حالت عادی، کپی خلاصه و پاک‌کردن فرم |
+| `reports/model/android_wrapper_ui_v1.json` | کنترل حذف نصب، تب راهنما، حالت خالی و نبود خطای runtime در حالت wrapper Android |
+| `docs/market/device-test-checklist-fa.md` | دستور آزمون hash نهایی روی دستگاه واقعی و ثبت شواهد EMD-60 |
 
 ## 6. بازخورد و اعتبارسنجی کاربر
 

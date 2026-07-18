@@ -23,7 +23,7 @@
 | Sprint 1 | 2026-06-02 تا 2026-06-03 | baseline مدل و کنترل leakage | مدل اولیه، انتخاب فیچرهای triage-time، گزارش ریسک leakage | مدل بدون داده post-triage اجرا شد |
 | Sprint 2 | 2026-06-04 تا 2026-06-05 | API و MVP اولیه | FastAPI، endpointهای `/health` و `/predict`، سناریوی sparse | API با ورودی ناقص پاسخ داد |
 | Sprint 3 | 2026-06-06 تا 2026-06-08 | مدل v6 و explainability | metrics v6، model card، safety-first threshold | Recall هدف 0.92 پاس شد |
-| Sprint 4 | 2026-06-09 تا 2026-06-10 | UI موبایل و package تحویل | PWA، UI فارسی، Word deliverables، poster placeholder | MVP قابل demo و نصب موبایل شد |
+| Sprint 4 | 2026-06-09 تا 2026-06-10 | UI موبایل و package تحویل | PWA، UI فارسی، Word deliverables و نسخه اولیه محتوای پوستر | MVP قابل demo و نصب موبایل شد |
 | Sprint 5 | 2026-06-13 تا 2026-06-16 | مدیریت پروژه و بازخورد ذی‌نفع | Knowledge Base، feedback form، feedback log، poster assets | مسیر پایلوت و شواهد مدیریتی آماده شد |
 | Sprint 6 | 2026-06-20 تا 2026-06-22 | مدل v7، deploy عمومی و ابزارهای مدیریت پروژه | GitHub Pages PWA، QR موبایل، Jira import CSV، GitHub Knowledge CSV | محصول عمومی و evidence قابل انتقال به ابزار واقعی آماده شد |
 
@@ -60,7 +60,7 @@
 
 ## Knowledge Base قابل انتقال به GitHub Project
 
-فایل `docs/artifacts/github-project-knowledge-items.csv` شامل آیتم‌های مدیریت دانش است: Sprint Notes، Meeting Notes، Technical Decisions، Stakeholder Feedback، AI Usage، Risk Register و KPI Register. این آیتم‌ها باید در یک GitHub Project یا Wiki به فایل‌های اصلی repository لینک شوند.
+فایل `docs/artifacts/github-project-knowledge-items.csv` شامل آیتم‌های مدیریت دانش است: Sprint Notes، Meeting Notes، Technical Decisions، Stakeholder Feedback، حاکمیت ابزارهای کمکی، Risk Register و KPI Register. این آیتم‌ها در ابزارهای مدیریت دانش به فایل‌های اصلی repository متصل شده‌اند.
 
 اگر استاد پرسید چرا screenshot واقعی هنوز در فایل نیست، پاسخ دفاعی:
 

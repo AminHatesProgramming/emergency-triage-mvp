@@ -106,7 +106,7 @@
 - backlog آماده Jira شامل ۹ Epic و حداقل ۴۵ Story/Task
 - ثبت assignee، priority، story point، acceptance criteria و Definition of Done
 - Burndown نهایی، Velocity، KPI Register و Risk Register
-- Knowledge Base شامل Decision Log، Change Log، Sprint Notes، Meeting Notes، AI Usage و Lessons Learned
+- Knowledge Base شامل Decision Log، Change Log، Sprint Notes، Meeting Notes، حاکمیت ابزارهای کمکی و Lessons Learned
 - ثبت یکپارچه منابع انسانی و غیرانسانی، Cost Log، برنامه ارتباطات، کیفیت و خاتمه MVP
 - تفکیک داده‌های ۷۸‌تایی synthetic از ۹ بازخورد واقعی تأییدشده
 - لینک شواهد به فایل‌ها، نمودارها و commitهای repository

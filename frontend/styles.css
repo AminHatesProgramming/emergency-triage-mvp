@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -80,7 +84,7 @@ textarea:focus-visible {
   position: relative;
   width: min(1220px, calc(100% - 28px));
   margin: 0 auto;
-  padding: 18px 0 28px;
+  padding: max(18px, env(safe-area-inset-top)) 0 max(28px, env(safe-area-inset-bottom));
 }
 
 .app-header,
@@ -248,8 +252,62 @@ h3 {
   background: rgba(238, 247, 246, 0.62);
 }
 
-.scenario-tools h3 {
-  margin: 0;
+.optional-section {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.optional-section summary,
+.scenario-tools summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+  list-style: none;
+}
+
+.optional-section summary::-webkit-details-marker,
+.scenario-tools summary::-webkit-details-marker {
+  display: none;
+}
+
+.optional-section summary::after,
+.scenario-tools summary::after {
+  content: "+";
+  width: 28px;
+  height: 28px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--deep-teal);
+  background: #fff;
+}
+
+.optional-section[open] summary::after,
+.scenario-tools[open] summary::after {
+  content: "−";
+}
+
+.optional-section summary span,
+.scenario-tools summary span {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.optional-section[open] summary,
+.scenario-tools[open] summary {
+  margin-bottom: 12px;
 }
 
 .input-grid {
@@ -295,7 +353,7 @@ textarea {
 }
 
 .history-fieldset {
-  margin: 14px 0 0;
+  margin: 0;
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -364,6 +422,35 @@ textarea {
 .result-panel {
   position: sticky;
   top: 14px;
+}
+
+.result-panel.is-empty .result-actions,
+.result-panel.is-empty .gauge-ring,
+.result-panel.is-empty .result-stats,
+.result-panel.is-empty .quality-bar,
+.result-panel.is-empty .output-section,
+.result-panel.is-empty .missing-box,
+.result-panel.is-empty .case-summary {
+  display: none;
+}
+
+.result-panel.is-empty .risk-card {
+  min-height: 180px;
+  grid-template-columns: 1fr;
+  place-items: center;
+  margin-bottom: 0;
+  text-align: center;
+  background:
+    linear-gradient(135deg, rgba(8, 127, 140, 0.07), rgba(87, 91, 195, 0.04)),
+    #fff;
+}
+
+.result-panel.is-empty .risk-label {
+  margin-bottom: 8px;
+}
+
+.result-panel.is-empty .risk-action {
+  margin-bottom: 0;
 }
 
 .risk-card {
@@ -495,35 +582,68 @@ ul {
   font: 0.82rem Tahoma, "Segoe UI", Arial, sans-serif;
 }
 
-.install-help-panel {
+.guide-panel {
   margin-top: 14px;
 }
 
-.install-help-grid {
+.guide-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.install-help-grid article {
+.guide-steps article {
+  position: relative;
   display: grid;
   gap: 6px;
-  min-height: 118px;
+  min-height: 130px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: linear-gradient(180deg, #ffffff, #f7fbfb);
-  padding: 13px;
+  background: #f8fbfb;
+  padding: 16px 54px 14px 14px;
 }
 
-.install-help-grid strong {
+.guide-steps article::before {
+  content: attr(data-step);
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--deep-teal);
+  font-weight: 900;
+}
+
+.guide-steps strong {
   color: var(--deep-teal);
   font-size: 0.94rem;
 }
 
-.install-help-grid span {
+.guide-steps span,
+.guide-note span {
   color: var(--muted);
   line-height: 1.8;
   font-size: 0.83rem;
+}
+
+.guide-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  border-right: 4px solid var(--amber);
+  border-radius: 6px;
+  padding: 11px 13px;
+  background: rgba(184, 119, 10, 0.06);
+}
+
+.guide-note strong {
+  flex: 0 0 auto;
+  color: #7c5007;
 }
 
 .sr-only {
@@ -696,7 +816,7 @@ body.modal-open {
   display: none;
 }
 
-.android-wrapper #installHelp {
+.android-wrapper .install-only {
   display: none;
 }
 
@@ -713,7 +833,7 @@ body.modal-open {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .install-help-grid {
+  .guide-steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -721,7 +841,11 @@ body.modal-open {
 @media (max-width: 700px) {
   .app-shell {
     width: min(100% - 18px, 1220px);
-    padding: 10px 0 86px;
+    padding: calc(12px + env(safe-area-inset-top)) 0 calc(88px + env(safe-area-inset-bottom));
+  }
+
+  .android-wrapper .app-shell {
+    padding-top: 12px;
   }
 
   .app-header {
@@ -797,8 +921,17 @@ body.modal-open {
   .chip-grid,
   .risk-card,
   .result-stats,
-  .install-help-grid {
+  .guide-steps {
     grid-template-columns: 1fr;
+  }
+
+  .guide-steps article {
+    min-height: 0;
+  }
+
+  .guide-note {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .notice-actions {
@@ -825,16 +958,13 @@ body.modal-open {
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: 1fr 0.62fr 0.7fr;
+    grid-template-columns: 1.2fr 0.8fr 0.8fr;
     gap: 8px;
     padding: 10px max(10px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
     background: #fff;
   }
 
-  .android-wrapper .mobile-action-bar {
-    grid-template-columns: 1fr 0.7fr;
-  }
 }
 
 @media print {
@@ -846,7 +976,7 @@ body.modal-open {
   .app-header,
   .care-strip,
   .form-panel,
-  .install-help-panel,
+  .guide-panel,
   .mobile-action-bar,
   .install-sheet,
   .result-actions {

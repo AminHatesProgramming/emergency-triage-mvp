@@ -101,7 +101,7 @@ def build_notion_home() -> None:
         | ریپازیتوری GitHub | {ltr(REPO_URL)} | آماده |
         | Jira Workspace | {ltr(JIRA_WORKSPACE_URL)} | فعال |
         | Jira Project / Board | {ltr(JIRA_PROJECT_URL)} | فعال؛ پروژه EMD |
-        | Notion Home | {ltr(NOTION_HOME_URL)} | فعال؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
+        | Notion Home | {ltr(NOTION_HOME_URL)} | فعال؛ ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد |
 
         ## صفحات مهم Notion که باید ساخته شوند
 
@@ -206,7 +206,7 @@ def build_project_overview() -> None:
         | بازخورد واقعی خارجی | ۹ بازخورد پرستار تریاژ تأیید و ثبت شده است |
         | ارتباط با مراکز درمانی | ایمیل و درخواست ملاقات برای بیمارستان پیامبران تهران و سلامت فردای تهران؛ در انتظار پاسخ نهایی |
         | Jira واقعی | اجراشده؛ پروژه EMD با ۹ Epic و ۵۱ Story/Task |
-        | Notion واقعی | اجراشده؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد |
+        | Notion واقعی | اجراشده؛ ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد |
         | Android | APK و AAB امضاشده آماده‌اند؛ تست دستگاه واقعی باز است |
 
         ## محدودیت‌ها

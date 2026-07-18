@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="header-actions">
-          <button type="button" class="icon-button" id="installBtn" title="نصب نسخه موبایل">نصب</button>
+          <button type="button" class="icon-button install-only" id="installBtn" title="نصب نسخه موبایل">نصب</button>
           <span class="status-pill" id="apiStatus">بررسی سرویس</span>
         </div>
       </header>
@@ -28,7 +28,7 @@
       <nav class="mobile-tabs" aria-label="ناوبری موبایل">
         <button type="button" data-jump="#triageForm">سناریو</button>
         <button type="button" data-jump="#resultPanel">نتیجه</button>
-        <button type="button" data-jump="#installHelp">نصب</button>
+        <button type="button" data-jump="#userGuide">راهنما</button>
       </nav>
 
       <section class="layout-grid">
@@ -126,41 +126,41 @@
             </label>
           </div>
 
-          <fieldset class="history-fieldset">
-            <legend>سابقه بالینی قابل پرسش</legend>
-            <div class="chip-grid">
-              <label><input type="checkbox" name="history_conditions" value="htn" /><span>فشار خون</span></label>
-              <label><input type="checkbox" name="history_conditions" value="diabmelnoc" /><span>دیابت</span></label>
-              <label><input type="checkbox" name="history_conditions" value="diabmelwcm" /><span>دیابت پیشرفته</span></label>
-              <label><input type="checkbox" name="history_conditions" value="copd" /><span>بیماری مزمن ریه (COPD)</span></label>
-              <label><input type="checkbox" name="history_conditions" value="asthma" /><span>آسم</span></label>
-              <label><input type="checkbox" name="history_conditions" value="chfnonhp" /><span>نارسایی قلبی</span></label>
-              <label><input type="checkbox" name="history_conditions" value="coronathero" /><span>عروق کرونر</span></label>
-              <label><input type="checkbox" name="history_conditions" value="chrkidneydisease" /><span>کلیه مزمن</span></label>
-              <label><input type="checkbox" name="history_conditions" value="dysrhythmia" /><span>آریتمی</span></label>
-              <label><input type="checkbox" name="history_conditions" value="acutemi" /><span>سکته قلبی</span></label>
-              <label><input type="checkbox" name="history_conditions" value="acutecvd" /><span>سکته مغزی</span></label>
-              <label><input type="checkbox" name="history_conditions" value="septicemia" /><span>سپسیس</span></label>
-            </div>
-          </fieldset>
+          <details class="optional-section">
+            <summary>سوابق بالینی <span>اختیاری</span></summary>
+            <fieldset class="history-fieldset">
+              <legend>مواردی که از بیمار یا پرونده قابل پرسش است</legend>
+              <div class="chip-grid">
+                <label><input type="checkbox" name="history_conditions" value="htn" /><span>فشار خون</span></label>
+                <label><input type="checkbox" name="history_conditions" value="diabmelnoc" /><span>دیابت</span></label>
+                <label><input type="checkbox" name="history_conditions" value="diabmelwcm" /><span>دیابت پیشرفته</span></label>
+                <label><input type="checkbox" name="history_conditions" value="copd" /><span>بیماری مزمن ریه (COPD)</span></label>
+                <label><input type="checkbox" name="history_conditions" value="asthma" /><span>آسم</span></label>
+                <label><input type="checkbox" name="history_conditions" value="chfnonhp" /><span>نارسایی قلبی</span></label>
+                <label><input type="checkbox" name="history_conditions" value="coronathero" /><span>عروق کرونر</span></label>
+                <label><input type="checkbox" name="history_conditions" value="chrkidneydisease" /><span>کلیه مزمن</span></label>
+                <label><input type="checkbox" name="history_conditions" value="dysrhythmia" /><span>آریتمی</span></label>
+                <label><input type="checkbox" name="history_conditions" value="acutemi" /><span>سکته قلبی</span></label>
+                <label><input type="checkbox" name="history_conditions" value="acutecvd" /><span>سکته مغزی</span></label>
+                <label><input type="checkbox" name="history_conditions" value="septicemia" /><span>سپسیس</span></label>
+              </div>
+            </fieldset>
+          </details>
 
-          <section class="scenario-tools" aria-label="نمونه‌های آماده برای تست">
-            <div>
-              <p class="section-kicker">اختیاری</p>
-              <h3>نمونه‌های آماده برای تست</h3>
-            </div>
+          <details class="scenario-tools">
+            <summary>نمونه‌های آماده برای آزمون <span>اختیاری</span></summary>
             <div class="scenario-row">
               <button type="button" data-scenario="critical">بیمار پرخطر</button>
               <button type="button" data-scenario="moderate">بیمار متوسط</button>
               <button type="button" data-scenario="sparse">اطلاعات کم</button>
               <button type="button" data-scenario="cardiac">درد قفسه سینه</button>
             </div>
-          </section>
+          </details>
 
           <button class="primary cta-main" type="submit">ارزیابی بیمار</button>
         </form>
 
-        <aside id="resultPanel" class="panel result-panel" aria-live="polite">
+        <aside id="resultPanel" class="panel result-panel is-empty" aria-live="polite">
           <div class="panel-title">
             <div>
               <p class="section-kicker">پشتیبان تصمیم، نه جایگزین متخصص</p>
@@ -232,27 +232,31 @@
         </aside>
       </section>
 
-      <section id="installHelp" class="panel install-help-panel">
+      <section id="userGuide" class="panel guide-panel">
         <div class="panel-title">
           <div>
-            <p class="section-kicker">نسخه موبایل</p>
-            <h2>نصب سریع امداد یار</h2>
+            <p class="section-kicker">راهنمای کوتاه</p>
+            <h2>کار با امداد یار</h2>
           </div>
-          <button type="button" class="ghost" id="installHelpBtn">راهنمای نصب</button>
+          <button type="button" class="ghost install-only" id="installHelpBtn">نصب روی گوشی</button>
         </div>
-        <div class="install-help-grid">
-          <article>
-            <strong>Android</strong>
-            <span>در Chrome از منوی سه‌نقطه گزینه Install app یا Add to Home screen را انتخاب کنید.</span>
+        <div class="guide-steps">
+          <article data-step="۱">
+            <strong>اطلاعات موجود را وارد کنید</strong>
+            <span>شکایت اصلی و علائم حیاتی موجود کافی است؛ لازم نیست همه فیلدها پر شوند.</span>
           </article>
-          <article>
-            <strong>iPhone</strong>
-            <span>در Safari دکمه Share را بزنید و Add to Home Screen را انتخاب کنید.</span>
+          <article data-step="۲">
+            <strong>ارزیابی را اجرا کنید</strong>
+            <span>دکمه «ارزیابی» را بزنید تا سطح فوریت، دلایل و اقدام بعدی نمایش داده شود.</span>
           </article>
-          <article>
-            <strong>حریم خصوصی</strong>
-            <span>اطلاعات بیمار در این نسخه عمومی به‌صورت پیش‌فرض ذخیره نمی‌شود.</span>
+          <article data-step="۳">
+            <strong>خروجی را بازبینی کنید</strong>
+            <span>نتیجه را همراه با علائم بیمار و پروتکل مرکز بررسی کنید؛ تصمیم نهایی با متخصص است.</span>
           </article>
+        </div>
+        <div class="guide-note">
+          <strong>نکته مهم</strong>
+          <span>هرچه اطلاعات کامل‌تر باشد، برآورد قابل اتکاتر است. اطلاعات این نسخه به‌صورت پیش‌فرض ذخیره نمی‌شود.</span>
         </div>
         <p class="sr-only" id="appMessage" aria-live="polite"></p>
       </section>
@@ -265,8 +269,8 @@
 
     <div class="mobile-action-bar">
       <button type="submit" form="triageForm" class="primary">ارزیابی</button>
-      <button type="button" class="ghost" id="mobileInstallBtn">نصب</button>
       <button type="button" class="ghost" data-jump="#resultPanel">نتیجه</button>
+      <button type="button" class="ghost" data-jump="#userGuide">راهنما</button>
     </div>
 
     <div class="install-sheet" id="installSheet" hidden role="dialog" aria-modal="true" aria-labelledby="installTitle">

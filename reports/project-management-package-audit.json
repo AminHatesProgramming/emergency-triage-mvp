@@ -1,0 +1,49 @@
+{
+  "package": "C:\\Users\\Webhouse\\Desktop\\quera\\pm\\project-management-final-package",
+  "file_count": 20,
+  "required_files_missing": [],
+  "utf8_decode_errors": [],
+  "mojibake_hits": {},
+  "conversational_marker_hits": {},
+  "markdown_rtl_missing": [],
+  "csv": {
+    "jira-issues-import.csv": {
+      "rows_including_header": 61,
+      "data_rows": 60,
+      "columns": 15,
+      "inconsistent_rows": []
+    },
+    "notion-change-log.csv": {
+      "rows_including_header": 18,
+      "data_rows": 17,
+      "columns": 11,
+      "inconsistent_rows": []
+    },
+    "notion-decision-log.csv": {
+      "rows_including_header": 18,
+      "data_rows": 17,
+      "columns": 10,
+      "inconsistent_rows": []
+    },
+    "notion-qa-test-log.csv": {
+      "rows_including_header": 18,
+      "data_rows": 17,
+      "columns": 9,
+      "inconsistent_rows": []
+    },
+    "notion-risk-register.csv": {
+      "rows_including_header": 15,
+      "data_rows": 14,
+      "columns": 10,
+      "inconsistent_rows": []
+    },
+    "notion-stakeholder-feedback.csv": {
+      "rows_including_header": 11,
+      "data_rows": 10,
+      "columns": 9,
+      "inconsistent_rows": []
+    }
+  },
+  "json_errors": {},
+  "passed": true
+}

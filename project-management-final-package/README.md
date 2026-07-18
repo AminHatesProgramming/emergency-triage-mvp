@@ -8,7 +8,7 @@
 | ابزار | وضعیت واقعی |
 |---|---|
 | Jira | پروژه <span dir="ltr">EMD</span>، ۹ Epic و ۵۱ Story/Task: <span dir="ltr">https://pourmand.atlassian.net/jira/software/projects/EMD/board</span> |
-| Notion | ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد: <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> |
+| Notion | ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد: <span dir="ltr">https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3</span> |
 | وضعیت Jira | ۵۱ Done، ۶ In Progress، ۱ In Review و ۲ Backlog |
 
 ## خروجی‌های اصلی
@@ -23,7 +23,7 @@
 | <span dir="ltr">notion-sprint-notes.md</span> | یادداشت Sprintها |
 | <span dir="ltr">notion-meeting-notes.md</span> | صورت‌جلسه‌ها با شفافیت درباره تاریخ‌ها |
 | <span dir="ltr">notion-risk-register.csv</span> | دیتابیس ریسک‌ها |
-| <span dir="ltr">notion-ai-usage-report.md</span> | حاکمیت ابزارهای کمکی و کنترل انسانی؛ نام فایل برای سازگاری با فهرست تحویل حفظ شده است |
+| <span dir="ltr">notion-ai-usage-report.md</span> | حاکمیت ابزارهای کمکی، بازبینی و مسئولیت انسانی |
 | <span dir="ltr">notion-stakeholder-feedback.csv</span> | ساختار ثبت بازخورد واقعی |
 | <span dir="ltr">notion-qa-test-log.csv</span> | دیتابیس تست‌ها |
 | <span dir="ltr">notion-lessons-learned.md</span> | درس‌آموخته‌ها |
@@ -31,7 +31,7 @@
 | <span dir="ltr">jira-board-setup.md</span> | تنظیمات واقعی و راهنمای نگهداری Jira board |
 | <span dir="ltr">notion-import-guide.md</span> | وضعیت پیاده‌سازی و راهنمای بازیابی Notion |
 | <span dir="ltr">missing-info-checklist.md</span> | مواردی که واقعاً باید تکمیل شوند |
-| <span dir="ltr">stakeholder-feedback-form.md</span> | فرم پیشنهادی برای گرفتن بازخورد واقعی |
+| <span dir="ltr">stakeholder-feedback-form.md</span> | فرم استاندارد ثبت بازخورد پایلوت |
 | <span dir="ltr">final-screenshot-evidence-guide.md</span> | فهرست و معیار تصاویر واقعی Jira و Notion |
 
 ## اصل مهم

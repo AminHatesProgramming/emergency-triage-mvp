@@ -17,8 +17,10 @@
 | متن صفحه محصول | `android-market-listing-fa.md` | توضیح کوتاه و کامل |
 | پاسخ Data Safety | `store-data-safety-fa.md` | تکمیل فرم حریم خصوصی مارکت |
 | گزارش صحت build | `build-verification-fa.md` | شواهد فنی نسخه نهایی |
+| تصاویر wrapper و راهنما | `screenshots/emdadyar-mobile-android-wrapper.png` و `screenshots/emdadyar-mobile-guide.png` | شواهد رابط نسخه نصب‌شده |
 | راهنمای بازتولید | `android-build-guide.md` | ساخت نسخه‌های بعدی |
 | چک‌لیست انتشار | `android-release-checklist.md` | موارد آماده و کارهای پنل مارکت |
+| چک‌لیست آزمون دستگاه | `device-test-checklist-fa.md` | تأیید artifact نهایی روی گوشی واقعی |
 | بسته یکپارچه بازار | `Emdadyar_Android_Market_Release_1.0.0.zip` | همه فایل‌های قابل بارگذاری و مستندات بدون کلید خصوصی |
 
 ## شناسنامه فنی
@@ -29,6 +31,7 @@
 - Android هدف: API 36
 - مدل: نسخه ۷ با لایه ایمنی سن‌محور `2026.07.2`
 - مجوز Android: هیچ مجوز حساسی درخواست نشده است؛ حتی مجوز اینترنت در manifest وجود ندارد.
+- رفتار wrapper: کنترل نصب پنهان، تب راهنما فعال و فاصله نوار وضعیت با `WindowInsets` مدیریت می‌شود.
 - وضعیت بالینی: نسخه آزمایشی و آموزشی؛ بدون اعتبارسنجی بالینی و بدون ادعای تشخیص یا درمان.
 
 ## کلید انتشار

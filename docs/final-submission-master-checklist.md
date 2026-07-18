@@ -68,7 +68,7 @@
 | API documentation | `docs/api-documentation.md` | آماده |
 | تصمیمات فنی | `docs/decision-log.md` | آماده |
 | صورتجلسات | `docs/meeting-minutes.md` و `project-management-final-package/notion-meeting-notes.md` | موارد فاقد تاریخ واقعی باید با برچسب نیاز به تکمیل بمانند |
-| ثبت دانش تولیدشده | Model Card، AI Usage، Architecture، Lessons Learned | آماده |
+| ثبت دانش تولیدشده | Model Card، حاکمیت ابزارهای کمکی، Architecture و Lessons Learned | آماده |
 
 ## کارهای انسانی باقی‌مانده
 

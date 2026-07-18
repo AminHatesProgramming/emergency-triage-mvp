@@ -98,8 +98,8 @@ def update_final_report() -> None:
     )
     replace_paragraph(
         document,
-        "Notion: هفت صفحه محتوایی",
-        "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
+        "Notion:",
+        "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۵ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
     )
     marker = "ضمیمه ممیزی فنی نسخه انتشار"
     if not any(marker in paragraph.text for paragraph in document.paragraphs):
@@ -132,7 +132,7 @@ def update_final_report() -> None:
         add_heading(document, pm_marker)
         items = [
             "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task و Parent واقعی ثبت شده است؛ در ممیزی نهایی ۵۱ Issue در وضعیت Done، ۶ مورد In Progress، یک مورد In Review و دو مورد Backlog بوده‌اند.",
-            "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
+            "Notion: هشت صفحه محتوایی، پنج دیتابیس و ۷۵ رکورد تصمیم، تغییر، ریسک، بازخورد و QA.",
             "بازخورد: ۹ نظر کیفی پرستاران تأیید شده؛ outreach دو مرکز درمانی در انتظار پاسخ نهایی است و همکاری رسمی ادعا نمی‌شود.",
             "کارهای باز: حساب Jira دو عضو، screenshot، تست APK/PWA روی گوشی، ضبط ویدئو، fairness و اعتبارسنجی بالینی.",
         ]
@@ -143,6 +143,21 @@ def update_final_report() -> None:
         "Jira: پروژه EMD با ۹ Epic",
         "Jira: پروژه EMD با ۹ Epic، ۵۱ Story/Task و Parent واقعی ثبت شده است؛ در ممیزی نهایی ۵۱ Issue در وضعیت Done، ۶ مورد In Progress، یک مورد In Review و دو مورد Backlog بوده‌اند.",
     )
+    mobile_marker = "ضمیمه بازبینی تجربه نسخه موبایل"
+    if not any(mobile_marker in paragraph.text for paragraph in document.paragraphs):
+        add_heading(document, mobile_marker)
+        add_body(
+            document,
+            "مشاهده نسخه نصب‌شده روی گوشی Samsung نشان داد محتوای بالای صفحه با نوار وضعیت تداخل دارد و نمایش دوباره کنترل نصب داخل APK ضروری نیست. این مشاهده به یک تغییر قابل ردیابی در محصول تبدیل شد.",
+        )
+        items = [
+            "فاصله نوار وضعیت با WindowInsets در پوسته Native مدیریت می‌شود.",
+            "wrapper اندروید با شناسه EmdadyarAndroid شناسایی و تمام کنترل‌های نصب در آن پنهان می‌شوند.",
+            "تب نصب با راهنمای سه‌مرحله‌ای جایگزین شد و سوابق و سناریوهای نمونه به بخش‌های جمع‌شونده منتقل شدند.",
+            "آزمون خودکار wrapper در ابعاد ۳۹۰×۸۴۴ بدون خطای runtime عبور کرد؛ نصب APK نهایی با hash تازه روی دستگاه واقعی همچنان کنترل باز انتشار است.",
+        ]
+        for item in items:
+            add_body(document, item, bullet=True)
     document.save(path)
 
 
@@ -215,7 +230,7 @@ def update_pm_evidence() -> None:
         add_heading(document, tools_marker)
         items = [
             "Jira Project: https://pourmand.atlassian.net/jira/software/projects/EMD/board؛ ۹ Epic و ۵۱ Story/Task.",
-            "Notion Home: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3؛ ۸ صفحه، ۵ دیتابیس و ۷۳ رکورد.",
+            "Notion Home: https://app.notion.com/p/38fd955c965a80c18b7ac3a8fd176cc3؛ ۸ صفحه، ۵ دیتابیس و ۷۵ رکورد.",
             "۵۱ Issue در وضعیت Done، شش مورد In Progress، یک مورد In Review و دو Task بیرونی در Backlog ثبت شده‌اند.",
             "Labelهای owner برای هر سه عضو ثبت شده‌اند؛ Assignee مستقیم محدثه و محمدرضا پس از دعوت حساب واقعی تکمیل می‌شود.",
         ]
@@ -242,10 +257,10 @@ def update_mobile_handoff() -> None:
         )
         details = [
             "شناسه بسته: ir.pourmand.emdadyar؛ نسخه 1.0.0؛ حداقل Android 6 (API 23).",
-            "SHA-256 فایل APK: AB18DA12535748BFFA8BD02D77D2B524E42154B0C9B258C9787F0E9B54EBE4D6.",
+            "SHA-256 فایل APK: 1E4FC0C64CB79EA561F9E069D37841759A5E34806734A119A1F1E350FB38FE7E.",
             "فایل AAB برای پنل مارکت است و مستقیماً روی گوشی نصب نمی‌شود.",
             "برای نصب مستقیم APK ممکن است لازم باشد اجازه نصب از منبع انتخاب‌شده در تنظیمات Android فعال شود.",
-            "امضا و دارایی‌های داخلی تأیید شده‌اند؛ نصب روی یک گوشی فیزیکی همچنان باید پیش از انتشار عمومی ثبت شود.",
+            "امضا و دارایی‌های داخلی تأیید شده‌اند؛ نسخه قبلی روی گوشی Samsung مشاهده شده و نصب artifact نهایی همچنان باید پیش از انتشار عمومی ثبت شود.",
         ]
         for item in details:
             add_body(document, item, bullet=True)
@@ -255,10 +270,13 @@ def update_mobile_handoff() -> None:
 def normalize_all_deliverables() -> None:
     replacements = {
         "امدادیار": "امداد یار",
-        "هفت صفحه محتوایی، پنج دیتابیس و ۶۶ رکورد": "هشت صفحه محتوایی، پنج دیتابیس و ۷۳ رکورد",
-        "۷ صفحه محتوایی، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه محتوایی، ۵ دیتابیس و ۷۳ رکورد",
-        "۷ صفحه، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه، ۵ دیتابیس و ۷۳ رکورد",
+        "هفت صفحه محتوایی، پنج دیتابیس و ۶۶ رکورد": "هشت صفحه محتوایی، پنج دیتابیس و ۷۵ رکورد",
+        "۷ صفحه محتوایی، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه محتوایی، ۵ دیتابیس و ۷۵ رکورد",
+        "۷ صفحه، ۵ دیتابیس و ۶۶ رکورد": "۸ صفحه، ۵ دیتابیس و ۷۵ رکورد",
+        "۷۳ رکورد": "۷۵ رکورد",
         "۵۲ Issue در وضعیت Done، پنج مورد In Progress": "۵۱ Issue در وضعیت Done، شش مورد In Progress",
+        "AB18DA12535748BFFA8BD02D77D2B524E42154B0C9B258C9787F0E9B54EBE4D6": "1E4FC0C64CB79EA561F9E069D37841759A5E34806734A119A1F1E350FB38FE7E",
+        "امضا و دارایی‌های داخلی تأیید شده‌اند؛ نصب روی یک گوشی فیزیکی همچنان باید پیش از انتشار عمومی ثبت شود.": "امضا و دارایی‌های داخلی تأیید شده‌اند؛ نسخه قبلی روی گوشی Samsung مشاهده شده و نصب artifact نهایی همچنان باید پیش از انتشار عمومی ثبت شود.",
     }
     for path in DELIVERABLES.glob("*.docx"):
         document = Document(path)
